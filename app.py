@@ -1,16 +1,16 @@
 
-import os
 from flask import Flask, request
 import json
 import requests
 from models.bot import Bot
-
+from views.generic import test
 
 app = Flask(__name__)
 
 FB_ACCESS_TOKEN = "EAAF5Cd9fC3YBAD1ZB6zZCkeTlw4iqz3aXQaXCZC8DrjPAIvcOT6sm9ptCSWeCHmKB9D33q1zNG5HgDezOhByXjTlFwoLgtgXkXbSl4hPJYrwNcInQ7bb2FVZBOGWp6pkLWdd8Wf34ZA6jWvLGl827E8jqDmX4DIZB2zhUyxz4c0QZDZD"
 
 bot = Bot(FB_ACCESS_TOKEN)
+
 
 VERIFICATION_TOKEN = "test"
 
@@ -43,10 +43,8 @@ def handle_incoming_messages():
 				if messaging_event.get('message'):
 					# HANDLE NORMAL MESSAGES HERE
 					if messaging_event['message'].get('text'):
-						# HANDLE TEXT MESSAGES
-						query = messaging_event['message']['text']
-						# ECHO THE RECEIVED MESSAGE
-						bot.send_text_message(sender_id, query)
+						# HANDLE TEXT MESSAGE
+						bot.send_text_message(sender_id, test.elements)
 	return "ok", 200
 
 if __name__ == "__main__":

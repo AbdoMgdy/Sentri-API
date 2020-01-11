@@ -298,10 +298,6 @@ class Bot:
         result = response.json()
         return result
 
-    def _send_payload(self, payload):
-        """ Deprecated, use send_raw instead """
-        return self.send_raw(payload)
-
     def set_get_started(self, gs_obj):
         """Set a get started button shown on welcome screen for first time users
         https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/get-started-button
