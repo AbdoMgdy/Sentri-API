@@ -1,8 +1,4 @@
 Flask
-Flask-RESTful
-Flask-JWT
-Flask-SQLAlchemy
 uwsgi
 requests
 requests_toolbelt
-psycopg2
