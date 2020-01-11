@@ -37,7 +37,7 @@ def handle_incoming_messages():
 			for messaging_event in messaging:
 
 				sender_id = messaging_event['sender']['id']
-				recipient_id = messaging_event['recipient']['id']
+				#recipient_id = messaging_event['recipient']['id']
 
 				if messaging_event.get('message'):
 					# HANDLE NORMAL MESSAGES HERE
@@ -49,5 +49,5 @@ def handle_incoming_messages():
 	return "ok", 200
 
 
-if __name__ == "__main__":
+
 	app.run()
