@@ -1,10 +1,7 @@
-
-import os
-from flask import Flask
+from flask import Flask, request
 import json
 import requests
 from models.bot import Bot
-
 
 app = Flask(__name__)
 
@@ -15,7 +12,7 @@ bot = Bot(FB_ACCESS_TOKEN)
 VERIFICATION_TOKEN = "test"
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods= ['GET'])
 def verify():
 	if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
 		if not request.args.get("hub.verify_token") == VERIFICATION_TOKEN:
@@ -28,7 +25,7 @@ def verify():
 def handle_incoming_messages():
 	print(request.data)
 	data = request.get_json()
-
+	
 	if data['object'] == "page":
 		entries = data['entry']
 
@@ -49,5 +46,5 @@ def handle_incoming_messages():
 						bot.send_text_message(sender_id, query)
 	return "ok", 200
 
-if __name__ == "__main__":
-    app.run()
+
+app.run()

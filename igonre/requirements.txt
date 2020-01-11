@@ -1,0 +1,5 @@
+Flask
+uwsgi
+requests
+requests_toolbelt
+six
