@@ -44,7 +44,7 @@ def handle_incoming_messages():
 					# HANDLE NORMAL MESSAGES HERE
 					if messaging_event['message'].get('text'):
 						# HANDLE TEXT MESSAGE
-						bot.send_text_message(sender_id, test.elements)
+						bot.send_generic_message(sender_id, test.elements)
 	return "ok", 200
 
 if __name__ == "__main__":
