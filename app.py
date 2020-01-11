@@ -9,8 +9,6 @@ FB_ACCESS_TOKEN = "EAAF5Cd9fC3YBAD1ZB6zZCkeTlw4iqz3aXQaXCZC8DrjPAIvcOT6sm9ptCSWe
 
 bot = Bot(FB_ACCESS_TOKEN)
 
-#"https://ibb.co/mvmrRr5"
-
 VERIFICATION_TOKEN = "test"
 
 
@@ -52,4 +50,4 @@ def handle_incoming_messages():
 
 
 if __name__ == "__main__":
-	app.run(port=8000, use_reloader=True)
+	app.run()
