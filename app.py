@@ -1,8 +1,7 @@
 from flask import Flask, request
-from flask_restful import Api
 import json
 import requests
-from pymessenger.bot import Bot
+from models.bot import Bot
 
 app = Flask(__name__)
 
@@ -49,6 +48,4 @@ def handle_incoming_messages():
 						bot.send_text_message(sender_id, query)
 	return "ok", 200
 
-
-
-	app.run()
+app.run()

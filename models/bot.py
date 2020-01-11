@@ -1,10 +1,9 @@
 import os
 from enum import Enum
-
 import requests
 from requests_toolbelt import MultipartEncoder
 
-from pymessenger import utils
+from models import utils
 
 DEFAULT_API_VERSION = 2.6
 
