@@ -21,8 +21,6 @@ def verify():
 	return "Hello world", 200
 
 
-
-
 @app.route('/', methods=['POST'])
 def handle_incoming_messages():
 	print(request.data)
