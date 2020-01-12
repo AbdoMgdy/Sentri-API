@@ -3,13 +3,13 @@ from templates.button import ButtonTemplate
 
 
 family = ButtonTemplate()
-family.add_postback(title='Family', payload='familyMenu')
+family.add_postback(title='Family', payload=1)
 
 specials = ButtonTemplate()
-specials.add_postback(title='Specials', payload='specialsMenu')
+specials.add_postback(title='Specials', payload=2)
 
 sandwiches = ButtonTemplate()
-sandwiches.add_postback(title='Sandwiches', payload='sandwichesMenu')
+sandwiches.add_postback(title='Sandwiches', payload=3)
 
 menu = GenericTemplate()
 
