@@ -1,10 +1,6 @@
 from copy import deepcopy as copy
 import json
-from templates.button import ButtonTemplate
 
-
-
-ButtonTemplate.get_buttons = lambda self: self.template['attachment']['payload']['buttons']
 
 TITLE_CHARACTER_LIMIT = 80
 SUBTITLE_CHARACTER_LIMIT = 80
@@ -42,3 +38,4 @@ class GenericTemplate:
             element['buttons'] = buttons[:BUTTON_LIMIT]
         if len(self.elements) < ELEMENTS_LIMIT:
             self.elements.append(element)
+
