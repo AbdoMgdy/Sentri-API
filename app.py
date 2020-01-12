@@ -45,6 +45,9 @@ def handle_incoming_messages():
 					if messaging_event['message'].get('text'):
 						bot.send_before_message(sender_id)
 						bot.send_generic_message(sender_id, test.elements)
+
+
+						
 						
 	return "ok", 200
 

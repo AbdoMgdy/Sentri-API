@@ -369,4 +369,4 @@ class Bot:
     #Custom Made
     def send_before_message(self, recipient_id):
         self.send_action(recipient_id, 'mark_seen', time_out=2)
-        self.send_action(recipient_id, 'typing_on', time_out=4)
+        self.send_action(recipient_id, 'typing_on', time_out=3)
