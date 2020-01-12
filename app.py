@@ -45,7 +45,7 @@ def handle_incoming_messages():
 					if messaging_event['message'].get('text'):
 						bot.send_action(sender_id, 'mark_seen')
 						bot.send_action(sender_id, 'typing_on')
-						bot.send_action(sender_id, 'typing_off'time_out=1.50)
+						bot.send_action(sender_id, 'typing_off', time_out=2)
 						bot.send_generic_message(sender_id, test.elements)
 						
 	return "ok", 200
