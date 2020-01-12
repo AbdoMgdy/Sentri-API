@@ -3,7 +3,7 @@ from flask import Flask, request
 import json
 import requests
 from models.bot import Bot
-from views.generic import test
+from views.generic import menu
 
 app = Flask(__name__)
 
@@ -44,7 +44,7 @@ def handle_incoming_messages():
 					# HANDLE NORMAL MESSAGES HERE
 					if messaging_event['message'].get('text'):
 						bot.send_before_message(sender_id)
-						bot.send_generic_message(sender_id, test.elements)
+						bot.send_generic_message(sender_id, menu.elements)
 					
 	return "ok", 200
 
