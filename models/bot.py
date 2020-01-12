@@ -41,7 +41,18 @@ class Bot:
             self._auth_args = auth
         return self._auth_args
 
-    def send_recipient(self, recipient_id, payload, notification_type=NotificationType.regular):
+    def send_raw(self, payload, time_out=None):
+        request_endpoint = '{0}/me/messages'.format(self.graph_url)
+        response = requests.post(
+            request_endpoint,
+            params=self.auth_args,
+            json=payload,
+            timeout=time_out   
+        )
+        result = response.json()
+        return result
+
+    def send_recipient(self, recipient_id, payload, time_out=None, notification_type=NotificationType.regular):
         payload['recipient'] = {
             'id': recipient_id
         }
@@ -159,7 +170,7 @@ class Bot:
             }
         }, notification_type)
 
-    def send_action(self, recipient_id, action, notification_type=NotificationType.regular):
+    def send_action(self, recipient_id, action, time_out=None, notification_type=NotificationType.regular):
         """Send typing indicators or send read receipts to the specified recipient.
         https://developers.facebook.com/docs/messenger-platform/send-api-reference/sender-actions
 
@@ -169,9 +180,11 @@ class Bot:
         Output:
             Response from API as <dict>
         """
+        if time_out != None:
+            time_out = time_out,
         return self.send_recipient(recipient_id, {
             'sender_action': action
-        }, notification_type)
+        }, time_out, notification_type)
 
     def send_image(self, recipient_id, image_path, notification_type=NotificationType.regular):
         """Send an image to the specified recipient.
@@ -287,16 +300,6 @@ class Bot:
             return response.json()
 
         return None
-
-    def send_raw(self, payload):
-        request_endpoint = '{0}/me/messages'.format(self.graph_url)
-        response = requests.post(
-            request_endpoint,
-            params=self.auth_args,
-            json=payload
-        )
-        result = response.json()
-        return result
 
     def set_get_started(self, gs_obj):
         """Set a get started button shown on welcome screen for first time users
