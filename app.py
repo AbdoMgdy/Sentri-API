@@ -43,8 +43,7 @@ def handle_incoming_messages():
 				if messaging_event.get('message'):
 					# HANDLE NORMAL MESSAGES HERE
 					if messaging_event['message'].get('text'):
-						bot.send_action(sender_id, 'mark_seen', time_out=1)
-						bot.send_action(sender_id, 'typing_on',time_out=2)
+						bot.send_before_message(sender_id)
 						bot.send_generic_message(sender_id, test.elements)
 						
 	return "ok", 200
