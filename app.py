@@ -4,7 +4,7 @@ import json
 import anytree
 import requests
 from models.bot import Bot
-from views.menu import *
+from views.menu import menu
 
 
 app = Flask(__name__)		
@@ -45,10 +45,12 @@ def handle_incoming_messages():
 						menu.send(sender_id)
 						return "ok", 200
 				if messaging_event.get('postback'):
+					bot.send_before_message(sender_id)
 					block_name = messaging_event['postback'].get('payload')
 					print('it came here')
 					print(block_name)
 					block_obj = eval(block_name)
+					print(block_obj)
 					print(eval(block_obj))
 					return "ok", 200
 	return "ok", 200

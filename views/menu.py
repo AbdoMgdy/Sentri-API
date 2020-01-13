@@ -4,7 +4,7 @@ from templates.quick_replies import QuickReplies
 
 
 family = ButtonTemplate()
-family.add_postback(**{'Go to Menu':"menu.children[0]"})
+family.add_postback(**{'Go to Menu':'menu.children[0]'})
 
 specials = ButtonTemplate()
 specials.add_postback(title='Specials', payload='specials')
