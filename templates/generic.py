@@ -1,7 +1,7 @@
 from copy import deepcopy as copy
 from models.bot import Bot
 import json
-from quick_replies import QuickReplies
+from templates.quick_replies import QuickReplies
 from anytree import NodeMixin
 
 TITLE_CHARACTER_LIMIT = 80
@@ -26,7 +26,7 @@ ELEMENTS_LIMIT = 10
 
 class GenericTemplate(Bot, NodeMixin):
     def __init__(self, quick_replies=None, parent=None, children=None):
-        super.__init__()
+        super().__init__()
         self.elements = []
         
         self.parent = parent
