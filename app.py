@@ -49,9 +49,9 @@ def handle_incoming_messages():
 					block_name = messaging_event['postback'].get('payload')
 					print('it came here')
 					print(block_name)
-					block_obj = eval(block_name)
+					block_obj = eval(eval(block_name))
 					print(block_obj)
-					print(eval(block_obj))
+					block_obj.send(sender_id)
 					return "ok", 200
 	return "ok", 200
 
