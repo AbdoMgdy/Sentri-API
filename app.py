@@ -42,13 +42,12 @@ def handle_incoming_messages():
 					# HANDLE NORMAL MESSAGES HERE
 					if messaging_event['message'].get('text'):
 						bot.send_before_message(sender_id)
-						bot.send_generic_message(sender_id, menu.elements)
+						menu.send(sender_id)
 					elif messaging_event['message'].get('postback'):
 						block_name = messaging_event['message'].get('postback')
 						block_obj = eval(block_name)
 						block_obj.send(sender_id)
 
-									
 	return "ok", 200
 
 
