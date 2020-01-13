@@ -42,7 +42,7 @@ def handle_incoming_messages():
 					# HANDLE Quick Replies HERE
 					if messaging_event['message'].get('quick_reply'):
 						bot.send_before_message(sender_id)
-						block_name = messaging_event['quick_reply'].get('payload')
+						block_name = messaging_event['message']['quick_reply'].get('payload')
 						print('quick reply')
 						print(block_name)
 						block_obj = eval(eval(block_name))
