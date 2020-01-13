@@ -46,7 +46,7 @@ class ButtonTemplate(Bot, NodeMixin):
             postback_button = {}
             postback_button['type'] = 'postback'
             postback_button['title'] = title
-            postback_button['payload'] = payload
+            postback_button['payload'] = json.dumps(payload)
             self.buttons.append(postback_button)
 
     def send(self, reciepiant_id):
