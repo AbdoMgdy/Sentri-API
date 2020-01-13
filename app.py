@@ -4,7 +4,7 @@ import json
 import anytree
 import requests
 from models.bot import Bot
-from views.menu import menu
+from views.menu import *
 
 
 app = Flask(__name__)		
