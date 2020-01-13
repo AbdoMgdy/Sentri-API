@@ -49,6 +49,8 @@ def handle_incoming_messages():
 					print('it came here')
 					print(block_name)
 					block_obj = eval(block_name)
+					print(block_obj)
+					print(block_obj.children)
 					block_obj.send(sender_id)
 					return "ok", 200
 	return "ok", 200
