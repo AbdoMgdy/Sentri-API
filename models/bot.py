@@ -5,7 +5,7 @@ from requests_toolbelt import MultipartEncoder
 
 from models import utils
 
-DEFAULT_API_VERSION = 5.0
+DEFAULT_API_VERSION = 4.0
 ACCESS_TOKEN = "EAAF5Cd9fC3YBAD1ZB6zZCkeTlw4iqz3aXQaXCZC8DrjPAIvcOT6sm9ptCSWeCHmKB9D33q1zNG5HgDezOhByXjTlFwoLgtgXkXbSl4hPJYrwNcInQ7bb2FVZBOGWp6pkLWdd8Wf34ZA6jWvLGl827E8jqDmX4DIZB2zhUyxz4c0QZDZD"
 
 class NotificationType(Enum):
