@@ -28,3 +28,5 @@ menu.add_element(title="Sandwiches",image_url="https://petersfancybrownhats.com/
 
 family_menu = GenericTemplate(parent=menu, quick_replies=qr.quick_replies)
 family_menu.add_element(title="1st Sandwich", image_url="https://petersfancybrownhats.com/company_image.png",subtitle="2nd Sandwich Sub Menu", buttons=family_buttons.buttons)
+
+print(menu.children[0])

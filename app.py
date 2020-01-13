@@ -3,15 +3,13 @@ from flask import Flask, request
 import json
 import requests
 from models.bot import Bot
-from views.menu import menu
+from views.menu import *
 
-app = Flask(__name__)
-
-bot = Bot()
-
+app = Flask(__name__)		
 
 VERIFICATION_TOKEN = "test"
 
+bot = Bot()
 
 @app.route('/', methods=['GET'])
 def verify():
@@ -51,6 +49,7 @@ def handle_incoming_messages():
 					block_obj = eval(block_name)
 					print(block_obj)
 					print(block_obj.children)
+					menu.send(sender_id)
 					block_obj.send(sender_id)
 					return "ok", 200
 	return "ok", 200
