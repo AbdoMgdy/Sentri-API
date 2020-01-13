@@ -5,8 +5,8 @@ from requests_toolbelt import MultipartEncoder
 
 from models import utils
 
-DEFAULT_API_VERSION = 2.6
-
+DEFAULT_API_VERSION = 5.0
+ACCESS_TOKEN = "EAAF5Cd9fC3YBAD1ZB6zZCkeTlw4iqz3aXQaXCZC8DrjPAIvcOT6sm9ptCSWeCHmKB9D33q1zNG5HgDezOhByXjTlFwoLgtgXkXbSl4hPJYrwNcInQ7bb2FVZBOGWp6pkLWdd8Wf34ZA6jWvLGl827E8jqDmX4DIZB2zhUyxz4c0QZDZD"
 
 class NotificationType(Enum):
     regular = "REGULAR"
@@ -15,7 +15,7 @@ class NotificationType(Enum):
 
 
 class Bot:
-    def __init__(self, access_token, **kwargs):
+    def __init__(self, **kwargs):
         """
             @required:
                 access_token
@@ -27,7 +27,7 @@ class Bot:
         self.api_version = kwargs.get('api_version') or DEFAULT_API_VERSION
         self.app_secret = kwargs.get('app_secret')
         self.graph_url = 'https://graph.facebook.com/v{0}'.format(self.api_version)
-        self.access_token = access_token
+        self.access_token = kwargs.get('api_version') or ACCESS_TOKEN
 
     @property
     def auth_args(self):
@@ -130,7 +130,7 @@ class Bot:
             'text': message
         }, notification_type)
 
-    def send_generic_message(self, recipient_id, elements, notification_type=NotificationType.regular):
+    def send_generic_message(self, recipient_id, elements, quick_replies=None, notification_type=NotificationType.regular):
         """Send generic messages to the specified recipient.
         https://developers.facebook.com/docs/messenger-platform/send-api-reference/generic-template
         Input:
@@ -139,17 +139,28 @@ class Bot:
         Output:
             Response from API as <dict>
         """
+        if quick_replies is None:
+            return self.send_message(recipient_id, {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "generic",
+                        "elements": elements
+                    }
+                }
+            }, notification_type)
         return self.send_message(recipient_id, {
             "attachment": {
                 "type": "template",
                 "payload": {
-                    "template_type": "generic",
-                    "elements": elements
+                        "template_type": "generic",
+                        "elements": elements
                 }
-            }
+            },
+            "quick_replies": quick_replies
         }, notification_type)
 
-    def send_button_message(self, recipient_id, text, buttons, notification_type=NotificationType.regular):
+    def send_button_message(self, recipient_id, text, buttons, quick_replies=None, notification_type=NotificationType.regular):
         """Send text messages to the specified recipient.
         https://developers.facebook.com/docs/messenger-platform/send-api-reference/button-template
         Input:
@@ -159,15 +170,27 @@ class Bot:
         Output:
             Response from API as <dict>
         """
+        if quick_replies is None:
+            return self.send_message(recipient_id, {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "button",
+                        "text": text,
+                        "buttons": buttons
+                    }
+                }
+            }, notification_type)
         return self.send_message(recipient_id, {
             "attachment": {
                 "type": "template",
                 "payload": {
-                    "template_type": "button",
-                    "text": text,
-                    "buttons": buttons
+                        "template_type": "button",
+                        "text": text,
+                        "buttons": buttons
                 }
-            }
+            },
+            "quick_replies": quick_replies
         }, notification_type)
 
     def send_action(self, recipient_id, action, time_out=None, notification_type=NotificationType.regular):

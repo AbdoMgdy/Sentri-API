@@ -3,13 +3,11 @@ from flask import Flask, request
 import json
 import requests
 from models.bot import Bot
-from views.generic import menu
+from views.menu import menu
 
 app = Flask(__name__)
 
-FB_ACCESS_TOKEN = "EAAF5Cd9fC3YBAD1ZB6zZCkeTlw4iqz3aXQaXCZC8DrjPAIvcOT6sm9ptCSWeCHmKB9D33q1zNG5HgDezOhByXjTlFwoLgtgXkXbSl4hPJYrwNcInQ7bb2FVZBOGWp6pkLWdd8Wf34ZA6jWvLGl827E8jqDmX4DIZB2zhUyxz4c0QZDZD"
-
-bot = Bot(FB_ACCESS_TOKEN)
+bot = Bot()
 
 
 VERIFICATION_TOKEN = "test"
@@ -45,7 +43,12 @@ def handle_incoming_messages():
 					if messaging_event['message'].get('text'):
 						bot.send_before_message(sender_id)
 						bot.send_generic_message(sender_id, menu.elements)
-					
+					elif messaging_event['message'].get('postback'):
+						block_name = messaging_event['message'].get('postback')
+						block_obj = eval(block_name)
+						block_obj.send(sender_id)
+
+									
 	return "ok", 200
 
 
