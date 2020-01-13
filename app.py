@@ -4,7 +4,7 @@ import json
 import anytree
 import requests
 from models.bot import Bot
-from views.menu import menu, family_menu
+from views.menu import *
 
 
 app = Flask(__name__)		
@@ -61,6 +61,9 @@ def handle_incoming_messages():
 					block_name = messaging_event['postback'].get('payload')
 					print('it came here')
 					print(block_name)
+					if block_name == menu:
+						menu.send(sender_id)
+						return "ok", 200
 					block_obj = eval(eval(block_name))
 					print(block_obj)
 					block_obj.send(sender_id)
