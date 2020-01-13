@@ -45,10 +45,9 @@ def handle_incoming_messages():
 						menu.send(sender_id)
 						return "ok", 200
 				if messaging_event.get('postback'):
-					block_name = json.loads(messaging_event.get('postback'))
+					block_name = messaging_event.get('postback')
 					print('it came here')
 					print(block_name)
-					print(json.loads(block_name))
 					block_obj = eval(block_name)
 					block_obj.send(sender_id)
 					return "ok", 200
