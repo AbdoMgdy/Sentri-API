@@ -39,12 +39,22 @@ def handle_incoming_messages():
 				#recipient_id = messaging_event['recipient']['id']
 
 				if messaging_event.get('message'):
+					if messaging_event['message'].get('quick_reply'):
+						bot.send_before_message(sender_id)
+						block_name = messaging_event['postback'].get('payload')
+						print('quick reply')
+						print(block_name)
+						block_obj = eval(eval(block_name))
+						print(block_obj)
+						block_obj.send(sender_id)
+						return "ok", 200
+
 					# HANDLE NORMAL MESSAGES HERE
-					if messaging_event['message'].get('text'):
+					elif messaging_event['message'].get('text'):
 						bot.send_before_message(sender_id)
 						menu.send(sender_id)
 						return "ok", 200
-				if messaging_event.get('postback'):
+				elif messaging_event.get('postback'):
 					bot.send_before_message(sender_id)
 					block_name = messaging_event['postback'].get('payload')
 					print('it came here')
