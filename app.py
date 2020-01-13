@@ -49,11 +49,7 @@ def handle_incoming_messages():
 					print('it came here')
 					print(block_name)
 					block_obj = eval(block_name)
-					print(block_obj)
-					program = 'print(menu.children[0])'
-					exec(program)
-					print(menu.children[0])
-					menu.children[0].send(sender_id)
+					print(eval(block_obj))
 					return "ok", 200
 	return "ok", 200
 
