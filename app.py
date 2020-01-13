@@ -61,7 +61,7 @@ def handle_incoming_messages():
 					block_name = messaging_event['postback'].get('payload')
 					print('it came here')
 					print(block_name)
-					if block_name == menu:
+					if block_name == 'menu':
 						menu.send(sender_id)
 						return "ok", 200
 					block_obj = eval(eval(block_name))
