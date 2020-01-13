@@ -40,34 +40,34 @@ def handle_incoming_messages():
 
 				if messaging_event.get('message'):
 					# HANDLE Quick Replies HERE
-					# if messaging_event['message'].get('quick_reply'):
-					# 	bot.send_before_message(sender_id)
-					# 	block_name = messaging_event['message']['quick_reply'].get('payload')
-					# 	print('quick reply')
-					# 	print(block_name)
-					# 	block_obj = eval(eval(block_name))
-					# 	print(block_obj)
-					# 	block_obj.send(sender_id)
-					# 	return "ok", 200
+					if messaging_event['message'].get('quick_reply'):
+						bot.send_before_message(sender_id)
+						block_name = messaging_event['message']['quick_reply'].get('payload')
+						print('quick reply')
+						print(block_name)
+						block_obj = eval(eval(block_name))
+						print(block_obj)
+						block_obj.send(sender_id)
+						return "ok", 200
 
 					# HANDLE Text MESSAGES HERE
 					if messaging_event['message'].get('text'):
 						bot.send_before_message(sender_id)
 						menu.send(sender_id)
 						return "ok", 200
-				# elif messaging_event.get('postback'):
-				# 	# HANDLE POSTBACK HERE
-				# 	bot.send_before_message(sender_id)
-				# 	block_name = messaging_event['postback'].get('payload')
-				# 	print('it came here')
-				# 	print(block_name)
-				# 	if block_name == 'menu':
-				# 		menu.send(sender_id)
-				# 		return "ok", 200
-				# 	block_obj = eval(eval(block_name))
-				# 	print(block_obj)
-				# 	block_obj.send(sender_id)
-				# 	return "ok", 200
+				elif messaging_event.get('postback'):
+					# HANDLE POSTBACK HERE
+					bot.send_before_message(sender_id)
+					block_name = messaging_event['postback'].get('payload')
+					print('it came here')
+					print(block_name)
+					if block_name == 'menu':
+						menu.send(sender_id)
+						return "ok", 200
+					block_obj = eval(eval(block_name))
+					print(block_obj)
+					block_obj.send(sender_id)
+					return "ok", 200
 	return "ok", 200
 
 
