@@ -4,7 +4,7 @@ import json
 import anytree
 import requests
 from models.bot import Bot
-from views.menu import *
+from views.menu import menu, family_menu
 
 
 app = Flask(__name__)		
@@ -41,12 +41,12 @@ def handle_incoming_messages():
 				if messaging_event.get('message'):
 					# HANDLE Quick Replies HERE
 					if messaging_event['message'].get('quick_reply'):
+						bot.send_before_message(sender_id)
 						block_name = messaging_event['message']['quick_reply'].get('payload')
 						print('quick reply')
 						print(block_name)
 						block_obj = eval(eval(block_name))
 						print(block_obj)
-						bot.send_before_message(sender_id)
 						block_obj.send(sender_id)
 						return "ok", 200
 
