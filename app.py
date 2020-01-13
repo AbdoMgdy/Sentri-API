@@ -44,8 +44,9 @@ def handle_incoming_messages():
 						bot.send_before_message(sender_id)
 						menu.send(sender_id)
 						return "ok", 200
-				elif messaging_event.get('postback'):
+				if messaging_event.get('postback'):
 					block_name = json.loads(messaging_event.get('postback'))
+					print('it came here')
 					print(block_name)
 					print(json.loads(block_name))
 					block_obj = eval(block_name)
