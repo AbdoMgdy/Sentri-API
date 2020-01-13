@@ -67,8 +67,6 @@ def handle_incoming_messages():
 					return "ok", 200
 	return "ok", 200
 
-	
-
 
 if __name__ == "__main__":
     app.run()

@@ -5,9 +5,9 @@ from requests_toolbelt import MultipartEncoder
 
 from models import utils
 
-DEFAULT_API_VERSION = 4.0
-ACCESS_TOKEN = "EAAF5Cd9fC3YsD1ZB6zZCkeTlw4iqz3aXQaXCZC8DrjPAIvcOT6sm9ptCSWeCHmKB9D33q1zNG5HgDezOhByXjTlFwoLgtgXkXbSl4hPJYrwNcInQ7bb2FVZBOGWp6pkLWdd8Wf34ZA6jWvLGl827E8jqDmX4DIZB2zhUyxz4c0QZDZD"
-
+DEFAULT_API_VERSION = 5.0
+ACCESS_TOKEN = "EAAF5Cd9fC3YBAM6xq5cOHfuvDnjKCJcl409P2bs8ZBxSP6xyZAm9VHJMIICvlUkhPYtZAIS0DF3aQixvzf1zbnmeZBZADdA5MgnX2jjQZBrFUUG0MVl0gx4RRhheiBsLPklwZCQfWtEFNNBNZBuE1jNwxVbs1479a3CiLniB3q5akwZDZD"
+                     
 class NotificationType(Enum):
     regular = "REGULAR"
     silent_push = "SILENT_PUSH"
