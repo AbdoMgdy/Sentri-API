@@ -17,7 +17,7 @@ family_buttons = ButtonTemplate()
 family_buttons.add_postback(**{'Go Back':'family_menu.parent'})
 
 qr = QuickReplies()
-qr.add_quick_replies(**{'1st qr':'1st qr was called','go back':"family_menu.parent"})
+qr.add_quick_replies(**{'1st qr': 'family_menu.parent', 'go back': 'family_menu.parent')
 
 
 menu = GenericTemplate()
