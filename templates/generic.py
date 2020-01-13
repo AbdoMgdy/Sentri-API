@@ -28,12 +28,10 @@ class GenericTemplate(Bot, NodeMixin):
     def __init__(self, quick_replies=None, parent=None, children=None):
         super().__init__()
         self.elements = []
-        
         self.parent = parent
         if children:
             self.children = children
-        if quick_replies:
-            self.quick_replies = quick_replies    
+        self.quick_replies = quick_replies    
 
     def add_element(self, title="", image_url="", subtitle="", buttons=[]):
         element = {}
