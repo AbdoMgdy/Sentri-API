@@ -48,9 +48,8 @@ def handle_incoming_messages():
 					print(block_name)
 					block_obj = eval(block_name)
 					print(block_obj)
-					print(block_obj.children)
+					print(menu.children[0])
 					menu.send(sender_id)
-					block_obj.send(sender_id)
 					return "ok", 200
 	return "ok", 200
 
