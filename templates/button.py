@@ -38,6 +38,7 @@ class ButtonTemplate(Bot, NodeMixin):
             web_url_button['type'] = 'web_url'
             web_url_button['title'] = title
             web_url_button['url'] = url
+            web_url_button['webview_hight_ratio'] = 'full'
             self.buttons.append(web_url_button)
 
     def add_postback(self, **kwargs):

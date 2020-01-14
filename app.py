@@ -13,6 +13,17 @@ VERIFICATION_TOKEN = "test"
 
 bot = Bot()
 
+blocks = {
+	 'family_menu':family_menu,
+}
+
+
+
+
+
+
+
+
 @app.route('/', methods=['GET'])
 def verify():
 	if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
@@ -20,6 +31,8 @@ def verify():
 			return "Verification token mismatch", 403
 		return request.args["hub.challenge"], 200
 	return "Hello world", 200
+
+
 
 
 @app.route('/', methods=['POST'])
@@ -43,7 +56,6 @@ def handle_incoming_messages():
 					if messaging_event['message'].get('quick_reply'):
 						bot.send_before_message(sender_id)
 						block_name = messaging_event['message']['quick_reply'].get('payload')
-						print('quick reply')
 						print(block_name)
 						block_obj = eval(eval(block_name))
 						print(block_obj)
@@ -53,20 +65,17 @@ def handle_incoming_messages():
 					# HANDLE Text MESSAGES HERE
 					if messaging_event['message'].get('text'):
 						bot.send_before_message(sender_id)
-						menu.send(sender_id)
+						main_menu.send(sender_id)
 						return "ok", 200
 				elif messaging_event.get('postback'):
 					# HANDLE POSTBACK HERE
 					bot.send_before_message(sender_id)
 					block_name = messaging_event['postback'].get('payload')
-					print('it came here')
-					print(block_name)
-					if block_name == 'menu':
-						menu.send(sender_id)
+					if block_name == 'get_started':
+						main_menu.send(sender_id)
 						return "ok", 200
-					block_obj = eval(eval(block_name))
-					print(block_obj)
-					block_obj.send(sender_id)
+					block = blocks[block_name]
+					block.send(sender_id)	
 					return "ok", 200
 	return "ok", 200
 
