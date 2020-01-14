@@ -70,7 +70,7 @@ def handle_incoming_messages():
 				elif messaging_event.get('postback'):
 					# HANDLE POSTBACK HERE
 					bot.send_before_message(sender_id)
-					block_name = json.loads(messaging_event['postback'].get('payload'))
+					block_name = eval(messaging_event['postback'].get('payload'))
 					print(block_name)
 					if block_name == 'get_started':
 						main_menu.send(sender_id)
