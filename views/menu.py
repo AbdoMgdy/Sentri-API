@@ -6,22 +6,22 @@ from templates.quick_replies import QuickReplies
 
 #Main Menu Buttons
 family_buttons = ButtonTemplate()
-family_buttons.add_postback(**{'Family Meals الوجبات العائلية':'main_menu.children[0]'})
+family_buttons.add_postback(**{'Family Meals الوجبات العائلية':'family_menu'})
 
 sandwiches_buttons = ButtonTemplate()
-sandwiches_buttons.add_postback(**{'Sandwiches الساندوتشات': 'main_menu.children[1]'})
+sandwiches_buttons.add_postback(**{'Sandwiches الساندوتشات': 'sandwiches_menu'})
 
 trex_special_buttons = ButtonTemplate()
-trex_special_buttons.add_postback(**{'Trex Special':'main_menu.children[2]'})
+trex_special_buttons.add_postback(**{'Trex Special':'trex_special_menu'})
 
 trex_meals_buttons = ButtonTemplate()
-trex_meals_buttons.add_postback(**{'Trex Meals وجبات تركس':'main_menu.children[3]'})
+trex_meals_buttons.add_postback(**{'Trex Meals وجبات تركس':'trex_meals_menu'})
 
 kids_meals_buttons = ButtonTemplate()
-kids_meals_buttons.add_postback(**{'Kids Meals وجبات الأطفال':'main_menu.children[4]'})
+kids_meals_buttons.add_postback(**{'Kids Meals وجبات الأطفال':'kids_meals_menu'})
 
 appetizers_buttons = ButtonTemplate()
-appetizers_buttons.add_postback(**{'Appetizers المقبلات':'main_menu.children[5]'})
+appetizers_buttons.add_postback(**{'Appetizers المقبلات':'apppetizers_menu'})
 
 
 main_menu = GenericTemplate()

@@ -4,3 +4,4 @@ requests
 requests_toolbelt
 six
 anytree
+flask_sqlalchemy
