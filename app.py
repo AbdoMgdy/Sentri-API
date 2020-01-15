@@ -71,7 +71,8 @@ def handle_incoming_messages():
 				elif messaging_event.get('postback'):
 					# HANDLE POSTBACK HERE
 					bot.send_before_message(sender_id)
-					block_name = json.loads(messaging_event['postback']['payload'])
+					print()
+					block_name = messaging_event['postback']['payload']
 					print(type(block_name))
 					print(block_name)
 					block = blocks[block_name]
