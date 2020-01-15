@@ -16,7 +16,8 @@ VERIFICATION_TOKEN = "test"
 bot = Bot()
 
 blocks = {
-	 'family_menu':family_menu,
+	'get_started':main_menu,
+	 'family_menu':family_menu
 }
 
 
@@ -70,11 +71,8 @@ def handle_incoming_messages():
 				elif messaging_event.get('postback'):
 					# HANDLE POSTBACK HERE
 					bot.send_before_message(sender_id)
-					block_name = eval(messaging_event['postback'].get('payload'))
+					block_name = json.loads(messaging_event['postback'].['payload'])
 					print(block_name)
-					if block_name == 'get_started':
-						main_menu.send(sender_id)
-						return "ok", 200
 					block = blocks[block_name]
 					block.send(sender_id)	
 					return "ok", 200
