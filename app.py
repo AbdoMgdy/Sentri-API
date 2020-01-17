@@ -60,7 +60,7 @@ def handle_incoming_messages():
 					user = User(sender_id)
 					user.get_info()
 					user.add()
-				if not user.orders[-1]:
+				if not user.orders:
 					global order_number
 					order_number = order['number']
 				
