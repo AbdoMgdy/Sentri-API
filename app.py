@@ -13,7 +13,7 @@ from resources.menu import *
 app = Flask(__name__, template_folder='templates')
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATBASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 VERIFICATION_TOKEN = "test"
@@ -58,8 +58,11 @@ def handle_incoming_messages():
 				order = Order(sender_id)
 				if not user:
 					user = User(sender_id)
+					print('hi')
 					user.get_info()
+					print('hi')
 					user.add()
+					print('hi')
 				if not user.orders:
 					global order_number
 					order_number = order['number']
@@ -81,6 +84,7 @@ def handle_incoming_messages():
 						return "ok", 200
 				elif messaging_event.get('postback'):
 					# HANDLE POSTBACK HERE
+					print('hi p')
 					bot.send_before_message(sender_id)
 					block_name_q = messaging_event['postback']['payload']
 					block_name = block_name_q.replace('"', '')
