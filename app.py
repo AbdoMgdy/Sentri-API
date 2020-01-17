@@ -27,7 +27,7 @@ blocks = {
 
 
 sender_id = ''
-order_number = ''
+order_number = 0
 
 
 @app.route('/', methods=['GET'])
