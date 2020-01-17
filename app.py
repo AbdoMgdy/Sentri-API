@@ -57,17 +57,13 @@ def handle_incoming_messages():
                 sender_id = messaging_event['sender']['id']
 
                 user = User.find_by_psid(sender_id)
-                order = Order(sender_id)
-                if user == None:
-                    user = User(sender_id)
-                    user.get_info()
-                    user.add()
-                if not user.orders:
+                if user is None:
+                    first = handle_first_time(sender_id)
+                    user = first[0]
+
+                if not user.orders[0].is_confirmed:
                     global order_number
-                    order_number = order['number']
-                elif user.orders:
-                    if not user.orders[-1].is_confirmed:
-                        order_number = user.order[-1]['number']
+                    order_number = user.order[0]['number']
 
                 if messaging_event.get('message'):
                     # HANDLE QUICK REPLIES HERE
@@ -123,6 +119,12 @@ def confirm_order():
     order = Order.find_by_number(order_number)
     if not order.is_confirmed:
         order.confirm
+
+
+def handle_first_time(sender_id):
+    new_user = User(sender_id)
+    new_order = Order(sender_id)
+    return new_user, new_order
 
 
 if __name__ == "__main__":
