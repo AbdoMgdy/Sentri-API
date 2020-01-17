@@ -60,9 +60,9 @@ def handle_incoming_messages():
 					user.get_info()
 					user.add()
 					order = Order(sender_id)
-				order = user.orders[-1]
-				global order_number
-				order_number = order['number']
+				if order == user.orders[-1]:
+					global order_number
+					order_number = order['number']
 				
 				if messaging_event.get('message'):
 					# HANDLE QUICK REPLIES HERE
