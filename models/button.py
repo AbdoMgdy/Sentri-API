@@ -20,6 +20,7 @@ class ButtonTemplate(Bot):
             web_url_button['title'] = title
             web_url_button['url'] = url
             web_url_button['webview_hight_ratio'] = 'full'
+            web_url_button['messenger_extensions'] = 'True'
             self.buttons.append(web_url_button)
 
     def add_postback(self, **kwargs):

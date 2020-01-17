@@ -24,6 +24,7 @@ class GenericTemplate(Bot):
         element['image_url'] = image_url
         if subtitle != '':
             element['subtitle'] = subtitle[:SUBTITLE_CHARACTER_LIMIT]
+        # make sure button title is in limits
         for button in buttons:
             button['title'] = button['title'][:BUTTON_TITLE_CHARACTER_LIMIT]
         if len(buttons) > 0:
