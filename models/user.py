@@ -5,14 +5,15 @@ from models.bot import Bot
 
 class User(Bot, db.Model):
     __tablename__ = 'users'
-    
+    __table_args__ = (db.UniqueConstraint('psid', name='unique_user_orders'),
+                      )
     id = db.Column(db.Integer, primary_key=True)
     psid = db.Column(db.Integer, unique=True)
     first_name = db.Column(db.String(80))
     last_name = db.Column(db.String(80))
     phone_number = db.Column(db.Integer)
     address = db.Column(db.String)
-    orders = db.relationship('Order', lazy='select')
+    orders = db.relationship('Order', backref='user', lazy='select')
 
     def __init__(self, psid):
         super().__init__()
