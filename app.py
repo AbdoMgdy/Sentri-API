@@ -88,7 +88,9 @@ def handle_incoming_messages():
 					bot.send_before_message(sender_id)
 					block_name_q = messaging_event['postback']['payload']
 					block_name = block_name_q.replace('"', '')
+					print(block_name)
 					block = blocks[block_name]
+					print(block.graph_url)
 					block.send(sender_id)	
 					return "ok", 200
 	return "ok", 200
