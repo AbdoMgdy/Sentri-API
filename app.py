@@ -55,12 +55,12 @@ def handle_incoming_messages():
 				global sender_id
 				sender_id = messaging_event['sender']['id']
 				user = User.find_by_psid(sender_id)
+				order = Order(sender_id)
 				if not user:
 					user = User(sender_id)
 					user.get_info()
 					user.add()
-					order = Order(sender_id)
-				if order == user.orders[-1]:
+				if not user.orders[-1]:
 					global order_number
 					order_number = order['number']
 				

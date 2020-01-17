@@ -11,7 +11,7 @@ class User(Bot, db.Model):
     last_name = db.Column(db.String(80))
     phone_number = db.Column(db.Integer)
     address = db.Column(db.String)
-    orders = db.relationship('Order', lazy='dynamic')
+    orders = db.relationship('Order', backref='user', lazy='dynamic')
 
 
     def __init__(self, psid):
