@@ -130,11 +130,13 @@ def confirm_order():
     return 'Order Confirmed', 200
 
 
-@app.route('/show_order', methods=['GET'])
+@app.route('/show_orders', methods=['GET'])
 def search_results():
     orders = Order.query.all()
+    print(orders
+          )
     table = Results(orders)
-    return render_template('show orders.jinja', table=table)
+    return render_template('show orders.jinja', rows=orders)
 
 
 def handle_first_time(sender_id):
