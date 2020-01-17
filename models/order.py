@@ -31,7 +31,7 @@ class Order(db.Model):
     def add_item(self, name, quantity, _type, notes, price):
         item = {}
         item['name'] = name
-        item['quantity'] = quantity
+        item['quantity'] = float(quantity)
         item['type'] = _type
         item['notes'] = notes
         item['price'] = price * quantity
