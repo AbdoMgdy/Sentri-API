@@ -16,6 +16,7 @@ class GenericTemplate(Bot):
     def __init__(self):
         super().__init__()
         self.elements = []
+        self.quick_replies = []
 
     def add_element(self, title="", image_url="", subtitle="", buttons=[]):
         element = {}
