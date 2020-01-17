@@ -28,7 +28,7 @@ blocks = {
     'family_menu': family_menu
 }
 
-sender_id = ''
+#sender_id = ''
 order_number = ''
 
 
@@ -54,7 +54,7 @@ def handle_incoming_messages():
 
             for messaging_event in messaging:
 
-                global sender_id
+                #global sender_id
                 sender_id = messaging_event['sender']['id']
                 user = User.find_by_psid(sender_id)
                 order = Order(sender_id)

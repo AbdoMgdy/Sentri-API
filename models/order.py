@@ -4,13 +4,14 @@ import random
 
 class Order(db.Model):
     __tablename__ = 'orders'
-    __table_args__ = (db.UniqueConstraint('user_id', 'number'), )
+    __table_args__ = (db.UniqueConstraint('user', 'psid'), )
     id = db.Column(db.Integer, primary_key=True)
     number = db.Column(db.Integer)
     items = db.Column(db.PickleType)
     total = db.Column(db.Float(precision=2))
     is_confirmed = db.Column(db.Boolean, default=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.psid'))
+    user = db.Column(db.Integer, db.ForeignKey('users.psid'))
+    user_id = db.relationship('User')
 
     def __init__(self, user_id):
         self.user_id = user_id
