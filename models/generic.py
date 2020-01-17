@@ -1,7 +1,7 @@
 from copy import deepcopy as copy
 from models.bot import Bot
 import json
-from templates.quick_replies import QuickReplies
+from models.quick_replies import QuickReplies
 from anytree import NodeMixin
 
 TITLE_CHARACTER_LIMIT = 80
