@@ -2,9 +2,9 @@ from db import db
 import requests
 from models.bot import Bot
 
+
 class User(Bot, db.Model):
     __tablename__ = 'users'
-
     id = db.Column(db.Integer, primary_key=True)
     psid = db.Column(db.Integer)
     first_name = db.Column(db.String(80))
@@ -12,7 +12,6 @@ class User(Bot, db.Model):
     phone_number = db.Column(db.Integer)
     address = db.Column(db.String)
     orders = db.relationship('Order', backref='user', lazy='dynamic')
-
 
     def __init__(self, psid):
         super().__init__()
@@ -35,13 +34,11 @@ class User(Bot, db.Model):
         result = response.json()
         self.first_name = result['first_name']
         self.last_name = result['last_name']
-    
+
     def add(self):
         db.session.add(self)
         db.session.commit()
-    
+
     def remove(self):
         db.session.remove(self)
-        db.session.commit()        
-
-
+        db.session.commit()

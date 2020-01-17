@@ -3,8 +3,8 @@ import random
 
 
 class Order(db.Model):
-    __tablename__='orders'
-
+    __tablename__ = 'orders'
+    __table_args__ = (db.UniqueConstraint('user_id', 'number'), )
     id = db.Column(db.Integer, primary_key=True)
     number = db.Column(db.Integer)
     items = db.Column(db.PickleType)
@@ -18,9 +18,10 @@ class Order(db.Model):
         self.items = []
         self.total = 0
         self.is_confirmed = False
+
     @classmethod
     def find_by_number(cls, number):
-         return cls.query.filter_by(number=number).first()
+        return cls.query.filter_by(number=number).first()
 
     def add_item(self, name, quantity, _type, notes, price):
         item = {}
