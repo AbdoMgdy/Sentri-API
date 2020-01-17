@@ -110,6 +110,7 @@ def save(item):
     print(item, qty, spicy, notes)
     return '{} was added to order'.format(item), 200
     order = Order.find_by_number(order_number)
+    print(order.number)
     if not order.is_confirmed:
         order.add_item(item, qty, spicy, notes)
         print('added to DB')
