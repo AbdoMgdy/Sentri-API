@@ -4,6 +4,8 @@ from models.user import User
 from models.order import Order
 from models.bot import Bot
 from forms import OrderForm
+from tables import Results
+
 from resources.menu import *
 
 
@@ -126,6 +128,13 @@ def confirm_order():
     if not order.is_confirmed:
         order.confirm()
     return 'Order Confirmed', 200
+
+
+@app.route('/show_order', methods=['GET'])
+def search_results():
+    orders = Order.query.all()
+    table = Results(orders)
+    return render_template('show orders.jinja', table=table)
 
 
 def handle_first_time(sender_id):
