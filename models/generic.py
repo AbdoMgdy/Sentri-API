@@ -1,4 +1,3 @@
-from copy import deepcopy as copy
 from models.bot import Bot
 import json
 
@@ -11,19 +10,7 @@ BUTTON_TITLE_CHARACTER_LIMIT = 20
 BUTTON_LIMIT = 3
 ELEMENTS_LIMIT = 10
 
-# template = {
-#     "template_type": "generic",
-#     "value": {
-#         "attachment": {
-#             "type": "template",
-#             "payload": {
-#                 "template_type": "generic",
-#                 "image_aspect_ratio": "horizontal",
-#                 "elements": []
-#             }
-#         }
-#     }
-# }
+
 
 class GenericTemplate(Bot):
     def __init__(self):

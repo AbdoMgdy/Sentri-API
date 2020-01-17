@@ -1,13 +1,13 @@
 import os
-from flask import Flask, request, g, render_template, redirect
+from flask import Flask, request, render_template
 from models.user import User
 from models.order import Order
 from models.bot import Bot
-from forms import OrderForm
+# from forms import OrderForm
 from resources.menu import *
 
 
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__)
 # SECRET_KEY = os.urandom(32)
 # app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
@@ -25,6 +25,7 @@ blocks = {
     'family_menu': family_menu
 }
 
+
 # sender_id = ''
 # order_number = ''
 
@@ -41,6 +42,8 @@ def verify():
 @app.route('/', methods=['POST'])
 def handle_incoming_messages():
     print(request.data)
+
+    print(main_menu.elements)
     data = request.get_json()
 
     if data['object'] == "page":
