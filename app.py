@@ -3,7 +3,7 @@ from flask import Flask, request, render_template
 from models.user import User
 from models.order import Order
 from models.bot import Bot
-# from forms import OrderForm
+from forms import OrderForm
 from resources.menu import *
 
 
