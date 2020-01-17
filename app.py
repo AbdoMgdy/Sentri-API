@@ -71,7 +71,7 @@ def handle_incoming_messages():
                     last_order = Order(sender_id)
                     last_order.add()
                 order_number = last_order.number
-                print(order_number)
+            print(order_number)
             for messaging_event in messaging:
 
                 if messaging_event.get('message'):
@@ -116,6 +116,10 @@ def save(item):
     notes = request.form.get('notes')
     print(item, qty, spicy, notes, 250)
     order = Order.find_by_number(order_number)
+
+    if order is None:
+        order = Order(sender_id)
+        order.add()
     if not order.is_confirmed:
         order.add_item(item, qty, spicy, notes, 150)
         print('added to DB')
