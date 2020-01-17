@@ -44,4 +44,5 @@ class GenericTemplate(Bot):
                 self.quick_replies.append(quick_reply)
 
     def send(self, reciepiant_id):
-        super().send_generic_message(reciepiant_id, self.elements, self.quick_replies)
+        super().send_generic_message(reciepiant_id,
+                                     self.elements, quick_replies=self.quick_replies)
