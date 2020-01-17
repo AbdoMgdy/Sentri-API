@@ -4,6 +4,8 @@ import random
 
 class Order(db.Model):
     __tablename__ = 'orders'
+    __table_args__ = (db.UniqueConstraint('user_id', 'number', name='unique_user_orders'),
+                      )
     id = db.Column(db.Integer, primary_key=True)
     number = db.Column(db.Integer, unique=True)
     items = db.Column(db.PickleType)
