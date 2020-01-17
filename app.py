@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 from models.user import User
 from models.order import Order
 from models.bot import Bot
@@ -87,7 +87,7 @@ def handle_incoming_messages():
                     block_name_q = messaging_event['postback']['payload']
                     block_name = block_name_q.replace('"', '')
                     block = blocks[block_name]
-                    print(type(block))
+                    print(block.elements)
                     block.send(sender_id)
                     return "ok", 200
     return "ok", 200
@@ -124,8 +124,9 @@ def after(response):
     # todo with response
     print(response.status)
     print(response.headers)
-    print(response.get_data())
+    print(response.get_json())
     return response
+
 
 if __name__ == "__main__":
     app.run()

@@ -19,3 +19,5 @@ family_menu = GenericTemplate()
 
 family_menu.add_element(title="1st Sandwich", buttons=burger_btn.buttons)
 # family_menu.add_quick_replies(**{'Back العودة للخلف': 'main_menu'})
+
+print(family_menu.elements)
