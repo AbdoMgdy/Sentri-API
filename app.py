@@ -107,7 +107,7 @@ def save(item):
     qty = request.form.get('quantity')
     spicy = request.form.get('spicy')
     notes = request.form.get('notes')
-    print(item, qty, spicy, notes)
+    print(item, qty, spicy, notes, 250)
     order = Order.find_by_number(order_number)
     print(order.number)
     if not order.is_confirmed:
