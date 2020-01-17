@@ -20,7 +20,7 @@ class User(Bot, db.Model):
         self.psid = psid
         self.first_name = ''
         self.last_name = ''
-        self.phone_number = ''
+        self.phone_number = 0
         self.address = ''
 
     @classmethod
