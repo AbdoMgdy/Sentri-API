@@ -65,6 +65,10 @@ def handle_incoming_messages():
                 if not user.orders:
                     global order_number
                     order_number = order['number']
+                elif user.orders:
+                    if not user.order[-1].is_confirmed:
+                        global order_number
+                        order_number = user.order[-1]['number']
 
                 if messaging_event.get('message'):
                     # HANDLE QUICK REPLIES HERE
@@ -97,9 +101,9 @@ def handle_incoming_messages():
 def show_webview(item):
     form = OrderForm()
     if form.validate_on_submit():
-        qty = request.form.get['quantity']
-        spicy = request.form.get['spicy']
-        notes = request.form.get['notes']
+        qty = form.quantity.data
+        spicy = form.spicy.data
+        notes = form.notes.data
         print(qty)
         order = Order.find_by_number(order_number)
         if not order.is_confirmed:
