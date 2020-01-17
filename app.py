@@ -100,6 +100,7 @@ def show_webview(item):
         qty = request.form.get['quantity']
         spicy = request.form.get['spicy']
         notes = request.form.get['notes']
+        print(qty)
         order = Order.find_by_number(order_number)
         if not order.is_confirmed:
             order.add_item(item, qty, spicy, notes)
