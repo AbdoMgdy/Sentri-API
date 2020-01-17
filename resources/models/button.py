@@ -17,8 +17,8 @@ class ButtonTemplate(Bot):
         for title, url in kwargs.items():
             web_url_button = {}
             web_url_button['type'] = 'web_url'
-            web_url_button['url'] = url
             web_url_button['title'] = title
+            web_url_button['url'] = url
             web_url_button['webview_hight_ratio'] = 'full'
             web_url_button['messenger_extensions'] = 'True'
             self.buttons.append(web_url_button)
