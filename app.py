@@ -60,7 +60,7 @@ def handle_incoming_messages():
                 new_order = first[1]
                 global order_number
                 order_number = new_order.number
-            elif user:
+            elif user and len(user.orders) > 0:
                 last_order = user.orders[-1]
                 if last_order.is_confirmed:
                     new_order = Order(sender_id)
