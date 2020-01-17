@@ -67,7 +67,6 @@ def handle_incoming_messages():
                     order_number = order['number']
                 elif user.orders:
                     if not user.order[-1].is_confirmed:
-                        global order_number
                         order_number = user.order[-1]['number']
 
                 if messaging_event.get('message'):
