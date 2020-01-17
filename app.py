@@ -66,8 +66,10 @@ def handle_incoming_messages():
                 last_order = user.orders[-1]
                 print(user.first_name)
                 if last_order.is_confirmed:
-                    new_order = Order(sender_id)
-                    new_order.add()
+                    last_order = Order(sender_id)
+                    last_order.add()
+                order_number = last_order.number
+                print(order_number)
             for messaging_event in messaging:
 
                 if messaging_event.get('message'):
@@ -91,7 +93,7 @@ def handle_incoming_messages():
                     block_name_q = messaging_event['postback']['payload']
                     block_name = block_name_q.replace('"', '')
                     block = blocks[block_name]
-                    print(block.elements)
+
                     block.send(sender_id)
                     return "ok", 200
     return "ok", 200
@@ -112,7 +114,6 @@ def save(item):
     notes = request.form.get('notes')
     print(item, qty, spicy, notes, 250)
     order = Order.find_by_number(order_number)
-    print(order.number)
     if not order.is_confirmed:
         order.add_item(item, qty, spicy, notes, 150)
         print('added to DB')
