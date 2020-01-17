@@ -51,19 +51,21 @@ def handle_incoming_messages():
         for entry in entries:
             messaging = entry['messaging']
 
+            global sender_id
+            sender_id = messaging['sender']['id']
+            user = User.find_by_psid(sender_id)
+            if user is None:
+                first = handle_first_time(sender_id)
+                user = first[0]
+                new_order = first[1]
+                global order_number
+                order_number = new_order.number
+            elif user:
+                last_order = user.orders[-1]
+                if last_order.is_confirmed:
+                    new_order = Order(sender_id)
+                    new_order.add()
             for messaging_event in messaging:
-
-                global sender_id
-                sender_id = messaging_event['sender']['id']
-
-                user = User.find_by_psid(sender_id)
-                if user is None:
-                    first = handle_first_time(sender_id)
-                    user = first[0]
-
-                if not user.orders[0].is_confirmed:
-                    global order_number
-                    order_number = user.order[0]['number']
 
                 if messaging_event.get('message'):
                     # HANDLE QUICK REPLIES HERE
@@ -107,11 +109,11 @@ def save(item):
     notes = request.form.get('notes')
     print(item, qty, spicy, notes)
     return '{} was added to order'.format(item), 200
-    # order = Order.find_by_number(order_number)
-    # if not order.is_confirmed:
-    #     order.add_item('item', qty, spicy, notes)
-    #     main_menu.send(sender_id)
-    #     return 'ok', 200
+    order = Order.find_by_number(order_number)
+    if not order.is_confirmed:
+        order.add_item(item, qty, spicy, notes)
+        print('added to DB')
+        return 'ok', 200
 
 
 @app.route('/confirm_order', methods=['POST'])
@@ -123,7 +125,9 @@ def confirm_order():
 
 def handle_first_time(sender_id):
     new_user = User(sender_id)
+    new_user.add()
     new_order = Order(sender_id)
+    new_order.add()
     return new_user, new_order
 
 

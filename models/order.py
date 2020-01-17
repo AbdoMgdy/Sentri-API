@@ -23,6 +23,10 @@ class Order(db.Model):
     def find_by_number(cls, number):
         return cls.query.filter_by(number=number).first()
 
+    @classmethod
+    def find_by_user_id(cls, psid):
+        return cls.query.filter_by(user_id=psid).first()
+
     def add_item(self, name, quantity, _type, notes, price):
         item = {}
         item['name'] = name
@@ -33,11 +37,13 @@ class Order(db.Model):
         self.items.append(item)
         self.total += item['price']
 
-    def confirm(self):
-        self.is_confirmed = True
+    def add(self):
         db.session.add(self)
         db.session.commit()
 
     def cancel(self):
         db.session.delete(self)
         db.session.commit()
+
+    def confirm(self):
+        self.is_confirmed = True
