@@ -5,12 +5,12 @@ import random
 class Order(db.Model):
     __tablename__ = 'orders'
     id = db.Column(db.Integer, primary_key=True)
-    number = db.Column(db.Integer)
+    number = db.Column(db.Integer, unique=True)
     items = db.Column(db.PickleType)
     total = db.Column(db.Float(precision=2))
     is_confirmed = db.Column(db.Boolean, default=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.psid'))
-    user = db.relationship('User')
+    user_id = db.Column(db.Integer, db.ForeignKey('users.psid'), unique=True)
+    user = db.relationship('User', unique=True)
 
     def __init__(self, user_id):
         self.user_id = user_id
