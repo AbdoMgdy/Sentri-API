@@ -54,15 +54,17 @@ def handle_incoming_messages():
             global sender_id
             sender_id = messaging[0]['sender']['id']
             user = User.find_by_psid(sender_id)
-            print(user.first_name)
+
             if user is None:
                 first = handle_first_time(sender_id)
                 user = first[0]
                 new_order = first[1]
                 global order_number
                 order_number = new_order.number
+                print(user.first_name)
             elif user and len(user.orders) > 0:
                 last_order = user.orders[-1]
+                print(user.first_name)
                 if last_order.is_confirmed:
                     new_order = Order(sender_id)
                     new_order.add()
