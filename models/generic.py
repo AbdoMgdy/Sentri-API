@@ -13,7 +13,7 @@ ELEMENTS_LIMIT = 10
 
 
 class GenericTemplate(Bot):
-    def __init__(self, quick_replies=None, parent=None, children=None):
+    def __init__(self):
         super().__init__()
         self.elements = []
 
@@ -31,7 +31,7 @@ class GenericTemplate(Bot):
         if len(self.elements) < ELEMENTS_LIMIT:
             self.elements.append(element)
 
-     def add_quick_replies(self, **kwargs):
+    def add_quick_replies(self, **kwargs):
         for title, paylod in kwargs.items():
             if len(self.quick_replies) < QUICK_REPLIES_LIMIT:
                 quick_reply = {}
@@ -40,7 +40,7 @@ class GenericTemplate(Bot):
                 quick_reply['title'] = title[:TITLE_CHARACTER_LIMIT]
                 quick_reply['payload'] = json.dumps(
                     paylod)[:PAYLOAD_CHARACTER_LIMIT]
-                self.quick_replies.append(quick_reply)        
+                self.quick_replies.append(quick_reply)
 
     def send(self, reciepiant_id):
         super().send_generic_message(reciepiant_id, self.elements, self.quick_replies)

@@ -58,7 +58,7 @@ def handle_incoming_messages():
 
                 user = User.find_by_psid(sender_id)
                 order = Order(sender_id)
-                if not user:
+                if user == None:
                     user = User(sender_id)
                     user.get_info()
                     user.add()
