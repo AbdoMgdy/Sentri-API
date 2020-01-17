@@ -1,0 +1,59 @@
+{% extends "layout.jinja" %}
+
+
+
+{% block content %}
+
+
+<!-- Material form contact -->
+<div class="card">
+
+    <h5 class="card-header warning-color-dark white-text text-center py-4">
+        <strong>{{order_name}}</strong>
+    </h5>
+
+    <!--Card content-->
+    <div class="card-body px-lg-5 pt-0">
+
+        <!-- Form -->
+        <form class="text-center" style="color: #757575;" action="/submit" method="POST">
+
+            <!-- Name -->
+            <div class="md-form mt-3">
+            <span>سبايسي أم عادي؟</span>
+                <select class="custom-select">
+                 <option value="1" selected>Normal عادي</option>
+                 <option value="2">Spicy سبايسي</option>
+                </select>
+            </div>
+
+
+            <!-- Quantity -->
+            <div class="md-form mt-3">
+            <span>Quantity الكمية</span>
+            <select class="custom-select">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">4</option>
+                <option value="4">5</option>
+            </select>
+            </div>
+
+            <!--Notes-->
+            <div class="md-form">
+                <span>ملحوظة</span>
+                <input type="text" name="notes" id="form1" class="form-control" placeholder="مثال 3 قطع سبايسي فقط او بدون بصل">
+    
+            </div>
+
+            <!-- Send button -->
+            <button class="btn btn-warning btn-block z-depth-0 my-4 waves-effect" type="submit">Confirm تأكيد</button>
+
+        </form>
+        <!-- Form -->
+
+    </div>
+
+</div>
+
+{% endblock content %}

@@ -26,7 +26,7 @@ class Bot:
 
         self.api_version = kwargs.get('api_version') or DEFAULT_API_VERSION
         self.app_secret = kwargs.get('app_secret')
-        self.graph_url = 'https://graph.facebook.com/v{0}'.format(self.api_version)
+        self.graph_url = 'https://graph.facebook.com/v{}'.format(self.api_version)
         self.access_token = kwargs.get('access_token') or ACCESS_TOKEN
 
     @property
@@ -42,7 +42,7 @@ class Bot:
         return self._auth_args
 
     def send_raw(self, payload, time_out=None):
-        request_endpoint = '{0}/me/messages'.format(self.graph_url)
+        request_endpoint = '{}/me/messages'.format(self.graph_url)
         response = requests.post(
             request_endpoint,
             params=self.auth_args,

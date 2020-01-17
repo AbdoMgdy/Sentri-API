@@ -1,6 +1,5 @@
 import json
 from models.bot import Bot
-from anytree import NodeMixin
 from copy import deepcopy as copy
 
 
@@ -21,14 +20,11 @@ template = {
 }
 
 
-class ButtonTemplate(Bot, NodeMixin):
+class ButtonTemplate(Bot):
     def __init__(self, text='', quick_replies=None, parent=None, children=None):
         if text != '':
             self.text = text
         self.buttons = []
-        self.parent = parent
-        if children:
-            self.children = children
         if quick_replies:
             self.quick_replies = quick_replies     
 

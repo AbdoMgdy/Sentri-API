@@ -1,0 +1,47 @@
+{% extends "layout.jinja" %}
+
+
+
+{% block content %}
+
+
+<!-- Material form contact -->
+<div class="card">
+
+    <h5 class="card-header warning-color-dark white-text text-center py-4">
+        <strong>{{item}}</strong>
+    </h5>
+
+    <!--Card content-->
+    <div class="card-body px-lg-5 pt-0">
+
+        <!-- Form -->
+        <form class="text-center" style="color: #757575;" action="/success" method="POST">
+            {{ form.csrf_token }}
+            <!-- Name -->
+            <div class="mt-5">
+               {{ form.spicy.label }} {{ form.spicy(dir="rtl",class="custom-select") }}
+            </div>
+
+
+            <!-- Quantity -->
+            <div class="mt-5">
+            {{ form.quantity.label }} {{ form.quantity(dir="rtl",class="custom-select") }}
+            </div>
+
+            <!--Notes-->
+            <div class="md-form mt-5">
+            {{form.notes.label(style="margin-left:50%")}} {{form.notes(dir="rtl",class="form-control")}}
+            </div>
+
+            <!-- Send button -->
+            <button class="btn btn-warning btn-block z-depth-0 my-4 waves-effect" type="submit" id="submitButton">Confirm تأكيد</button>
+
+        </form>
+        <!-- Form -->
+
+    </div>
+
+</div>
+
+{% endblock content %}
