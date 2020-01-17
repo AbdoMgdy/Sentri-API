@@ -6,7 +6,7 @@ from models.bot import Bot
 class User(Bot, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    psid = db.Column(db.Integer)
+    psid = db.Column(db.Integer, unique=True)
     first_name = db.Column(db.String(80))
     last_name = db.Column(db.String(80))
     phone_number = db.Column(db.Integer)
