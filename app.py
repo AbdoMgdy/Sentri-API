@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 from models.user import User
 from models.order import Order
 from models.bot import Bot
@@ -100,16 +100,26 @@ def handle_incoming_messages():
 def show_webview(item):
     form = OrderForm()
     if form.validate_on_submit():
-        qty = form.quantity.data
-        spicy = form.spicy.data
-        notes = form.notes.data
-        print(qty)
-        order = Order.find_by_number(order_number)
-        if not order.is_confirmed:
-            order.add_item(item, qty, spicy, notes)
-        main_menu.send(sender_id)
-        return 'ok', 200
+        redirect('/add_to_order/{}'.format(item))
     return render_template('order.jinja', item=item, form=form)
+
+
+@app.route('/add_to_order/<string:item>', methods=['POST'])
+def save(item):
+    qty = request.form.get('quantity')
+    spicy = request.form.get('spicy')
+    notes = request.form.get('notes')
+    print(item)
+    print(qty)
+    print(spicy)
+    print(notes)
+    main_menu.send(sender_id)
+    return 'ok', 200
+    # order = Order.find_by_number(order_number)
+    # if not order.is_confirmed:
+    #     order.add_item('item', qty, spicy, notes)
+    #     main_menu.send(sender_id)
+    #     return 'ok', 200
 
 
 @app.route('/confirm_order', methods=['POST'])
@@ -117,17 +127,6 @@ def confirm_order():
     order = Order.find_by_number(order_number)
     if not order.is_confirmed:
         order.confirm
-
-
-@app.after_request
-def after(response):
-    # todo with response
-    print(response.status)
-    print(response.data)
-    print(response.get_json())
-    print(response.headers)
-    print(response.get_data())
-    return response
 
 
 if __name__ == "__main__":

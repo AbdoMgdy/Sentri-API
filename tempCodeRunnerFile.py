@@ -1,1 +1,1 @@
-if not user
+form = OrderForm()
