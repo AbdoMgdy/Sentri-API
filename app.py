@@ -66,7 +66,7 @@ def handle_incoming_messages():
                     global order_number
                     order_number = order['number']
                 elif user.orders:
-                    if not user.order[-1].is_confirmed:
+                    if not user.orders[-1].is_confirmed:
                         order_number = user.order[-1]['number']
 
                 if messaging_event.get('message'):
@@ -109,12 +109,8 @@ def save(item):
     qty = request.form.get('quantity')
     spicy = request.form.get('spicy')
     notes = request.form.get('notes')
-    print(item)
-    print(qty)
-    print(spicy)
-    print(notes)
-    main_menu.send(sender_id)
-    return 'ok', 200
+    print(item, qty, spicy, notes)
+    return '{} was added to order'.format(item), 200
     # order = Order.find_by_number(order_number)
     # if not order.is_confirmed:
     #     order.add_item('item', qty, spicy, notes)
