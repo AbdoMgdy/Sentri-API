@@ -10,7 +10,7 @@ class Order(db.Model):
     total = db.Column(db.Float(precision=2))
     is_confirmed = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.psid'), unique=True)
-    user = db.relationship('User', unique=True)
+    user = db.relationship('User')
 
     def __init__(self, user_id):
         self.user_id = user_id
