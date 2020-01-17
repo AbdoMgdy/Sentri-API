@@ -1,8 +1,5 @@
 import os
 from flask import Flask, request, g, render_template, redirect
-import json
-import anytree
-import requests
 from models.user import User
 from models.order import Order
 from models.bot import Bot
@@ -28,7 +25,7 @@ blocks = {
     'family_menu': family_menu
 }
 
-#sender_id = ''
+sender_id = ''
 order_number = ''
 
 
@@ -54,17 +51,17 @@ def handle_incoming_messages():
 
             for messaging_event in messaging:
 
-                #global sender_id
+                global sender_id
                 sender_id = messaging_event['sender']['id']
-                user = User.find_by_psid(sender_id)
-                order = Order(sender_id)
-                if not user:
-                    user = User(sender_id)
-                    user.get_info()
-                    user.add()
-                if not user.orders:
-                    global order_number
-                    order_number = order['number']
+                # user = User.find_by_psid(sender_id)
+                # order = Order(sender_id)
+                # if not user:
+                #     user = User(sender_id)
+                #     user.get_info()
+                #     user.add()
+                # if not user.orders:
+                #     global order_number
+                #     order_number = order['number']
 
                 if messaging_event.get('message'):
                     # HANDLE QUICK REPLIES HERE
@@ -80,7 +77,7 @@ def handle_incoming_messages():
                     if messaging_event['message'].get('text'):
                         bot.send_before_message(sender_id)
                         main_menu.send(sender_id)
-                        return "ok", 200
+                        return "text", 200
                 elif messaging_event.get('postback'):
                     # HANDLE POSTBACK HERE
                     print('hi p')
