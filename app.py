@@ -52,7 +52,7 @@ def handle_incoming_messages():
             messaging = entry['messaging']
 
             global sender_id
-            sender_id = messaging['sender']['id']
+            sender_id = messaging[0]['sender']['id']
             user = User.find_by_psid(sender_id)
             if user is None:
                 first = handle_first_time(sender_id)
