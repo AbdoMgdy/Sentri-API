@@ -73,10 +73,9 @@ def handle_incoming_messages():
                         block = blocks[block_name]
                         block.send(sender_id)
                         return "ok", 200
-
+                        print(sender_id)
                     # HANDLE TEXT MESSAGES HERE
                     if messaging_event['message'].get('text'):
-						print(sender_id)
                         bot.send_before_message(sender_id)
                         main_menu.send(sender_id)
                         return "text", 200
