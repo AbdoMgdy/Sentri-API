@@ -29,8 +29,6 @@ blocks = {
 sender_id= ''
 order_number = ''
 
-orders = {}
-
 
 @app.route('/', methods=['GET'])
 def verify():

@@ -4,4 +4,6 @@ requests
 requests_toolbelt
 six
 anytree
+flask_wtf
+psycopg2
 flask_sqlalchemy
