@@ -53,6 +53,7 @@ def handle_incoming_messages():
 
                 # global sender_id
                 sender_id = messaging_event['sender']['id']
+                print(sender_id)
                 # user = User.find_by_psid(sender_id)
                 # order = Order(sender_id)
                 # if not user:
@@ -75,6 +76,7 @@ def handle_incoming_messages():
 
                     # HANDLE TEXT MESSAGES HERE
                     if messaging_event['message'].get('text'):
+						print(sender_id)
                         bot.send_before_message(sender_id)
                         main_menu.send(sender_id)
                         return "text", 200
