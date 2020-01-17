@@ -19,7 +19,7 @@ class ButtonTemplate(Bot):
             web_url_button['type'] = 'web_url'
             web_url_button['url'] = url
             web_url_button['title'] = title
-            web_url_button['webview_hight_ratio'] = 'tall'
+            web_url_button['webview_height_ratio'] = 'tall'
             web_url_button['messenger_extensions'] = 'true'
             self.buttons.append(web_url_button)
 
