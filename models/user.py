@@ -1,5 +1,5 @@
 from db import db
-from sqlalchemy.dialects.postgresql import
+from sqlalchemy.dialects.postgresql
 import requests
 from models.bot import Bot
 
