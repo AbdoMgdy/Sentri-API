@@ -120,7 +120,8 @@ def save(item):
 def confirm_order():
     order = Order.find_by_number(order_number)
     if not order.is_confirmed:
-        order.confirm
+        order.confirm()
+    return 'Order Confirmed', 200
 
 
 def handle_first_time(sender_id):
