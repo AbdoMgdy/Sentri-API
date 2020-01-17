@@ -1,23 +1,8 @@
 import json
 from models.bot import Bot
-from copy import deepcopy as copy
 
 
 TEXT_CHARACTER_LIMIT = 640
-
-template = {
-    'template_type': 'button',
-    'value': {
-        'attachment': {
-            'type': 'template',
-            'payload': {
-                'template_type': 'button',
-                'text': '',
-                'buttons': []
-            }
-        }
-    }
-}
 
 
 class ButtonTemplate(Bot):
@@ -26,7 +11,7 @@ class ButtonTemplate(Bot):
             self.text = text
         self.buttons = []
         if quick_replies:
-            self.quick_replies = quick_replies     
+            self.quick_replies = quick_replies
 
     def add_web_url(self, **kwargs):
         for title, url in kwargs.items():
@@ -38,8 +23,8 @@ class ButtonTemplate(Bot):
             self.buttons.append(web_url_button)
 
     def add_postback(self, **kwargs):
-        #pass post back buttons as **dict
-        for title , payload in kwargs.items():    
+        # pass post back buttons as **dict
+        for title, payload in kwargs.items():
             postback_button = {}
             postback_button['type'] = 'postback'
             postback_button['title'] = title
@@ -47,5 +32,5 @@ class ButtonTemplate(Bot):
             self.buttons.append(postback_button)
 
     def send(self, reciepiant_id):
-        super().send_button_message(reciepiant_id, self.text,self.buttons, self.quick_replies)    
-
+        super().send_button_message(reciepiant_id,
+                                    self.text, self.buttons, self.quick_replies)

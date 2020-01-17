@@ -43,7 +43,6 @@ def verify():
 def handle_incoming_messages():
     print(request.data)
 
-    print(main_menu.elements)
     data = request.get_json()
 
     if data['object'] == "page":
