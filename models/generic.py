@@ -1,8 +1,6 @@
-from copy import deepcopy as copy
 from models.bot import Bot
-import json
 from models.quick_replies import QuickReplies
-from anytree import NodeMixin
+
 
 TITLE_CHARACTER_LIMIT = 80
 SUBTITLE_CHARACTER_LIMIT = 80
@@ -10,22 +8,8 @@ BUTTON_TITLE_CHARACTER_LIMIT = 20
 BUTTON_LIMIT = 3
 ELEMENTS_LIMIT = 10
 
-# template = {
-#     "template_type": "generic",
-#     "value": {
-#         "attachment": {
-#             "type": "template",
-#             "payload": {
-#                 "template_type": "generic",
-#                 "image_aspect_ratio": "horizontal",
-#                 "elements": []
-#             }
-#         }
-#     }
-# }
 
-
-class GenericTemplate(Bot, NodeMixin):
+class GenericTemplate(Bot):
     def __init__(self, quick_replies=None, parent=None, children=None):
         super().__init__()
         self.elements = []
