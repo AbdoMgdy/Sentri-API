@@ -9,7 +9,7 @@ class Order(db.Model):
     items = db.Column(db.PickleType)
     total = db.Column(db.Float(precision=2))
     is_confirmed = db.Column(db.Boolean, default=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.psid'), unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.psid'))
     user = db.relationship('User')
 
     def __init__(self, user_id):

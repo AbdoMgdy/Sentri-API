@@ -5,6 +5,8 @@ from models.bot import Bot
 
 class User(Bot, db.Model):
     __tablename__ = 'users'
+    __table_args__ = (db.UniqueConstraint('psid', 'orders', name='unique_user_orders'),
+                      )
     id = db.Column(db.Integer, primary_key=True)
     psid = db.Column(db.Integer, unique=True)
     first_name = db.Column(db.String(80))
