@@ -8,7 +8,7 @@ class User(Bot, db.Model):
     __table_args__ = (db.UniqueConstraint('psid', 'id', name='unique_user_orders'),
                       )
     id = db.Column(db.Integer, primary_key=True)
-    psid = db.Column(db.Integer, unique=True)
+    psid = db.Column(db.String, unique=True)
     first_name = db.Column(db.String(80))
     last_name = db.Column(db.String(80))
     phone_number = db.Column(db.Integer)
