@@ -2,7 +2,7 @@ from db import db
 import requests
 from models.bot import Bot
 
-class User(db.Model, Bot):
+class User(Bot, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
