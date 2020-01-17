@@ -116,5 +116,16 @@ def confirm_order():
         order.confirm
 
 
+@app.after_request
+def after(response):
+    # todo with response
+    print(response.status)
+    print(response.data)
+    print(response.get_json())
+    print(response.headers)
+    print(response.get_data())
+    return response
+
+
 if __name__ == "__main__":
     app.run()
