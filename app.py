@@ -106,7 +106,10 @@ def show_webview(item, price):
     form = OrderForm()
     if form.validate_on_submit():
         print(item, price)
-        url = '/add_to_order/{}/{:10.2f}'.format(item, price).replace(' ', '')
+        url = '/add_to_order/{}/{:10.2f}'.format(
+            item, float(price)).replace(' ', '')
+        print(url_for(url))
+        print(url)
         redirect(url_for(url))
     return render_template('order.jinja', item=item, form=form)
 
@@ -155,4 +158,4 @@ def handle_first_time(sender_id):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
