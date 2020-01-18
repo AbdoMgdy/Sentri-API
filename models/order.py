@@ -11,10 +11,10 @@ class Order(db.Model):
     items = db.Column(db.JSON)
     total = db.Column(db.Float(precision=2))
     is_confirmed = db.Column(db.Boolean, default=False)
-    user_id = db.Column(db.String, db.ForeignKey('users.psid'))
+    psid = db.Column(db.String, db.ForeignKey('users.psid'))
 
-    def __init__(self, user_id):
-        self.user_id = user_id
+    def __init__(self, psid):
+        self.psid = psid
         self.number = random.randint(1000, 99999)
         self.items = []
         self.total = 0

@@ -140,7 +140,7 @@ def search_results():
     orders = Order.query.all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
-    table = Results(orders)
+    print(output)
     return render_template('show orders.jinja', rows=output)
 
 
