@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template
 from models.user import User
 from models.order import Order, OrderSchema
 from models.bot import Bot

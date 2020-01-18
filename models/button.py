@@ -6,11 +6,10 @@ TEXT_CHARACTER_LIMIT = 640
 
 
 class ButtonTemplate(Bot):
-    def __init__(self, quick_replies=None):
+    def __init__(self):
         self.text = ''
         self.buttons = []
-        if quick_replies:
-            self.quick_replies = quick_replies
+        self.quick_replies = []
 
     def set_text(self, text):
         self.text = text

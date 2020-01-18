@@ -7,7 +7,8 @@ from models import utils
 
 DEFAULT_API_VERSION = 5.0
 ACCESS_TOKEN = "EAAF5Cd9fC3YBAM6xq5cOHfuvDnjKCJcl409P2bs8ZBxSP6xyZAm9VHJMIICvlUkhPYtZAIS0DF3aQixvzf1zbnmeZBZADdA5MgnX2jjQZBrFUUG0MVl0gx4RRhheiBsLPklwZCQfWtEFNNBNZBuE1jNwxVbs1479a3CiLniB3q5akwZDZD"
-                     
+
+
 class NotificationType(Enum):
     regular = "REGULAR"
     silent_push = "SILENT_PUSH"
@@ -26,7 +27,8 @@ class Bot:
 
         self.api_version = kwargs.get('api_version') or DEFAULT_API_VERSION
         self.app_secret = kwargs.get('app_secret')
-        self.graph_url = 'https://graph.facebook.com/v{}'.format(self.api_version)
+        self.graph_url = 'https://graph.facebook.com/v{}'.format(
+            self.api_version)
         self.access_token = kwargs.get('access_token') or ACCESS_TOKEN
 
     @property
@@ -36,7 +38,8 @@ class Bot:
                 'access_token': self.access_token
             }
             if self.app_secret is not None:
-                appsecret_proof = utils.generate_appsecret_proof(self.access_token, self.app_secret)
+                appsecret_proof = utils.generate_appsecret_proof(
+                    self.access_token, self.app_secret)
                 auth['appsecret_proof'] = appsecret_proof
             self._auth_args = auth
         return self._auth_args
@@ -47,7 +50,7 @@ class Bot:
             request_endpoint,
             params=self.auth_args,
             json=payload,
-            timeout=time_out   
+            timeout=time_out
         )
         result = response.json()
         return result
@@ -335,8 +338,8 @@ class Bot:
         request_endpoint = '{0}/me/messenger_profile'.format(self.graph_url)
         response = requests.post(
             request_endpoint,
-            params = self.auth_args,
-            json = gs_obj
+            params=self.auth_args,
+            json=gs_obj
         )
         result = response.json()
         return result
@@ -352,44 +355,45 @@ class Bot:
         request_endpoint = '{0}/me/messenger_profile'.format(self.graph_url)
         response = requests.post(
             request_endpoint,
-            params = self.auth_args,
-            json = pm_obj
+            params=self.auth_args,
+            json=pm_obj
         )
         result = response.json()
         return result
 
     def remove_get_started(self):
-            """delete get started button.
-            https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/#delete
-            Output:
-            Response from API as <dict>
-            """
-            delete_obj = {"fields": ["get_started"]}
-            request_endpoint = '{0}/me/messenger_profile'.format(self.graph_url)
-            response = requests.delete(
-                request_endpoint,
-                params = self.auth_args,
-                json = delete_obj
-            )
-            result = response.json()
-            return result
+        """delete get started button.
+        https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/#delete
+        Output:
+        Response from API as <dict>
+        """
+        delete_obj = {"fields": ["get_started"]}
+        request_endpoint = '{0}/me/messenger_profile'.format(self.graph_url)
+        response = requests.delete(
+            request_endpoint,
+            params=self.auth_args,
+            json=delete_obj
+        )
+        result = response.json()
+        return result
 
     def remove_persistent_menu(self):
-            """delete persistent menu.
-            https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/#delete
-            Output:
-            Response from API as <dict>
-            """
-            delete_obj = {"fields": ["persistent_menu"]}
-            request_endpoint = '{0}/me/messenger_profile'.format(self.graph_url)
-            response = requests.delete(
-                request_endpoint,
-                params = self.auth_args,
-                json = delete_obj
-            )
-            result = response.json()
-            return result
-    #Custom Made
+        """delete persistent menu.
+        https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/#delete
+        Output:
+        Response from API as <dict>
+        """
+        delete_obj = {"fields": ["persistent_menu"]}
+        request_endpoint = '{0}/me/messenger_profile'.format(self.graph_url)
+        response = requests.delete(
+            request_endpoint,
+            params=self.auth_args,
+            json=delete_obj
+        )
+        result = response.json()
+        return result
+    # Custom Made
+
     def send_before_message(self, recipient_id):
         self.send_action(recipient_id, 'mark_seen', time_out=1)
         self.send_action(recipient_id, 'typing_on', time_out=2)
