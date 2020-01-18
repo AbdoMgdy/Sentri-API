@@ -10,5 +10,3 @@ burger_btn.add_web_url(
 
 
 confirm_block = ButtonTemplate()
-confirm_block.set_text('Confimed')
-confirm_block.add_postback(**{'Confirm': 'Order_Confirmed'})
