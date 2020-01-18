@@ -2,7 +2,13 @@ import json
 from models.bot import Bot
 
 
-TEXT_CHARACTER_LIMIT = 640
+QUICK_REPLIES_LIMIT = 11
+TITLE_CHARACTER_LIMIT = 20
+PAYLOAD_CHARACTER_LIMIT = 1000
+TITLE_CHARACTER_LIMIT = 80
+SUBTITLE_CHARACTER_LIMIT = 80
+BUTTON_TITLE_CHARACTER_LIMIT = 20
+BUTTON_LIMIT = 3
 
 
 class ButtonTemplate(Bot):
@@ -34,6 +40,17 @@ class ButtonTemplate(Bot):
             postback_button['payload'] = json.dumps(payload)
             self.buttons.append(postback_button)
 
+    def add_quick_replies(self, **kwargs):
+        for title, paylod in kwargs.items():
+            if len(self.quick_replies) < QUICK_REPLIES_LIMIT:
+                quick_reply = {}
+                # TODO: location + image_url
+                quick_reply['content_type'] = 'text'
+                quick_reply['title'] = title[:TITLE_CHARACTER_LIMIT]
+                quick_reply['payload'] = json.dumps(
+                    paylod)[:PAYLOAD_CHARACTER_LIMIT]
+                self.quick_replies.append(quick_reply)
+
     def send(self, reciepiant_id):
         super().send_button_message(reciepiant_id,
-                                    self.text, self.buttons, self.quick_replies)
+                                    self.text, self.buttons)
