@@ -6,12 +6,14 @@ TEXT_CHARACTER_LIMIT = 640
 
 
 class ButtonTemplate(Bot):
-    def __init__(self, text='', quick_replies=None, parent=None, children=None):
-        if text != '':
-            self.text = text
+    def __init__(self, quick_replies=None):
+        self.text = ''
         self.buttons = []
         if quick_replies:
             self.quick_replies = quick_replies
+
+    def set_text(self, text):
+        self.text = text
 
     def add_web_url(self, **kwargs):
         for title, url in kwargs.items():

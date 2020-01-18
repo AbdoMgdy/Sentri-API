@@ -4,8 +4,7 @@ from models.user import User
 from models.order import Order, OrderSchema
 from models.bot import Bot
 from forms import OrderForm
-
-
+from resources.buttons import confirm_block
 from resources.menu import main_menu, family_menu
 
 
@@ -104,13 +103,6 @@ def handle_incoming_messages():
 @app.route('/webview/order/<string:item>/<float:price>', methods=['GET', 'POST'])
 def show_webview(item, price):
     form = OrderForm()
-    if form.validate_on_submit():
-        print(item, price)
-        url = '/add_to_order/{}/{:10.2f}'.format(
-            item, float(price)).replace(' ', '')
-        print(url_for(url))
-        print(url)
-        redirect(url_for(url))
     return render_template('order.jinja', item=item, form=form, price=price)
 
 
@@ -128,11 +120,15 @@ def save(item, price):
 
     if order is None:
         order = Order(sender_id)
+        order.add_item(item, qty, spicy, notes, price)
+        order.save()
+        confirm_block.send()
 
     if not order.is_confirmed:
         order.add_item(item, qty, spicy, notes, price)
         order.save()
         print('added to DB')
+        confirm_block.send()
     return 'Item added to Order', 200
 
 
