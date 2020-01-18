@@ -34,10 +34,10 @@ class Order(db.Model):
         item['quantity'] = float(quantity)
         item['type'] = _type
         item['notes'] = notes
-        item['price'] = price
+        item['price'] = float(price)
         # j_item = json.dumps(item)
         self.items.update(item)
-        self.total += float(price * quantity)
+        self.total += price * quantity
         self.save()
 
     def save(self):
