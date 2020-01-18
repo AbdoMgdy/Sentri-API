@@ -106,7 +106,8 @@ def show_webview(item, price):
     form = OrderForm()
     if form.validate_on_submit():
         print(item, price)
-        redirect('/add_to_order/{}/{1:9.3f}'.format(item, price))
+        url = '/add_to_order/{}/{:10.2f}'.format(item, price).replace(' ', '')
+        redirect(url)
     return render_template('order.jinja', item=item, form=form)
 
 
