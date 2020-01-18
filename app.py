@@ -86,7 +86,7 @@ def handle_incoming_messages():
                     # HANDLE TEXT MESSAGES HERE
                     if messaging_event['message'].get('text'):
                         bot.send_before_message(sender_id)
-                        main_menu.send(sender_id)
+                        confirm_block.send(sender_id)
                         return "text", 200
                 elif messaging_event.get('postback'):
                     # HANDLE POSTBACK HERE
@@ -119,8 +119,6 @@ def save(item, price):
     print(order.number)
 
     text = '{} was added to your order Your toatl {}'.format(item, order.total)
-    confirm_block.set_text(text)
-    confirm_block.add_postback(**{'Confirm': 'Order_Confirmed'})
 
     if order is None:
         order = Order(sender_id)
@@ -133,7 +131,7 @@ def save(item, price):
         print('added to DB')
         print(confirm_block.buttons)
     confirm_block.send(sender_id)
-    return 'Item added to Order', 200
+    # return 'Item added to Order', 200
 
 
 @app.route('/confirm_order', methods=['POST'])
