@@ -131,6 +131,7 @@ def save(item, price):
         order.add_item(item, qty, spicy, notes, price)
         order.save()
         print('added to DB')
+        print(confirm_block.buttons)
     confirm_block.send(sender_id)
     return 'Item added to Order', 200
 
