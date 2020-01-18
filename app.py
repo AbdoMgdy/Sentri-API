@@ -105,6 +105,7 @@ def handle_incoming_messages():
 def show_webview(item, price):
     form = OrderForm()
     if form.validate_on_submit():
+        print(item, price)
         redirect('/add_to_order/{}/{}'.format(item, price))
     return render_template('order.jinja', item=item, form=form)
 

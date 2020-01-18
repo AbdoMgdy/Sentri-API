@@ -1,6 +1,6 @@
 from db import db, ma
 from sqlalchemy.dialects.postgresql import JSONB
-import json
+from sqlalchemy.orm.attributes import flag_modified
 import random
 
 
@@ -38,7 +38,8 @@ class Order(db.Model):
         item['price'] = price
         # j_item = json.dumps(item)
         self.items.append(item)
-        self.total += float(item['price'])
+        self.total += float(price * quantity)
+        flag_modified(self, 'items')
         self.save()
 
     def save(self):
