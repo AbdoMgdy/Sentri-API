@@ -1,12 +1,12 @@
 import os
 from flask import Flask, request, render_template, redirect
-from models.user import User
-from models.order import Order
+from models.user import User, UserSchema
+from models.order import Order, OrderSchema
 from models.bot import Bot
 from forms import OrderForm
 from tables import Results
 
-from resources.menu import *
+from resources.menu import main_menu, family_menu
 
 
 app = Flask(__name__, template_folder='templates')

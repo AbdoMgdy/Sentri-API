@@ -1,4 +1,4 @@
-from db import db
+from db import db, ma
 import requests
 from models.bot import Bot
 
@@ -44,3 +44,8 @@ class User(Bot, db.Model):
     def remove(self):
         db.session.remove(self)
         db.session.commit()
+
+
+class UserSchema(ma.ModelSchema):
+    class Meta:
+        User

@@ -1,4 +1,5 @@
-from db import db
+from db import db, ma
+import json
 import random
 
 
@@ -7,7 +8,7 @@ class Order(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     number = db.Column(db.Integer, unique=True)
-    items = db.Column(db.JSON())
+    items = db.Column(db.JSONB)
     total = db.Column(db.Float(precision=2))
     is_confirmed = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.String, db.ForeignKey('users.psid'))
@@ -34,7 +35,8 @@ class Order(db.Model):
         item['type'] = _type
         item['notes'] = notes
         item['price'] = price
-        self.items.append(item)
+        j_item = json.dumps(item)
+        self.items.append(j_item)
         self.total += float(item['price'])
 
     def add(self):
@@ -47,3 +49,8 @@ class Order(db.Model):
 
     def confirm(self):
         self.is_confirmed = True
+
+
+class OrderSchema(ma.ModelSchema):
+    class Meta:
+        Order
