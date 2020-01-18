@@ -7,4 +7,5 @@ anytree
 flask_wtf
 psycopg2
 flask_sqlalchemy
+flask_marshmallow
 flask_table
