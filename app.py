@@ -153,6 +153,7 @@ def handle_first_time(sender_id):
     new_user = User(sender_id)
     new_user.save()
     new_order = Order(sender_id)
+    new_order.add_item('Pizza', 3, 'Spicy', '', 49.99)
     new_order.save()
     return new_user, new_order
 
