@@ -48,4 +48,4 @@ class User(Bot, db.Model):
 
 class UserSchema(ma.ModelSchema):
     class Meta:
-        model = User
+        User

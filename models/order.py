@@ -53,4 +53,4 @@ class Order(db.Model):
 
 class OrderSchema(ma.ModelSchema):
     class Meta:
-        model = Order
+        Order
