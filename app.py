@@ -101,11 +101,11 @@ def handle_incoming_messages():
     return "ok", 200
 
 
-@app.route('/webview/order/<string:item>', methods=['GET', 'POST'])
-def show_webview(item):
+@app.route('/webview/order/<string:item>/<float:price>', methods=['GET', 'POST'])
+def show_webview(item, price):
     form = OrderForm()
     if form.validate_on_submit():
-        redirect('/add_to_order/{}'.format(item))
+        redirect('/add_to_order/{}/{}'.format(item, price))
     return render_template('order.jinja', item=item, form=form)
 
 
