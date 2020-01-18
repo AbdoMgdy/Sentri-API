@@ -4,16 +4,8 @@
 
 {% block content %}
 
-{% for row in rows %}
-
-<tr>
-<td>{{row.user_id}}</td>
-<td>{{row.number}}</td>
-<td>{{row.items}}</td>
-<td>{{row[0]}}</td>
-<td>{{row[1]}}</td>
-</tr>
-
-{% endfor %}
+<tr>{{rows[0]}}<tr>
+<tr>{{rows[1]}}<tr>
+<tr>{{rows[2]}}<tr>
 
 {% endblock content %}
