@@ -1,6 +1,6 @@
 from db import db, ma
 from sqlalchemy.dialects.postgresql import JSONB
-from sqlalchemy.orm.attributes import flag_modified
+from sqlalchemy.ext.mutable import MutableDict
 import random
 
 
@@ -9,7 +9,7 @@ class Order(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     number = db.Column(db.Integer, unique=True)
-    items = db.Column(JSONB)
+    items = db.Column(MutableDict.as_mutable(JSONB))
     total = db.Column(db.Float(precision=2))
     is_confirmed = db.Column(db.Boolean, default=False)
     psid = db.Column(db.String, db.ForeignKey('users.psid'))
@@ -39,7 +39,6 @@ class Order(db.Model):
         # j_item = json.dumps(item)
         self.items.append(item)
         self.total += float(price * quantity)
-        flag_modified(self, 'items')
         self.save()
 
     def save(self):
