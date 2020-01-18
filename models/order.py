@@ -2,13 +2,14 @@ from db import db
 import random
 
 
+
 class Order(db.Model):
     __tablename__ = 'orders'
     __table_args__ = (db.UniqueConstraint('user_id', 'number', name='unique_number_user_id'),
                       )
     id = db.Column(db.Integer, primary_key=True)
     number = db.Column(db.Integer, unique=True)
-    items = db.Column(db.PickleType)
+    items = db.Column(db.JSON())
     total = db.Column(db.Float(precision=2))
     is_confirmed = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.String, db.ForeignKey('users.psid'))
