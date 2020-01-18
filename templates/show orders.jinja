@@ -3,9 +3,11 @@
 
 
 {% block content %}
+{% for row in rows %}
+<tr>{{row.items}}<tr>
+<tr>{{row.number}}<tr>
+<tr>{{row[2]}}<tr>
+{% endfor %}
 
-<tr>{{rows[0]}}<tr>
-<tr>{{rows[1]}}<tr>
-<tr>{{rows[2]}}<tr>
 
 {% endblock content %}
