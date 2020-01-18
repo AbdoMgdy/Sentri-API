@@ -119,8 +119,12 @@ def save(item, price):
     qty = request.form.get('quantity')
     spicy = request.form.get('spicy')
     notes = request.form.get('notes')
-    print(item, qty, spicy, notes)
+    print(item)
+    print(price)
+    print(spicy)
+    print(qty)
     order = Order.find_by_number(order_number)
+    print(order.number)
 
     if order is None:
         order = Order(sender_id)
@@ -128,9 +132,8 @@ def save(item, price):
     if not order.is_confirmed:
         order.add_item(item, qty, spicy, notes, price)
         order.save()
-
         print('added to DB')
-    return '{} was added to order'.format(item), 200
+    return 'Item added to Order', 200
 
 
 @app.route('/confirm_order', methods=['POST'])
