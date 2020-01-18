@@ -17,7 +17,7 @@ class Order(db.Model):
     def __init__(self, psid):
         self.psid = psid
         self.number = random.randint(1000, 99999)
-        self.items = []
+        self.items = {}
         self.total = 0
         self.is_confirmed = False
 
@@ -37,7 +37,7 @@ class Order(db.Model):
         item['notes'] = notes
         item['price'] = price
         # j_item = json.dumps(item)
-        self.items.append(item)
+        self.items.update(item)
         self.total += float(price * quantity)
         self.save()
 
