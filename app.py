@@ -141,7 +141,7 @@ def search_results():
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
     table = Results(orders)
-    return output
+    return render_template('show orders.jinja', rows=output)
 
 
 def handle_first_time(sender_id):
