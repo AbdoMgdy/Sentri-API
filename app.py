@@ -111,7 +111,7 @@ def show_webview(item, price):
         print(url_for(url))
         print(url)
         redirect(url_for(url))
-    return render_template('order.jinja', item=item, form=form)
+    return render_template('order.jinja', item=item, form=form, price=price)
 
 
 @app.route('/add_to_order/<string:item>/<float:price>', methods=['POST'])
