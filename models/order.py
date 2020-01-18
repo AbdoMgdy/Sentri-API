@@ -36,8 +36,8 @@ class Order(db.Model):
         item['type'] = _type
         item['notes'] = notes
         item['price'] = price
-        j_item = json.dumps(item)
-        self.items.append(j_item)
+        # j_item = json.dumps(item)
+        self.items.append(item)
         self.total += float(item['price'])
         self.save()
 

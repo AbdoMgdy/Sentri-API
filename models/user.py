@@ -37,7 +37,7 @@ class User(Bot, db.Model):
         self.first_name = result['first_name']
         self.last_name = result['last_name']
 
-    def add(self):
+    def save(self):
         db.session.add(self)
         db.session.commit()
 

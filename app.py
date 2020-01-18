@@ -119,10 +119,10 @@ def save(item, price):
 
     if order is None:
         order = Order(sender_id)
-        order.add()
+
     if not order.is_confirmed:
         order.add_item(item, qty, spicy, notes, price)
-        order.add()
+
         print('added to DB')
     return '{} was added to order'.format(item), 200
 
@@ -146,9 +146,9 @@ def search_results():
 
 def handle_first_time(sender_id):
     new_user = User(sender_id)
-    new_user.add()
+    new_user.save()
     new_order = Order(sender_id)
-    new_order.add()
+    new_order.save()
     return new_user, new_order
 
 
