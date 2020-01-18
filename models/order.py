@@ -39,8 +39,9 @@ class Order(db.Model):
         j_item = json.dumps(item)
         self.items.append(j_item)
         self.total += float(item['price'])
+        self.save()
 
-    def add(self):
+    def save(self):
         db.session.add(self)
         db.session.commit()
 
@@ -50,6 +51,7 @@ class Order(db.Model):
 
     def confirm(self):
         self.is_confirmed = True
+        self.save()
 
 
 class OrderSchema(ma.ModelSchema):

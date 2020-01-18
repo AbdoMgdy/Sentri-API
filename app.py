@@ -109,8 +109,8 @@ def show_webview(item):
     return render_template('order.jinja', item=item, form=form)
 
 
-@app.route('/add_to_order/<string:item>', methods=['POST'])
-def save(item):
+@app.route('/add_to_order/<string:item>/<float:price>', methods=['POST'])
+def save(item, price):
     qty = request.form.get('quantity')
     spicy = request.form.get('spicy')
     notes = request.form.get('notes')
@@ -121,7 +121,7 @@ def save(item):
         order = Order(sender_id)
         order.add()
     if not order.is_confirmed:
-        order.add_item(item, qty, spicy, notes, 150)
+        order.add_item(item, qty, spicy, notes, price)
         order.add()
         print('added to DB')
     return '{} was added to order'.format(item), 200
