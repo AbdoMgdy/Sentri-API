@@ -133,7 +133,7 @@ class Bot:
             'text': message
         }, notification_type)
 
-    def send_generic_message(self, recipient_id, elements, quick_replies=None, notification_type=NotificationType.regular):
+    def send_generic_message(self, recipient_id, elements, quick_replies=[], notification_type=NotificationType.regular):
         """Send generic messages to the specified recipient.
         https://developers.facebook.com/docs/messenger-platform/send-api-reference/generic-template
         Input:
@@ -142,7 +142,7 @@ class Bot:
         Output:
             Response from API as <dict>
         """
-        if quick_replies is None:
+        if not quick_replies:
             return self.send_message(recipient_id, {
                 "attachment": {
                     "type": "template",
@@ -163,7 +163,7 @@ class Bot:
             "quick_replies": quick_replies
         }, notification_type)
 
-    def send_button_message(self, recipient_id, text, buttons, quick_replies=None, notification_type=NotificationType.regular):
+    def send_button_message(self, recipient_id, text, buttons, quick_replies=[], notification_type=NotificationType.regular):
         """Send text messages to the specified recipient.
         https://developers.facebook.com/docs/messenger-platform/send-api-reference/button-template
         Input:
@@ -173,7 +173,7 @@ class Bot:
         Output:
             Response from API as <dict>
         """
-        if quick_replies is None:
+        if not quick_replies:
             return self.send_message(recipient_id, {
                 "attachment": {
                     "type": "template",
