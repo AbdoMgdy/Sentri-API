@@ -6,6 +6,7 @@ six
 anytree
 flask_wtf
 psycopg2
+sqlalchemy_json
 flask_sqlalchemy
 flask_marshmallow
 marshmallow-sqlalchemy
