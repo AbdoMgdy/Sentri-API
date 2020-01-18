@@ -1,10 +1,10 @@
 import os
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, url_for
 from models.user import User
 from models.order import Order, OrderSchema
 from models.bot import Bot
 from forms import OrderForm
-from tables import Results
+
 
 from resources.menu import main_menu, family_menu
 
@@ -107,7 +107,7 @@ def show_webview(item, price):
     if form.validate_on_submit():
         print(item, price)
         url = '/add_to_order/{}/{:10.2f}'.format(item, price).replace(' ', '')
-        redirect(url)
+        redirect(url_for(url))
     return render_template('order.jinja', item=item, form=form)
 
 
