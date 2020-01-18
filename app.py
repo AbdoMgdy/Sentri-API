@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, render_template, redirect
-from models.user import User, UserSchema
-from models.order import Order, OrderSchema
+from models.user import User
+from models.order import Order
 from models.bot import Bot
 from forms import OrderForm
 from tables import Results

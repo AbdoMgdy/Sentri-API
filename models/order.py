@@ -1,5 +1,6 @@
 from db import db, ma
 import json
+from sqlalchemy.dialects.postgresql import JSONB
 import random
 
 
