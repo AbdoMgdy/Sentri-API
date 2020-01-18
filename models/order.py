@@ -1,6 +1,5 @@
 from db import db, ma
 import json
-from sqlalchemy.dialects.postgresql import JSONB
 import random
 
 
@@ -9,7 +8,7 @@ class Order(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     number = db.Column(db.Integer, unique=True)
-    items = db.Column(db.JSONB)
+    items = db.Column(db.JSON)
     total = db.Column(db.Float(precision=2))
     is_confirmed = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.String, db.ForeignKey('users.psid'))
