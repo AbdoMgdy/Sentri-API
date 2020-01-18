@@ -120,6 +120,7 @@ def save(item, price):
 
     text = '{} was added to your order Your toatl {}'.format(item, order.total)
     confirm_block.set_text(text)
+    confirm_block.add_postback(**{'Confirm': 'Order_Confirmed'})
 
     if order is None:
         order = Order(sender_id)
