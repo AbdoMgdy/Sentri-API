@@ -1,6 +1,5 @@
 from db import db, ma
-from sqlalchemy.dialects.postgresql import JSONB
-from sqlalchemy.ext.mutable import MutableDict
+from sqlalchemy_json import NestedMutableJson
 import random
 
 
@@ -9,7 +8,7 @@ class Order(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     number = db.Column(db.Integer, unique=True)
-    items = db.Column(MutableDict.as_mutable(JSONB))
+    items = db.Column(NestedMutableJson)
     total = db.Column(db.Float(precision=3))
     is_confirmed = db.Column(db.Boolean, default=False)
     psid = db.Column(db.String, db.ForeignKey('users.psid'))
