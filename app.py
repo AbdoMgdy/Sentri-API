@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, render_template, redirect
 from models.user import User
-from models.order import Order
+from models.order import Order, OrderSchema
 from models.bot import Bot
 from forms import OrderForm
 from tables import Results
@@ -138,10 +138,10 @@ def confirm_order():
 @app.route('/show_orders', methods=['GET'])
 def search_results():
     orders = Order.query.all()
-    print(orders
-          )
+    orders_schema = OrderSchema(many=True)
+    output = orders_schema.dump(orders).data
     table = Results(orders)
-    return render_template('show orders.jinja', rows=orders)
+    return output
 
 
 def handle_first_time(sender_id):
