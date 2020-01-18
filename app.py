@@ -118,16 +118,20 @@ def save(item, price):
     order = Order.find_by_number(order_number)
     print(order.number)
 
+    text = '{} was added to your order Your toatl {}'.format(item, order.total)
+
     if order is None:
         order = Order(sender_id)
         order.add_item(item, qty, spicy, notes, price)
         order.save()
+        confirm_block.set_text(text)
         confirm_block.send()
 
     if not order.is_confirmed:
         order.add_item(item, qty, spicy, notes, price)
         order.save()
         print('added to DB')
+        confirm_block.set_text(text)
         confirm_block.send()
     return 'Item added to Order', 200
 
