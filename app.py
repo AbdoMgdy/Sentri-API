@@ -216,8 +216,9 @@ def confirm_order():
     form = SignUpForm(obj=user)
     if form.validate_on_submit():
         user.name = request.form.get('name')
-        user.phone = request.form.get('phone')
+        user.phone_number = request.form.get('phone_number')
         user.address = request.form.get('address')
+        user.save()
 
     if order is not None:
         order.confirm()
