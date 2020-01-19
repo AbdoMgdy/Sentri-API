@@ -1,5 +1,6 @@
 import os
 from flask import Flask, request, render_template
+import json
 from models.user import User
 from models.order import Order, OrderSchema
 from models.bot import Bot
@@ -43,9 +44,13 @@ def verify():
 
 @app.route('/', methods=['POST'])
 def handle_incoming_messages():
-    print(request.data)
+    print(request.data())
 
     data = request.get_json()
+
+    webhook_type = get_type_from_payload(data)
+
+    print(webhook_type)
 
     if data['object'] == "page":
         entries = data['entry']
@@ -164,6 +169,15 @@ def show_table():
     return render_template('show table.jinja', table=table)
 
 
+def get_type_from_payload(data):
+
+    if "postback" in data["entry"][0]["messaging"][0]:
+        return "postback"
+
+    elif "message" in data["entry"][0]["messaging"][0]:
+        return "message"
+
+
 def handle_first_time(sender_id):
     new_user = User(sender_id)
     new_user.save()
@@ -174,4 +188,4 @@ def handle_first_time(sender_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
