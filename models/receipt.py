@@ -41,7 +41,7 @@ class ReceiptTemplate(Bot):
         if subtitle != '':
             element['subtitle'] = subtitle
         if quantity != -1:
-            element['quantity'] = quantity
+            element['quantity'] = int(quantity)
         element['price'] = price
         element['currency'] = 'EGP'
         if image_url != '':
