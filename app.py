@@ -225,7 +225,7 @@ def confirm_order():
 def sign_up():
     user = User.find_by_psid(sender_id)
     user.name = request.form.get('name')
-    user.phone_number = '0'+request.form.get('phone_number')
+    user.phone_number = request.form.get('phone_number')
     user.address = request.form.get('address')
     user.save()
     print('SignUp')
