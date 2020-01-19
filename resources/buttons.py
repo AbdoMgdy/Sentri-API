@@ -10,7 +10,7 @@ burger_btn.add_web_url(
 
 
 confirm_block = ButtonTemplate()
-confirm_block.add_web_url()(
+confirm_block.add_web_url(
     **{'Confirm': 'https://trex-chat-bot.herokuapp.com/signup'})
 confirm_block.add_postback(**{'Details': 'confirm_order'})
 confirm_block.add_postback(**{'Edit': 'confirm_order'})
