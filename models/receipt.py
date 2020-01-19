@@ -72,7 +72,7 @@ class ReceiptTemplate(Bot):
         adjustment['amount'] = amount
         self.adjustments.append(adjustment)
 
-    def get_message(self):
+    def set_receipt(self):
         self.template['attachment']['payload']['elements'] = self.elements
         if self.address != {}:
             self.template['attachment']['payload']['address'] = self.address

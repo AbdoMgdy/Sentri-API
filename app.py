@@ -240,8 +240,9 @@ def sign_up():
         rececipt.add_element(
             title=item['name'], quantity=item['quantity'], price=item['price'])
     rececipt.set_summary(total_cost=last_order.total)
-    rececipt.send(sender_id)
-    print(rececipt.template)
+    rececipt_msg = rececipt.set_receipt()
+
+    bot.send_message(sender_id, rececipt_msg)
     return 'User info was added', 200
 
 
