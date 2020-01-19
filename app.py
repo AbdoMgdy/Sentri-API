@@ -219,6 +219,9 @@ def confirm_order():
         user.phone_number = request.form.get('phone_number')
         user.address = request.form.get('address')
         user.save()
+        print(user.name)
+        print(user.phone_number)
+        print(user.address)
 
     if order is not None:
         order.confirm()
