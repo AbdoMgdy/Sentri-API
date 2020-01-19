@@ -18,7 +18,7 @@ class SignUpForm(FlaskForm):
     name = StringField('الاسم', render_kw={
         'placeholder': 'من فضلك أدخل اسمك'})
     phone_number = StringField('رقم الموبيل', render_kw={'type': 'tel',
-                                                         'pattern': '[0-9]{3}-[0-9]{4}-[0-9]{4}'
+                                                         'pattern': '[0-9]{3}-[0-9]{4}-[0-9]{4}',
                                                          'placeholder': 'من فضلك أدخل رقم هاتف صحيح'})
     address = StringField('العنوان', render_kw={
         'placeholder': 'من فضلك أدخل عنوان صحيح'})
