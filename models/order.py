@@ -1,4 +1,5 @@
 from db import db, ma
+import datetime
 from sqlalchemy_json import NestedMutableJson
 import random
 
@@ -11,10 +12,12 @@ class Order(db.Model):
     items = db.Column(NestedMutableJson)
     total = db.Column(db.Float(precision=3))
     is_confirmed = db.Column(db.Boolean, default=False)
+    time = db.Column(db.DatTime)
     psid = db.Column(db.String, db.ForeignKey('users.psid'))
 
     def __init__(self, psid):
         self.psid = psid
+        self.time = datetime.datetime.utcnow()
         self.number = random.randint(1000, 99999)
         self.items = []
         self.total = 0
