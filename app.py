@@ -114,6 +114,7 @@ def add_to_order(item, price):
     qty = request.form.get('quantity')
     spicy = request.form.get('spicy')
     notes = request.form.get('notes')
+    combo = request.form.get(('combo'))
     print(item)
     print(price)
     print(spicy)
@@ -123,14 +124,14 @@ def add_to_order(item, price):
 
     if order is None:
         order = Order(sender_id)
-        order.add_item(item, qty, spicy, notes, price)
+        order.add_item(item, qty, spicy, notes, price, combo)
         order.save()
         text = '{} was added to your order Your toatl {}'.format(
             item, order.total)
         confirm_block.set_text(text)
 
     if not order.is_confirmed:
-        order.add_item(item, qty, spicy, notes, price)
+        order.add_item(item, qty, spicy, notes, price, combo)
         order.save()
         text = '{} was added to your order Your toatl {}'.format(
             item, order.total)
