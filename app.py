@@ -50,6 +50,8 @@ def handle_incoming_messages():
 
     webhook_type = get_type_from_payload(data)
 
+    user = get_user_from_message(data)
+    print(user)
     print(webhook_type)
 
     if data['object'] == "page":
@@ -179,6 +181,11 @@ def get_type_from_payload(data):
             return "quick_reply"
         elif "text" in data["entry"][0]["messaging"][0]['message']:
             return "text"
+
+
+def get_user_from_message(data):
+    messaging_events = data["entry"][0]["messaging"][-1]
+    return messaging_events["sender"]["id"]
 
 
 def handle_first_time(sender_id):
