@@ -90,9 +90,6 @@ def handle_incoming_messages():
         block.send(sender_id)
         return "quick_reply", 200
 
-    elif webhook_type == "postback" and postback_events(data) == 'confirm_order':
-        confirm_order(order_number, sender_id)
-
     elif webhook_type == "postback":
         # HANDLE POSTBACK HERE
         bot.send_before_message(sender_id)
@@ -243,6 +240,7 @@ def sign_up():
     receipt_msg = receipt.set_receipt()
     print(receipt_msg)
     bot.send_message(sender_id, receipt_msg)
+    receipt.send(receipt)
     main_menu.send(sender_id)
     return 'User info was added', 200
 
