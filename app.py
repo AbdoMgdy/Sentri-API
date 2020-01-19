@@ -238,13 +238,9 @@ def sign_up():
         receipt.add_element(
             title=item['name'], quantity=item['quantity'], price=item['price'])
     receipt.set_summary(total_cost=last_order.total)
-    # receipt_msg = receipt.get_receipt()
-    # j_R = json.dumps(receipt_msg)
-    # bot.send_message(sender_id, j_R)
-    # print(bot.send_message(sender_id, j_R))
+
     receipt.send(sender_id)
-    print(receipt.send(sender_id))
-    main_menu.send(sender_id)
+    bot.send_text_message(sender_id, 'Order on The Way.')
     return 'User info was added', 200
 
 
