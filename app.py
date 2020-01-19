@@ -175,7 +175,10 @@ def get_type_from_payload(data):
         return "postback"
 
     elif "message" in data["entry"][0]["messaging"][0]:
-        return "message"
+        if "quick_reply" in data["entry"][0]["messaging"][0]['message']:
+            return "quick_reply"
+        elif "text" in data["entry"][0]["messaging"][0]['message']:
+            return "text"
 
 
 def handle_first_time(sender_id):
