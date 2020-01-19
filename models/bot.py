@@ -163,23 +163,29 @@ class Bot:
             "quick_replies": quick_replies
         }, notification_type)
 
-    def send_reciept_message(self, recipient_id, elements, quick_replies=[], notification_type=NotificationType.regular):
-        """Send generic messages to the specified recipient.
-        https://developers.facebook.com/docs/messenger-platform/send-api-reference/generic-template
+    def send_receipt_message(self, recepient_id, customer_name, order_number, total_cost, elements, quick_replies=[], notification_type=NotificationType.regular):
+        """Send receiept messages to the specified recipient.
+        https://developers.facebook.com/docs/messenger-platform/send-api-reference/reciept-template
         Input:
-            recipient_id: recipient id to send to
+            recepient_id: recipient id to send to
             elements: generic message elements to send
         Output:
             Response from API as <dict>
         """
         if not quick_replies:
-            return self.send_message(recipient_id, {
+            return self.send_message(recepient_id, {
                 "attachment": {
                     "type": "template",
                     "payload": {
-                        "template_type": "generic",
-                        "elements": elements
+                        "template_type": "receipt",
+                        "recipient_name": customer_name,
+                        "order_number": order_number,
+                        "currency": "EGP",
+                        "payment_method": "Cash On Delievery",
+                        "summary": {
+                            "total_cost": toatl_cost
                     }
+                        "elements": elements
                 }
             }, notification_type)
         return self.send_message(recipient_id, {

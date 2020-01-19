@@ -1,4 +1,5 @@
 from copy import deepcopy as copy
+from bot import Bot
 
 template = {
     'template_type': 'receipt',
@@ -17,13 +18,14 @@ template = {
 }
 
 
-class ReceiptTemplate:
-    def __init__(self, recipient_name='', order_number='', currency='', payment_method='', timestamp='', order_url=''):
+class ReceiptTemplate(Bot):
+    def __init__(self, recipient_name='', order_number='', timestamp='', order_url=''):
+        super().__init__()
         self.template = copy(template['value'])
         self.template['attachment']['payload']['recipient_name'] = recipient_name
         self.template['attachment']['payload']['order_number'] = order_number
-        self.template['attachment']['payload']['currency'] = currency
-        self.template['attachment']['payload']['payment_method'] = payment_method
+        self.template['attachment']['payload']['currency'] = 'EGP'
+        self.template['attachment']['payload']['payment_method'] = 'Cash On Deleivery'
         if timestamp != '':
             self.template['attachment']['payload']['timestamp'] = timestamp
         if order_url != '':
@@ -33,7 +35,7 @@ class ReceiptTemplate:
         self.summary = {}
         self.adjustments = []
 
-    def add_element(self, title='', subtitle='', quantity=-1, price=0, currency='', image_url=''):
+    def add_element(self, title='', subtitle='', quantity=-1, price=0, image_url=''):
         element = {}
         element['title'] = title
         if subtitle != '':
@@ -42,7 +44,7 @@ class ReceiptTemplate:
             element['quantity'] = quantity
         element['price'] = price
         if currency != '':
-            element['currency'] = currency
+            element['currency'] = 'EGP'
         if image_url != '':
             element['image_url'] = image_url
         self.elements.append(element)
