@@ -47,6 +47,7 @@ class ReceiptTemplate(Bot):
         if image_url != '':
             element['image_url'] = image_url
         self.elements.append(element)
+        self.template['attachment']['payload']['elements'] = self.elements
 
     def set_address(self, street_1='', street_2='', city='', postal_code='', state='', country=''):
         self.address['street_1'] = street_1
@@ -56,6 +57,7 @@ class ReceiptTemplate(Bot):
         self.address['postal_code'] = postal_code
         self.address['state'] = state
         self.address['country'] = country
+        self.template['attachment']['payload']['address'] = self.address
 
     def set_summary(self, subtotal=-1, shipping_cost=-1, total_tax=-1, total_cost=0):
         if subtotal != -1:
@@ -65,12 +67,14 @@ class ReceiptTemplate(Bot):
         if total_tax != -1:
             self.summary['total_tax'] = total_tax
         self.summary['total_cost'] = total_cost
+        self.template['attachment']['payload']['summary'] = self.summary
 
     def add_adjustment(self, name='', amount=0):
         adjustment = {}
         adjustment['name'] = name
         adjustment['amount'] = amount
         self.adjustments.append(adjustment)
+        self.template['attachment']['payload']['adjustments'] = self.adjustments
 
     def set_receipt(self):
         self.template['attachment']['payload']['elements'] = self.elements
@@ -82,10 +86,4 @@ class ReceiptTemplate(Bot):
         return self.template
 
     def send(self, recipient_id):
-        self.template['attachment']['payload']['elements'] = self.elements
-        if self.address != {}:
-            self.template['attachment']['payload']['address'] = self.address
-        self.template['attachment']['payload']['summary'] = self.summary
-        if self.adjustments != []:
-            self.template['attachment']['payload']['adjustments'] = self.adjustments
         super().send_message(recipient_id, self.template)
