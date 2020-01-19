@@ -43,6 +43,9 @@ class Order(db.Model):
         self.total += float(price) * float(quantity)
         self.save()
 
+    def edit(self):
+        pass
+
     def save(self):
         db.session.add(self)
         db.session.commit()

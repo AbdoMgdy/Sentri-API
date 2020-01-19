@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request, render_template
-from models.user import User
+from models.user import User, UserSchema
 from models.order import Order, OrderSchema
 from models.bot import Bot
 from forms import OrderForm
@@ -90,11 +90,7 @@ def handle_incoming_messages():
         return "quick_reply", 200
 
     elif webhook_type == "postback" and postback_events(data) == 'confirm_order':
-        order = Order.find_by_number(order_number)
-        if order is not None:
-            order.confirm()
-            bot.send_text_message(
-                sender_id, 'Order Is Confirmed and on The Way.')
+        confirm_order(order_number, sender_id)
 
     elif webhook_type == "postback":
         # HANDLE POSTBACK HERE
@@ -140,14 +136,6 @@ def add_to_order(item, price):
         confirm_block.set_text(text)
     confirm_block.send(sender_id)
     return 'Item added to Order', 200
-
-
-@app.route('/confirm_order', methods=['POST'])
-def confirm_order():
-    order = Order.find_by_number(order_number)
-    if not order.is_confirmed:
-        order.confirm()
-    return 'Order Confirmed', 200
 
 
 @app.route('/show_orders', methods=['GET'])
@@ -207,6 +195,18 @@ def handle_first_time(sender_id):
     new_order.add_item('Pizza', 3, 'Spicy', '', 49.99)
     new_order.save()
     return new_user, new_order
+
+
+def confirm_order(order_number, sender_id):
+    order = Order.find_by_number(order_number)
+    user = User.find_by_psid(sender_id)
+    user_schema = UserSchema()
+    user_details = user_schema.dump(user)
+    print(user_details)
+    if order is not None:
+        order.confirm()
+        bot.send_text_message(
+            sender_id, 'Order Is Confirmed and on The Way.')
 
 
 if __name__ == "__main__":

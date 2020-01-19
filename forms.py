@@ -9,4 +9,3 @@ class OrderForm(FlaskForm):
                         ('Spicy', 'سبايسي'), ('Normal', 'عادي')])
     notes = StringField('اضافة ملحوظة؟', render_kw={
                         'placeholder': 'مثال: 3 قطع فقط سبايسي أو بدون بصل'})
-    submit = SubmitField('Add To Order')
