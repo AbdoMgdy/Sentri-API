@@ -74,7 +74,7 @@ def handle_incoming_messages():
             last_order = Order(sender_id)
             last_order.save()
         order_number = last_order.number
-    print(order_number)
+    print('Current Order Number {}'.format(order_number))
 
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
@@ -210,7 +210,7 @@ def confirm_order():
     form = SignUpForm(obj=user)
     if form.validate_on_submit():
         json_data = json.dumps(request.form.to_dict(flat=False))
-        user_schema.loads(json_data, instance=user, partial=True)
+        user_schema.load(json.loads(json_data), instance=user, partial=True)
     if order is not None:
         order.confirm()
         return render_template('signup.jinja', form=form)
