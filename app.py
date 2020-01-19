@@ -1,6 +1,5 @@
 import os
 from flask import Flask, request, render_template
-import json
 from models.user import User
 from models.order import Order, OrderSchema
 from models.bot import Bot
@@ -25,7 +24,9 @@ bot = Bot()
 blocks = {
     'get_started': main_menu,
     'main_menu': main_menu,
-    'family_menu': family_menu
+    'family_menu': family_menu,
+    'confirm_block': confirm_block,
+    'confirm_order': 'order_confirmed'
 }
 
 
@@ -54,57 +55,54 @@ def handle_incoming_messages():
     print(user)
     print(webhook_type)
 
-    if data['object'] == "page":
-        entries = data['entry']
+    global sender_id
+    sender_id = get_user_from_message()
+    user = User.find_by_psid(sender_id)
 
-        for entry in entries:
-            messaging = entry['messaging']
+    if user is None:
+        first = handle_first_time(sender_id)
+        user = first[0]
+        new_order = first[1]
+        global order_number
+        order_number = new_order.number
+        print('new user {}'.format(user.psid))
+    elif user and len(user.orders) > 0:
+        last_order = user.orders[-1]
+        print('current user {}'.format(user.psid))
+        if last_order.is_confirmed:
+            last_order = Order(sender_id)
+            last_order.save()
+        order_number = last_order.number
+    print(order_number)
 
-            global sender_id
-            sender_id = messaging[0]['sender']['id']
-            user = User.find_by_psid(sender_id)
+    if webhook_type == "text":
+        # HANDLE TEXT MESSAGES HERE
+        bot.send_before_message(sender_id)
+        main_menu.send(sender_id)
+        return "text", 200
 
-            if user is None:
-                first = handle_first_time(sender_id)
-                user = first[0]
-                new_order = first[1]
-                global order_number
-                order_number = new_order.number
-                print(user.first_name)
-            elif user and len(user.orders) > 0:
-                last_order = user.orders[-1]
-                print(user.first_name)
-                if last_order.is_confirmed:
-                    last_order = Order(sender_id)
-                    last_order.add()
-                order_number = last_order.number
-            print(order_number)
-            for messaging_event in messaging:
+    elif webhook_type == "quick_reply":
+        # HANDLE QUICK REPLIES HERE
+        bot.send_before_message(sender_id)
+        block_name = postback_events(data)
+        block = blocks[block_name]
+        block.send(sender_id)
+        return "quick_reply", 200
 
-                if messaging_event.get('message'):
-                    # HANDLE QUICK REPLIES HERE
-                    if messaging_event['message'].get('quick_reply'):
-                        bot.send_before_message(sender_id)
-                        block_name_q = messaging_event['message']['quick_reply']['payload']
-                        block_name = block_name_q.replace('"', '')
-                        block = blocks[block_name]
-                        block.send(sender_id)
-                        return "ok", 200
-                        print(sender_id)
-                    # HANDLE TEXT MESSAGES HERE
-                    if messaging_event['message'].get('text'):
-                        bot.send_before_message(sender_id)
-                        main_menu.send(sender_id)
-                        return "text", 200
-                elif messaging_event.get('postback'):
-                    # HANDLE POSTBACK HERE
-                    bot.send_before_message(sender_id)
-                    block_name_q = messaging_event['postback']['payload']
-                    block_name = block_name_q.replace('"', '')
-                    block = blocks[block_name]
+    elif webhook_type == "postback" and postback_events(data) == 'confirm_order':
+        order = Order.find_by_number(order_number)
+        if order is not None:
+            order.confirm()
+            bot.send_text_message(
+                sender_id, 'Order Is Confirmed and on The Way.')
 
-                    block.send(sender_id)
-                    return "ok", 200
+    elif webhook_type == "postback":
+        # HANDLE POSTBACK HERE
+        bot.send_before_message(sender_id)
+        block_name = postback_events(data)
+        block = blocks[block_name]
+        block.send(sender_id)
+        return "postback", 200
     return "ok", 200
 
 
@@ -128,7 +126,7 @@ def save(item, price):
 
     text = '{} was added to your order Your toatl {}'.format(item, order.total)
     confirm_block.set_text(text)
-    confirm_block.add_postback(**{'Confirm': 'Order_Confirmed'})
+    confirm_block.add_postback(**{'Confirm': 'confirm_order'})
 
     if order is None:
         order = Order(sender_id)
@@ -186,6 +184,20 @@ def get_type_from_payload(data):
 def get_user_from_message(data):
     messaging_events = data["entry"][0]["messaging"][-1]
     return messaging_events["sender"]["id"]
+
+
+def postback_events(data):
+
+    postbacks = data["entry"][0]["messaging"]
+
+    for event in postbacks:
+        postback_payload = event["postback"]["payload"]
+        postback = postback_payload.replace('"', '')
+        return postback
+
+
+def quick_replies_events(data):
+    pass
 
 
 def handle_first_time(sender_id):
