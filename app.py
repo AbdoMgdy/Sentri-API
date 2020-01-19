@@ -211,7 +211,7 @@ def confirm_order():
     if order is not None:
         order.confirm()
         render_template('signup.jinja', form=form)
-    return 'ok', 200
+    render_template('signup.jinja', form=form)
 
 
 if __name__ == "__main__":
