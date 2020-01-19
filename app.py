@@ -205,7 +205,7 @@ def confirm_order():
     print(user)
     user_schema = UserSchema()
     user_details = user_schema.dump(user)
-    print(user_details.first_name)
+    print(user_details['first_name'])
     if order is not None:
         order.confirm()
         bot.send_text_message(
