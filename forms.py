@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField
+from wtforms.fields.html5 import TelField
 from wtforms.validators import data_required
 
 
@@ -17,8 +18,7 @@ class OrderForm(FlaskForm):
 class SignUpForm(FlaskForm):
     name = StringField('الاسم', render_kw={
         'placeholder': 'من فضلك أدخل اسمك'})
-    phone_number = StringField('رقم الموبيل', render_kw={'type': 'tel',
-                                                         'pattern': '[0-9]',
-                                                         'placeholder': 'من فضلك أدخل رقم هاتف صحيح'})
+    phone_number = TelField('رقم الموبيل', render_kw={
+        'placeholder': 'من فضلك أدخل رقم هاتف صحيح'})
     address = StringField('العنوان', render_kw={
         'placeholder': 'من فضلك أدخل عنوان صحيح'})
