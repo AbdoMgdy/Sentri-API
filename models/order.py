@@ -12,7 +12,7 @@ class Order(db.Model):
     items = db.Column(NestedMutableJson)
     total = db.Column(db.Float(precision=3))
     is_confirmed = db.Column(db.Boolean, default=False)
-    time = db.Column(db.DatTime)
+    time = db.Column(db.DateTime)
     psid = db.Column(db.String, db.ForeignKey('users.psid'))
 
     def __init__(self, psid):
