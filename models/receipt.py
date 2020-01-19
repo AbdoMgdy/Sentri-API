@@ -81,7 +81,7 @@ class ReceiptTemplate(Bot):
             self.template['attachment']['payload']['adjustments'] = self.adjustments
         return self.template
 
-    def send(self):
+    def send(self, recipient_id):
         self.template['attachment']['payload']['elements'] = self.elements
         if self.address != {}:
             self.template['attachment']['payload']['address'] = self.address
