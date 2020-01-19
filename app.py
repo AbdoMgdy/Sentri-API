@@ -200,6 +200,7 @@ def handle_first_time(sender_id):
 def confirm_order(order_number, sender_id):
     order = Order.find_by_number(order_number)
     user = User.find_by_psid(sender_id)
+    print(user)
     user_schema = UserSchema()
     user_details = user_schema.dump(user)
     print(user_details)
