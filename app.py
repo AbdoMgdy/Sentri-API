@@ -242,7 +242,9 @@ def sign_up():
     j_R = json.dumps(receipt_msg)
     print(j_R)
     bot.send_message(sender_id, j_R)
+    print(bot.send_message(sender_id, j_R))
     receipt.send(sender_id)
+    print(receipt.send(sender_id))
     # main_menu.send(sender_id)
     return 'User info was added', 200
 
