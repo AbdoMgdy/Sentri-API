@@ -1,5 +1,5 @@
 from copy import deepcopy as copy
-from bot import Bot
+from models.bot import Bot
 
 template = {
     'template_type': 'receipt',
