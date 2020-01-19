@@ -10,7 +10,7 @@ class User(Bot, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     psid = db.Column(db.String, unique=True)
     name = db.Column(db.String(80))
-    phone_number = db.Column(db.Integer)
+    phone_number = db.Column(db.String)
     address = db.Column(db.String)
     orders = db.relationship('Order', backref='user', lazy='select')
 

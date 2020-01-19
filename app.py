@@ -204,14 +204,12 @@ def confirm_order():
     order = Order.find_by_number(order_number)
     user = User.find_by_psid(sender_id)
     print(user)
-    user_schema = UserSchema()
-    user_details = user_schema.dump(user)
-    print(user_details)
     form = SignUpForm(obj=user)
     if form.validate_on_submit():
-        json_data = json.dumps(request.form.to_dict(flat=False))
-        print(json.loads(json_data))
-        user_schema.load(json.loads(json_data), instance=user, partial=True)
+        user.name = request.form.get('name')
+        user.phone = request.form.get('phone')
+        user.address = request.form.get('address')
+
     if order is not None:
         order.confirm()
         return render_template('signup.jinja', form=form)
