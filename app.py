@@ -140,12 +140,21 @@ def add_to_order(item, price):
 
 
 @app.route('/show_orders', methods=['GET'])
-def search_results():
+def show_orders_t():
     orders = Order.query.all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
     print(output)
     return render_template('show orders.jinja', rows=output)
+
+
+@app.route('/show_orders', methods=['GET'])
+def search_users():
+    users = User.query.all()
+    users_schema = UserSchema(many=True)
+    output = users_schema.dump(users)
+    print(output)
+    return render_template('show users.jinja', rows=output)
 
 
 @app.route('/show_table', methods=['GET'])
