@@ -243,6 +243,7 @@ def sign_up():
     receipt_msg = receipt.set_receipt()
     print(receipt_msg)
     bot.send_message(sender_id, receipt_msg)
+    main_menu.send()
     return 'User info was added', 200
 
 
