@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, render_template
 from models.user import User, UserSchema
 from models.order import Order, OrderSchema
+import json
 from models.bot import Bot
 from forms import OrderForm, SignUpForm
 from tables import Results
@@ -205,9 +206,11 @@ def confirm_order():
     print(user)
     user_schema = UserSchema()
     user_details = user_schema.dump(user)
+    print(user_details)
     form = SignUpForm(obj=user)
     if form.validate_on_submit():
-        pass
+        json_data = json.loads(request.form)
+        print(json_data)
     if order is not None:
         order.confirm()
         return render_template('signup.jinja', form=form)
