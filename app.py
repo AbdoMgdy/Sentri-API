@@ -211,7 +211,7 @@ def confirm_order():
     if form.validate_on_submit():
         json_data = json.dumps(request.form.to_dict(flat=False))
         print(json.loads(json_data))
-        # user_schema.load(json.loads(json_data), instance=user, partial=True)
+        user_schema.load(json.loads(json_data), instance=user, partial=True)
     if order is not None:
         order.confirm()
         return render_template('signup.jinja', form=form)
