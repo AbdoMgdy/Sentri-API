@@ -3,7 +3,7 @@ from flask import Flask, request, render_template
 from models.user import User, UserSchema
 from models.order import Order, OrderSchema
 from models.bot import Bot
-from forms import OrderForm
+from forms import OrderForm, SignUpForm
 from tables import Results
 from resources.buttons import confirm_block
 from resources.menu import main_menu, family_menu
@@ -205,11 +205,10 @@ def confirm_order():
     print(user)
     user_schema = UserSchema()
     user_details = user_schema.dump(user)
-    print(user_details['name'])
+    form = SignUpForm(formdata=user_details)
     if order is not None:
         order.confirm()
-        bot.send_text_message(
-            sender_id, 'Order Is Confirmed and on The Way.')
+        render_template('signup.jinja', form=)
     return 'ok', 200
 
 

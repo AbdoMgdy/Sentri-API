@@ -1,0 +1,48 @@
+{% extends "layout.jinja" %}
+
+
+
+{% block content %}
+
+
+<!-- Material form contact -->
+<div class="card">
+
+    <h5 class="card-header warning-color-dark white-text text-center py-4">
+        <strong>تأكيد الأوردر</strong>
+    </h5>
+
+    <!--Card content-->
+    <div class="card-body px-lg-5 pt-0">
+
+        <!-- Form -->
+        <form class="text-center" style="color: #757575;" action="" method="POST">
+            {{ form.csrf_token }}
+            <!-- Name -->
+            <div class="md-form mt-5">
+                {{ form.name.label }} {{ form.name(dir="rtl",class="form-control") }}
+            </div>
+
+
+            <!-- Quantity -->
+            <div class="md-form mt-5">
+                {{ form.phone.label }} {{ form.phone(dir="rtl",class="form-control") }}
+            </div>
+
+            <!--Notes-->
+            <div class="md-form mt-5">
+                {{form.address.label(style="margin-left:50%")}} {{form.address(dir="rtl",class="form-control")}}
+            </div>
+
+            <!-- Send button -->
+            <button class="btn btn-warning btn-block z-depth-0 my-4 waves-effect" type="submit"
+                id="submitButton">Confirm تأكيد</button>
+
+        </form>
+        <!-- Form -->
+
+    </div>
+
+</div>
+
+{% endblock content %}
