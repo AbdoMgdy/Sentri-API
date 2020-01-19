@@ -238,7 +238,7 @@ def sign_up():
         receipt.add_element(
             title=item['name'], quantity=item['quantity'], price=item['price'])
     receipt.set_summary(total_cost=last_order.total)
-    receipt_msg = receipt.set_receipt()
+    receipt_msg = receipt.get_receipt()
     j_R = json.dumps(receipt_msg)
     print(j_R)
     bot.send_message(sender_id, j_R)

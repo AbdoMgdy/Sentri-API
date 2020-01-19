@@ -2,16 +2,16 @@ from copy import deepcopy as copy
 from models.bot import Bot
 
 template = {
-    'template_type': 'receipt',
-    'value': {
-        'attachment': {
-            'type': 'template',
-            'payload': {
-                'template_type': 'receipt',
-                'recipient_name': '',
-                'order_number': '',
-                'currency': '',
-                'payment_method': ''
+    "template_type": "receipt",
+    "value": {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "receipt",
+                "recipient_name": "",
+                "order_number": "",
+                "currency": "",
+                "payment_method": ""
             }
         }
     }
@@ -76,7 +76,7 @@ class ReceiptTemplate(Bot):
         self.adjustments.append(adjustment)
         self.template['attachment']['payload']['adjustments'] = self.adjustments
 
-    def set_receipt(self):
+    def get_receipt(self):
         self.template['attachment']['payload']['elements'] = self.elements
         if self.address != {}:
             self.template['attachment']['payload']['address'] = self.address
