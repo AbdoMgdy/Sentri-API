@@ -42,7 +42,7 @@ class Order(db.Model):
         item['price'] = float(price)
         # j_item = json.dumps(item)
         self.items.append(item)
-        self.total += float(price + combo) * float(quantity)
+        self.total += (float(price + float(combo)) * float(quantity)
         self.save()
 
     def edit(self):
@@ -57,10 +57,10 @@ class Order(db.Model):
         db.session.commit()
 
     def confirm(self):
-        self.is_confirmed = True
+        self.is_confirmed=True
         self.save()
 
 
 class OrderSchema(ma.ModelSchema):
     class Meta:
-        model = Order
+        model=Order
