@@ -56,7 +56,7 @@ def handle_incoming_messages():
     print(webhook_type)
 
     global sender_id
-    sender_id = get_user_from_message()
+    sender_id = get_user_from_message(data)
     user = User.find_by_psid(sender_id)
 
     if user is None:
