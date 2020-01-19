@@ -198,7 +198,7 @@ def handle_first_time(sender_id):
     return new_user, new_order
 
 
-@app.route('/signup')
+@app.route('/signup', methods=['GET'])
 def confirm_order():
     order = Order.find_by_number(order_number)
     user = User.find_by_psid(sender_id)
@@ -210,6 +210,7 @@ def confirm_order():
         order.confirm()
         bot.send_text_message(
             sender_id, 'Order Is Confirmed and on The Way.')
+    return 'ok', 200
 
 
 if __name__ == "__main__":
