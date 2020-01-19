@@ -49,7 +49,7 @@ class Bot:
         response = requests.post(
             request_endpoint,
             params=self.auth_args,
-            data=payload,
+            json=payload,
             timeout=time_out
         )
         result = response.json()
@@ -206,7 +206,7 @@ class Bot:
         Output:
             Response from API as <dict>
         """
-        if time_out != None:
+        if time_out is not None:
             time_out = time_out,
         return self.send_recipient(recipient_id, {
             'sender_action': action
