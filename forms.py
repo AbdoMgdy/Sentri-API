@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField
+from wtforms.validators import data_required
 
 
 class OrderForm(FlaskForm):
