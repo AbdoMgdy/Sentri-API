@@ -221,7 +221,7 @@ def confirm_order():
     return 'ok', 200
 
 
-@app.route('/add_user_info')
+@app.route('/add_user_info', methods=['GET', 'POST'])
 def sign_up():
     user = User.find_by_psid(sender_id)
     user.name = request.form.get('name')
