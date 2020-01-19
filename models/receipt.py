@@ -43,8 +43,7 @@ class ReceiptTemplate(Bot):
         if quantity != -1:
             element['quantity'] = quantity
         element['price'] = price
-        if currency != '':
-            element['currency'] = 'EGP'
+        element['currency'] = 'EGP'
         if image_url != '':
             element['image_url'] = image_url
         self.elements.append(element)
@@ -81,3 +80,12 @@ class ReceiptTemplate(Bot):
         if self.adjustments != []:
             self.template['attachment']['payload']['adjustments'] = self.adjustments
         return self.template
+
+    def send(self):
+        self.template['attachment']['payload']['elements'] = self.elements
+        if self.address != {}:
+            self.template['attachment']['payload']['address'] = self.address
+        self.template['attachment']['payload']['summary'] = self.summary
+        if self.adjustments != []:
+            self.template['attachment']['payload']['adjustments'] = self.adjustments
+        super().send_message(recipient_id, self.template)

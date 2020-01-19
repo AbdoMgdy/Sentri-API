@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, render_template
 from models.user import User, UserSchema
 from models.order import Order, OrderSchema
-import json
+from models.receipt import ReceiptTemplate
 from models.bot import Bot
 from forms import OrderForm, SignUpForm
 from tables import Results
@@ -228,10 +228,19 @@ def sign_up():
     user.phone_number = request.form.get('phone_number')
     user.address = request.form.get('address')
     user.save()
+    last_order = user.orders[-1]
     print('SignUp')
     print(user.name)
     print(user.phone_number)
     print(user.address)
+    rececipt = ReceiptTemplate(
+        recipient_name=user.name, order_number=last_order.order_number)
+
+    for item in last_order.items:
+        rececipt.add_element(
+            title=item['name'], quantity=item['quantity'], price=item['price'])
+    rececipt.set_summary(total_cost=last_order.total)
+    rececipt.send(user.psid)
     return 'User info was added', 200
 
 
