@@ -241,6 +241,7 @@ def sign_up():
             title=item['name'], quantity=item['quantity'], price=item['price'])
     rececipt.set_summary(total_cost=last_order.total)
     rececipt.send(sender_id)
+    print(rececipt.template)
     return 'User info was added', 200
 
 
