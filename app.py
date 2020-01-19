@@ -212,7 +212,6 @@ def handle_first_time(sender_id):
 def confirm_order():
     order = Order.find_by_number(order_number)
     user = User.find_by_psid(sender_id)
-    print(user)
     form = SignUpForm(obj=user)
 
     if order is not None:

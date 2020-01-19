@@ -31,16 +31,18 @@ class Order(db.Model):
     def find_by_user_id(cls, psid):
         return cls.query.filter_by(user_id=psid).first()
 
-    def add_item(self, name, quantity, _type, notes, price):
+    def add_item(self, name, quantity, _type, notes, price, combo):
         item = {}
         item['name'] = name
         item['quantity'] = float(quantity)
         item['type'] = _type
         item['notes'] = notes
+        item['combo'] = float(combo)
+
         item['price'] = float(price)
         # j_item = json.dumps(item)
         self.items.append(item)
-        self.total += float(price) * float(quantity)
+        self.total += float(price + combo) * float(quantity)
         self.save()
 
     def edit(self):
