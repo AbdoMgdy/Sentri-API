@@ -233,16 +233,16 @@ def sign_up():
     print(user.name)
     print(user.phone_number)
     print(user.address)
-    rececipt = ReceiptTemplate(
+    receipt = ReceiptTemplate(
         recipient_name=user.name, order_number=last_order.number)
 
     for item in last_order.items:
-        rececipt.add_element(
+        receipt.add_element(
             title=item['name'], quantity=item['quantity'], price=item['price'])
-    rececipt.set_summary(total_cost=last_order.total)
-    rececipt_msg = rececipt.set_receipt()
-
-    bot.send_message(sender_id, rececipt_msg)
+    receipt.set_summary(total_cost=last_order.total)
+    receipt_msg = receipt.set_receipt()
+    print(receipt_msg)
+    bot.send_message(sender_id, receipt_msg)
     return 'User info was added', 200
 
 
