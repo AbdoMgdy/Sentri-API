@@ -234,7 +234,7 @@ def sign_up():
     print(user.phone_number)
     print(user.address)
     rececipt = ReceiptTemplate(
-        recipient_name=user.name, order_number=last_order.order_number)
+        recipient_name=user.name, order_number=last_order.number)
 
     for item in last_order.items:
         rececipt.add_element(
