@@ -49,7 +49,7 @@ class Bot:
         response = requests.post(
             request_endpoint,
             params=self.auth_args,
-            json=payload,
+            data=payload,
             timeout=time_out
         )
         result = response.json()
