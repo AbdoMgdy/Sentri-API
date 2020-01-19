@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, SubmitField
+from wtforms import StringField, SelectField
 
 
 class OrderForm(FlaskForm):
@@ -9,3 +9,12 @@ class OrderForm(FlaskForm):
                         ('Spicy', 'سبايسي'), ('Normal', 'عادي')])
     notes = StringField('اضافة ملحوظة؟', render_kw={
                         'placeholder': 'مثال: 3 قطع فقط سبايسي أو بدون بصل'})
+
+
+class SignUpForm(FlaskForm):
+    name = StringField('الاسم', render_kw={
+        'placeholder': 'من فضلك أدخل اسمك')
+    phone = StringField('رقم الموبيل', render_kw={
+            'placeholder': 'من فضلك أدخل رقم هاتف صحيح'))
+    address=StringField('العنوان', render_kw = {
+            'placeholder': 'من فضلك أدخل عنوان صحيح'))

@@ -9,8 +9,7 @@ class User(Bot, db.Model):
                       )
     id = db.Column(db.Integer, primary_key=True)
     psid = db.Column(db.String, unique=True)
-    first_name = db.Column(db.String(80))
-    last_name = db.Column(db.String(80))
+    name = db.Column(db.String(80))
     phone_number = db.Column(db.Integer)
     address = db.Column(db.String)
     orders = db.relationship('Order', backref='user', lazy='select')
@@ -18,8 +17,7 @@ class User(Bot, db.Model):
     def __init__(self, psid):
         super().__init__()
         self.psid = psid
-        self.first_name = ''
-        self.last_name = ''
+        self.name = ''
         self.phone_number = 0
         self.address = ''
 
@@ -34,8 +32,7 @@ class User(Bot, db.Model):
             params=self.auth_args
         )
         result = response.json()
-        self.first_name = result['first_name']
-        self.last_name = result['last_name']
+        self.name = result['first_name']
 
     def save(self):
         db.session.add(self)

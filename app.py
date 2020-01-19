@@ -190,6 +190,7 @@ def quick_replies_events(data):
 
 def handle_first_time(sender_id):
     new_user = User(sender_id)
+    new_user.get_info()
     new_user.save()
     new_order = Order(sender_id)
     new_order.add_item('Pizza', 3, 'Spicy', '', 49.99)
@@ -197,13 +198,14 @@ def handle_first_time(sender_id):
     return new_user, new_order
 
 
-def confirm_order(order_number, sender_id):
+@app.route('/signup')
+def confirm_order():
     order = Order.find_by_number(order_number)
     user = User.find_by_psid(sender_id)
     print(user)
     user_schema = UserSchema()
     user_details = user_schema.dump(user)
-    print(user_details)
+    print(user_details.first_name)
     if order is not None:
         order.confirm()
         bot.send_text_message(
