@@ -10,8 +10,8 @@ class OrderForm(FlaskForm):
                         ('Spicy', 'سبايسي'), ('Normal', 'عادي')])
     notes = StringField('اضافة ملحوظة؟', render_kw={'pattern': '[0-9]',
                                                     'placeholder': 'مثال: 3 قطع فقط سبايسي أو بدون بصل'})
-    combo = SelectField('اضافة كومبو بـ15ج (بطاطس + كولا)', choices=[(15, 'لا No'),
-                                                                     (0, 'نعم Yes')])
+    combo = SelectField('اضافة كومبو بـ15ج (بطاطس + كولا)', choices=[(0, 'لا No'),
+                                                                     (15, 'نعم Yes')])
 
 
 class SignUpForm(FlaskForm):
