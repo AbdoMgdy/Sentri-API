@@ -139,7 +139,7 @@ def add_to_order(item, price):
             item, order.total)
         confirm_block.set_text(text)
     confirm_block.send(sender_id)
-    # return 'Item added to Order', 200
+    return 'Item added to Order', 200
 
 
 @app.route('/confirm_order', methods=['POST'])
