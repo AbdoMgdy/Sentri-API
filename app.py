@@ -205,7 +205,7 @@ def confirm_order():
     print(user)
     user_schema = UserSchema()
     user_details = user_schema.dump(user)
-    form = SignUpForm(formdata=user_details, obj=user)
+    form = SignUpForm(obj=user)
     if form.validate_on_submit():
         pass
     if order is not None:
