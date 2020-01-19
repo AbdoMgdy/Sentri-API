@@ -198,7 +198,7 @@ def handle_first_time(sender_id):
     return new_user, new_order
 
 
-@app.route('/signup', methods=['GET'])
+@app.route('/signup', methods=['GET', 'POST'])
 def confirm_order():
     order = Order.find_by_number(order_number)
     user = User.find_by_psid(sender_id)
@@ -206,9 +206,11 @@ def confirm_order():
     user_schema = UserSchema()
     user_details = user_schema.dump(user)
     form = SignUpForm(formdata=user_details)
+    if form.validate_on_submit():
+        pass
     if order is not None:
         order.confirm()
-        render_template('signup.jinja', form=)
+        render_template('signup.jinja', form=form)
     return 'ok', 200
 
 
