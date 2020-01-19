@@ -208,25 +208,31 @@ def handle_first_time(sender_id):
     return new_user, new_order
 
 
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route('/confirm_order', methods=['GET', 'POST'])
 def confirm_order():
     order = Order.find_by_number(order_number)
     user = User.find_by_psid(sender_id)
     print(user)
     form = SignUpForm(obj=user)
-    if form.validate_on_submit():
-        user.name = request.form.get('name')
-        user.phone_number = request.form.get('phone_number')
-        user.address = request.form.get('address')
-        user.save()
-        print(user.name)
-        print(user.phone_number)
-        print(user.address)
 
     if order is not None:
         order.confirm()
         return render_template('signup.jinja', form=form)
     return 'ok', 200
+
+
+@app.route('/add_user_info')
+def sign_up():
+    user = User.find_by_psid(sender_id)
+    user.name = request.form.get('name')
+    user.phone_number = request.form.get('phone_number')
+    user.address = request.form.get('address')
+    user.save()
+    print('SignUp')
+    print(user.name)
+    print(user.phone_number)
+    print(user.address)
+    return 'User info was added', 200
 
 
 if __name__ == "__main__":
