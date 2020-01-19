@@ -148,7 +148,7 @@ def show_orders_t():
     return render_template('show orders.jinja', rows=output)
 
 
-@app.route('/show_orders', methods=['GET'])
+@app.route('/show_users', methods=['GET'])
 def search_users():
     users = User.query.all()
     users_schema = UserSchema(many=True)
