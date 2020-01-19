@@ -44,7 +44,7 @@ def verify():
 
 @app.route('/', methods=['POST'])
 def handle_incoming_messages():
-    print(request.data())
+    print(request.data)
 
     data = request.get_json()
 
