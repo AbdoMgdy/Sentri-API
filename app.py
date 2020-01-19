@@ -209,7 +209,7 @@ def confirm_order():
     print(user_details)
     form = SignUpForm(obj=user)
     if form.validate_on_submit():
-        json_data = json.loads(request.form)
+        json_data = json.dumps(request.form.to_dict(flat=False))
         print(json_data)
     if order is not None:
         order.confirm()
