@@ -113,7 +113,7 @@ def show_webview(item, price):
 
 
 @app.route('/add_to_order/<string:item>/<float:price>', methods=['POST'])
-def save(item, price):
+def add_to_order(item, price):
     qty = request.form.get('quantity')
     spicy = request.form.get('spicy')
     notes = request.form.get('notes')
@@ -124,20 +124,20 @@ def save(item, price):
     order = Order.find_by_number(order_number)
     print(order.number)
 
-    text = '{} was added to your order Your toatl {}'.format(item, order.total)
-    confirm_block.set_text(text)
-    confirm_block.add_postback(**{'Confirm': 'confirm_order'})
-
     if order is None:
         order = Order(sender_id)
         order.add_item(item, qty, spicy, notes, price)
         order.save()
+        text = '{} was added to your order Your toatl {}'.format(
+            item, order.total)
+        confirm_block.set_text(text)
 
     if not order.is_confirmed:
         order.add_item(item, qty, spicy, notes, price)
         order.save()
-        print('added to DB')
-        print(confirm_block.buttons)
+        text = '{} was added to your order Your toatl {}'.format(
+            item, order.total)
+        confirm_block.set_text(text)
     confirm_block.send(sender_id)
     # return 'Item added to Order', 200
 
