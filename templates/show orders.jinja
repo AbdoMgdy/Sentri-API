@@ -4,9 +4,16 @@
 
 {% block content %}
 {% for row in rows %}
+<table>
+<thead><tr><th>Name</th><th>Description</th></tr></thead>
+<tbody>
 <tr>{{row.items}}<tr>
 <tr>{{row.number}}<tr>
 <tr>{{row.total}}<tr>
+<tr>{{row.total}}<tr>
+<tr>{{row.is_confirme}}<tr>
+</tbody>
+</table>
 {% endfor %}
 
 
