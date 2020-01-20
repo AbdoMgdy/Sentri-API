@@ -112,4 +112,4 @@ class UserSchema(ma.ModelSchema):
 class OrderSchema(ma.ModelSchema):
     class Meta:
         model = Order
-    user = ma.Nested(UserSchema, many=True)
+        user = ma.Nested(UserSchema, many=True)
