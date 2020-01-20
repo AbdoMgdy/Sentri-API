@@ -43,7 +43,7 @@ class ReceiptTemplate(Bot):
         if quantity != -1:
             element['quantity'] = int(quantity)
         element['price'] = price
-        element['currency'] = 'EGP '
+        element['currency'] = 'EGP'
         if image_url != '':
             element['image_url'] = image_url
         self.elements.append(element)
