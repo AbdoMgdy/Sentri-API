@@ -28,7 +28,6 @@ blocks = {
     'main_menu': main_menu,
     'family_menu': family_menu,
     'confirm_block': confirm_block,
-    'confirm_order': 'order_confirmed'
 }
 
 
@@ -98,7 +97,7 @@ def handle_incoming_messages():
         bot.send_before_message(sender_id)
         block_name = postback_events(data)
         block = blocks[block_name]
-        block.send(sender_id)
+        print(block.send(sender_id))
         return "postback", 200
     return "ok", 200
 
