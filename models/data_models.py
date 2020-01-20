@@ -73,7 +73,7 @@ class Order(db.Model):
     def find_by_user_id(cls, psid):
         return cls.query.filter_by(user_id=psid).first()
 
-    def add_item(self, name, quantity, _type, notes, price, combo):
+    def add_item(self, name='', quantity=0, _type='', notes='', price=0, combo=0):
         item = {}
         item['name'] = name
         item['quantity'] = float(quantity)
