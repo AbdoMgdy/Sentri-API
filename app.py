@@ -149,8 +149,8 @@ def show_orders_t():
     orders = Order.query.all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
-    
-    print(output)
+
+    print(output[0])
     return render_template('show orders.jinja', rows=output)
 
 
