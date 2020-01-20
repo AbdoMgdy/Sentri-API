@@ -6,7 +6,7 @@ from models.receipt import ReceiptTemplate
 import json
 from models.bot import Bot
 from forms import OrderForm, SignUpForm
-from tables import Results
+from tables import Results, Items
 from resources.buttons import confirm_block
 from resources.menu import main_menu, family_menu
 
@@ -167,7 +167,8 @@ def show_table():
     orders = Order.query.all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
-    table = Results(output)
+    items = output['items'][0]
+    table = Items(output)
     print(output)
     return render_template('show table.jinja', table=table)
 
