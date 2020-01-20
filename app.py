@@ -150,7 +150,7 @@ def show_orders_t():
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
 
-    print(output[0])
+    print(output[0]['items'])
     return render_template('show orders.jinja', rows=output)
 
 
