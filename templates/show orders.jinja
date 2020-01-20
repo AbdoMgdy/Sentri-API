@@ -3,17 +3,19 @@
 
 
 {% block content %}
-{% for row in rows %}
-<table>
-<thead><tr><th>Name</th><th>Description</th></tr></thead>
-<tbody>
-<tr>{{row.items}}<tr>
-<tr>{{row.number}}<tr>
-<tr>{{row.total}}<tr>
-<tr>{{row.is_confirmed}}<tr>
-</tbody>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+  </tbody>
 </table>
-{% endfor %}
 
 
 {% endblock content %}

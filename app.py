@@ -153,10 +153,10 @@ def show_orders_t():
     users_schema = UserSchema(many=True)
     u_output = users_schema.dump(users)
     u_output_S = users_schema.dumps(users)
-    print(u_output)
-    print(output)
-    print(json.loads(u_output_S))
-    print(json.loads(output_J))
+    print(u_output[0])
+    print(output[0])
+    print(json.loads(u_output_S)[0])
+    print(json.loads(output_J)[0])
     return render_template('show orders.jinja', rows=output)
 
 
