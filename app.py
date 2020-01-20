@@ -167,7 +167,7 @@ def show_table():
     orders = Order.query.all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
-
+    items = output[0]['items'][0]
     table = Items(output)
     print(output)
     return render_template('table.jinja', table=table)
