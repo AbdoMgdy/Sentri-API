@@ -148,8 +148,15 @@ def show_orders_t():
     orders = Order.query.all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
-
+    output_J = orders_schema.dumps(orders)
+    users = User.query.all()
+    users_schema = UserSchema(many=True)
+    u_output = users_schema.dump(users)
+    u_output_S = users_schema.dumps(users)
+    print(u_output)
     print(output)
+    print(u_output_S)
+    print(output_J)
     return render_template('show orders.jinja', rows=output)
 
 
