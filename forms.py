@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField
+from wtforms import StringField, SelectField, FormField, FieldList
 from wtforms.fields.html5 import TelField
 
 
@@ -21,3 +21,7 @@ class SignUpForm(FlaskForm):
         'placeholder': 'من فضلك أدخل رقم هاتف صحيح'})
     address = StringField('العنوان', render_kw={
         'placeholder': 'من فضلك أدخل عنوان صحيح'})
+
+
+class EditOrderForm(FlaskForm):
+    items = FieldList(FormField(OrderForm))

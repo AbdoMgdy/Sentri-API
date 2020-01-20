@@ -15,3 +15,6 @@ class Items(Table):
     _type = Col('Spicy/Normal')
     notes = Col('Notes')
     combo = Col('Combo')
+
+
+   
