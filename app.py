@@ -139,7 +139,7 @@ def edit_order():
     forms = []
     if order is not None:
         for item in order.items:
-            form = OrderForm(formdata=item, prefix=item.name)
+            form = OrderForm(formdata=item, prefix=item['name'])
             forms.append(form)
     return render_template('edit order.jinja', forms=forms)
 
