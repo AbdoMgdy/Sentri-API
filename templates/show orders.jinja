@@ -10,10 +10,14 @@
       <th scope="col">Name</th>
       <th scope="col">Address</th>
       <th scope="col">Phone Number</th>
-      <th scope="col">order Number</th>
     </tr>
   </thead>
   <tbody>
+  {% for user in users  %}
+    <td>{{user['name']}}</td>
+    <td>{{user['address']}}</td>
+    <td>{{user['phone_number']}}</td>
+  {% endfor %}
     
   </tbody>
 </table>
