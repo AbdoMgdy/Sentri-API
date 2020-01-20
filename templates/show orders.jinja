@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="row">
-<div class="table-responsive col-md-4">
+<div class="table-responsive col-md-3">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -22,15 +22,38 @@
     <td>{{user['phone_number']}}</td>
     </tr>
   {% endfor %}
-
+    </tbody>
+    </table>
+</div>
+<div class="table-responsive col-md-1">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">total</th>
+    </tr>
+    </thead>
+  <tbody>
+  <tr>
   {% for total in totals  %}
   <td>{{total}} EGP</td>
   {% endfor %}
+  </tr>
+</tbody>
+</table>
+</div>
+<div class="table-responsive col-md-1">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Order Number</th>
+    </tr>
+    </thead>
+  <tbody>
+  <tr>
   {% for number in numbers  %}
   <td>{{number}}</td>
   {% endfor %}
   </tr>
-    
   </tbody>
 </table>
 </div>
