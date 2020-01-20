@@ -118,18 +118,19 @@ def show_webview(food, item, price):
 @app.route('/add_to_order/<string:food>/<string:item>/<float:price>', methods=['POST'])
 def add_to_order(food, item, price):
     qty = request.form.get('quantity')
-    if request.form.get('spicy') is not None:
-        spicy = request.form.get('spicy')
-    if request.form.get('notes') is not None:
-        notes = request.form.get('notes')
-    if request.form.get('notes') is not None:
-        combo = request.form.get('combo')
     if request.form.get('spicy') is None:
         spicy = ''
+    elif request.form.get('spicy') is not None:
+        spicy = request.form.get('spicy')
     if request.form.get('notes') is None:
         notes = ''
+    elif request.form.get('notes') is not None:
+        notes = request.form.get('notes')
     if request.form.get('notes') is None:
         combo = 0
+    elif request.form.get('notes') is not None:
+        combo = request.form.get('combo')
+
     order = Order.find_by_number(order_number)
     print(food)
     if order is None:
