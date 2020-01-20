@@ -166,7 +166,7 @@ def show_orders_t():
         order = ''
         for item in items:
             temp = '+ {} * {} ({}) Combo({}) Notes({}) '.format(
-                item['name'], item['quantity'], item['spicy'], item['combo'], item['notes'])
+                item['name'], item['quantity'], item['type'], item['combo'], item['notes'])
             order += temp
         info['items'] = order
     data.append(info)
