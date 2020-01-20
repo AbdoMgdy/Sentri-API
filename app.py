@@ -240,6 +240,7 @@ def sign_up():
 
     receipt.send(sender_id)
     print(receipt.send(sender_id))
+    print(receipt.get_receipt())
     bot.send_text_message(sender_id, 'Order on The Way.')
     # receipt.send(restaurant)
     return 'User info was added', 200
