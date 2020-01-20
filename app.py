@@ -5,7 +5,7 @@ from models.data_models import Order, OrderSchema, User, UserSchema
 from models.receipt import ReceiptTemplate
 import json
 from models.bot import Bot
-from forms import OrderSandwich, SignUpForm
+from forms import OrderSandwich, OrderMeal, OrderSauce, SignUpForm
 from tables import Results, Items
 from resources.buttons import confirm_block
 from resources.menu import main_menu, family_menu
@@ -108,16 +108,23 @@ def show_webview(food, item, price):
     if food == "sandwich":
         sandwich = OrderSandwich()
         return render_template('order sandwich.jinja', item=item, form=sandwich, price=price)
-    elif food == "Meal":
-        pass
+    elif food == "meal":
+        meal = OrderMeal()
+        return render_template('order meal.jinja', item=item, form=meal, price=price)
+    elif food == "sauce":
+        sauce = OrderSauce()
+        return render_template('order sauce.jinja', item=item, form=sauce, price=price)
 
 
 @app.route('/add_to_order/<string:food>/<string:item>/<float:price>', methods=['POST'])
 def add_to_order(food, item, price):
     qty = request.form.get('quantity')
+    # if request.form.get('spicy') is not None:
     spicy = request.form.get('spicy')
+    # if request.form.get('notes') is not None:
     notes = request.form.get('notes')
-    combo = request.form.get(('combo'))
+    # if request.form.get('notes') is not None:
+    combo = request.form.get('combo')
     order = Order.find_by_number(order_number)
     print(food)
     if order is None:
@@ -134,7 +141,9 @@ def add_to_order(food, item, price):
         text = '{} was added to your order Your toatl {}'.format(
             item, order.total)
         confirm_block.set_text(text)
+    print('Test')
     confirm_block.send(sender_id)
+
     return 'Item added to Order', 200
 
 

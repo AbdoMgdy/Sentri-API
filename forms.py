@@ -23,6 +23,13 @@ class OrderMeal(FlaskForm):
                                                     'placeholder': 'مثال: 3 قطع فقط سبايسي أو بدون بصل'})
 
 
+class OrderSauce(FlaskForm):
+    quantity = SelectField('Quantity الكمية', choices=[
+                           (1, 1), (2, 2), (3, 3), (4, 4)])
+    spicy = SelectField('Size الحجم', choices=[
+                        ('Large', 'كبير'), ('Small', 'صغير')])
+
+
 class SignUpForm(FlaskForm):
     name = StringField('الاسم', render_kw={
         'placeholder': 'من فضلك أدخل اسمك'})
