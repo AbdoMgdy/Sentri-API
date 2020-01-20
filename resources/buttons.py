@@ -13,4 +13,5 @@ confirm_block = ButtonTemplate()
 confirm_block.add_web_url(
     **{'Confirm': 'https://trex-chat-bot.herokuapp.com/confirm_order'})
 confirm_block.add_postback(**{'Details': 'confirm_order'})
-confirm_block.add_postback(**{'Edit': 'confirm_order'})
+confirm_block.add_web_url(
+    **{'Edit': 'https://trex-chat-bot.herokuapp.com/edit_order'})

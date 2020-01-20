@@ -113,12 +113,7 @@ def add_to_order(item, price):
     spicy = request.form.get('spicy')
     notes = request.form.get('notes')
     combo = request.form.get(('combo'))
-    print(item)
-    print(price)
-    print(spicy)
-    print(qty)
     order = Order.find_by_number(order_number)
-    print(order.number)
 
     if order is None:
         order = Order(sender_id)
@@ -136,6 +131,17 @@ def add_to_order(item, price):
         confirm_block.set_text(text)
     confirm_block.send(sender_id)
     return 'Item added to Order', 200
+
+
+@app.route('/edit_order/', methods=['GET', 'POST'])
+def edit_order():
+    order = Order.find_by_number(order_number)
+    forms = []
+    if order is not None:
+        for item in order.items:
+            form = OrderForm(formdata=item, prefix=item.name)
+            forms.append(form)
+    return render_template('edit order.jinja', forms=forms)
 
 
 @app.route('/show_orders', methods=['GET'])
@@ -164,6 +170,39 @@ def show_table():
     table = Results(output)
     print(output)
     return render_template('show table.jinja', table=table)
+
+
+@app.route('/confirm_order', methods=['GET', 'POST'])
+def confirm_order():
+    order = Order.find_by_number(order_number)
+    user = User.find_by_psid(sender_id)
+    form = SignUpForm(obj=user)
+
+    if order is not None:
+        order.confirm()
+        return render_template('signup.jinja', form=form)
+    return 'ok', 200
+
+
+@app.route('/add_user_info', methods=['GET', 'POST'])
+def sign_up():
+    user = User.find_by_psid(sender_id)
+    user.name = request.form.get('name')
+    user.phone_number = request.form.get('phone_number')
+    user.address = request.form.get('address')
+    user.save()
+    last_order = user.orders[-1]
+    receipt = ReceiptTemplate(
+        recipient_name=user.name, order_number=last_order.number)
+
+    for item in last_order.items:
+        receipt.add_element(
+            title=item['name'], quantity=item['quantity'], price=item['price'])
+    receipt.set_summary(total_cost=last_order.total)
+
+    receipt.send(sender_id)
+    bot.send_text_message(sender_id, 'Order on The Way.')
+    return 'User info was added', 200
 
 
 def get_type_from_payload(data):
@@ -205,43 +244,6 @@ def handle_first_time(sender_id):
     new_order.add_item('Pizza', 3, 'Spicy', '', 49.99)
     new_order.save()
     return new_user, new_order
-
-
-@app.route('/confirm_order', methods=['GET', 'POST'])
-def confirm_order():
-    order = Order.find_by_number(order_number)
-    user = User.find_by_psid(sender_id)
-    form = SignUpForm(obj=user)
-
-    if order is not None:
-        order.confirm()
-        return render_template('signup.jinja', form=form)
-    return 'ok', 200
-
-
-@app.route('/add_user_info', methods=['GET', 'POST'])
-def sign_up():
-    user = User.find_by_psid(sender_id)
-    user.name = request.form.get('name')
-    user.phone_number = request.form.get('phone_number')
-    user.address = request.form.get('address')
-    user.save()
-    last_order = user.orders[-1]
-    print('SignUp')
-    print(user.name)
-    print(user.phone_number)
-    print(user.address)
-    receipt = ReceiptTemplate(
-        recipient_name=user.name, order_number=last_order.number)
-
-    for item in last_order.items:
-        receipt.add_element(
-            title=item['name'], quantity=item['quantity'], price=item['price'])
-    receipt.set_summary(total_cost=last_order.total)
-
-    receipt.send(sender_id)
-    bot.send_text_message(sender_id, 'Order on The Way.')
-    return 'User info was added', 200
 
 
 if __name__ == "__main__":
