@@ -76,10 +76,10 @@ class Order(db.Model):
     def add_item(self, name='', quantity=0, _type='', notes='', price=0, combo=0):
         item = {}
         item['name'] = name
-        item['quantity'] = float(quantity)
+        item['quantity'] = quantity
         item['type'] = _type
         item['notes'] = notes
-        item['combo'] = float(combo)
+        item['combo'] = combo
 
         item['price'] = float(price)
         # j_item = json.dumps(item)
