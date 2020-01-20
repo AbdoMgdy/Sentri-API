@@ -130,8 +130,6 @@ def add_to_order(food, item, price):
         combo = 0
     elif request.form.get('combo') is not None:
         combo = request.form.get('combo')
-    if request.form.get('size') is not None:
-        spicy = request.form.get('size')
 
     order = Order.find_by_number(order_number)
     print(food)
