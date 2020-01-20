@@ -155,6 +155,7 @@ def show_orders_t():
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
     totals = []
+    data = {}
     users = []
     items_list = []
     print(output)
@@ -170,14 +171,15 @@ def show_orders_t():
                 item['name'], item['quantity'], item['combo'])
             order += temp
         items_list.append(order)
-    print(users)
-    print(total)
-    print(items_list)
-    return render_template('show orders.jinja', users=users, totals=totals, orders=items_list)
+    data['users'] = users
+    data['totals'] = totals
+    data['items_list'] = items_list
+    print(data)
+    return render_template('show orders.jinja', data=data)
 
 
 @app.route('/show_users', methods=['GET'])
-def search_users():
+def show_users():
     users = User.query.all()
     users_schema = UserSchema(many=True)
     output = users_schema.dump(users)

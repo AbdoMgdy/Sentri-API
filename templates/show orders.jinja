@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="row">
-<div class="table-responsive col-md-3">
+<div class="table-responsive">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -16,25 +16,29 @@
     </tr>
   </thead>
   <tbody>
+ 
+ {% for list in data %}
  <tr>
-  {% for user in users  %}
+ 
+  {% for user in list['users']  %}
    
     <td>{{user['name']}}</td>
     <td>{{user['address']}}</td>
     <td>{{user['phone_number']}}</td>
     
   {% endfor %}
-{% for total in totals  %}
+{% for total in list['totals']  %}
   <td>{{total}} EGP</td>
   {% endfor %}
 
-{% for order in orders %}
+{% for order in list['orders'] %}
 
 <td>{{order}}</td>
 
 {% endfor %}
 
   </tr>
+  {% endfor %}
     </tbody>
     </table>
 </div>
