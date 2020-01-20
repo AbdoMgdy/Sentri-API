@@ -3,26 +3,26 @@
 
 
 {% block content %}
-
+<div class="row">
+<div class="table-responsive col-md-4">
 <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">Name</th>
       <th scope="col">Address</th>
       <th scope="col">Phone Number</th>
-      <th scope="col">Total</th>
-      <th scope="col">Order Number</th>
     </tr>
   </thead>
   <tbody>
-  <tr>
+ 
   {% for user in users  %}
-  
+   <tr>
     <td>{{user['name']}}</td>
     <td>{{user['address']}}</td>
     <td>{{user['phone_number']}}</td>
-    
+    </tr>
   {% endfor %}
+
   {% for total in totals  %}
   <td>{{total}} EGP</td>
   {% endfor %}
@@ -33,6 +33,6 @@
     
   </tbody>
 </table>
-
-
+</div>
+</div>
 {% endblock content %}
