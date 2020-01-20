@@ -170,7 +170,7 @@ def show_table():
 
     table = Items(output)
     print(output)
-    return render_template('show table.jinja', table=table)
+    return render_template('table.jinja', table=table)
 
 
 @app.route('/confirm_order', methods=['GET', 'POST'])
