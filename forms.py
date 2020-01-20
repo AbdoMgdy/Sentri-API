@@ -26,7 +26,7 @@ class OrderMeal(FlaskForm):
 class OrderSauce(FlaskForm):
     quantity = SelectField('Quantity الكمية', choices=[
                            (1, 1), (2, 2), (3, 3), (4, 4)])
-    Size = SelectField('Size الحجم', choices=[
+    size = SelectField('Size الحجم', choices=[
         ('Large', 'كبير'), ('Small', 'صغير')])
 
 
