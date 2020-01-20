@@ -20,18 +20,18 @@
  {% for list in data %}
  <tr>
  
-  {% for user in list['users']  %}
+  {% for user in list['user']  %}
    
     <td>{{user['name']}}</td>
     <td>{{user['address']}}</td>
     <td>{{user['phone_number']}}</td>
     
   {% endfor %}
-{% for total in list['totals']  %}
+  {% for total in list['total']  %}
   <td>{{total}} EGP</td>
   {% endfor %}
 
-{% for order in list['orders'] %}
+{% for order in list['order'] %}
 
 <td>{{order}}</td>
 

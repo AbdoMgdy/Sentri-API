@@ -154,26 +154,22 @@ def show_orders_t():
     orders = Order.query.all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
-    totals = []
-    data = {}
-    users = []
-    items_list = []
+    data = []
     print(output)
     for order in output:
+        info = {}
         user = order['user']
-        users.append(user)
+        info['user'] = user
         total = order['total']
-        totals.append(total)
+        info['total'] = total
         items = ast.literal_eval(order['items'])
         order = ''
         for item in items:
-            temp = '+ {} * {} Combo({})'.format(
-                item['name'], item['quantity'], item['combo'])
+            temp = '+ {} * {} ({}) Combo({}) Notes({}) '.format(
+                item['name'], item['quantity'], item['Spicy'], item['combo'], item['notes'])
             order += temp
-        items_list.append(order)
-    data['users'] = users
-    data['totals'] = totals
-    data['items_list'] = items_list
+        info['items'] = order
+    data.append(info)
     print(data)
     return render_template('show orders.jinja', data=data)
 
