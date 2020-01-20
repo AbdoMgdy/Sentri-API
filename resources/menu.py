@@ -18,6 +18,6 @@ main_menu.add_element(title="Family Meals الوجبات العائلية", imag
 family_menu = GenericTemplate()
 
 family_menu.add_element(title="Burger", buttons=burger_btn.buttons)
-family_menu.add_element(title="9 Chicken", buttons=meal_btn.buttons)
-family_menu.add_element(title="Sauce", buttons=sauce_btn.buttons)
+# family_menu.add_element(title="9 Chicken", buttons=meal_btn.buttons)
+# family_menu.add_element(title="Sauce", buttons=sauce_btn.buttons)
 # family_menu.add_quick_replies(**{'Back العودة للخلف': 'main_menu'})
