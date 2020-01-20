@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request, render_template
-from models.order import Order, OrderSchema, User, UserSchema
+from models.data_models import Order, OrderSchema, User, UserSchema
 from models.receipt import ReceiptTemplate
 import json
 from models.bot import Bot
