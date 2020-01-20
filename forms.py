@@ -8,8 +8,8 @@ class OrderSandwich(FlaskForm):
                            (1, 1), (2, 2), (3, 3), (4, 4)])
     spicy = SelectField('عادي أم سبايسي؟', choices=[
                         ('Spicy', 'سبايسي'), ('Normal', 'عادي')])
-    notes = StringField('اضافة ملحوظة؟', render_kw={'pattern': '[0-9]',
-                                                    'placeholder': 'مثال: 3 قطع فقط سبايسي أو بدون بصل'})
+    notes = StringField('اضافة ملحوظة؟', render_kw={
+        'placeholder': 'مثال: 3 قطع فقط سبايسي أو بدون بصل'})
     combo = SelectField('اضافة كومبو بـ15ج (بطاطس + كولا)', choices=[(0, 'لا No'),
                                                                      (15, 'نعم Yes')])
 
@@ -19,8 +19,8 @@ class OrderMeal(FlaskForm):
                            (1, 1), (2, 2), (3, 3), (4, 4)])
     spicy = SelectField('عادي أم سبايسي؟', choices=[
                         ('Spicy', 'سبايسي'), ('Normal', 'عادي')])
-    notes = StringField('اضافة ملحوظة؟', render_kw={'pattern': '[0-9]',
-                                                    'placeholder': 'مثال: 3 قطع فقط سبايسي أو بدون بصل'})
+    notes = StringField('اضافة ملحوظة؟', render_kw={
+        'placeholder': 'مثال: 3 قطع فقط سبايسي أو بدون بصل'})
 
 
 class OrderSauce(FlaskForm):
