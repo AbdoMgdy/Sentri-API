@@ -85,7 +85,7 @@ class Order(db.Model):
         # j_item = json.dumps(item)
         self.items.append(item)
         if combo != 0:
-            combo_price = float(combo) * float(quantity)
+            combo_price = combo * float(quantity)
         item_price = float(price) * float(quantity)
         self.total += item_price + combo_price
         self.save()
