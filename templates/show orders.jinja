@@ -10,16 +10,26 @@
       <th scope="col">Name</th>
       <th scope="col">Address</th>
       <th scope="col">Phone Number</th>
+      <th scope="col">Total</th>
+      <th scope="col">Order Number</th>
     </tr>
   </thead>
   <tbody>
   <tr>
   {% for user in users  %}
+  
     <td>{{user['name']}}</td>
     <td>{{user['address']}}</td>
     <td>{{user['phone_number']}}</td>
-    </tr>
+    
   {% endfor %}
+  {% for total in totals  %}
+  <td>{{total}} EGP</td>
+  {% endfor %}
+  {% for number in numbers  %}
+  <td>{{number}}</td>
+  {% endfor %}
+  </tr>
     
   </tbody>
 </table>

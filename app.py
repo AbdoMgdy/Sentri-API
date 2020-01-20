@@ -1,4 +1,5 @@
 import os
+import ast
 from flask import Flask, request, render_template
 from models.data_models import Order, OrderSchema, User, UserSchema
 from models.receipt import ReceiptTemplate
@@ -148,13 +149,20 @@ def show_orders_t():
     orders = Order.query.all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
-    users = output[0]['user']['name']
-    # output_J = orders_schema.dumps(orders)
-    # print(output[0]['user']['name'])
-    items_s = output[0]['items']
-    items_l = list(items_s)
-    print(items_l[0])
-    return render_template('show orders.jinja', rows=users)
+    totals = []
+    numbers = []
+    users = []
+    items_list = []
+    for order in output:
+        user = order['user']
+        users.append(user)
+        total = order['total']
+        totals.append(total)
+        number = order['number']
+        numbers.append(number)
+        items = ast.literal_eval(order['items'])
+        items_list.append(items)
+    return render_template('show orders.jinja', users=users, totals=totals, numbers=numbers)
 
 
 @app.route('/show_users', methods=['GET'])
