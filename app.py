@@ -5,7 +5,7 @@ from models.data_models import Order, OrderSchema, User, UserSchema
 from models.receipt import ReceiptTemplate
 import json
 from models.bot import Bot
-from forms import OrderForm, SignUpForm
+from forms import OrderSandwich, SignUpForm
 from tables import Results, Items
 from resources.buttons import confirm_block
 from resources.menu import main_menu, family_menu
@@ -31,6 +31,8 @@ blocks = {
     'confirm_order': 'order_confirmed'
 }
 
+
+restaurant = ''
 
 sender_id = ''
 order_number = 0
@@ -101,13 +103,16 @@ def handle_incoming_messages():
     return "ok", 200
 
 
-@app.route('/webview/order/<string:item>/<float:price>', methods=['GET', 'POST'])
-def show_webview(item, price):
-    form = OrderForm()
-    return render_template('order.jinja', item=item, form=form, price=price)
+@app.route('/webview/order/<string:food>/<string:item>/<float:price>', methods=['GET', 'POST'])
+def show_webview(food, item, price):
+    if food == "sandwich":
+        sandwich = OrderSandwich()
+        return render_template('order sandwich.jinja', item=item, form=sandwich, price=price)
+    elif food == "Meal":
+        pass
 
 
-@app.route('/add_to_order/<string:item>/<float:price>', methods=['POST'])
+@app.route('/add_to_order/<string:food>/<string:item>/<float:price>', methods=['POST'])
 def add_to_order(item, price):
     qty = request.form.get('quantity')
     spicy = request.form.get('spicy')
@@ -139,7 +144,7 @@ def edit_order():
     forms = []
     if order is not None:
         for item in order.items:
-            form = OrderForm(formdata=item, prefix=item['name'])
+            form = OrderSandwich(formdata=item, prefix=item['name'])
             forms.append(form)
     return render_template('edit order.jinja', forms=forms)
 
@@ -150,19 +155,25 @@ def show_orders_t():
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
     totals = []
-    numbers = []
     users = []
     items_list = []
+    print(output)
     for order in output:
         user = order['user']
         users.append(user)
         total = order['total']
         totals.append(total)
-        number = order['number']
-        numbers.append(number)
         items = ast.literal_eval(order['items'])
-        items_list.append(items)
-    return render_template('show orders.jinja', users=users, totals=totals, numbers=numbers)
+        order = ''
+        for item in items:
+            temp = '+ {} * {} Combo({})'.format(
+                item['name'], item['quantity'], item['combo'])
+            order += temp
+        items_list.append(order)
+    print(users)
+    print(total)
+    print(items_list)
+    return render_template('show orders.jinja', users=users, totals=totals, orders=items_list)
 
 
 @app.route('/show_users', methods=['GET'])
@@ -215,6 +226,7 @@ def sign_up():
 
     receipt.send(sender_id)
     bot.send_text_message(sender_id, 'Order on The Way.')
+    receipt.send(restaurant)
     return 'User info was added', 200
 
 

@@ -10,56 +10,34 @@
     <tr>
       <th scope="col">Name</th>
       <th scope="col">Address</th>
-      <th scope="col">Phone Number</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Total</th>
+      <th scope="col">Order</th>
     </tr>
   </thead>
   <tbody>
- 
+ <tr>
   {% for user in users  %}
-   <tr>
+   
     <td>{{user['name']}}</td>
     <td>{{user['address']}}</td>
     <td>{{user['phone_number']}}</td>
-    </tr>
+    
   {% endfor %}
+{% for total in totals  %}
+  <td>{{total}} EGP</td>
+  {% endfor %}
+
+{% for order in orders %}
+
+<td>{{order}}</td>
+
+{% endfor %}
+
+  </tr>
     </tbody>
     </table>
 </div>
-<div class="table-responsive col-md-1">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">total</th>
-    </tr>
-    </thead>
-  <tbody>
-  
-  {% for total in totals  %}
-  <tr>
-  <td>{{total}} EGP</td>
-  </tr>
-  {% endfor %}
-  
-</tbody>
-</table>
-</div>
-<div class="table-responsive col-md-1">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Order Number</th>
-    </tr>
-    </thead>
-  <tbody>
 
-  {% for number in numbers  %}
-    <tr>
-  <td>{{number}}</td>
-   </tr>
-  {% endfor %}
- 
-  </tbody>
-</table>
-</div>
 </div>
 {% endblock content %}
