@@ -168,8 +168,8 @@ def show_table():
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
     items = output[0]['items'][0]
-    table = Items(output)
-    print(output)
+    table = Items(items)
+    print(items)
     return render_template('table.jinja', table=table)
 
 
