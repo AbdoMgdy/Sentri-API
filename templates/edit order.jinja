@@ -16,9 +16,11 @@
         {% for item in forms  %}
             <div class="piece">
             <h5 class="card-header warning-color-dark white-text text-center py-4">
-                 <strong>{{item['name']}} </strong>
+                 <strong>{{item['name']}}</strong>
              </h5>
-            {{ item['form'].csrf_token }}
+                
+                 <input type="hidden" id="name" name="name" value="{{item['name']}}">
+ 
                             
                 <!-- Quantity -->
                 <div class="mt-5">
