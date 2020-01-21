@@ -148,8 +148,8 @@ def add_to_order(food, item, price):
         text = '{} was added to your order Your toatl {}'.format(
             item, order.total)
         confirm_block.set_text(text)
-    print('Test')
     confirm_block.send(sender_id)
+    print(confirm_block.send(sender_id))
 
     return 'Item added to Order', 200
 
