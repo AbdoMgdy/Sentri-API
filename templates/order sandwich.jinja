@@ -16,7 +16,7 @@
     <div class="card-body px-lg-5 pt-0">
 u
         <!-- Form -->
-        <form class="text-center" style="color: #757575;" action="{{url('add_to_order', args=['sandwich',{{item}},{{price}}])}}" method="POST">
+        <form class="text-center" style="color: #757575;" action="/add_to_order/sandwich/{{item}}/{{price}}" method="POST">
             {{ form.csrf_token }}
 
             <!-- Quantity -->
