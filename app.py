@@ -155,7 +155,7 @@ def add_to_order(food, item, price):
     return 'Item added to Order', 200
 
 
-@app.route('/edit_order/', methods=['GET', 'POST'])
+@app.route('/edit_order', methods=['GET', 'POST'])
 def edit_order():
     order = Order.find_by_number(order_number)
     order_schema = OrderSchema()
@@ -167,7 +167,7 @@ def edit_order():
         for item in order.items:
             if item['category'] == "sandwich":
                 data = {}
-                form_data = {'quantity': item['quanitiy'], 'spicy': item['type'],
+                form_data = {'quantity': item['quantity'], 'spicy': item['type'],
                              'notes': item['notes'], 'combo': item['combo']}
                 data['name'] = item['name']
                 data['form'] = OrderSandwich(
@@ -175,7 +175,7 @@ def edit_order():
                 forms.append(data)
             elif item['category'] == "meal":
                 data = {}
-                form_data = {'quantity': item['quanitiy'], 'spicy': item['type'],
+                form_data = {'quantity': item['quantity'], 'spicy': item['type'],
                              'notes': item['notes']}
                 data['name'] = item['name']
                 data['form'] = OrderMeal(
@@ -183,7 +183,7 @@ def edit_order():
                 forms.append(data)
             elif item['category'] == "sauce":
                 data = {}
-                form_data = {'quantity': item['quanitiy']}
+                form_data = {'quantity': item['quantity']}
                 data['name'] = item['name']
                 data['form'] = OrderSauce(
                     data=form_data, prefix=item['name'])
