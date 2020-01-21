@@ -23,4 +23,4 @@ family_menu.add_element(
     title="9 Chicken", image_url='https://i.ibb.co/N7Z2Y0Y/image.png', buttons=meal_btn.buttons)
 family_menu.add_element(
     title="Sauce", image_url='https://i.ibb.co/N7Z2Y0Y/image.png', buttons=sauce_btn.buttons)
-# family_menu.add_quick_replies(**{'Back العودة للخلف': 'main_menu'})
+family_menu.add_quick_replies(**{'Back العودة للخلف': 'main_menu'})

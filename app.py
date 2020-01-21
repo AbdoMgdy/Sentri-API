@@ -105,7 +105,7 @@ def handle_incoming_messages():
     return "ok", 200
 
 
-@app.route('/webview/order/<string:food>/<string:item>/<float:price>', methods=['GET', 'POST'])
+@app.route('/webview/order/<string:food>/<string:item>/<float:price>', methods=['GET'])
 def show_webview(food, item, price):
     if food == "sandwich":
         sandwich = OrderSandwich()
@@ -152,8 +152,6 @@ def add_to_order(food, item, price):
                                                                       item, order.total)
         confirm_block.set_text(text)
     confirm_block.send(sender_id)
-    print(confirm_block.send(sender_id))
-
     return 'Item added to Order', 200
 
 
@@ -188,8 +186,8 @@ def show_orders_t():
                 combo = 'Combo'
             else:
                 combo = ''
-            temp = '- {} * {} ({}) {} Notes({}) /'.format(
-                item['name'], item['quantity'], item['type'], combo, item['notes'])
+            temp = '- {} * {} ({}) {} Notes({}) /'.format(item['quantity'],
+                                                          item['name'], item['type'], combo, item['notes'])
             order += temp
         info['items'] = order
         data.append(info)
