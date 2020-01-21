@@ -165,23 +165,23 @@ def edit_order():
             if item['category'] == "sandwich":
                 data = {}
                 data['name'] = item['name']
-                data['form'] = OrderSandwich(obj=item, prefix=item['name'])
+                data['form'] = OrderSandwich(data=item, prefix=item['name'])
                 forms.append(data)
             elif item['category'] == "meal":
                 data = {}
                 data['name'] = item['name']
-                data['form'] = OrderMeal(obj=item)
+                data['form'] = OrderMeal(data=item)
                 forms.append(data)
             elif item['category'] == "sauce":
                 data = {}
                 data['name'] = item['name']
-                data['form'] = OrderSauce(obj=item)
+                data['form'] = OrderSauce(data=item)
                 forms.append(data)
     return render_template('edit order.jinja', forms=forms)
 
 
 @app.route('/show_orders', methods=['GET'])
-def show_orders_t():
+def show_orders():
     orders = Order.query.filter_by(is_confirmed=True).all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
