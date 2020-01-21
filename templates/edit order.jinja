@@ -8,10 +8,6 @@
 <!-- Material form contact -->
 <div class="card">
 
-    <h5 class="card-header warning-color-dark white-text text-center py-4">
-        <strong>Edit Order تعديل الأوردر</strong>
-    </h5>
-
     <!--Card content-->
     <div class="card-body px-lg-5 pt-0">
 
@@ -19,7 +15,9 @@
         <form class="text-center" style="color: #757575;" action="" method="POST">
         {% for item in forms  %}
 
-             <h5> {{item['name']}} </h5>
+            <h5 class="card-header warning-color-dark white-text text-center py-4">
+                 <strong>{{item['name']}} </strong>
+             </h5>
             {{ item['form'].csrf_token }}
                             
                 <!-- Quantity -->
