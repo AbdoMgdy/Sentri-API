@@ -167,8 +167,8 @@ def edit_order():
         for item in order.items:
             if item['category'] == "sandwich":
                 data = {}
-                form_data = {'quantity': item['quantity'], 'spicy': item['type'],
-                             'notes': item['notes'], 'combo': item['combo']}
+                form_data = {'quantity': 3, 'spicy': item['type'],
+                             'notes': item['notes'], 'combo': 15}
                 data['name'] = item['name']
                 data['form'] = OrderSandwich(
                     data=form_data, prefix=item['name'])
