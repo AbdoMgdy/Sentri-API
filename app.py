@@ -282,10 +282,10 @@ def postback_events(data):
 
 
 def quick_replies_events(data):
-    quick_replies = data["entry"][0]["messaging"]["message"]
+    quick_replies = data["entry"][0]["messaging"]
 
     for event in quick_replies:
-        quick_reply_payload = event["quick_reply"]["payload"]
+        quick_reply_payload = event["message"]["quick_reply"]["payload"]
         quick_reply = quick_reply_payload.replace('"', '')
         return quick_reply
 
