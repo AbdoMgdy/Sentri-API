@@ -199,6 +199,7 @@ def accept_edit():
     order_schema = OrderSchema()
     output = order_schema.dump(order)
     items = ast.literal_eval(output['items'])
+    return 'Order was edited', 200
 
 
 @app.route('/show_orders', methods=['GET'])
