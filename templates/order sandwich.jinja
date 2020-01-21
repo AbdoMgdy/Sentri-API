@@ -11,10 +11,9 @@
     <h5 class="card-header warning-color-dark white-text text-center py-4">
         <strong>{{item}}</strong>
     </h5>
-{{ url('some-url-name', arg) }}
+
     <!--Card content-->
     <div class="card-body px-lg-5 pt-0">
-u
         <!-- Form -->
         <form class="text-center" style="color: #757575;" action="/add_to_order/sandwich/{{item}}/{{price}}" method="POST">
             {{ form.csrf_token }}
