@@ -158,24 +158,35 @@ def add_to_order(food, item, price):
 @app.route('/edit_order/', methods=['GET', 'POST'])
 def edit_order():
     order = Order.find_by_number(order_number)
+    order_schema = OrderSchema()
+    order_list = order_schema.dump(order)
+    print(order_list)
     print(order.items)
     forms = []
     if order is not None:
         for item in order.items:
             if item['category'] == "sandwich":
                 data = {}
+                form_data = {'quantity': item['quanitiy'], 'spicy': item['type'],
+                             'notes': item['notes'], 'combo': item['combo']}
                 data['name'] = item['name']
-                data['form'] = OrderSandwich(data=item, prefix=item['name'])
+                data['form'] = OrderSandwich(
+                    data=form_data, prefix=item['name'])
                 forms.append(data)
             elif item['category'] == "meal":
                 data = {}
+                form_data = {'quantity': item['quanitiy'], 'spicy': item['type'],
+                             'notes': item['notes']}
                 data['name'] = item['name']
-                data['form'] = OrderMeal(data=item)
+                data['form'] = OrderMeal(
+                    data=form_data, prefix=item['name'])
                 forms.append(data)
             elif item['category'] == "sauce":
                 data = {}
+                form_data = {'quantity': item['quanitiy']}
                 data['name'] = item['name']
-                data['form'] = OrderSauce(data=item)
+                data['form'] = OrderSauce(
+                    data=form_data, prefix=item['name'])
                 forms.append(data)
     return render_template('edit order.jinja', forms=forms)
 
