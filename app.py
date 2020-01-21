@@ -234,8 +234,12 @@ def sign_up():
         recipient_name=user.name, order_number=last_order.number)
 
     for item in last_order.items:
+        if item['combo'] == 15:
+            details = '{} + Combo'.format(item['type'])
+        else:
+            details = '{}'.format(item['type'])
         receipt.add_element(
-            title=item['name'], quantity=item['quantity'], price=item['price'])
+            title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
     receipt.set_summary(total_cost=last_order.total)
 
     receipt.send(sender_id)
