@@ -184,8 +184,12 @@ def show_orders_t():
         items = ast.literal_eval(order['items'])
         order = ''
         for item in items:
-            temp = '- {} * {} ({}) Combo({}) Notes({}) /'.format(
-                item['name'], item['quantity'], item['type'], item['combo'], item['notes'])
+            if item['combo'] == 15:
+                combo = 'Combo'
+            else:
+                combo = ''
+            temp = '- {} * {} ({}) {} Notes({}) /'.format(
+                item['name'], item['quantity'], item['type'], combo, item['notes'])
             order += temp
         info['items'] = order
         data.append(info)
