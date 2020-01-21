@@ -244,7 +244,7 @@ def sign_up():
         else:
             details = '{}'.format(item['type'])
         receipt.add_element(
-            title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
+            title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'], image_url='https://i.ibb.co/N7Z2Y0Y/image.png')
     receipt.set_summary(total_cost=last_order.total)
 
     receipt.send(sender_id)
