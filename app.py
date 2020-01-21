@@ -157,6 +157,7 @@ def add_to_order(food, item, price):
 @app.route('/edit_order/', methods=['GET', 'POST'])
 def edit_order():
     order = Order.find_by_number(order_number)
+    print(order.items)
     forms = []
     if order is not None:
         for item in order.items:
