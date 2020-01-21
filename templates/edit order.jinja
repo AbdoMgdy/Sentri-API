@@ -21,17 +21,15 @@
 
              <h5> {{item['name']}} </h5>
             {{ item['form'].csrf_token }}
-            
-                    
-
+                            
                 <!-- Quantity -->
                 <div class="mt-5">
-                    {{ item['form'].quantity.label }} {{ item['form'].quantity(dir="rtl",class="custom-select") }}
+                    {{ item['form'].quantity(dir="rtl",class="custom-select") }}
                 </div>
                 {% if item['form'].spicy %}
                 <!-- Spicy -->
                 <div class="mt-5">
-                    {{ item['form'].spicy.label }} {{ item['form'].spicy(dir="rtl",class="custom-select") }}
+                    {{ item['form'].spicy(dir="rtl",class="custom-select") }}
                 </div>
                 
                 {% endif %}
@@ -39,7 +37,7 @@
                 {% if item['form'].combo %}
                 <!-- Combo -->
                 <div class="mt-5">
-                    {{ item['form'].combo.label }} {{ item['form'].combo(dir="rtl",class="custom-select") }}
+                    {{ item['form'].combo(dir="rtl",class="custom-select") }}
                 </div>
                 
                 {% endif %}
@@ -48,7 +46,7 @@
                 
                 <!--Notes-->
                 <div class="md-form mt-5">
-                    {{item['form'].notes.label(style="margin-left:50%")}} {{form.notes(dir="rtl",class="form-control")}}
+                    {{form.notes(dir="rtl",class="form-control")}}
                 </div>
                 
                 {% endif %}

@@ -145,7 +145,8 @@ def add_to_order(food, item, price):
         confirm_block.set_text(text)
 
     if not order.is_confirmed:
-        order.add_item(item, qty, spicy, notes, price, combo)
+        order.add_item(category=food, name=item, quantity=qty, _type=spicy,
+                       notes=notes, price=price, combo=combo)
         order.save()
         text = '{} * {} was added to your order Your total {}'.format(qty,
                                                                       item, order.total)
