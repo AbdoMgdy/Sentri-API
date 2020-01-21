@@ -87,7 +87,7 @@ def handle_incoming_messages():
     elif webhook_type == "quick_reply":
         # HANDLE QUICK REPLIES HERE
         bot.send_before_message(sender_id)
-        block_name = postback_events(data)
+        block_name = quick_replies_events(data)
         block = blocks[block_name]
         block.send(sender_id)
         return "quick_reply", 200
@@ -283,7 +283,12 @@ def postback_events(data):
 
 
 def quick_replies_events(data):
-    pass
+    quick_replies = data["entry"][0]["messaging"]["message"]
+
+    for event in quick_replies:
+        quick_reply_payload = event["quick_reply"]["payload"]
+        quick_reply = quick_reply_payload.replace('"', '')
+        return quick_reply
 
 
 def handle_first_time(sender_id):
