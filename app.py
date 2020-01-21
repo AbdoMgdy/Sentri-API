@@ -91,7 +91,7 @@ def handle_incoming_messages():
         block = blocks[block_name]
         block.send(sender_id)
         return "quick_reply", 200
-    elif webhook_type == "postback" and postback_events(data) == "canel_order":
+    elif webhook_type == "postback" and postback_events(data) == "cancel_order":
         order = Order.find_by_user_id(sender_id)
         order.cancel()
         bot.send_text_message(sender_id, 'Order Was Canceld')
@@ -141,15 +141,15 @@ def add_to_order(food, item, price):
         order.add_item(name=item, quantity=qty, _type=spicy,
                        notes=notes, price=price, combo=combo)
         order.save()
-        text = '{} was added to your order Your toatl {}'.format(
-            item, order.total)
+        text = '{} * {} {} was added to your order Your total {}'.format(qty,
+                                                                         item, spicy, order.total)
         confirm_block.set_text(text)
 
     if not order.is_confirmed:
         order.add_item(item, qty, spicy, notes, price, combo)
         order.save()
-        text = '{} was added to your order Your toatl {}'.format(
-            item, order.total)
+        text = '{} * {} was added to your order Your total {}'.format(qty,
+                                                                      item, order.total)
         confirm_block.set_text(text)
     confirm_block.send(sender_id)
     print(confirm_block.send(sender_id))
