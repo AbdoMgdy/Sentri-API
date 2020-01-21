@@ -137,7 +137,7 @@ def add_to_order(food, item, price):
     print(food)
     if order is None:
         order = Order(sender_id)
-        order.add_item(name=item, quantity=qty, _type=spicy,
+        order.add_item(category=food, name=item, quantity=qty, _type=spicy,
                        notes=notes, price=price, combo=combo)
         order.save()
         text = '{} * {} {} was added to your order Your total {}'.format(qty,
@@ -161,8 +161,21 @@ def edit_order():
     forms = []
     if order is not None:
         for item in order.items:
-            form = OrderSandwich(obj=item, prefix=item['name'])
-            forms.append(form)
+            if item['category'] == "sandwich":
+                data = {}
+                data['name'] = item['name']
+                data['form'] = OrderSandwich(obj=item, prefix=item['name'])
+                forms.append(data)
+            elif item['category'] == "meal":
+                data = {}
+                data['name'] = item['name']
+                form = OrderMeal(obj=item)
+                forms.append(data)
+            elif item['category'] == "sauce":
+                data = {}
+                data['name'] = item['name']
+                form = OrderSauce(obj=item)
+                forms.append(data)
     return render_template('edit order.jinja', forms=forms)
 
 
@@ -248,7 +261,6 @@ def sign_up():
     receipt.set_summary(total_cost=last_order.total)
 
     receipt.send(sender_id)
-    print(receipt.send(sender_id))
     print(receipt.get_receipt())
     bot.send_text_message(sender_id, 'Order on The Way.')
     # receipt.send(restaurant)

@@ -17,34 +17,38 @@
 
         <!-- Form -->
         <form class="text-center" style="color: #757575;" action="" method="POST">
-        {% for form in forms  %}
-            {{ form.csrf_token }}
+        {% for item in forms  %}
+
+             <h5> {{item['name']}} </h5>
+            {{ item['form'].csrf_token }}
             
+                    
+
                 <!-- Quantity -->
                 <div class="mt-5">
-                    {{ form.quantity.label }} {{ form.quantity(dir="rtl",class="custom-select") }}
+                    {{ item['form'].quantity.label }} {{ item['form'].quantity(dir="rtl",class="custom-select") }}
                 </div>
-                {% if form.spicy %}
+                {% if item['form'].spicy %}
                 <!-- Spicy -->
                 <div class="mt-5">
-                    {{ form.spicy.label }} {{ form.spicy(dir="rtl",class="custom-select") }}
+                    {{ item['form'].spicy.label }} {{ item['form'].spicy(dir="rtl",class="custom-select") }}
                 </div>
                 
                 {% endif %}
                 
-                {% if form.combo %}
+                {% if item['form'].combo %}
                 <!-- Combo -->
                 <div class="mt-5">
-                    {{ form.combo.label }} {{ form.combo(dir="rtl",class="custom-select") }}
+                    {{ item['form'].combo.label }} {{ item['form'].combo(dir="rtl",class="custom-select") }}
                 </div>
                 
                 {% endif %}
-                {% if form.notes %}
+                {% if item['form'].notes %}
                 
                 
                 <!--Notes-->
                 <div class="md-form mt-5">
-                    {{form.notes.label(style="margin-left:50%")}} {{form.notes(dir="rtl",class="form-control")}}
+                    {{item['form'].notes.label(style="margin-left:50%")}} {{form.notes(dir="rtl",class="form-control")}}
                 </div>
                 
                 {% endif %}
