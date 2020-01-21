@@ -63,19 +63,18 @@ def handle_incoming_messages():
     user = User.find_by_psid(sender_id)
 
     if user is None:
-        first = handle_first_time(sender_id)
+        first = handle_first_time_user(sender_id)
         user = first[0]
         new_order = first[1]
         global order_number
         order_number = new_order.number
         print('new user {}'.format(user.psid))
     elif user and len(user.orders) > 0:
-        last_order = user.orders[-1]
-        print('current user {}'.format(user.psid))
-        if last_order.is_confirmed:
-            last_order = Order(sender_id)
-            last_order.save()
+        current = handle_current_user(sender_id)
+        user = current[0]
+        last_order = current[1]
         order_number = last_order.number
+        print('current user {}'.format(user.psid))
     print('Current Order Number {}'.format(order_number))
 
     if webhook_type == "text":
@@ -244,7 +243,7 @@ def sign_up():
         else:
             details = '{}'.format(item['type'])
         receipt.add_element(
-            title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'], image_url='https://i.ibb.co/N7Z2Y0Y/image.png')
+            title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
     receipt.set_summary(total_cost=last_order.total)
 
     receipt.send(sender_id)
@@ -291,7 +290,7 @@ def quick_replies_events(data):
         return quick_reply
 
 
-def handle_first_time(sender_id):
+def handle_first_time_user(sender_id):
     new_user = User(sender_id)
     new_user.get_info()
     new_user.save()
@@ -299,6 +298,18 @@ def handle_first_time(sender_id):
     new_order.add_item('Pizza', 3, 'Spicy', '', 49.99)
     new_order.save()
     return new_user, new_order
+
+
+def handle_current_user(sender_id):
+    current_user = User.find_by_psid(sender_id)
+    last_order = current_user.orders[-1]
+    if last_order.is_confirmed:
+        last_order = Order(sender_id)
+        last_order.save()
+        order_number = last_order.number
+    else:
+        order_number = last_order.number
+    return current_user, last_order
 
 
 if __name__ == "__main__":
