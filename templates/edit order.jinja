@@ -25,25 +25,25 @@
 
             {% for form in forms  %}
         
-            <!-- Quantity -->
-            <div class="mt-5">
-                {{ form.quantity.label }} {{ form.quantity(dir="rtl",class="custom-select") }}
-            </div>
+                <!-- Quantity -->
+                <div class="mt-5">
+                    {{ form.quantity.label }} {{ form.quantity(dir="rtl",class="custom-select") }}
+                </div>
 
-            <!-- Spicy -->
-            <div class="mt-5">
-                {{ form.spicy.label }} {{ form.spicy(dir="rtl",class="custom-select") }}
-            </div>
-            
-            <!-- Combo -->
-            <div class="mt-5">
-                {{ form.combo.label }} {{ form.combo(dir="rtl",class="custom-select") }}
-            </div>
+                <!-- Spicy -->
+                <div class="mt-5">
+                    {{ form.spicy.label }} {{ form.spicy(dir="rtl",class="custom-select") }}
+                </div>
+                
+                <!-- Combo -->
+                <div class="mt-5">
+                    {{ form.combo.label }} {{ form.combo(dir="rtl",class="custom-select") }}
+                </div>
 
-            <!--Notes-->
-            <div class="md-form mt-5">
-                {{form.notes.label(style="margin-left:50%")}} {{form.notes(dir="rtl",class="form-control")}}
-            </div>
+                <!--Notes-->
+                <div class="md-form mt-5">
+                    {{form.notes.label(style="margin-left:50%")}} {{form.notes(dir="rtl",class="form-control")}}
+                </div>
 
             {% endfor %}
 
