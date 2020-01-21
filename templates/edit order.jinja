@@ -17,13 +17,14 @@
 
         <!-- Form -->
         <form class="text-center" style="color: #757575;" action="" method="POST">
+        {% for form in forms  %}
             {{ form.csrf_token }}
             <!-- Name -->
             <div class="mt-5">
                 {{ form.spicy.label }} {{ form.spicy(dir="rtl",class="custom-select") }}
             </div>
 
-            {% for form in forms  %}
+            
         
                 <!-- Quantity -->
                 <div class="mt-5">
