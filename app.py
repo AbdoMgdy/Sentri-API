@@ -175,7 +175,7 @@ def edit_order():
                 forms.append(data)
             elif item['category'] == "meal":
                 data = {}
-                form_data = {'quantity': int(item['quantity'], 'spicy': item['type'],
+                form_data = {'quantity': int(item['quantity']), 'spicy': item['type'],
                              'notes': item['notes']}
                 data['name'] = item['name']
                 data['form'] = OrderMeal(
@@ -183,7 +183,7 @@ def edit_order():
                 forms.append(data)
             elif item['category'] == "sauce":
                 data = {}
-                form_data={'quantity': int(item['quantity']}
+                form_data = {'quantity': int(item['quantity'])}
                 data['name'] = item['name']
                 data['form'] = OrderSauce(
                     data=form_data, prefix=item['name'])
@@ -211,8 +211,8 @@ def show_orders():
                 combo = 'Combo'
             else:
                 combo = ''
-            temp = '- {} * {} ({}) {} Notes({}) /'.format(item['quantity'],
-                                                          item['name'], item['type'], combo, item['notes'])
+            temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+                                                           item['name'], item['type'], combo, item['notes'])
             order += temp
         info['items'] = order
         data.append(info)
