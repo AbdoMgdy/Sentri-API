@@ -155,7 +155,7 @@ def add_to_order(food, item, price):
     return 'Item added to Order', 200
 
 
-@app.route('/edit_order', methods=['GET', 'POST'])
+@app.route('/edit_order/', methods=['GET', 'POST'])
 def edit_order():
     order = Order.find_by_number(order_number)
     order_schema = OrderSchema()
