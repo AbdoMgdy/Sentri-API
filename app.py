@@ -92,7 +92,7 @@ def handle_incoming_messages():
         block.send(sender_id)
         return "quick_reply", 200
     elif webhook_type == "postback" and postback_events(data) == "cancel_order":
-        order = Order.find_by_user_id(sender_id)
+        order = Order.find_by_number(order_number)
         order.cancel()
         bot.send_text_message(sender_id, 'Order Was Canceld')
     elif webhook_type == "postback":
