@@ -12,7 +12,7 @@
     <div class="card-body px-lg-5 pt-0">
 
         <!-- Form -->
-        <form class="text-center" style="color: #757575;" action="" method="POST">
+        <form class="text-center" style="color: #757575;" action="/accept_edit" method="POST">
         {% for item in forms  %}
             <div class="piece">
             <h5 class="card-header warning-color-dark white-text text-center py-4">
@@ -47,7 +47,7 @@
                     {{item['form'].notes(dir="rtl",class="form-control")}}
                 </div>
                 
-                <button type="button" class="btn btn-outline-danger btn-block z-depth-0 my-4 waves-effect remove-div">Remove</button>
+                <button type="button" class="btn btn-outline-danger btn-block z-depth-0 my-4 remove-div">Remove</button>
                 </div>
                 {% endif %}
             {% endfor %}

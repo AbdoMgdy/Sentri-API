@@ -191,6 +191,16 @@ def edit_order():
     return render_template('edit order.jinja', forms=forms)
 
 
+@app.route('/accept_edit', methods=['POST'])
+def accept_edit():
+    data = request.form.to_dict(flat=False)
+    print(data)
+    order = Order.query.filter_by(number=order_number).first()
+    order_schema = OrderSchema()
+    output = order_schema.dump(order)
+    items = ast.literal_eval(output['items'])
+
+
 @app.route('/show_orders', methods=['GET'])
 def show_orders():
     orders = Order.query.filter_by(is_confirmed=True).all()
