@@ -170,12 +170,12 @@ def edit_order():
             elif item['category'] == "meal":
                 data = {}
                 data['name'] = item['name']
-                form = OrderMeal(obj=item)
+                data['form'] = OrderMeal(obj=item)
                 forms.append(data)
             elif item['category'] == "sauce":
                 data = {}
                 data['name'] = item['name']
-                form = OrderSauce(obj=item)
+                data['form'] = OrderSauce(obj=item)
                 forms.append(data)
     return render_template('edit order.jinja', forms=forms)
 
