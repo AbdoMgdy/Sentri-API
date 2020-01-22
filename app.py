@@ -242,11 +242,10 @@ def show_table():
     return render_template('table.jinja', table=table)
 
 
-@app.route('/confirm_order', methods=['GET', 'POST'])
+@app.route('/confirm_order', methods=['GET'])
 def confirm_order():
     form = SignUpForm()
-    render_template('signup.jinja', form=form)  # take user info
-    return 'order confirmed', 200
+    return render_template('signup.jinja', form=form)  # take user info
 
 
 @app.route('/user/<string:sender_id>/add_user_info', methods=['GET', 'POST'])
