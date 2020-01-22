@@ -31,6 +31,8 @@ blocks = {
 }
 
 
+orders = {}
+
 restaurant = ''
 
 sender_id = ''
@@ -119,6 +121,8 @@ def show_webview(food, item, price):
 
 @app.route('/add_to_order/<string:food>/<string:item>/<float:price>', methods=['POST'])
 def add_to_order(food, item, price):
+    # save unconfirmed orders in dict
+    order_item = {}
     qty = request.form.get('quantity')
     if request.form.get('spicy') is None:
         spicy = ''
@@ -132,25 +136,19 @@ def add_to_order(food, item, price):
         combo = 0
     elif request.form.get('combo') is not None:
         combo = request.form.get('combo')
+    order_item['category'] = food
+    order_item['name'] = item
+    order_item['quantity'] = qty
+    order_item['type'] = spicy
+    order_item['price'] = price
+    order_item['combo'] = combo
+    order_item['notes'] = notes
 
-    order = Order.find_by_number(order_number)
-    print(food)
-    if order is None:
-        order = Order(sender_id)
-        order.add_item(category=food, name=item, quantity=qty, _type=spicy,
-                       notes=notes, price=price, combo=combo)
-        order.save()
-        text = '{} * {} {} was added to your order Your total {}'.format(qty,
-                                                                         item, spicy, order.total)
-        confirm_block.set_text(text)
+    update_order(sender_id, order_item)
 
-    if not order.is_confirmed:
-        order.add_item(category=food, name=item, quantity=qty, _type=spicy,
-                       notes=notes, price=price, combo=combo)
-        order.save()
-        text = '{} * {} was added to your order Your total {}'.format(qty,
-                                                                      item, order.total)
-        confirm_block.set_text(text)
+    text = '{} * {} was added to your order'.format(qty,
+                                                    item)
+    confirm_block.set_text(text)
     confirm_block.send(sender_id)
     return 'Item added to Order', 200
 
@@ -253,28 +251,47 @@ def show_table():
 
 @app.route('/confirm_order', methods=['GET', 'POST'])
 def confirm_order():
-    order = Order.find_by_number(order_number)
+    # creat order object and fill it from temp dict
+    order = Order(sender_id)
     user = User.find_by_psid(sender_id)
     form = SignUpForm(obj=user)
+    if orders[sender_id]:
+        items = orders[sender_id]
+        for item in items:
+            order.add_item(category=item['category'],
+                           name=item['name'],
+                           quantity=item['quantity'],
+                           _type=item['type'],
+                           price=item['price'],
+                           combo=item['combo'],
+                           notes=item['notes'])
 
-    if order is not None:
-        order.confirm()
-        return render_template('signup.jinja', form=form)
-    return 'ok', 200
+    else:
+        bot.send_text_message(sender_id, 'Order Expired Please Order Again!')
+    result = orders.pop(sender_id, None)  # remove order from temp dict
+    print(result)
+    render_template('signup.jinja', form=form)  # take user info
+    return 'order confirmed', 200
 
 
 @app.route('/add_user_info', methods=['GET', 'POST'])
 def sign_up():
+    # look for user
     user = User.find_by_psid(sender_id)
+    # update user info
     user.name = request.form.get('name')
     user.phone_number = request.form.get('phone_number')
     user.address = request.form.get('address')
     user.save()
+    # get last order and confirm it
     last_order = user.orders[-1]
+    last_order.confirm()
+    # make a receipt
     receipt = ReceiptTemplate(
         recipient_name=user.name, order_number=last_order.number)
 
     for item in last_order.items:
+        # fill receipt wiht order from data base
         if item['combo'] == 15:
             details = '{} + Combo'.format(item['type'])
         else:
@@ -288,6 +305,9 @@ def sign_up():
     bot.send_text_message(sender_id, 'Order on The Way.')
     # receipt.send(restaurant)
     return 'User info was added', 200
+
+
+# ============================================== HELPER FUNCTIONS ============================================== #
 
 
 def get_type_from_payload(data):
@@ -346,6 +366,14 @@ def handle_current_user(sender_id):
     else:
         order_number = last_order.number
     return current_user, last_order
+
+
+def update_order(sender_id, item):
+    if orders[sender_id]:
+        orders[sender_id].append(item)
+    else:
+        orders[sender_id] = []
+        orders[sender_id].append(item)
 
 
 if __name__ == "__main__":
