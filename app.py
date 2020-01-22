@@ -63,14 +63,11 @@ def handle_incoming_messages():
     if user is None:
         first = handle_first_time_user(sender_id)
         user = first
-        order_number = sender_id
         print('new user {}'.format(user.psid))
     elif user and len(user.orders) > 0:
         current = handle_current_user(sender_id)
         user = current
-        order_number = sender_id
         print('current user {}'.format(user.psid))
-    print('Current Order Number {}'.format(order_number))
 
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
@@ -93,7 +90,7 @@ def handle_incoming_messages():
         bot.send_before_message(sender_id)
         block_name = postback_events(data)
         block = blocks[block_name]
-        print(block.send(sender_id))
+        block.send(sender_id)
         return "postback", 200
     return "ok", 200
 
@@ -251,7 +248,7 @@ def confirm_order():
 def sign_up(sender_id):
     # creat order object and fill it from temp dict
     order = Order(sender_id)
-    if sender_id in orders.keys():
+    if sender_id in orders:
         items = orders[sender_id]
         for item in items:
             order.add_item(category=item['category'],
@@ -274,14 +271,14 @@ def sign_up(sender_id):
     user.address = request.form.get('address')
     user.save()
     # get last order and confirm it
-    last_order = user.orders[-1]
+    last_order = order
     last_order.confirm()
     # make a receipt
     receipt = ReceiptTemplate(
         recipient_name=user.name, order_number=last_order.number)
 
     for item in last_order.items:
-        # fill receipt wiht order from data base
+        # fill receipt with order from database
         if item['combo'] == 15:
             details = '{} + Combo'.format(item['type'])
         else:
