@@ -32,20 +32,21 @@
     window.extAsyncInit = function () {
       var url = $('form').attr('action')
 
-      MessengerExtensions.getContext('414558285925238', 
+     var f =  MessengerExtensions.getContext('414558285925238', 
     function success(thread_context){
-    console.log(thread_context)
+      return thread_context.psid
     },
   function error(err){
     console.log(err)
     }
   );
-
+        console.log(f)
 
       $('.remove-div').click(function(){
       $(this).parent().remove();
         });
-      document.getElementById('submitButton').addEventListener('click', function () {
+      document.getElementById('submitButton').addEventListener('click', function (event) {
+        event.preventDefault()
         MessengerExtensions.requestCloseBrowser(function success() {
           console.log("Webview closing");
         }, function error(err) {
