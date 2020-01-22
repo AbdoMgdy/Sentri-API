@@ -147,7 +147,7 @@ def add_to_order(sender_id, food, item, price):
 
 @app.route('/edit_order/', methods=['GET', 'POST'])
 def edit_order():
-    order = Order.find_by_number(order_number)
+    order = Order.find_by_number(55)
     order_schema = OrderSchema()
     order_list = order_schema.dump(order)
     print(order_list)
@@ -185,7 +185,7 @@ def edit_order():
 def accept_edit():
     data = request.form.to_dict(flat=False)
     print(data)
-    order = Order.query.filter_by(number=order_number).first()
+    order = Order.query.filter_by(number=55).first()
     order_schema = OrderSchema()
     output = order_schema.dump(order)
     items = ast.literal_eval(output['items'])
