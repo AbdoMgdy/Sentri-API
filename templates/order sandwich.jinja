@@ -22,7 +22,7 @@
     MessengerExtensions.getContext('414558285925238', 
     function success(thread_context){
         var psid = thread_context.psid
-      document.getElementById('sandwich').action ="/user/" psid + "/add_to_order/sandwich/{{item}}/{{price}}"
+      document.getElementById('sandwich').action ="/user/" + psid + "/add_to_order/sandwich/{{item}}/{{price}}"
     },
   function error(err){
     console.log(err)
