@@ -15,7 +15,7 @@
     <!--Card content-->
     <div class="card-body px-lg-5 pt-0">
         <!-- Form -->
-        <form id='orderForm' class="text-center" style="color: #757575;" action="" method="POST">
+        <form id='orderForm' class="text-center" style="color: #757575;" action="/add_to_order/sandwich/{{item}}/{{price}}" method="POST">
             {{ form.csrf_token }}
 
             <!-- Quantity -->
