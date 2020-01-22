@@ -35,6 +35,7 @@
     MessengerExtensions.getContext('414558285925238', 
     function success(thread_context){ 
       document.getElementById('orderForm').action ="/user/" + thread_context.psid + "/add_to_order/{{food}}/{{item}}/{{price}}";
+      document.getElementById('signUp').action ="/user/" + thread_context.psid + "/add_user_info";
       
     },
   function error(err){
