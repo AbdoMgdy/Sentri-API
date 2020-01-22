@@ -251,7 +251,7 @@ def confirm_order():
 def sign_up(sender_id):
     # creat order object and fill it from temp dict
     order = Order(sender_id)
-    if orders[sender_id]:
+    if sender_id in orders.keys():
         items = orders[sender_id]
         for item in items:
             order.add_item(category=item['category'],
@@ -354,7 +354,7 @@ def handle_current_user(sender_id):
 
 
 def update_order(sender_id, item):
-    if orders[sender_id]:
+    if sender_id in orders:
         orders[sender_id].append(item)
     else:
         orders[sender_id] = []
