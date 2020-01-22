@@ -35,9 +35,6 @@ orders = {}
 
 restaurant = ''
 
-sender_id = ''
-order_number = 0
-
 
 @app.route('/', methods=['GET'])
 def verify():
@@ -60,14 +57,12 @@ def handle_incoming_messages():
     print(user)
     print(webhook_type)
 
-    global sender_id
     sender_id = get_user_from_message(data)
     user = User.find_by_psid(sender_id)
 
     if user is None:
         first = handle_first_time_user(sender_id)
         user = first
-        global order_number
         order_number = sender_id
         print('new user {}'.format(user.psid))
     elif user and len(user.orders) > 0:
@@ -249,10 +244,15 @@ def show_table():
 
 @app.route('/confirm_order', methods=['GET', 'POST'])
 def confirm_order():
+    form = SignUpForm()
+    render_template('signup.jinja', form=form)  # take user info
+    return 'order confirmed', 200
+
+
+@app.route('/user/<string:sender_id>/add_user_info', methods=['GET', 'POST'])
+def sign_up(sender_id):
     # creat order object and fill it from temp dict
     order = Order(sender_id)
-    user = User.find_by_psid(sender_id)
-    form = SignUpForm(obj=user)
     if orders[sender_id]:
         items = orders[sender_id]
         for item in items:
@@ -268,12 +268,6 @@ def confirm_order():
         bot.send_text_message(sender_id, 'Order Expired Please Order Again!')
     result = orders.pop(sender_id, None)  # remove order from temp dict
     print(result)
-    render_template('signup.jinja', form=form)  # take user info
-    return 'order confirmed', 200
-
-
-@app.route('/add_user_info', methods=['GET', 'POST'])
-def sign_up():
     # look for user
     user = User.find_by_psid(sender_id)
     # update user info
