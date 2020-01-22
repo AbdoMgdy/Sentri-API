@@ -30,12 +30,14 @@
     }(document, 'script', 'Messenger'));
 
     window.extAsyncInit = function () {
+      var url = $('form').attr('action')
+
       MessengerExtensions.getContext('414558285925238', 
     function success(thread_context){
     console.log(thread_context)
     },
   function error(err){
-    // error
+    console.log(err)
     }
   );
 

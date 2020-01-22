@@ -66,13 +66,13 @@ def handle_incoming_messages():
 
     if user is None:
         first = handle_first_time_user(sender_id)
-        user = first[0]
+        user = first
         global order_number
         order_number = sender_id
         print('new user {}'.format(user.psid))
     elif user and len(user.orders) > 0:
         current = handle_current_user(sender_id)
-        user = current[0]
+        user = current
         order_number = sender_id
         print('current user {}'.format(user.psid))
     print('Current Order Number {}'.format(order_number))
