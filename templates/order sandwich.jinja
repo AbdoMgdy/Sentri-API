@@ -3,7 +3,45 @@
 
 
 {% block content %}
+<script>
+    // Code copied from Facebook to load and initialise Messenger extensions
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'Messenger'));
 
+    window.extAsyncInit = function () {
+      
+
+    MessengerExtensions.getContext('414558285925238', 
+    function success(thread_context){
+        var psid = thread_context.psid
+      document.getElementById('sandwich').action = psid + '/add_to_order/sandwich/{{item}}/{{price}}'
+    },
+  function error(err){
+    console.log(err)
+    }
+  );
+
+      $('.remove-div').click(function(){
+      $(this).parent().remove();
+        });
+      document.getElementById('submitButton').addEventListener('click', function (event) {
+        event.preventDefault()
+        MessengerExtensions.requestCloseBrowser(function success() {
+          console.log("Webview closing");
+        }, function error(err) {
+          console.log(err);
+        });
+      });
+    };
+  </script>
 
 <!-- Material form contact -->
 <div class="card">
@@ -15,7 +53,7 @@
     <!--Card content-->
     <div class="card-body px-lg-5 pt-0">
         <!-- Form -->
-        <form class="text-center" style="color: #757575;" action="/add_to_order/sandwich/{{item}}/{{price}}" method="POST">
+        <form id='sandwich' class="text-center" style="color: #757575;" action="/add_to_order/sandwich/{{item}}/{{price}}" method="POST">
             {{ form.csrf_token }}
 
             <!-- Quantity -->

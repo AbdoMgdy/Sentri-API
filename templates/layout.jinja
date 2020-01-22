@@ -16,45 +16,7 @@
 </head>
 
 <body>
-  <script>
-    // Code copied from Facebook to load and initialise Messenger extensions
-    (function (d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {
-        return;
-      }
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'Messenger'));
-
-    window.extAsyncInit = function () {
-      var url = $('form').attr('action')
-
-     var f =  MessengerExtensions.getContext('414558285925238', 
-    function success(thread_context){
-      return thread_context.psid
-    },
-  function error(err){
-    console.log(err)
-    }
-  );
-        console.log(f)
-
-      $('.remove-div').click(function(){
-      $(this).parent().remove();
-        });
-      document.getElementById('submitButton').addEventListener('click', function (event) {
-        event.preventDefault()
-        MessengerExtensions.requestCloseBrowser(function success() {
-          console.log("Webview closing");
-        }, function error(err) {
-          console.log(err);
-        });
-      });
-    };
-  </script>
+  
   {% block content %}{% endblock content %}
   <!-- JQuery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
