@@ -67,15 +67,13 @@ def handle_incoming_messages():
     if user is None:
         first = handle_first_time_user(sender_id)
         user = first[0]
-        new_order = first[1]
         global order_number
-        order_number = new_order.number
+        order_number = sender_id
         print('new user {}'.format(user.psid))
     elif user and len(user.orders) > 0:
         current = handle_current_user(sender_id)
         user = current[0]
-        last_order = current[1]
-        order_number = last_order.number
+        order_number = sender_id
         print('current user {}'.format(user.psid))
     print('Current Order Number {}'.format(order_number))
 
@@ -350,22 +348,17 @@ def handle_first_time_user(sender_id):
     new_user = User(sender_id)
     new_user.get_info()
     new_user.save()
-    new_order = Order(sender_id)
-    new_order.add_item('Pizza', 3, 'Spicy', '', 49.99)
-    new_order.save()
-    return new_user, new_order
+    orders[sender_id] = []
+    return new_user
 
 
 def handle_current_user(sender_id):
     current_user = User.find_by_psid(sender_id)
-    last_order = current_user.orders[-1]
-    if last_order.is_confirmed:
-        last_order = Order(sender_id)
-        last_order.save()
-        order_number = last_order.number
+    if sender_id in orders:
+        pass
     else:
-        order_number = last_order.number
-    return current_user, last_order
+        orders[sender_id] = []
+    return current_user
 
 
 def update_order(sender_id, item):
