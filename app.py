@@ -108,13 +108,13 @@ def handle_incoming_messages():
 def show_webview(food, item, price):
     if food == "sandwich":
         sandwich = OrderSandwich()
-        return render_template('order sandwich.jinja', item=item, form=sandwich, price=price)
+        return render_template('order sandwich.jinja', food="sandwich", item=item, form=sandwich, price=price)
     elif food == "meal":
         meal = OrderMeal()
-        return render_template('order meal.jinja', item=item, form=meal, price=price)
+        return render_template('order meal.jinja', food="meal", item=item, form=meal, price=price)
     elif food == "sauce":
         sauce = OrderSauce()
-        return render_template('order sauce.jinja', item=item, form=sauce, price=price)
+        return render_template('order sauce.jinja', food="sauce", item=item, form=sauce, price=price)
 
 
 @app.route('/user/<string:sender_id>/add_to_order/<string:food>/<string:item>/<float:price>', methods=['GET', 'POST'])

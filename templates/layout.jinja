@@ -34,7 +34,7 @@
 
     MessengerExtensions.getContext('414558285925238', 
     function success(thread_context){ 
-      document.getElementById('sandwich').action ="/user/" + thread_context.psid + "/add_to_order/sandwich/{{item}}/{{price}}"
+      document.getElementById('sandwich').action ="/user/" + thread_context.psid + "/add_to_order/{{food}}/{{item}}/{{price}}"
     },
   function error(err){
     console.log(err)
