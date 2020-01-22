@@ -117,7 +117,7 @@ def show_webview(food, item, price):
         return render_template('order sauce.jinja', item=item, form=sauce, price=price)
 
 
-@app.route('/user/<string:sender_id>/add_to_order/<string:food>/<string:item>/<float:price>', methods=['POST'])
+@app.route('/user/<string:sender_id>/add_to_order/<string:food>/<string:item>/<float:price>', methods=['GET', 'POST'])
 def add_to_order(sender_id, food, item, price):
     # save unconfirmed orders in dict
     order_item = {}

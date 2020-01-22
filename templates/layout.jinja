@@ -33,16 +33,14 @@
       
 
     MessengerExtensions.getContext('414558285925238', 
-    function success(thread_context){
-        var psid = thread_context.psid
-      document.getElementById('sandwich').action ="/user/" + psid + "/add_to_order/sandwich/{{item}}/{{price}}"
+    function success(thread_context){ 
+      document.getElementById('sandwich').action ="/user/" + thread_context.psid + "/add_to_order/sandwich/{{item}}/{{price}}"
     },
   function error(err){
     console.log(err)
     }
   );
-      document.getElementById('submitButton').addEventListener('click', function (event) {
-        event.preventDefault()
+      document.getElementById('submitButton').addEventListener('click', function () {
         MessengerExtensions.requestCloseBrowser(function success() {
           console.log("Webview closing");
         }, function error(err) {
