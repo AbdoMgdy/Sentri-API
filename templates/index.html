@@ -54,7 +54,7 @@
                 <tr v-show="items.length > 0">
                   <td></td>
                   <td class="text-right">Total Cost</td>
-                  <td class="text-right">EGP{{Total }}</td>
+                  <td class="text-right">EGP</td>
                   <td></td>
                 </tr>
                 <tr><button @click="sendData">Confirm</button></tr>
@@ -92,6 +92,9 @@
         updatePsid(psid){
           this.psid = psid
         },
+        return_psid(){
+          return this.psid;
+        }
         sendData() {
           axios.post('/user/' + this.psid + '/order_info',
             this.items, // the data to post
@@ -128,10 +131,10 @@
             }
           );
 
-          axios.get('/user/' + this.psid + '/order_info')
+          axios.get('/user/' + this.return_psid() + '/order_info')
             .then(res => this.items = res.data)
             .catch(err => console.log(err))
-        }.bind(this)
+        }
 
       }
     });
