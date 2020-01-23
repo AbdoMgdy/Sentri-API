@@ -89,6 +89,9 @@
         removeItem(index) {
           this.items.splice(index, 1)
         },
+        updatePsid(psid){
+          this.psid = psid
+        }
         sendData() {
           axios.post('/user/' + this.psid + '/order_info',
             this.items, // the data to post
@@ -117,8 +120,8 @@
 
           MessengerExtensions.getContext('414558285925238',
             function success(thread_context) {
-              this.psid = thread_context.psid
-              console.log(this.psid)
+              this.updatePsid(thread_context.psid)
+              console.log(thread_context.psid)
             },
             function error(err) {
               console.log(err)
