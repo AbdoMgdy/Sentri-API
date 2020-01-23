@@ -108,6 +108,7 @@
         }
       },
       created: function () {
+        var vm = this;
         (function (d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
           if (d.getElementById(id)) {
@@ -119,9 +120,10 @@
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'Messenger'))
 
+        window.extAsyncInit = function () {
           MessengerExtensions.getContext('414558285925238',
             function success(thread_context) {
-              this.updatePsid(thread_context.psid)
+              vm.psid = thread_context.psid;
               console.log(thread_context.psid)
             },
             function error(err) {
@@ -130,10 +132,11 @@
           );
 
           axios.get('/user/' + this.psid + '/order_info')
-            .then(res => this.items = res.data)
-            .catch(err => console.log(err))
+            .then(function(res) {
+               vm.items = res.data
+            })
         
-
+          }
       }
     });
   </script>
