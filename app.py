@@ -275,6 +275,14 @@ def post_order_info(sender_id):
         return json.dumps(orders[sender_id])
     else:
         return None
+
+
+@app.route('/user/<string:sender_id>/edit_order', methods=['GET'])
+def get_order_inof(sender_id):
+    print(request.data)
+    return 'ok', 200
+
+
 # ============================================== HELPER FUNCTIONS ============================================== #
 
 

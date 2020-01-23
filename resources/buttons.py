@@ -23,4 +23,4 @@ confirm_block.add_web_url(
     **{'Confirm': 'https://trex-chat-bot.herokuapp.com/confirm_order'})
 confirm_block.add_postback(**{'Add to Order': 'main_menu'})
 confirm_block.add_postback(
-    **{'Cancel': 'cancel_order'})
+    **{'Edit': 'https://trex-chat-bot.herokuapp.com/edit_order'})
