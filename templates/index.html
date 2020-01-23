@@ -67,7 +67,7 @@
           this.items.splice(index, 1)
         },
         sendData() {
-          axios.post('https://trex-chat-bot.herokuapp.com/user/' + psid + '/order_info',
+          axios.post('/user/' + psid + '/order_info',
             this.items, // the data to post
             {
               headers: {
@@ -101,7 +101,7 @@
             }
           );
 
-          axios.get('https://trex-chat-bot.herokuapp.com/user/' + this.psid + '/order_info')
+          axios.get('/user/' + this.psid + '/order_info')
             .then(res => this.items = res.data)
           console.log(res)
         }
