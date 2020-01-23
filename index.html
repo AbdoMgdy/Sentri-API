@@ -72,7 +72,7 @@
                     <td class="text-right">EGP {{Total}}</td>
                     <td></td>
                   </tr>
-                  <tr>
+                  <tr v-show="items.length > 0">
                     <button @click="sendData">Confirm</button>
                   </tr>
                 </tbody>
@@ -112,7 +112,11 @@
                   "Content-type": "application/x-www-form-urlencoded"
                 }
               }
-            );
+            )
+            then(function(res) {
+                    console.log(res.data);
+                  });
+            ;
             MessengerExtensions.requestCloseBrowser(
               function success() {
                 console.log("webview closed");

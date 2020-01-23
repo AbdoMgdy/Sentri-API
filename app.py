@@ -279,8 +279,9 @@ def post_order_info(sender_id):
 
 
 @app.route('/user/<string:sender_id>/edit_order', methods=['GET'])
-def get_order_inof(sender_id):
+def get_order_info(sender_id):
     print(request.data)
+    bot.send_text_message(sender_id, 'Your order was edited')
     return 'ok', 200
 
 
