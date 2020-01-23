@@ -119,8 +119,6 @@
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'Messenger'))
 
-        window.extAsyncInit = function () {
-
           MessengerExtensions.getContext('414558285925238',
             function success(thread_context) {
               this.updatePsid(thread_context.psid)
@@ -131,10 +129,10 @@
             }
           );
 
-          axios.get('/user/' + this.return_psid() + '/order_info')
+          axios.get('/user/' + this.psid + '/order_info')
             .then(res => this.items = res.data)
             .catch(err => console.log(err))
-        }
+        
 
       }
     });
