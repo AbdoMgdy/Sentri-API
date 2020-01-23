@@ -72,11 +72,9 @@
                     <td class="text-right">EGP {{Total}}</td>
                     <td></td>
                   </tr>
-                  <tr v-show="items.length > 0">
-                    <button class="btn btn-warning" @click="sendData">Confirm</button>
-                  </tr>
                 </tbody>
               </table>
+              <button class="btn btn-warning" @click="sendData">Confirm</button>
             </div>
           </div>
         </div>
@@ -93,7 +91,7 @@
           Total() {
             let total = 0;
             this.items.forEach(item => {
-              total += item.price * item.qty;
+              total += item.price * item.quantity;
             });
             return total;
           }
