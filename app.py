@@ -148,7 +148,7 @@ def add_to_order(sender_id, food, item, price):
 
 @app.route('/edit_order/', methods=['GET', 'POST'])
 def edit_order():
-    return render_template('index.html')
+    return app.send_static_file('templates/index.html')
 
 
 @app.route('/accept_edit', methods=['POST'])
@@ -198,17 +198,6 @@ def show_users():
     output = users_schema.dump(users)
     print(output)
     return render_template('show users.jinja', rows=output)
-
-
-@app.route('/show_table', methods=['GET'])
-def show_table():
-    orders = Order.query.all()
-    orders_schema = OrderSchema(many=True)
-    output = orders_schema.dump(orders)
-    items = output[0]['items']
-    table = Items(items)
-    print(items)
-    return render_template('table.jinja', table=table)
 
 
 @app.route('/confirm_order', methods=['GET'])
