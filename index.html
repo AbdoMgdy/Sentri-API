@@ -13,6 +13,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <title>Edit Cart</title>
 </head>
@@ -24,39 +25,55 @@
   </noscript>
   <div id="app">
     <template :items="items">
-      <div>
-        <table class="table table-cart">
-          <tr v-for="(item, index) in items" :key="index">
-            <td>{{item.title}}</td>
-            <td style="width:120px">QTY:
-              <input v-model="item.qty" class="form-control input-qty" type="number">
-            </td>
-            <td class="text-right">EGP{{item.price}}</td>
-            <td>
-              <button @click="removeItem(index)"><span class="glyphicon glyphicon-trash">X</span></button>
-            </td>
-          </tr>
-          <tr v-show="items.length === 0">
-            <td colspan="4" class="text-center">Cart is empty</td>
-          </tr>
-          <tr v-show="items.length > 0">
-            <td></td>
-            <td class="text-right">Total Cost</td>
-            <td class="text-right">EGP{{Total }}</td>
-            <td></td>
-          </tr>
-          <tr><button @click="sendData">Confirm</button></tr>
-        </table>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Item</th>
+                  <th scope="col">QTY</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in items" :key="index">
+                  <td>{{item.title}}</td>
+                  <td style="width:120px">QTY:
+                    <input v-model="item.qty" class="form-control input-qty" type="number">
+                  </td>
+                  <td class="text-right">EGP{{item.price}}</td>
+                  <td>
+                    <button @click="removeItem(index)"><span class="glyphicon glyphicon-trash">X</span></button>
+                  </td>
+                </tr>
+                <tr v-show="items.length === 0">
+                  <td colspan="4" class="text-center">Cart is empty</td>
+                </tr>
+                <tr v-show="items.length > 0">
+                  <td></td>
+                  <td class="text-right">Total Cost</td>
+                  <td class="text-right">EGP</td>
+                  <td></td>
+                </tr>
+                <tr><button @click="sendData">Confirm</button></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
-    </template>
+  
+
+  </template>
   </div>
   <script>
     new Vue({
       el: '#app',
       data: {
         items: [],
-        psid: ''
+        psid: '525212'
       },
       computed: {
         Total() {
@@ -72,8 +89,14 @@
         removeItem(index) {
           this.items.splice(index, 1)
         },
+        updatePsid(psid){
+          this.psid = psid
+        },
+        return_psid(){
+          return this.psid;
+        }
         sendData() {
-          axios.post('/user/' + psid + '/order_info',
+          axios.post('/user/' + this.psid + '/order_info',
             this.items, // the data to post
             {
               headers: {
@@ -100,16 +123,17 @@
 
           MessengerExtensions.getContext('414558285925238',
             function success(thread_context) {
-              this.psid = thread_context.psid
+              this.updatePsid(thread_context.psid)
+              console.log(thread_context.psid)
             },
             function error(err) {
               console.log(err)
             }
           );
 
-          axios.get('/user/' + this.psid + '/order_info')
+          axios.get('/user/' + this.return_psid() + '/order_info')
             .then(res => this.items = res.data)
-          console.log(res)
+            .catch(err => console.log(err))
         }
 
       }
