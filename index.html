@@ -113,7 +113,14 @@
                 }
               }
             );
-            MessengerExtensions.requestCloseBrowser();
+            MessengerExtensions.requestCloseBrowser(
+              function success() {
+                console.log("webview closed");
+              },
+              function error(err) {
+                console.log(err);
+              }
+            );
           }
         },
         created: function() {
@@ -141,7 +148,7 @@
                   .get("/user/" + thread_context.psid + "/order_info")
                   .then(function(res) {
                     vm.items = res.data;
-                    console.log(res.data)
+                    console.log(res.data);
                   });
               },
               function error(err) {
