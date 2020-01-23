@@ -146,9 +146,9 @@ def add_to_order(sender_id, food, item, price):
     return 'Item added to Order', 200
 
 
-@app.route('/edit_order/', methods=['GET', 'POST'])
+@app.route('/edit_order/', methods=['GET'])
 def edit_order():
-    return app.send_static_file('templates/index.html')
+    return app.send_static_file('index.html')
 
 
 @app.route('/accept_edit', methods=['POST'])
