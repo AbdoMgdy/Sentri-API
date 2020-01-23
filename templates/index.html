@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Edit Cart</title>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but Cart doesn't work properly without JavaScript enabled. Please enable it to
+      continue.</strong>
+  </noscript>
+  <div id="app">
+    <template :items="items">
+      <div>
+        <table class="table table-cart">
+          <tr v-for="(item, index) in items" :key="index">
+            <td>{{item.title}}</td>
+            <td style="width:120px">QTY:
+              <input v-model="item.qty" class="form-control input-qty" type="number">
+            </td>
+            <td class="text-right">EGP{{item.price}}</td>
+            <td>
+              <button @click="removeItem(index)"><span class="glyphicon glyphicon-trash">X</span></button>
+            </td>
+          </tr>
+          <tr v-show="items.length === 0">
+            <td colspan="4" class="text-center">Cart is empty</td>
+          </tr>
+          <tr v-show="items.length > 0">
+            <td></td>
+            <td class="text-right">Total Cost</td>
+            <td class="text-right">EGP{{Total }}</td>
+            <td></td>
+          </tr>
+          <tr><button @click="sendData">Confirm</button></tr>
+        </table>
+      </div>
+
+    </template>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        items: [],
+        psid: ''
+      },
+      computed: {
+        Total() {
+          let total = 0;
+          this.items.forEach(item => {
+            total += (item.price * item.qty);
+          });
+          return total;
+        }
+      },
+      methods: {
+        // Remove item by its index
+        removeItem(index) {
+          this.items.splice(index, 1)
+        },
+        sendData() {
+          axios.post('https://trex-chat-bot.herokuapp.com/user/' + psid + '/order_info',
+            this.items, // the data to post
+            {
+              headers: {
+                'Content-type': 'application/x-www-form-urlencoded',
+              }
+            });
+          MessengerExtensions.requestCloseBrowser();
+
+        }
+      },
+      created: function () {
+        (function (d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {
+            return;
+          }
+          js = d.createElement(s);
+          js.id = id;
+          js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'Messenger'))
+
+        window.extAsyncInit = function () {
+
+          MessengerExtensions.getContext('414558285925238',
+            function success(thread_context) {
+              this.psid = thread_context.psid
+            },
+            function error(err) {
+              console.log(err)
+            }
+          );
+
+          axios.get('https://trex-chat-bot.herokuapp.com/user/' + this.psid + '/order_info')
+            .then(res => this.items = res.data)
+          console.log(res)
+        }
+
+      }
+    });
+  </script>
+</body>
+
+</html>
