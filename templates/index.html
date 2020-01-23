@@ -128,7 +128,7 @@
           axios.get('/user/' + this.psid + '/order_info')
             .then(res => this.items = res.data)
             .catch(err => console.log(err))
-        }
+        }.bind(this)
 
       }
     });
