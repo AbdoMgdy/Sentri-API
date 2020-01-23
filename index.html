@@ -131,7 +131,7 @@
             }
           );
 
-          axios.get('/user/' + this.psid + '/order_info')
+          axios.get('/user/' + vm.psid + '/order_info')
             .then(function(res) {
                vm.items = res.data
             })
