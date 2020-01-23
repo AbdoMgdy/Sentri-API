@@ -89,12 +89,6 @@
         removeItem(index) {
           this.items.splice(index, 1)
         },
-        updatePsid(psid){
-          this.psid = psid
-        },
-        return_psid(){
-          return this.psid;
-        },
         sendData() {
           axios.post('/user/' + this.psid + '/order_info',
             this.items, // the data to post
@@ -108,6 +102,7 @@
         }
       },
       created: function () {
+        var vm = this;
         (function (d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
           if (d.getElementById(id)) {
@@ -120,22 +115,23 @@
         }(document, 'script', 'Messenger'))
 
         window.extAsyncInit = function () {
-
           MessengerExtensions.getContext('414558285925238',
             function success(thread_context) {
-              this.updatePsid(thread_context.psid)
+              vm.psid = thread_context.psid;
               console.log(thread_context.psid)
+              console.log(vm.psid)
             },
             function error(err) {
               console.log(err)
             }
           );
 
-          axios.get('/user/' + this.return_psid() + '/order_info')
-            .then(res => this.items = res.data)
-            .catch(err => console.log(err))
-        }
-
+          axios.get('/user/' + vm.psid + '/order_info')
+            .then(function(res) {
+               vm.items = res.data
+            })
+        
+          }
       }
     });
   </script>

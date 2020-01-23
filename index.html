@@ -89,12 +89,6 @@
         removeItem(index) {
           this.items.splice(index, 1)
         },
-        updatePsid(psid){
-          this.psid = psid
-        },
-        return_psid(){
-          return this.psid;
-        },
         sendData() {
           axios.post('/user/' + this.psid + '/order_info',
             this.items, // the data to post
