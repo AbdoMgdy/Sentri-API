@@ -87,7 +87,7 @@
         el: "#app",
         data: {
           items: [],
-          psid: "525212"
+          psid: "blank"
         },
         computed: {
           Total() {
@@ -106,7 +106,7 @@
           sendData() {
             axios.post(
               "/user/" + this.psid + "/edit_order",
-              this.items, // the data to post
+              { items: this.items }, // the data to post
               {
                 headers: {
                   "Content-type": "application/x-www-form-urlencoded"
