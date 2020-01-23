@@ -11,7 +11,19 @@ from resources.buttons import confirm_block
 from resources.menu import main_menu, family_menu
 
 
-app = Flask(__name__, template_folder='templates')
+class CustomFlask(Flask):
+    jinja_options = Flask.jinja_options.copy()
+    jinja_options.update(dict(
+        block_start_string='(%',
+        block_end_string='%)',
+        variable_start_string='((',
+        variable_end_string='))',
+        comment_start_string='(#',
+        comment_end_string='#)',
+    ))
+
+
+app = CustomFlask(__name__, template_folder='templates')
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(

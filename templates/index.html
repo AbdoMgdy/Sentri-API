@@ -24,32 +24,48 @@
   </noscript>
   <div id="app">
     <template :items="items">
-      <div>
-        <table class="table table-cart">
-          <tr v-for="(item, index) in items" :key="index">
-            <td>{{item.title}}</td>
-            <td style="width:120px">QTY:
-              <input v-model="item.qty" class="form-control input-qty" type="number">
-            </td>
-            <td class="text-right">EGP{{item.price}}</td>
-            <td>
-              <button @click="removeItem(index)"><span class="glyphicon glyphicon-trash">X</span></button>
-            </td>
-          </tr>
-          <tr v-show="items.length === 0">
-            <td colspan="4" class="text-center">Cart is empty</td>
-          </tr>
-          <tr v-show="items.length > 0">
-            <td></td>
-            <td class="text-right">Total Cost</td>
-            <td class="text-right">EGP{{Total }}</td>
-            <td></td>
-          </tr>
-          <tr><button @click="sendData">Confirm</button></tr>
-        </table>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Item</th>
+                  <th scope="col">QTY</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in items" :key="index">
+                  <td>{{item.title}}</td>
+                  <td style="width:120px">QTY:
+                    <input v-model="item.qty" class="form-control input-qty" type="number">
+                  </td>
+                  <td class="text-right">EGP{{item.price}}</td>
+                  <td>
+                    <button @click="removeItem(index)"><span class="glyphicon glyphicon-trash">X</span></button>
+                  </td>
+                </tr>
+                <tr v-show="items.length === 0">
+                  <td colspan="4" class="text-center">Cart is empty</td>
+                </tr>
+                <tr v-show="items.length > 0">
+                  <td></td>
+                  <td class="text-right">Total Cost</td>
+                  <td class="text-right">EGP{{Total }}</td>
+                  <td></td>
+                </tr>
+                <tr><button @click="sendData">Confirm</button></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
-    </template>
+  
+
+  </template>
   </div>
   <script>
     new Vue({
