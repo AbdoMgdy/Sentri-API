@@ -139,7 +139,7 @@
                 console.log(thread_context.psid);
                 console.log(vm.psid);
                 axios
-                  .get("/user/" + vm.psid + "/order_info")
+                  .get("/user/" + thread_context.psid + "/order_info")
                   .then(function(res) {
                     vm.items = res.data;
                   });
