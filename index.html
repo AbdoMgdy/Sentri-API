@@ -36,7 +36,7 @@
       <template :items="items">
         <div class="container-fluid">
           <div class="row">
-            <div class="container table-responsive">
+            <div class="table-responsive">
               <table id="cart" class="table table-hover table-sm">
                 <thead>
                   <tr>
@@ -78,12 +78,14 @@
                   </tr>
                 </tbody>
               </table>
-              <button class="btn btn-warning" @click="sendData">Confirm</button>
+              
+              <button class="btn btn-warning btn-block z-depth-0 my-4 waves-effect" @click="sendData">Confirm</button>
             </div>
           </div>
         </div>
       </template>
     </div>
+    
     <script>
       new Vue({
         el: "#app",
