@@ -268,8 +268,9 @@ def sign_up(sender_id):
     return 'User info was added', 200
 
 
-@app.route('/user/<string:sender_id>/order_info', methods=['Get'])
+@app.route('/user/<string:sender_id>/order_info', methods=['POST'])
 def post_order_info(sender_id):
+    print(request.data)
     if sender_id in orders:
         return json.dumps(orders[sender_id])
     else:
