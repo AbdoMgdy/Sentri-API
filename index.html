@@ -48,11 +48,11 @@
                 </thead>
                 <tbody>
                   <tr v-for="(item, index) in items" :key="index">
-                    <td>{{item.title}}</td>
+                    <td>{{item.name}</td>
                     <td style="width:120px">
                       QTY:
                       <input
-                        v-model="item.qty"
+                        v-model="item.quantity"
                         class="form-control input-qty"
                         type="number"
                       />
