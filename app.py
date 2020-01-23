@@ -269,13 +269,13 @@ def sign_up(sender_id):
     return 'User info was added', 200
 
 
-@app.route('/user/<string:sender_id>/order_info', methods=['POST'])
+@app.route('/user/<string:sender_id>/order_info', methods=['GET'])
 def post_order_info(sender_id):
     print(request.data)
     if sender_id in orders:
-        return json.dumps(orders[sender_id])
+        return json.dumps(orders[sender_id]), 200
     else:
-        return None
+        return 'user not found', 404
 
 
 @app.route('/user/<string:sender_id>/edit_order', methods=['GET'])
