@@ -64,75 +64,76 @@
         </div>
       </div>
 
-  
 
-  </template>
+
+    </template>
   </div>
   <script>
     new Vue({
-      el: '#app',
-      data: {
-        items: [],
-        psid: '525212'
-      },
-      computed: {
-        Total() {
-          let total = 0;
-          this.items.forEach(item => {
-            total += (item.price * item.qty);
-          });
-          return total;
-        }
-      },
-      methods: {
-        // Remove item by its index
-        removeItem(index) {
-          this.items.splice(index, 1)
-        },
-        sendData() {
-          axios.post('/user/' + this.psid + '/order_info',
-            this.items, // the data to post
-            {
-              headers: {
-                'Content-type': 'application/x-www-form-urlencoded',
-              }
-            });
-          MessengerExtensions.requestCloseBrowser();
+    el: '#app',
+    data: {
+    items: [],
+    psid: '525212'
+    },
+    computed: {
+    Total() {
+    let total = 0;
+    this.items.forEach(item => {
+    total += (item.price * item.qty);
+    });
+    return total;
+    }
+    },
+    methods: {
+    // Remove item by its index
+    removeItem(index) {
+    this.items.splice(index, 1)
+    },
+    sendData() {
+    axios.post('/user/' + this.psid + '/order_info',
+    this.items, // the data to post
+    {
+    headers: {
+    'Content-type': 'application/x-www-form-urlencoded',
+    }
+    });
+    MessengerExtensions.requestCloseBrowser();
 
-        }
-      },
-      created: function () {
-        var vm = this;
-        (function (d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) {
-            return;
-          }
-          js = d.createElement(s);
-          js.id = id;
-          js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'Messenger'))
+    }
+    },
+    created: function () {
+    var vm = this;
+    (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {
+    return;
+    }
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'Messenger'))
 
-        window.extAsyncInit = function () {
-          MessengerExtensions.getContext('414558285925238',
-            function success(thread_context) {
-              vm.psid = thread_context.psid;
-              console.log(thread_context.psid)
-              console.log(vm.psid)
-            },
-            function error(err) {
-              console.log(err)
-            }
-          );
+    window.extAsyncInit = function () {
+    MessengerExtensions.getContext('414558285925238',
+    function success(thread_context) {
+    vm.psid = thread_context.psid;
+    console.log(thread_context.psid)
+    console.log(vm.psid)
+    axios.get('/user/' + vm.psid + '/order_info')
+    .then(function (res) {
+    vm.items = res.data
+    })
+    },
+    function error(err) {
+    console.log(err)
+    }
+    );
 
-          axios.get('/user/' + vm.psid + '/order_info')
-            .then(function(res) {
-               vm.items = res.data
-            })
-        
-          }
-      }
+
+
+    }
+    }
     });
   </script>
 </body>
