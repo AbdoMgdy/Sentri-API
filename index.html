@@ -43,14 +43,13 @@
                     <th scope="col">Item</th>
                     <th scope="col">QTY</th>
                     <th scope="col">Price</th>
-                    <th scope="col">Total</th>
+                    <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(item, index) in items" :key="index">
-                    <td>{{item.name}</td>
-                    <td style="width:120px">
-                      QTY:
+                    <td>{{item.name}}</td>
+                    <td>
                       <input
                         v-model="item.quantity"
                         class="form-control input-qty"
