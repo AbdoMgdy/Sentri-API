@@ -160,7 +160,7 @@ def add_to_order(sender_id, food, item, price):
 
 @app.route('/edit_order/', methods=['GET'])
 def edit_order():
-    return render_template('index.html')
+    return app.send_static_file('index.html')
 
 
 @app.route('/accept_edit', methods=['POST'])
