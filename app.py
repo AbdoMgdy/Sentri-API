@@ -164,17 +164,6 @@ def edit_order():
     return app.send_static_file('index.html')
 
 
-@app.route('/accept_edit', methods=['POST'])
-def accept_edit():
-    data = request.form.to_dict(flat=False)
-    print(data)
-    order = Order.query.filter_by(number=55).first()
-    order_schema = OrderSchema()
-    output = order_schema.dump(order)
-    items = ast.literal_eval(output['items'])
-    return 'Order was edited', 200
-
-
 @app.route('/show_orders', methods=['GET'])
 def show_orders():
     orders = Order.query.filter_by(is_confirmed=True).all()
@@ -281,10 +270,23 @@ def post_order_info(sender_id):
 @app.route('/user/<string:sender_id>/edit_order', methods=['POST'])
 def get_order_info(sender_id):
     print(request.data)
+    user = User.find_by_psid(sender_id)
     data = request.get_json()
     if sender_id in orders:
-        orders[sender_id] = data
-    bot.send_text_message(sender_id, 'Your order was edited')
+        orders[sender_id] = data['items']
+    receipt = ReceiptTemplate(
+        recipient_name=user.name, order_number='55252')
+
+    for item in data['items']:
+        # fill receipt with order from database
+        if item['combo'] == 15:
+            details = '{} + Combo'.format(item['type'])
+        else:
+            details = '{}'.format(item['type'])
+        receipt.add_element(
+            title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
+    receipt.set_summary(total_cost='500')
+    receipt.send(sender_id, 'Your order was edited')
     return 'ok', 200
 
 
