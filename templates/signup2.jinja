@@ -16,27 +16,22 @@
     <div class="card-body px-lg-5 pt-0">
 
         <!-- Form -->
-         <form action="" method="post" class="form-box needs-validation"  name="myForm" novalidate>
-                    <div class="form-group">
-                      <input type="text" class="form-control text-right" placeholder="الإسم" required>
-                      <div class="invalid-feedback">
-                          من فضلك أدخل الاسم
-                        </div>
+        <form id="userForm" class="text-center form-box needs-validation" style="color: #757575;" action="/add_user_info" method="POST" novalidate>
+            <!-- Name -->
+            <div class="md-form mt-5">
+                {{ form.name.label(style="margin-left:50%") }} {{ form.name(dir="rtl",class="form-control") }}
+            </div>
 
-                    </div>
-                    <div class="form-group">
-                      <input type="tel"  pattern="[0-9]{11}" class="form-control text-right" placeholder="رقم الهاتف" required>
-                      <div class="invalid-feedback">
-                          من فضلك ادخل رقم صحيح
-                        </div>
-                      </div>
 
-            
-           <div class="form-group">
-                      <input type="text" class="form-control text-right" placeholder="العنوان" required>
-                      <div class="invalid-feedback">
-                          من فضلك أدخل العنوان الكامل
-                        </div>
+            <!-- Quantity -->
+            <div class="md-form mt-5">
+                {{ form.phone_number.label(style="margin-left:50%") }} {{ form.phone_number(dir="rtl",class="form-control") }}
+            </div>
+
+            <!--Notes-->
+            <div class="md-form mt-5">
+                {{form.address.label(style="margin-left:50%")}} {{form.address(dir="rtl",class="form-control")}}
+            </div>
 
             <!-- Send button -->
             <button class="btn btn-warning btn-block z-depth-0 my-4 waves-effect" type="submit"

@@ -152,8 +152,8 @@ def add_to_order(sender_id, food, item, price):
 
     update_order(sender_id, order_item)
 
-    text = '{} * {} was added to your order'.format(qty,
-                                                    item)
+    text = '{} * {} {} was added to your order'.format(qty,
+                                                       item, spicy)
     confirm_block.set_text(text)
     confirm_block.send(sender_id)
     return 'Item added to Order', 200
