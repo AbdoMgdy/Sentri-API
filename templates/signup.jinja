@@ -65,6 +65,11 @@
                 event.stopPropagation();
               }
               form.classList.add('was-validated');
+               MessengerExtensions.requestCloseBrowser(function success() {
+          console.log("Webview closing");
+        }, function error(err) {
+          console.log(err);
+        });
             }, false);
           });
         }, false);
