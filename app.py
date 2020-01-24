@@ -235,13 +235,12 @@ def sign_up(sender_id):
     user.address = request.form.get('address')
     user.save()
     # get last order and confirm it
-    last_order = order
-    last_order.confirm()
+    order.confirm()
     # make a receipt
     receipt = ReceiptTemplate(
-        recipient_name=user.name, order_number=last_order.number)
+        recipient_name=user.name, order_number=order.number)
 
-    for item in last_order.items:
+    for item in order.items:
         # fill receipt with order from database
         if item['combo'] == 15:
             details = '{} + Combo'.format(item['type'])
@@ -249,7 +248,7 @@ def sign_up(sender_id):
             details = '{}'.format(item['type'])
         receipt.add_element(
             title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
-    receipt.set_summary(total_cost=last_order.total)
+    receipt.set_summary(total_cost=order.total)
 
     receipt.send(sender_id)
     print(receipt.get_receipt())

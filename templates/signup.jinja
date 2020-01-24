@@ -18,14 +18,14 @@
         <!-- Form -->
          <form id="userForm" action="/add_user_info" method="post" class="form-box"  name="myForm" novalidate>
                     <div class="form-group mt-5">
-                      <input type="text" class="form-control text-right" placeholder="الإسم" required>
+                      <input type="text" name="name" class="form-control text-right" placeholder="الإسم" required>
                       <div class="invalid-feedback">
                           من فضلك أدخل الاسم
                         </div>
 
                     </div>
                     <div class="form-group">
-                      <input type="tel"  pattern="[0-9]{11}" class="form-control text-right" placeholder="رقم الهاتف" required>
+                      <input type="tel"  pattern="[0-9]{11}" name="phone_number" class="form-control text-right" placeholder="رقم الهاتف" required>
                       <div class="invalid-feedback">
                           من فضلك ادخل رقم صحيح
                         </div>
@@ -33,7 +33,7 @@
 
             
            <div class="form-group">
-                      <input type="text" class="form-control text-right" placeholder="العنوان" required>
+                      <input type="text" name="address" class="form-control text-right" placeholder="العنوان" required>
                       <div class="invalid-feedback">
                           من فضلك أدخل العنوان الكامل
                         </div>
