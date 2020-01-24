@@ -53,11 +53,11 @@
       document
         .getElementById("submitButton")
         .addEventListener("click", function(event) {
-            if (getElementById("userForm").checkValidity() === false) {
+            if (document.getElementById("userForm").checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
             } else {
-            getElementById("userForm").classList.add("was-validated");
+            document.getElementById("userForm").classList.add("was-validated");
             MessengerExtensions.requestCloseBrowser(
               function success() {
                 console.log("Webview closing");
