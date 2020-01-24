@@ -52,13 +52,12 @@
       };
       document
         .getElementById("userForm")
-        .addEventListener("submbit", function(form) {
-          form.addEventListener("submit", function(event) {
-            if (form.checkValidity() === false) {
+        .addEventListener("submbit", function(event) {
+            if (getElementById("userForm").checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
             }
-            form.classList.add("was-validated");
+            getElementById("userForm").classList.add("was-validated");
             MessengerExtensions.requestCloseBrowser(
               function success() {
                 console.log("Webview closing");
