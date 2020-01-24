@@ -30,11 +30,11 @@ class OrderSauce(FlaskForm):
 
 
 class SignUpForm(FlaskForm):
-    name = StringField('الاسم', [DataRequired()], render_kw={
+    name = StringField('الاسم', render_kw={
         'placeholder': 'من فضلك أدخل اسمك'})
-    phone_number = TelField('رقم الموبيل', [DataRequired()], _prefix='20', render_kw={
+    phone_number = TelField('رقم الموبيل', _prefix='20', render_kw={
         'placeholder': 'من فضلك أدخل رقم هاتف صحيح'})
-    address = StringField('العنوان', [DataRequired()], render_kw={
+    address = StringField('العنوان', render_kw={
         'placeholder': 'من فضلك أدخل عنوان صحيح'})
 
 
