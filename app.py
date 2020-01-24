@@ -281,6 +281,9 @@ def post_order_info(sender_id):
 @app.route('/user/<string:sender_id>/edit_order', methods=['GET'])
 def get_order_info(sender_id):
     print(request.data)
+    data = request.get_json()
+    if sender_id in orders:
+        orders[sender_id] = data
     bot.send_text_message(sender_id, 'Your order was edited')
     return 'ok', 200
 
