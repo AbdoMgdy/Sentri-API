@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, FormField, FieldList
+from wtforms.validators import InputRequired
 from wtforms.fields.html5 import TelField
 
 
@@ -29,7 +30,7 @@ class OrderSauce(FlaskForm):
 
 
 class SignUpForm(FlaskForm):
-    name = StringField('الاسم', render_kw={
+    name = StringField('الاسم', [InputRequired('Pleas Enter your Name')], render_kw={
         'placeholder': 'من فضلك أدخل اسمك'})
     phone_number = TelField('رقم الموبيل', _prefix='20', render_kw={
         'placeholder': 'من فضلك أدخل رقم هاتف صحيح'})
