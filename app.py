@@ -286,7 +286,7 @@ def get_order_info(sender_id):
         receipt.add_element(
             title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
     receipt.set_summary(total_cost='500')
-    receipt.send(sender_id, 'Your order was edited')
+    receipt.send(sender_id)
     bot.send_text_message(sender_id, 'done')
     return 'ok', 200
 
@@ -351,7 +351,7 @@ def update_order(sender_id, item):
     if sender_id in orders:
         orders[sender_id].append(item)
     else:
-        orders[sender_id] = [] 
+        orders[sender_id] = []
         orders[sender_id].append(item)
 
 

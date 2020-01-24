@@ -36,7 +36,3 @@ class SignUpForm(FlaskForm):
         'placeholder': 'من فضلك أدخل رقم هاتف صحيح'})
     address = StringField('العنوان', render_kw={
         'placeholder': 'من فضلك أدخل عنوان صحيح'})
-
-
-class EditOrderForm(FlaskForm):
-    items = FieldList(FormField(OrderSandwich))
