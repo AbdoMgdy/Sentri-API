@@ -274,7 +274,7 @@ def get_order_info(sender_id):
     data = request.get_json()
     if sender_id in orders:
         orders[sender_id] = data['items']
-    confirm_block.send_text_message('Your Order Was Edited')
+    confirm_block.set_text('Your Order Was Edited')
     confirm_block.send(sender_id)
     return 'ok', 200
 
