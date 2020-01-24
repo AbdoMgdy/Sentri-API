@@ -56,8 +56,9 @@
             if (document.getElementById("userForm").checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
+              document.getElementById("userForm").classList.add("was-validated");
             } else {
-            document.getElementById("userForm").classList.add("was-validated");
+            
             MessengerExtensions.requestCloseBrowser(
               function success() {
                 console.log("Webview closing");
