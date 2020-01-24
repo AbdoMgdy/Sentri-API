@@ -274,20 +274,8 @@ def get_order_info(sender_id):
     data = request.get_json()
     if sender_id in orders:
         orders[sender_id] = data['items']
-    receipt = ReceiptTemplate(
-        recipient_name=user.name, order_number='55252')
-
-    for item in data['items']:
-        # fill receipt with order from database
-        if item['combo'] == 15:
-            details = '{} + Combo'.format(item['type'])
-        else:
-            details = '{}'.format(item['type'])
-        receipt.add_element(
-            title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
-    receipt.set_summary(total_cost='500')
-    receipt.send(sender_id)
-    bot.send_text_message(sender_id, 'done')
+    confirm_block.send_text_message('Your Order Was Edited')
+    confirm_block.send(sender_id)
     return 'ok', 200
 
 
