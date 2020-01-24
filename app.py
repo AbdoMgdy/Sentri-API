@@ -278,7 +278,7 @@ def post_order_info(sender_id):
         return 'user not found', 404
 
 
-@app.route('/user/<string:sender_id>/edit_order', methods=['GET'])
+@app.route('/user/<string:sender_id>/edit_order', methods=['POST'])
 def get_order_info(sender_id):
     print(request.data)
     data = request.get_json()
