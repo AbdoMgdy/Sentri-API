@@ -33,7 +33,7 @@
       >
     </noscript>
     <div id="app" v-cloak>
-      <template :items="items" >
+      <template :items="items" v-if="doneLoading">
         <div class="container-fluid">
           <div class="row">
             <div class="table-responsive">
@@ -91,7 +91,8 @@
         el: "#app",
         data: {
           items: [],
-          psid: "blank"
+          psid: "blank",
+          doneLoading: false,
         },
         computed: {
           Total() {
@@ -158,6 +159,7 @@
                     vm.items = res.data;
                     console.log(res.data);
                   });
+                  vn.doneLoading = true;
               },
               function error(err) {
                 console.log(err);
