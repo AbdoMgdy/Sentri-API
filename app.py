@@ -36,7 +36,7 @@ bot = Bot()
 restaurant = ''
 
 
-api.add_resource(MessageHandler, '/')
+# api.add_resource(MessageHandler, '/')
 
 
 @app.route('/', methods=['GET'])
