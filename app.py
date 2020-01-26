@@ -1,30 +1,21 @@
 import os
 import ast
 from flask import Flask, request, render_template
+from flask_restful import Resource, Api
+from resources.message_handler import MessageHandler
 from models.data_models import Order, OrderSchema, User, UserSchema
 from models.receipt import ReceiptTemplate
 import json
 from models.bot import Bot
 from forms import OrderSandwich, OrderMeal, OrderSauce, SignUpForm
-from tables import Results, Items
+from resources.helper_functions import *
 from resources.buttons import confirm_block
 from resources.menu import main_menu, family_menu
 
 
-class CustomFlask(Flask):
-    jinja_options = Flask.jinja_options.copy()
-    jinja_options.update(dict(
-        block_start_string='(%',
-        block_end_string='%)',
-        variable_start_string='((',
-        variable_end_string='))',
-        comment_start_string='(#',
-        comment_end_string='#)',
-    ))
-
-
 app = Flask(__name__, static_folder='', static_url_path='',
             template_folder='templates')
+api = Api(app)
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
@@ -47,6 +38,9 @@ blocks = {
 orders = {}
 
 restaurant = ''
+
+
+# api.add_resource(MessageHandler, '/')
 
 
 @app.route('/', methods=['GET'])
@@ -284,65 +278,65 @@ def get_order_info(sender_id):
 # ============================================== HELPER FUNCTIONS ============================================== #
 
 
-def get_type_from_payload(data):
+# def get_type_from_payload(data):
 
-    if "postback" in data["entry"][0]["messaging"][0]:
-        return "postback"
+#     if "postback" in data["entry"][0]["messaging"][0]:
+#         return "postback"
 
-    elif "message" in data["entry"][0]["messaging"][0]:
-        if "quick_reply" in data["entry"][0]["messaging"][0]['message']:
-            return "quick_reply"
-        elif "text" in data["entry"][0]["messaging"][0]['message']:
-            return "text"
-
-
-def get_user_from_message(data):
-    messaging_events = data["entry"][0]["messaging"][-1]
-    return messaging_events["sender"]["id"]
+#     elif "message" in data["entry"][0]["messaging"][0]:
+#         if "quick_reply" in data["entry"][0]["messaging"][0]['message']:
+#             return "quick_reply"
+#         elif "text" in data["entry"][0]["messaging"][0]['message']:
+#             return "text"
 
 
-def postback_events(data):
-
-    postbacks = data["entry"][0]["messaging"]
-
-    for event in postbacks:
-        postback_payload = event["postback"]["payload"]
-        postback = postback_payload.replace('"', '')
-        return postback
+# def get_user_from_message(data):
+#     messaging_events = data["entry"][0]["messaging"][-1]
+#     return messaging_events["sender"]["id"]
 
 
-def quick_replies_events(data):
-    quick_replies = data["entry"][0]["messaging"]
+# def postback_events(data):
 
-    for event in quick_replies:
-        quick_reply_payload = event["message"]["quick_reply"]["payload"]
-        quick_reply = quick_reply_payload.replace('"', '')
-        return quick_reply
+#     postbacks = data["entry"][0]["messaging"]
 
-
-def handle_first_time_user(sender_id):
-    new_user = User(sender_id)
-    new_user.get_info()
-    new_user.save()
-    orders[sender_id] = []
-    return new_user
+#     for event in postbacks:
+#         postback_payload = event["postback"]["payload"]
+#         postback = postback_payload.replace('"', '')
+#         return postback
 
 
-def handle_current_user(sender_id):
-    current_user = User.find_by_psid(sender_id)
-    if sender_id in orders:
-        pass
-    else:
-        orders[sender_id] = []
-    return current_user
+# def quick_replies_events(data):
+#     quick_replies = data["entry"][0]["messaging"]
+
+#     for event in quick_replies:
+#         quick_reply_payload = event["message"]["quick_reply"]["payload"]
+#         quick_reply = quick_reply_payload.replace('"', '')
+#         return quick_reply
 
 
-def update_order(sender_id, item):
-    if sender_id in orders:
-        orders[sender_id].append(item)
-    else:
-        orders[sender_id] = []
-        orders[sender_id].append(item)
+# def handle_first_time_user(sender_id):
+#     new_user = User(sender_id)
+#     new_user.get_info()
+#     new_user.save()
+#     orders[sender_id] = []
+#     return new_user
+
+
+# def handle_current_user(sender_id):
+#     current_user = User.find_by_psid(sender_id)
+#     if sender_id in orders:
+#         pass
+#     else:
+#         orders[sender_id] = []
+#     return current_user
+
+
+# def update_order(sender_id, item):
+#     if sender_id in orders:
+#         orders[sender_id].append(item)
+#     else:
+#         orders[sender_id] = []
+#         orders[sender_id].append(item)
 
 
 if __name__ == "__main__":
