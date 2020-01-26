@@ -1,13 +1,19 @@
+# Standard library imports
 import os
 import ast
+import json
+
+# Third party imports
 from flask import Flask, request, render_template
 from flask_restful import Resource, Api
-from resources.message_handler import MessageHandler
+
+# Local application imports
+from models.forms import OrderSandwich, OrderMeal, OrderSauce, SignUpForm
 from models.data_models import Order, OrderSchema, User, UserSchema
 from models.receipt import ReceiptTemplate
-import json
 from models.bot import Bot
-from forms import OrderSandwich, OrderMeal, OrderSauce, SignUpForm
+
+from resources.message_handler import MessageHandler
 from resources.helper_functions import *
 from resources.dicts import orders, blocks
 from resources.buttons import confirm_block
@@ -33,67 +39,67 @@ restaurant = ''
 api.add_resource(MessageHandler, '/')
 
 
-# @app.route('/', methods=['GET'])
-# def verify():
-#     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
-#         if not request.args.get("hub.verify_token") == VERIFICATION_TOKEN:
-#             return "Verification token mismatch", 403
-#         return request.args["hub.challenge"], 200
-#     return "Hello world", 200
+@app.route('/', methods=['GET'])
+def verify():
+    if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
+        if not request.args.get("hub.verify_token") == VERIFICATION_TOKEN:
+            return "Verification token mismatch", 403
+        return request.args["hub.challenge"], 200
+    return "Hello world", 200
 
 
-# @app.route('/', methods=['POST'])
-# def handle_incoming_messages():
-#     print(request.data)
+@app.route('/', methods=['POST'])
+def handle_incoming_messages():
+    print(request.data)
 
-#     data = request.get_json()
+    data = request.get_json()
 
-#     webhook_type = get_type_from_payload(data)
+    webhook_type = get_type_from_payload(data)
 
-#     user = get_user_from_message(data)
-#     print(user)
-#     print(webhook_type)
+    user = get_user_from_message(data)
+    print(user)
+    print(webhook_type)
 
-#     sender_id = get_user_from_message(data)
-#     user = User.find_by_psid(sender_id)
+    sender_id = get_user_from_message(data)
+    user = User.find_by_psid(sender_id)
 
-#     if user is None:
-#         first = handle_first_time_user(sender_id)
-#         user = first
-#         print('new user {}'.format(user.psid))
-#     elif user and len(user.orders) > 0:
-#         current = handle_current_user(sender_id)
-#         user = current
-#         print('current user {}'.format(user.psid))
+    if user is None:
+        first = handle_first_time_user(sender_id)
+        user = first
+        print('new user {}'.format(user.psid))
+    elif user and len(user.orders) > 0:
+        current = handle_current_user(sender_id)
+        user = current
+        print('current user {}'.format(user.psid))
 
-#     if webhook_type == "text":
-#         # HANDLE TEXT MESSAGES HERE
-#         bot.send_before_message(sender_id)
-#         main_menu.send(sender_id)
-#         return "text", 200
+    if webhook_type == "text":
+        # HANDLE TEXT MESSAGES HERE
+        bot.send_before_message(sender_id)
+        main_menu.send(sender_id)
+        return "text", 200
 
-#     elif webhook_type == "quick_reply":
-#         # HANDLE QUICK REPLIES HERE
-#         bot.send_before_message(sender_id)
-#         block_name = quick_replies_events(data)
-#         block = blocks[block_name]
-#         block.send(sender_id)
-#         return "quick_reply", 200
-#     elif webhook_type == "postback" and postback_events(data) == "cancel_order":
-#         canceld_order = orders.pop(sender_id, None)
-#         print(canceld_order)
-#         if canceld_order is None:
-#             bot.send_text_message(sender_id, 'cant cancel confirmed order')
-#         else:
-#             bot.send_text_message(sender_id, 'cant cancel confirmed order')
-#     elif webhook_type == "postback":
-#         # HANDLE POSTBACK HERE
-#         bot.send_before_message(sender_id)
-#         block_name = postback_events(data)
-#         block = blocks[block_name]
-#         block.send(sender_id)
-#         return "postback", 200
-#     return "ok", 200
+    elif webhook_type == "quick_reply":
+        # HANDLE QUICK REPLIES HERE
+        bot.send_before_message(sender_id)
+        block_name = quick_replies_events(data)
+        block = blocks[block_name]
+        block.send(sender_id)
+        return "quick_reply", 200
+    elif webhook_type == "postback" and postback_events(data) == "cancel_order":
+        canceld_order = orders.pop(sender_id, None)
+        print(canceld_order)
+        if canceld_order is None:
+            bot.send_text_message(sender_id, 'cant cancel confirmed order')
+        else:
+            bot.send_text_message(sender_id, 'cant cancel confirmed order')
+    elif webhook_type == "postback":
+        # HANDLE POSTBACK HERE
+        bot.send_before_message(sender_id)
+        block_name = postback_events(data)
+        block = blocks[block_name]
+        block.send(sender_id)
+        return "postback", 200
+    return "ok", 200
 
 
 @app.route('/webview/order/<string:food>/<string:item>/<float:price>', methods=['GET'])
