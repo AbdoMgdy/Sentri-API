@@ -33,7 +33,7 @@
       >
     </noscript>
     <div id="app" v-cloak>
-      <template :items="items" v-if="doneLoading">
+      <template :items="items" >
         <div class="container-fluid">
           <div class="row">
             <div class="table-responsive">
@@ -47,7 +47,7 @@
                     <th class="text-center" style="width:10%"></th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="doneLoading">
                   <tr v-for="(item, index) in items" :key="index">
                     <td class="text-center">{{item.name}}</td>
 
@@ -76,7 +76,7 @@
                     <td class="text-center">EGP {{Total}}</td>
                     <td></td>
                   </tr>
-                </tbody>
+                </tbodyv-if="doneLoading">
               </table>
               
               <button class="btn btn-warning btn-block z-depth-0 my-4 waves-effect" @click="sendData">Confirm</button>
