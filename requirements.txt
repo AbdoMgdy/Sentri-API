@@ -8,6 +8,7 @@ flask_wtf
 psycopg2
 sqlalchemy_json
 flask_sqlalchemy
+flask_restful
 flask_marshmallow
 marshmallow-sqlalchemy
 flask_table
