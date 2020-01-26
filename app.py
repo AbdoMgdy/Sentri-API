@@ -9,7 +9,7 @@ import json
 from models.bot import Bot
 from forms import OrderSandwich, OrderMeal, OrderSauce, SignUpForm
 from resources.helper_functions import *
-from dicts import orders, blocks
+from resources.dicts import orders, blocks
 from resources.buttons import confirm_block
 from resources.menu import main_menu, family_menu
 
