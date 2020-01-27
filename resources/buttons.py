@@ -113,3 +113,98 @@ quesadilla.add_web_url(
 mexican_wrap = ButtonTemplate()
 mexican_wrap.add_web_url(
     **{'اطلب بـ35': 'https://trex-chat-bot.herokuapp.com/webview/order/sandwich/Mexican_Wrap'})
+
+# Trex Meals
+trex = ButtonTemplate()
+trex.add_web_url(
+    **{'اطلب بـ55': 'https://trex-chat-bot.herokuapp.com/webview/order/meal/Trex'})
+
+dinner_box = ButtonTemplate()
+dinner_box.add_web_url(
+    **{'اطلب بـ55': 'https://trex-chat-bot.herokuapp.com/webview/order/meal/Dinner-box'})
+
+snack_box = ButtonTemplate()
+snack_box.add_web_url(
+    **{'اطلب بـ38': 'https://trex-chat-bot.herokuapp.com/webview/order/meal/Snack-Box'})
+
+turkey_box = ButtonTemplate()
+turkey_box.add_web_url(
+    **{'اطلب بـ70': 'https://trex-chat-bot.herokuapp.com/webview/order/meal/Turkey-Box'})
+
+crispy_strips = ButtonTemplate()
+turkey_box.add_web_url(
+    **{'اطلب بـ35': 'https://trex-chat-bot.herokuapp.com/webview/order/meal/Crispy-Strips'})
+
+jumbo_crispy_strips = ButtonTemplate()
+turkey_box.add_web_url(
+    **{'اطلب بـ50': 'https://trex-chat-bot.herokuapp.com/webview/order/meal/Jump-Crispy-Strips'})
+
+
+# Appetizers
+mozzarella_sticks = ButtonTemplate()
+mozzarella_sticks.add_web_url(
+    **{'اطلب بـ30': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Mozzarella-Sticks'})
+
+onion_rings = ButtonTemplate()
+onion_rings.add_web_url(
+    **{'اطلب بـ20': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Onion-Rings'})
+
+jalapeno_sticks = ButtonTemplate()
+jalapeno_sticks.add_web_url(
+    **{'اطلب بـ32': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Jalapeno-Sticks'})
+
+mexican_fries = ButtonTemplate()
+mexican_fries.add_web_url(
+    **{'اطلب بـ32': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Mexican-Fries'})
+
+rizo = ButtonTemplate()
+rizo.add_web_url(
+    **{'اطلب بـ20': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Rizo'})
+
+spicy_rice = ButtonTemplate()
+spicy_rice.add_web_url(
+    **{'اطلب بـ10': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Spicy-rice'})
+
+# Kids Meals
+kids_chicken_piece = ButtonTemplate()
+kids_chicken_piece.add_web_url(
+    **{'اطلب بـ29': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Kids-Chicken-Piece'})
+
+kids_chicken_strips = ButtonTemplate()
+kids_chicken_piece.add_web_url(
+    **{'اطلب بـ29': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Kids-Chicken-Strips'})
+
+# Sauces
+cheddar_sauce = ButtonTemplate()
+cheddar_sauce.add_web_url(
+    **{'اطلب بـ10': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Cheddar-Sauce'})
+
+ranch_sauce = ButtonTemplate()
+ranch_sauce.add_web_url(
+    **{'اطلب بـ10': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Ranch-Sauce'})
+
+island1000 = ButtonTemplate()
+island1000.add_web_url(
+    **{'اطلب بـ10': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/1000-Island'})
+
+bbq_sauce = ButtonTemplate()
+bbq_sauce.add_web_url(
+    **{'اطلب بـ10': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/BBQ-Sauce'})
+
+trex_sauce = ButtonTemplate()
+trex_sauce.add_web_url(
+    **{'اطلب بـ10': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Trex-Sauce'})
+
+coleslaw = ButtonTemplate()
+coleslaw.add_web_url(
+    **{'اطلب بـ10': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Coleslw-Small'})
+coleslaw.add_web_url(
+    **{'اطلب بـ20': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Coleslw-Large'})
+
+cola = ButtonTemplate()
+cola.add_web_url(
+    **{'اطلب بـ10': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Cola'})
+
+water = ButtonTemplate()
+water.add_web_url(
+    **{'اطلب بـ10': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Water'})
