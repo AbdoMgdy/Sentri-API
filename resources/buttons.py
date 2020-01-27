@@ -10,22 +10,22 @@ confirm_block.add_web_url(
 
 # Main Menu
 family = ButtonTemplate()
-family.add_postback(**{'Show Menu عرض المنيو': 'family'})
+family.add_postback(**{'Show Menu عرض المنيو': 'family_menu'})
 
 sandwiches = ButtonTemplate()
-sandwiches.add_postback(**{'Show Menu عرض المنيو': 'sandwiches'})
+sandwiches.add_postback(**{'Show Menu عرض المنيو': 'sandwiches_menu'})
 
 special = ButtonTemplate()
-special.add_postback(**{'Show Menu عرض المنيو': 'special'})
+special.add_postback(**{'Show Menu عرض المنيو': 'special_menu'})
 
-kids_meals = ButtonTemplate()
-kids_meals.add_postback(**{'Show Menu عرض المنيو': 'kids_meals'})
+kids_meals = ButtonTemplate(
+kids_meals.add_postback(**{'Show Menu عرض المنيو': 'kids_meals_menu'})
 
 trex_meals = ButtonTemplate()
-trex_meals.add_postback(**{'Show Menu عرض المنيو': 'trex_meals'})
+trex_meals.add_postback(**{'Show Menu عرض المنيو': 'trex_meals_men'})
 
 appetizers = ButtonTemplate()
-appetizers.add_postback(**{'Show Menu عرض المنيو': 'appetizers'})
+appetizers.add_postback(**{'Show Menu عرض المنيو': 'appetizers_menu'})
 
 sauces = ButtonTemplate()
 sauces.add_postback(**{'Show Menu عرض المنيو': 'sauces'})
