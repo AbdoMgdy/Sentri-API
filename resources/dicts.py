@@ -11,8 +11,8 @@ blocks = {
 orders = {}
 
 prices = {
-    '9-Chicken': 155,
-    '12-Chicken': 196,
-    '15-Chicken': 230,
-    '18-Chicken': 270,
+    '9-chicken': 155,
+    '12-chicken': 196,
+    '15-chicken': 230,
+    '18-chicken': 270,
 }
