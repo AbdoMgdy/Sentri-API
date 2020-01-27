@@ -15,7 +15,7 @@ from models.bot import Bot
 
 from resources.message_handler import MessageHandler
 from resources.helper_functions import *
-from resources.dicts import orders, blocks
+from resources.dicts import orders, blocks, prices
 from resources.buttons import confirm_block
 from resources.menu import main_menu, family_menu
 
@@ -34,9 +34,6 @@ VERIFICATION_TOKEN = "test"
 bot = Bot()
 
 restaurant = ''
-
-
-# api.add_resource(MessageHandler, '/')
 
 
 @app.route('/', methods=['GET'])
@@ -115,8 +112,8 @@ def show_webview(food, item, price):
         return render_template('order sauce.jinja', food="sauce", item=item, form=sauce, price=price)
 
 
-@app.route('/user/<string:sender_id>/add_to_order/<string:food>/<string:item>/<float:price>', methods=['GET', 'POST'])
-def add_to_order(sender_id, food, item, price):
+@app.route('/user/<string:sender_id>/add_to_order/<string:food>/<string:item>/', methods=['GET', 'POST'])
+def add_to_order(sender_id, food, item):
     # save unconfirmed orders in dict
     order_item = {}
     qty = request.form.get('quantity')
@@ -136,7 +133,7 @@ def add_to_order(sender_id, food, item, price):
     order_item['name'] = item
     order_item['quantity'] = qty
     order_item['type'] = spicy
-    order_item['price'] = price
+    order_item['price'] = prices[item]
     order_item['combo'] = combo
     order_item['notes'] = notes
 
@@ -269,70 +266,6 @@ def get_order_info(sender_id):
     confirm_block.set_text('Your Order Was Edited')
     confirm_block.send(sender_id)
     return 'ok', 200
-
-
-# ============================================== HELPER FUNCTIONS ============================================== #
-
-
-# def get_type_from_payload(data):
-
-#     if "postback" in data["entry"][0]["messaging"][0]:
-#         return "postback"
-
-#     elif "message" in data["entry"][0]["messaging"][0]:
-#         if "quick_reply" in data["entry"][0]["messaging"][0]['message']:
-#             return "quick_reply"
-#         elif "text" in data["entry"][0]["messaging"][0]['message']:
-#             return "text"
-
-
-# def get_user_from_message(data):
-#     messaging_events = data["entry"][0]["messaging"][-1]
-#     return messaging_events["sender"]["id"]
-
-
-# def postback_events(data):
-
-#     postbacks = data["entry"][0]["messaging"]
-
-#     for event in postbacks:
-#         postback_payload = event["postback"]["payload"]
-#         postback = postback_payload.replace('"', '')
-#         return postback
-
-
-# def quick_replies_events(data):
-#     quick_replies = data["entry"][0]["messaging"]
-
-#     for event in quick_replies:
-#         quick_reply_payload = event["message"]["quick_reply"]["payload"]
-#         quick_reply = quick_reply_payload.replace('"', '')
-#         return quick_reply
-
-
-# def handle_first_time_user(sender_id):
-#     new_user = User(sender_id)
-#     new_user.get_info()
-#     new_user.save()
-#     orders[sender_id] = []
-#     return new_user
-
-
-# def handle_current_user(sender_id):
-#     current_user = User.find_by_psid(sender_id)
-#     if sender_id in orders:
-#         pass
-#     else:
-#         orders[sender_id] = []
-#     return current_user
-
-
-# def update_order(sender_id, item):
-#     if sender_id in orders:
-#         orders[sender_id].append(item)
-#     else:
-#         orders[sender_id] = []
-#         orders[sender_id].append(item)
 
 
 if __name__ == "__main__":

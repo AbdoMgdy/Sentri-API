@@ -9,3 +9,10 @@ blocks = {
 
 
 orders = {}
+
+prices = {
+    '9-Chicken': 155,
+    '12-Chicken': 196,
+    '15-Chicken': 230,
+    '18-Chicken': 270,
+}
