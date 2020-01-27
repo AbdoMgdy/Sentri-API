@@ -72,8 +72,8 @@ def handle_incoming_messages():
         # HANDLE TEXT MESSAGES HERE
         bot.send_before_message(sender_id)
         welcome_message.set_text(
-            'مرحبا بك {} في تركس تشيكن كيف أستطيع مساعدتك؟'.format('Abdo'))
-        welcome_message.send(sender_id)
+            'مرحبا بك {} في تركس تشيكن كيف أستطيع مساعدتك؟'.format(user.name))
+
         print(welcome_message.send(sender_id))
         return "text", 200
     elif webhook_type == "quick_reply" and quick_replies_events(data) == "send_menu":
