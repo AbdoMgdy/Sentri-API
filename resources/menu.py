@@ -54,6 +54,7 @@ sandwiches_menu.add_element(
     title='Troodon تروودون', image_url='https://i.ibb.co/59fzrqN/image.png', buttons=troodon.buttons)
 sandwiches_menu.add_element(
     title='Heavey Trex هيفي تركس', image_url='https://i.ibb.co/JCGSLf4/image.png', buttons=heavey_trex.buttons)
+sandwiches_menu.add_quick_replies(**{'Back العودة للخلف': 'main_menu'})
 
 # Trex Special
 special_menu = GenericTemplate()
@@ -69,24 +70,26 @@ special_menu.add_element(
 
 special_menu.add_element(
     title='َMexican Wrap ميكسيكان راب', image_url='https://i.ibb.co/LJxBy2H/image.png', buttons=mexican_wrap.buttons)
-
+special_menu.add_quick_replies(**{'Back العودة للخلف': 'main_menu'})
 
 # Trex Meals
 
-special_menu = GenericTemplate()
+trex_meals_menu = GenericTemplate()
 
-special_menu.add_element(
+trex_meals_menu.add_element(
     title='Trex تركس', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=trex.buttons)
-special_menu.add_element(
+trex_meals_menu.add_element(
     title='Dinner Box دينر بوكس', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=dinner_box.buttons)
-special_menu.add_element(
+trex_meals_menu.add_element(
     title='Snack Box سناك بوكس', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=snack_box.buttons)
-special_menu.add_element(
+trex_meals_menu.add_element(
     title='Turkey Box تركي بوكس', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=turkey_box.buttons)
-special_menu.add_element(
+trex_meals_menu.add_element(
     title='Crispy Strips كرسبي ستربس', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=crispy_strips.buttons)
-special_menu.add_element(
+trex_meals_menu.add_element(
     title='Jumbo Crispy Strips', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=jumbo_crispy_strips.buttons)
+trex_meals_menu.add_quick_replies(**{'Back العودة للخلف': 'main_menu'})
+
 
 # Kids Meals
 kids_menu = GenericTemplate()
@@ -94,6 +97,8 @@ kids_menu.add_element(
     title='َوجبة أطفال قطعة دجاج', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=kids_chicken_piece.buttons)
 kids_menu.add_element(
     title='َوجبة أطفال 2 استربس', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=kids_chicken_strips.buttons)
+kids_menu.add_quick_replies(**{'Back العودة للخلف': 'main_menu'})
+
 
 # Appetizers
 
@@ -110,6 +115,7 @@ appetizers_menu.add_element(
     title='ريزو', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=rizo.buttons)
 appetizers_menu.add_element(
     title='ارز مبهر', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=spicy_rice.buttons)
+appetizers_menu.add_quick_replies(**{'Back العودة للخلف': 'main_menu'})
 
 # Sauces
 sauces = GenericTemplate()
@@ -127,3 +133,4 @@ sauces.add_element(
     title='Cola (350ml)', image_url='https://i.ibb.co/C0515Cr/image.png', buttons=cola.buttons)
 sauces.add_element(
     title='Small Water', image_url='https://i.ibb.co/C0515Cr/image.png', buttons=water.buttons)
+sauces.add_quick_replies(**{'Back العودة للخلف': 'main_menu'})

@@ -22,7 +22,7 @@ kids_meals = ButtonTemplate()
 kids_meals.add_postback(**{'Show Menu عرض المنيو': 'kids_meals_menu'})
 
 trex_meals = ButtonTemplate()
-trex_meals.add_postback(**{'Show Menu عرض المنيو': 'trex_meals_men'})
+trex_meals.add_postback(**{'Show Menu عرض المنيو': 'trex_meals_menu'})
 
 appetizers = ButtonTemplate()
 appetizers.add_postback(**{'Show Menu عرض المنيو': 'appetizers_menu'})
