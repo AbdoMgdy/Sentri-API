@@ -66,6 +66,3 @@ prices = {
     'Cola': 10,
     'Water': 7,
 }
-
-
-}
