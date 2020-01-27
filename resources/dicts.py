@@ -7,7 +7,7 @@ blocks = {
     'sandwiches_menu': sandwiches_menu,
     'trex_meals_menu': trex_meals_menu,
     'special_menu': special_menu,
-    'kids_menu': kids_menu,
+    'kids_meals_menu': kids_menu,
     'appetizers_menu': appetizers_menu,
     'sauces_menu': sauces,
     'confirm_block': confirm_block,

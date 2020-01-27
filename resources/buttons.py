@@ -132,11 +132,11 @@ turkey_box.add_web_url(
     **{'اطلب بـ70': 'https://trex-chat-bot.herokuapp.com/webview/order/meal/Turkey-Box'})
 
 crispy_strips = ButtonTemplate()
-turkey_box.add_web_url(
+crispy_strips.add_web_url(
     **{'اطلب بـ35': 'https://trex-chat-bot.herokuapp.com/webview/order/meal/Crispy-Strips'})
 
 jumbo_crispy_strips = ButtonTemplate()
-turkey_box.add_web_url(
+jumbo_crispy_strips.add_web_url(
     **{'اطلب بـ50': 'https://trex-chat-bot.herokuapp.com/webview/order/meal/Jump-Crispy-Strips'})
 
 
