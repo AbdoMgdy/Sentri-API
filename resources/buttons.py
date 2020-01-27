@@ -3,10 +3,10 @@ from models.button import ButtonTemplate
 # Confirm Block
 confirm_block = ButtonTemplate()
 confirm_block.add_web_url(
-    **{'Confirm': 'https://trex-chat-bot.herokuapp.com/confirm_order'})
-confirm_block.add_postback(**{'Add to Order': 'main_menu'})
+    **{'تأكيد الأوردر': 'https://trex-chat-bot.herokuapp.com/confirm_order'})
+confirm_block.add_postback(**{'اضافة للأوردر': 'main_menu'})
 confirm_block.add_web_url(
-    **{'Edit': 'https://trex-chat-bot.herokuapp.com/edit_order'})
+    **{'تعديل الأوردر': 'https://trex-chat-bot.herokuapp.com/edit_order'})
 
 # Main Menu
 family = ButtonTemplate()

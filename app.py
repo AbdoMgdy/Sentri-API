@@ -262,7 +262,7 @@ def get_order_info(sender_id):
         return 'order Empty', 200
     if sender_id in orders:
         orders[sender_id] = data['items']
-    confirm_block.set_text('Your Order Was Edited')
+    confirm_block.set_text('تم تعديل الأوردر الخاص بك')
     confirm_block.send(sender_id)
     return 'ok', 200
 
