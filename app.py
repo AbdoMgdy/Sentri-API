@@ -13,7 +13,6 @@ from models.data_models import Order, OrderSchema, User, UserSchema
 from models.receipt import ReceiptTemplate
 from models.bot import Bot
 
-from resources.message_handler import MessageHandler
 from resources.helper_functions import *
 from resources.dicts import orders, blocks, prices
 from resources.buttons import confirm_block

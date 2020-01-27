@@ -1,5 +1,5 @@
 from models.generic import GenericTemplate
-from resources.buttons import family, sandwiches, trex_meals, special, appetizers, kids_meals
+from resources.buttons import *
 
 # Main Menu
 main_menu = GenericTemplate()
@@ -24,11 +24,11 @@ main_menu.add_element(title="Appetizers المقبلات", image_url="https://pe
 family_menu = GenericTemplate()
 
 family_menu.add_element(
-    title="وجبة 9 قطع دجاج", image_url='https://i.ibb.co/N7Z2Y0Y/image.png', buttons=9-chicken.buttons)
+    title="وجبة 9 قطع دجاج", image_url='https://i.ibb.co/N7Z2Y0Y/image.png', buttons=chicken9.buttons)
 family_menu.add_element(
-    title="وجبة 12 قطع دجاج", image_url='https://i.ibb.co/N7Z2Y0Y/image.png', buttons=12-chicken.buttons)
+    title="وجبة 12 قطع دجاج", image_url='https://i.ibb.co/N7Z2Y0Y/image.png', buttons=chicken12.buttons)
 family_menu.add_element(
-    title="وجبة 15 قطع دجاج", image_url='https://i.ibb.co/N7Z2Y0Y/image.png', buttons=15-chicken.buttons)
+    title="وجبة 15 قطع دجاج", image_url='https://i.ibb.co/N7Z2Y0Y/image.png', buttons=chicken15.buttons)
 family_menu.add_element(
-    title="وجبة 18 قطع دجاج", image_url='https://i.ibb.co/N7Z2Y0Y/image.png', buttons=18-chicken.buttons)
+    title="وجبة 18 قطع دجاج", image_url='https://i.ibb.co/N7Z2Y0Y/image.png', buttons=chicken18.buttons)
 family_menu.add_quick_replies(**{'Back العودة للخلف': 'main_menu'})
