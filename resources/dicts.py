@@ -11,8 +11,26 @@ blocks = {
 orders = {}
 
 prices = {
-    '9-chicken': 155,
-    '12-chicken': 196,
-    '15-chicken': 230,
-    '18-chicken': 270,
+    '9-Chicken': 155,
+    '12-Chicken': 196,
+    '15-Chicken': 230,
+    '18-Chicken': 270,
+    'Original-150': 32,
+    'Original-300': 45,
+    'Smoke-House-150': 45,
+    'Smoke-House-300': 58,
+    'Boom-Mozzarella-150': 65,
+    'Boom-Mozzarella-300': 78,
+    'Spicy-Houstn-150': 67,
+    'Spicy-Houstn-300': 78,
+    'Troodon': 80,
+    'Down-Bacon-300': 65,
+    'Down-Bacon-450': 78,
+    'Down-Turkey-300': 65,
+    'Down-Turkey-450': 78,
+    'Chiken-Pizza': 42,
+    'Heavy-Trex': 90,
+
+
+
 }
