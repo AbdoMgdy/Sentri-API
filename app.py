@@ -105,40 +105,40 @@ def show_webview(food, item):
         return render_template('order sandwich.jinja', food="sandwich", item=item, form=sandwich)
     elif food == "meal":
         meal = OrderMeal()
-        return render_template('order meal.jinja', food="meal", item=item, form=meal
+        return render_template('order meal.jinja', food="meal", item=item, form=meal)
     elif food == "sauce":
-        sauce=OrderSauce()
+        sauce = OrderSauce()
         return render_template('order sauce.jinja', food="sauce", item=item, form=sauce)
 
 
 @app.route('/user/<string:sender_id>/add_to_order/<string:food>/<string:item>/', methods=['GET', 'POST'])
 def add_to_order(sender_id, food, item):
     # save unconfirmed orders in dict
-    order_item={}
-    qty=request.form.get('quantity')
+    order_item = {}
+    qty = request.form.get('quantity')
     if request.form.get('spicy') is None:
-        spicy=''
+        spicy = ''
     elif request.form.get('spicy') is not None:
-        spicy=request.form.get('spicy')
+        spicy = request.form.get('spicy')
     if request.form.get('notes') is None:
-        notes=''
+        notes = ''
     elif request.form.get('notes') is not None:
-        notes=request.form.get('notes')
+        notes = request.form.get('notes')
     if request.form.get('combo') is None:
-        combo=0
+        combo = 0
     elif request.form.get('combo') is not None:
-        combo=request.form.get('combo')
-    order_item['category']=food
-    order_item['name']=item
-    order_item['quantity']=qty
-    order_item['type']=spicy
-    order_item['price']=prices[item]
-    order_item['combo']=combo
-    order_item['notes']=notes
+        combo = request.form.get('combo')
+    order_item['category'] = food
+    order_item['name'] = item
+    order_item['quantity'] = qty
+    order_item['type'] = spicy
+    order_item['price'] = prices[item]
+    order_item['combo'] = combo
+    order_item['notes'] = notes
 
     update_order(sender_id, order_item)
 
-    text='{} * {} {} was added to your order'.format(qty,
+    text = '{} * {} {} was added to your order'.format(qty,
                                                        item, spicy)
     confirm_block.set_text(text)
     confirm_block.send(sender_id)
@@ -152,28 +152,28 @@ def edit_order():
 
 @app.route('/show_orders', methods=['GET'])
 def show_orders():
-    orders=Order.query.filter_by(is_confirmed=True).all()
-    orders_schema=OrderSchema(many=True)
-    output=orders_schema.dump(orders)
-    data=[]
+    orders = Order.query.filter_by(is_confirmed=True).all()
+    orders_schema = OrderSchema(many=True)
+    output = orders_schema.dump(orders)
+    data = []
     print(output)
     for order in output:
-        info={}
-        user=order['user']
-        info['user']=user
-        total=order['total']
-        info['total']=total
-        items=ast.literal_eval(order['items'])
-        order=''
+        info = {}
+        user = order['user']
+        info['user'] = user
+        total = order['total']
+        info['total'] = total
+        items = ast.literal_eval(order['items'])
+        order = ''
         for item in items:
             if item['combo'] == 15:
-                combo='Combo'
+                combo = 'Combo'
             else:
-                combo=''
-            temp='- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+                combo = ''
+            temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
                                                            item['name'], item['type'], combo, item['notes'])
             order += temp
-        info['items']=order
+        info['items'] = order
         data.append(info)
     print(data)
     return render_template('show orders.jinja', data=data)
@@ -181,25 +181,25 @@ def show_orders():
 
 @app.route('/show_users', methods=['GET'])
 def show_users():
-    users=User.query.all()
-    users_schema=UserSchema(many=True)
-    output=users_schema.dump(users)
+    users = User.query.all()
+    users_schema = UserSchema(many=True)
+    output = users_schema.dump(users)
     print(output)
     return render_template('show users.jinja', rows=output)
 
 
 @app.route('/confirm_order', methods=['GET'])
 def confirm_order():
-    form=SignUpForm()
+    form = SignUpForm()
     return render_template('signup.jinja', form=form)  # take user info
 
 
 @app.route('/user/<string:sender_id>/add_user_info', methods=['GET', 'POST'])
 def sign_up(sender_id):
     # creat order object and fill it from temp dict
-    order=Order(sender_id)
+    order = Order(sender_id)
     if sender_id in orders:
-        items=orders[sender_id]
+        items = orders[sender_id]
         for item in items:
             order.add_item(category=item['category'],
                            name=item['name'],
@@ -211,27 +211,27 @@ def sign_up(sender_id):
 
     else:
         bot.send_text_message(sender_id, 'Order Expired Please Order Again!')
-    result=orders.pop(sender_id, None)  # remove order from temp dict
+    result = orders.pop(sender_id, None)  # remove order from temp dict
     print(result)
     # look for user
-    user=User.find_by_psid(sender_id)
+    user = User.find_by_psid(sender_id)
     # update user info
-    user.name=request.form.get('name')
-    user.phone_number=request.form.get('phone_number')
-    user.address=request.form.get('address')
+    user.name = request.form.get('name')
+    user.phone_number = request.form.get('phone_number')
+    user.address = request.form.get('address')
     user.save()
     # get last order and confirm it
     order.confirm()
     # make a receipt
-    receipt=ReceiptTemplate(
+    receipt = ReceiptTemplate(
         recipient_name=user.name, order_number=order.number)
 
     for item in order.items:
         # fill receipt with order from database
         if item['combo'] == 15:
-            details='{} + Combo'.format(item['type'])
+            details = '{} + Combo'.format(item['type'])
         else:
-            details='{}'.format(item['type'])
+            details = '{}'.format(item['type'])
         receipt.add_element(
             title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
     receipt.set_summary(total_cost=order.total)
@@ -255,13 +255,13 @@ def post_order_info(sender_id):
 @app.route('/user/<string:sender_id>/edit_order', methods=['POST'])
 def get_order_info(sender_id):
     print(request.data)
-    user=User.find_by_psid(sender_id)
-    data=request.get_json()
+    user = User.find_by_psid(sender_id)
+    data = request.get_json()
     if data['items'] is None:
         bot.send_text_message('Order is Empty')
         return 'order Empty', 200
     if sender_id in orders:
-        orders[sender_id]=data['items']
+        orders[sender_id] = data['items']
     confirm_block.set_text('Your Order Was Edited')
     confirm_block.send(sender_id)
     return 'ok', 200

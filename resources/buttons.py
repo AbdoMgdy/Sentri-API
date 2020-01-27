@@ -18,7 +18,7 @@ sandwiches.add_postback(**{'Show Menu عرض المنيو': 'sandwiches_menu'})
 special = ButtonTemplate()
 special.add_postback(**{'Show Menu عرض المنيو': 'special_menu'})
 
-kids_meals = ButtonTemplate(
+kids_meals = ButtonTemplate()
 kids_meals.add_postback(**{'Show Menu عرض المنيو': 'kids_meals_menu'})
 
 trex_meals = ButtonTemplate()
