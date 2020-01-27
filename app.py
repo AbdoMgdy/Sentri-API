@@ -210,7 +210,8 @@ def sign_up(sender_id):
                            notes=item['notes'])
 
     else:
-        bot.send_text_message(sender_id, 'Order Expired Please Order Again!')
+        bot.send_text_message(
+            sender_id, 'انتهت صلاحة الأوردر من فضلك ابدأ أوردر جديد')
     result = orders.pop(sender_id, None)  # remove order from temp dict
     print(result)
     # look for user
@@ -235,10 +236,10 @@ def sign_up(sender_id):
         receipt.add_element(
             title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
     receipt.set_summary(total_cost=order.total)
-
     receipt.send(sender_id)
     print(receipt.get_receipt())
-    bot.send_text_message(sender_id, 'Order on The Way.')
+    bot.send_text_message(
+        sender_id, 'يتم الآن تحضير الأوردر وسيصلك في خلال 45 - 60 دقيقة')
     # receipt.send(restaurant)
     return 'User info was added', 200
 
