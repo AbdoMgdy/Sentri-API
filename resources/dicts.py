@@ -71,3 +71,61 @@ prices = {
     'Cola': 10,
     'Water': 7,
 }
+
+arabic = {
+    'Spicy': 'سبايسي',
+    'Normal': 'عادي',
+    # Family Meals
+    '9-Chicken': 'وجبة 9 قطع دجاج',
+    '12-Chicken': 'وجبة 12 قطع دجاج',
+    '15-Chicken': 'وجبة 15 قطع دجاج',
+    '18-Chicken': 'وجبة 18 قطع دجاج',
+    # Sandwiches
+    'Original-150': 'أوريجينال 150جم',
+    'Original-300': 'أوريجينال 300جم',
+    'Smoke-House-150': 'سموك هاوس 150جم',
+    'Smoke-House-300': 'سموك هاوس 300جم',
+    'Boom-Mozzarella-150': 'بووم موتزاريلا 150جم',
+    'Boom-Mozzarella-300': 'بووم موتزاريلا 300جم',
+    'Spicy-Houstn-150': 'سبايسي هيوستن 150جم',
+    'Spicy-Houstn-300': 'سبايسي هيوستن 300جم',
+    'Down-Bacon-300': 'داون بيكون 300جم',
+    'Down-Bacon-450': 'داون بيكون 450جم',
+    'Down-Turkey-300': 'داون تركي 300جم',
+    'Down-Turkey-450': 'داون تركي 450جم',
+    'Troodon': 'تروودون',
+    'Chiken-Pizza': 'تشيكن بيتزا',
+    'Heavy-Trex': 'هيفي تركس',
+    # Trex Special
+    'Trex-Waffle-150': 'تركس وافل 150جم',
+    'Trex-Waffle-300': 'تركس وافل 300جم',
+    'Route-66': 'رووت 66',
+    'Quesadilla': 'كاساديا',
+    'Mexican-Wrap': 'ميكسيكان راب',
+    # Trex Meals
+    'Trex': 'تركس',
+    'Dinner-Box': 'دينر بوكس',
+    'Snack-Box': 'سناك بوكس',
+    'Turkey-Box': 'تركي بوكس',
+    'Jumbo-Crispy-Strips': 'جامبو كرسبي ستربس',
+    'Crispy-Strips': 'كرسبي ستربس',
+    # Appetizers
+    'Mozzarella-Sticks': 'أصابع موتزاريلا',
+    'Jalapeno-Sticks': 'أصابع هالبينو شيدر',
+    'Onion-Rings': 'حلقات البصل',
+    'Mexican-Fries': 'ميكسيكان فرايز',
+    'Rizo': 'ريزو',
+    'Spicy-Rice': 'أرز مبهر',
+    # Kids Meals
+    'Kids-Chicken-Piece': 'وجبة أطفال قطعة دجاج',
+    'Kids-Chicken-Strips': 'وجبة أطفال ستربس',
+    # Sauces
+    'Cheddar-Sauce': 'صوص الشيدر',
+    '1000-Island-Sauce': 'صوص 1000 Island',
+    'BBQ-Sauce': 'صوص باربيكيو',
+    'Trex-Sauce': 'صوص تركس',
+    'Coleslaw-Small': 'كول سلو صغير',
+    'Coleslaw-Large': 'كول سلو كبير',
+    'Cola': 'كولا 350 ملل',
+    'Water': 'مياه صغير',
+}

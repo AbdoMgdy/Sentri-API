@@ -14,7 +14,7 @@ from models.receipt import ReceiptTemplate
 from models.bot import Bot
 
 from resources.helper_functions import *
-from resources.dicts import orders, blocks, prices
+from resources.dicts import orders, blocks, prices, arabic
 from resources.buttons import confirm_block
 from resources.menu import main_menu, family_menu
 
@@ -138,8 +138,8 @@ def add_to_order(sender_id, food, item):
 
     update_order(sender_id, order_item)
 
-    text = '{} * {} {} was added to your order'.format(qty,
-                                                       item, spicy)
+    text = '{} * {} {} تمت اضافته للأوردو الخاص بك'.format(qty,
+                                                           arabic[item], arabic[spicy])
     confirm_block.set_text(text)
     confirm_block.send(sender_id)
     return 'Item added to Order', 200
