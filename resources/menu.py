@@ -1,9 +1,10 @@
 from models.generic import GenericTemplate
+from models.text import TextTemplate
 from resources.buttons import *
 
 # Welcome Message
-welcome_message = GenericTemplate()
-welcome_message.add_element(title='مرحبا بك في تركس تشيكن كيف أستطيع مساعدتك؟')
+welcome_message = TextTemplate()
+welcome_message.set_text()
 welcome_message.add_quick_replies(
     **{'ابدأ أوردر': 'main_menu', 'المنيو': 'send_menu', 'العنوان والتليفون': 'info'})
 

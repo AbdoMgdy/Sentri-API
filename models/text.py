@@ -1,4 +1,5 @@
 from models.bot import Bot
+import json
 
 TEXT_CHARACTER_LIMIT = 640
 QUICK_REPLIES_LIMIT = 11
@@ -56,3 +57,7 @@ class TextTemplate(Bot):
                 quick_reply['payload'] = json.dumps(
                     paylod)[:PAYLOAD_CHARACTER_LIMIT]
                 self.quick_replies.append(quick_reply)
+
+    def send(self, reciepiant_id):
+        super().send_text_message(reciepiant_id,
+                                  self.text, quick_replies=self.quick_replies)

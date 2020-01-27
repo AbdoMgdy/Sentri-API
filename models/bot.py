@@ -120,7 +120,7 @@ class Bot:
             }
         }, notification_type)
 
-    def send_text_message(self, recipient_id, message, notification_type=NotificationType.regular):
+    def send_text_message(self, recipient_id, message, quick_replies=[], notification_type=NotificationType.regular):
         """Send text messages to the specified recipient.
         https://developers.facebook.com/docs/messenger-platform/send-api-reference/text-message
         Input:
@@ -129,9 +129,16 @@ class Bot:
         Output:
             Response from API as <dict>
         """
-        return self.send_message(recipient_id, {
-            'text': message
-        }, notification_type)
+        if not quick_replies:
+            return self.send_message(recipient_id, {
+                'text': message
+            }, notification_type)
+        else:
+            return self.send_message(recipient_id, {
+                'text': message,
+                'quick_replies': quick_replies
+            }, notification_typ
+
 
     def send_generic_message(self, recipient_id, elements, quick_replies=[], notification_type=NotificationType.regular):
         """Send generic messages to the specified recipient.
@@ -207,7 +214,7 @@ class Bot:
             Response from API as <dict>
         """
         if time_out is not None:
-            time_out = time_out,
+            time_out=time_out,
         return self.send_recipient(recipient_id, {
             'sender_action': action
         }, time_out, notification_type)
@@ -314,14 +321,14 @@ class Bot:
         Output:
           Response from API as <dict>
         """
-        params = {}
+        params={}
         if fields is not None and isinstance(fields, (list, tuple)):
-            params['fields'] = ",".join(fields)
+            params['fields']=",".join(fields)
 
         params.update(self.auth_args)
 
-        request_endpoint = '{0}/{1}'.format(self.graph_url, recipient_id)
-        response = requests.get(request_endpoint, params=params)
+        request_endpoint='{0}/{1}'.format(self.graph_url, recipient_id)
+        response=requests.get(request_endpoint, params=params)
         if response.status_code == 200:
             return response.json()
 
@@ -335,13 +342,13 @@ class Bot:
         Output:
           Response from API as <dict>
         """
-        request_endpoint = '{0}/me/messenger_profile'.format(self.graph_url)
-        response = requests.post(
+        request_endpoint='{0}/me/messenger_profile'.format(self.graph_url)
+        response=requests.post(
             request_endpoint,
             params=self.auth_args,
             json=gs_obj
         )
-        result = response.json()
+        result=response.json()
         return result
 
     def set_persistent_menu(self, pm_obj):
@@ -352,13 +359,13 @@ class Bot:
         Output:
           Response from API as <dict>
         """
-        request_endpoint = '{0}/me/messenger_profile'.format(self.graph_url)
-        response = requests.post(
+        request_endpoint='{0}/me/messenger_profile'.format(self.graph_url)
+        response=requests.post(
             request_endpoint,
             params=self.auth_args,
             json=pm_obj
         )
-        result = response.json()
+        result=response.json()
         return result
 
     def remove_get_started(self):
@@ -367,14 +374,14 @@ class Bot:
         Output:
         Response from API as <dict>
         """
-        delete_obj = {"fields": ["get_started"]}
-        request_endpoint = '{0}/me/messenger_profile'.format(self.graph_url)
-        response = requests.delete(
+        delete_obj={"fields": ["get_started"]}
+        request_endpoint='{0}/me/messenger_profile'.format(self.graph_url)
+        response=requests.delete(
             request_endpoint,
             params=self.auth_args,
             json=delete_obj
         )
-        result = response.json()
+        result=response.json()
         return result
 
     def remove_persistent_menu(self):
@@ -383,14 +390,14 @@ class Bot:
         Output:
         Response from API as <dict>
         """
-        delete_obj = {"fields": ["persistent_menu"]}
-        request_endpoint = '{0}/me/messenger_profile'.format(self.graph_url)
-        response = requests.delete(
+        delete_obj={"fields": ["persistent_menu"]}
+        request_endpoint='{0}/me/messenger_profile'.format(self.graph_url)
+        response=requests.delete(
             request_endpoint,
             params=self.auth_args,
             json=delete_obj
         )
-        result = response.json()
+        result=response.json()
         return result
     # Custom Made
 
