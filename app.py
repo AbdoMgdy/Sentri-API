@@ -71,6 +71,8 @@ def handle_incoming_messages():
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
         bot.send_before_message(sender_id)
+        welcome_message.set_text(
+            'مرحبا بك {} في تركس كيف أستطيع مساعدتك؟'.format(user.name))
         welcome_message.send(sender_id)
         return "text", 200
 
