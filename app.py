@@ -138,8 +138,12 @@ def add_to_order(sender_id, food, item):
 
     update_order(sender_id, order_item)
 
-    text = '{} * {} {} تمت اضافته للأوردو الخاص بك'.format(qty,
-                                                           arabic[item], arabic[spicy])
+    if spicy in arabic:
+        text = '{} * {} {} تمت اضافته للأوردو الخاص بك'.format(qty,
+                                                               arabic[item], arabic[spicy])
+    else:
+        text = '{} * {} {} تمت اضافته للأوردو الخاص بك'.format(qty,
+                                                               arabic[item], spicy)
     confirm_block.set_text(text)
     confirm_block.send(sender_id)
     return 'Item added to Order', 200
