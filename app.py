@@ -16,7 +16,7 @@ from models.bot import Bot
 from resources.helper_functions import *
 from resources.dicts import orders, blocks, prices, arabic
 from resources.buttons import confirm_block
-from resources.menu import main_menu, family_menu
+from resources.menu import main_menu, welcome_message
 
 
 app = Flask(__name__, static_folder='', static_url_path='',
@@ -71,7 +71,7 @@ def handle_incoming_messages():
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
         bot.send_before_message(sender_id)
-        main_menu.send(sender_id)
+        welcome_message.send(sender_id)
         return "text", 200
 
     elif webhook_type == "quick_reply":
