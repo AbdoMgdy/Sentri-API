@@ -74,6 +74,7 @@ def handle_incoming_messages():
         welcome_message.set_text(
             'مرحبا بك {} في تركس تشيكن كيف أستطيع مساعدتك؟'.format('Abdo'))
         welcome_message.send(sender_id)
+        print(welcome_message.send(sender_id))
         return "text", 200
     elif webhook_type == "quick_reply" and quick_replies_events(data) == "send_menu":
         bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67565693_482039199228242_942867753809739776_o.jpg?_nc_cat=106&_nc_ohc=sOPSs3CeRJQAX-6KOHv&_nc_ht=scontent-hbe1-1.xx&oh=5c8dc2b21fb143609e90db37f50714d8&oe=5ED3C77D')
