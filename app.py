@@ -57,16 +57,17 @@ def handle_incoming_messages():
     print(webhook_type)
 
     sender_id = get_user_from_message(data)
-    user = User.find_by_psid(sender_id)
+    handle_user(sender_id)
+    # user = User.find_by_psid(sender_id)
 
-    if user is None:
-        first = handle_first_time_user(sender_id)
-        user = first
-        print('new user {}'.format(user.psid))
-    elif user and len(user.orders) > 0:
-        current = handle_current_user(sender_id)
-        user = current
-        print('current user {}'.format(user.psid))
+    # if user is None:
+    #     first = handle_first_time_user(sender_id)
+    #     user = first
+    #     print('new user {}'.format(user.psid))
+    # elif user and len(user.orders) > 0:
+    #     current = handle_current_user(sender_id)
+    #     user = current
+    #     print('current user {}'.format(user.psid))
 
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
@@ -89,13 +90,13 @@ def handle_incoming_messages():
         block = blocks[block_name]
         block.send(sender_id)
         return "quick_reply", 200
-    elif webhook_type == "postback" and postback_events(data) == "cancel_order":
-        canceld_order = orders.pop(sender_id, None)
-        print(canceld_order)
-        if canceld_order is None:
-            bot.send_text_message(sender_id, 'cant cancel confirmed order')
-        else:
-            bot.send_text_message(sender_id, 'cant cancel confirmed order')
+    # elif webhook_type == "postback" and postback_events(data) == "cancel_order":
+    #     canceld_order = orders.pop(sender_id, None)
+    #     print(canceld_order)
+    #     if canceld_order is None:
+    #         bot.send_text_message(sender_id, 'cant cancel confirmed order')
+    #     else:
+    #         bot.send_text_message(sender_id, 'cant cancel confirmed order')
     elif webhook_type == "postback":
         # HANDLE POSTBACK HERE
         bot.send_before_message(sender_id)
