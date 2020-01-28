@@ -58,13 +58,12 @@ def handle_current_user(sender_id):
 def handle_user(sender_id):
     user = User.find_by_psid(sender_id)
     if user is None:
-        first = handle_first_time_user(sender_id)
-        user = first
+        user = handle_first_time_user(sender_id)
         print('new user {}'.format(user.psid))
     elif user and len(user.orders) > 0:
-        current = handle_current_user(sender_id)
-        user = current
+        user = handle_current_user(sender_id)
         print('current user {}'.format(user.psid))
+    return user
 
 
 def update_order(sender_id, item):

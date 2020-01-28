@@ -57,7 +57,7 @@ def handle_incoming_messages():
     print(webhook_type)
 
     sender_id = get_user_from_message(data)
-    handle_user(sender_id)
+    user = handle_user(sender_id)
 
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
