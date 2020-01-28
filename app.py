@@ -47,7 +47,6 @@ def verify():
 @app.route('/', methods=['POST'])
 def handle_incoming_messages():
     print(request.data)
-
     data = request.get_json()
 
     webhook_type = get_type_from_payload(data)

@@ -59,10 +59,8 @@ def handle_user(sender_id):
     user = User.find_by_psid(sender_id)
     if user is None:
         user = handle_first_time_user(sender_id)
-        print('new user {}'.format(user.psid))
     elif user and len(user.orders) > 0:
         user = handle_current_user(sender_id)
-        print('current user {}'.format(user.psid))
     return user
 
 
