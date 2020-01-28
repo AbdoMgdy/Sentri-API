@@ -273,6 +273,8 @@ def get_order_info(sender_id):
     data = request.get_json()
     if not data['items']:
         bot.send_text_message(sender_id, 'انت لم تطلب شيء بعد!')
+        result = orders.pop(sender_id, None)  # remove order from temp dict
+        print(result)
         return 'order Empty', 200
     if sender_id in orders:
         orders[sender_id] = data['items']
