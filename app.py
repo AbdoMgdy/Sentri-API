@@ -58,16 +58,6 @@ def handle_incoming_messages():
 
     sender_id = get_user_from_message(data)
     handle_user(sender_id)
-    # user = User.find_by_psid(sender_id)
-
-    # if user is None:
-    #     first = handle_first_time_user(sender_id)
-    #     user = first
-    #     print('new user {}'.format(user.psid))
-    # elif user and len(user.orders) > 0:
-    #     current = handle_current_user(sender_id)
-    #     user = current
-    #     print('current user {}'.format(user.psid))
 
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
@@ -77,12 +67,12 @@ def handle_incoming_messages():
         welcome_message.send(sender_id)
         print(welcome_message.get_message())
         return "text", 200
-    # elif webhook_type == "quick_reply" and quick_replies_events(data) == "show_menu":
-    #     bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67565693_482039199228242_942867753809739776_o.jpg?_nc_cat=106&_nc_ohc=sOPSs3CeRJQAX-6KOHv&_nc_ht=scontent-hbe1-1.xx&oh=5c8dc2b21fb143609e90db37f50714d8&oe=5ED3C77D')
-    #     bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67737619_482039219228240_1367836823375577088_o.jpg?_nc_cat=105&_nc_ohc=bLllxpl3qwEAX-ja5Wp&_nc_ht=scontent-hbe1-1.xx&oh=e855217378fdb313093aba6fbe1804e7&oe=5ED053E3')
-    #     bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67733290_482039119228250_731775149207977984_o.jpg?_nc_cat=105&_nc_ohc=C3QF8ZqKfCcAX8MX6UM&_nc_ht=scontent-hbe1-1.xx&oh=c1d2abc1f1c51cadcb4dadd7a04740c7&oe=5E8E7CE2')
-    #     bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67532506_482039082561587_141680328166080512_o.jpg?_nc_cat=109&_nc_ohc=esTH7msmO14AX_wcLOP&_nc_ht=scontent-hbe1-1.xx&oh=6bbbb3e2445391156c275466642a7b15&oe=5E910651')
-    #     bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67835404_482039325894896_6885755035678932992_o.jpg?_nc_cat=102&_nc_ohc=9eJc9_cn8HcAX8tc3pr&_nc_ht=scontent-hbe1-1.xx&oh=491e715956e55cff14fb64be1030bb3e&oe=5ECFC414')
+    elif webhook_type == "quick_reply" and quick_replies_events(data) == "send_menu":
+        bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67565693_482039199228242_942867753809739776_o.jpg?_nc_cat=106&_nc_ohc=sOPSs3CeRJQAX-6KOHv&_nc_ht=scontent-hbe1-1.xx&oh=5c8dc2b21fb143609e90db37f50714d8&oe=5ED3C77D')
+        bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67737619_482039219228240_1367836823375577088_o.jpg?_nc_cat=105&_nc_ohc=bLllxpl3qwEAX-ja5Wp&_nc_ht=scontent-hbe1-1.xx&oh=e855217378fdb313093aba6fbe1804e7&oe=5ED053E3')
+        bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67733290_482039119228250_731775149207977984_o.jpg?_nc_cat=105&_nc_ohc=C3QF8ZqKfCcAX8MX6UM&_nc_ht=scontent-hbe1-1.xx&oh=c1d2abc1f1c51cadcb4dadd7a04740c7&oe=5E8E7CE2')
+        bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67532506_482039082561587_141680328166080512_o.jpg?_nc_cat=109&_nc_ohc=esTH7msmO14AX_wcLOP&_nc_ht=scontent-hbe1-1.xx&oh=6bbbb3e2445391156c275466642a7b15&oe=5E910651')
+        bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67835404_482039325894896_6885755035678932992_o.jpg?_nc_cat=102&_nc_ohc=9eJc9_cn8HcAX8tc3pr&_nc_ht=scontent-hbe1-1.xx&oh=491e715956e55cff14fb64be1030bb3e&oe=5ECFC414')
     elif webhook_type == "quick_reply":
         # HANDLE QUICK REPLIES HERE
         bot.send_before_message(sender_id)
