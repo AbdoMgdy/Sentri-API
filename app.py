@@ -74,6 +74,10 @@ def handle_incoming_messages():
         # bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67532506_482039082561587_141680328166080512_o.jpg?_nc_cat=109&_nc_ohc=esTH7msmO14AX_wcLOP&_nc_ht=scontent-hbe1-1.xx&oh=6bbbb3e2445391156c275466642a7b15&oe=5E910651')
         # bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67835404_482039325894896_6885755035678932992_o.jpg?_nc_cat=102&_nc_ohc=9eJc9_cn8HcAX8tc3pr&_nc_ht=scontent-hbe1-1.xx&oh=491e715956e55cff14fb64be1030bb3e&oe=5ECFC414')
         return "Sent Menu", 200
+    elif webhook_type == "quick_reply" and quick_replies_events(data) == "Red":
+        return "Sent Menu", 200
+    elif webhook_type == "quick_reply" and quick_replies_events(data) == "Green":
+        return "Sent Menu", 200
     elif webhook_type == "quick_reply":
         # HANDLE QUICK REPLIES HERE
         bot.send_before_message(sender_id)
