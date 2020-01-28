@@ -68,7 +68,7 @@ def handle_incoming_messages():
         user = current
         print('current user {}'.format(user.psid))
 
-    elif webhook_type == "text":
+    if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
         bot.send_before_message(sender_id)
         welcome_message.set_text(
