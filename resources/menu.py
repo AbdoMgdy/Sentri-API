@@ -4,7 +4,7 @@ from resources.buttons import *
 
 # Welcome Message
 welcome_message = TextTemplate()
-
+welcome_message.set_text('مرحبا بك في تركس تشيكن كيف أستطيع مساعدتك؟')
 welcome_message.add_quick_replies(
     **{'ابدأ أوردر': 'main_menu', 'المنيو': 'send_menu', 'العنوان والتليفون': 'info'})
 
