@@ -21,6 +21,14 @@ info.add_quick_replies(
 # Menu Media
 m1 = MediaTemplate(
     url='https://www.facebook.com/trexchick/photos/482039192561576/')
+m2 = MediaTemplate(
+    url='https://www.facebook.com/trexchick/photos/482039212561574/')
+m3 = MediaTemplate(
+    url='https://www.facebook.com/trexchick/photos/482039115894917/')
+m4 = MediaTemplate(
+    url='https://www.facebook.com/trexchick/photos/482039079228254/')
+m5 = MediaTemplate(
+    url='https://www.facebook.com/trexchick/photos/482039319228230/')
 
 # Main Menu
 main_menu = GenericTemplate()
