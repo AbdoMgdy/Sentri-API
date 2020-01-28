@@ -112,33 +112,33 @@ kids_menu.add_quick_replies(**{'Back العودة للخلف': 'main_menu'})
 
 appetizers_menu = GenericTemplate()
 appetizers_menu.add_element(
-    title='َأصابع موتزاريلا 3 قطع', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=mozzarella_sticks.buttons)
+    title='َأصابع موتزاريلا 3 قطع', image_url='https://i.ibb.co/5kKv6cj/4.jpg', buttons=mozzarella_sticks.buttons)
 appetizers_menu.add_element(
-    title='َحلقات البصل 5 قطع', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=onion_rings.buttons)
+    title='َحلقات البصل 5 قطع', image_url='https://i.ibb.co/6ww7L1t/3.jpg', buttons=onion_rings.buttons)
 appetizers_menu.add_element(
-    title='َأصابع هالبينو شيدر 3 قطع', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=onion_rings.buttons)
+    title='َأصابع هالبينو شيدر 3 قطع', image_url='https://i.ibb.co/Gk7hsWp/2.jpg', buttons=onion_rings.buttons)
 appetizers_menu.add_element(
-    title='ميكسيكان فرايز', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=mexican_fries.buttons)
+    title='ميكسيكان فرايز', image_url='https://i.ibb.co/PtW4C61/1.jpg', buttons=mexican_fries.buttons)
 appetizers_menu.add_element(
-    title='ريزو', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=rizo.buttons)
+    title='ريزو', image_url='https://i.ibb.co/PtW4C61/1.jpg', buttons=rizo.buttons)
 appetizers_menu.add_element(
-    title='ارز مبهر', image_url='https://i.ibb.co/p3d9vFv/image.png', buttons=spicy_rice.buttons)
+    title='ارز مبهر', image_url='https://i.ibb.co/PtW4C61/1.jpg', buttons=spicy_rice.buttons)
 appetizers_menu.add_quick_replies(**{'Back العودة للخلف': 'main_menu'})
 
 # Sauces
 sauces = GenericTemplate()
 sauces.add_element(
-    title='Cheddar Sauce', image_url='https://i.ibb.co/C0515Cr/image.png', buttons=cheddar_sauce.buttons)
+    title='Cheddar Sauce', image_url='https://i.ibb.co/Rz4nXYF/5.jpg', buttons=cheddar_sauce.buttons)
 sauces.add_element(
-    title='Ranch Sauce', image_url='https://i.ibb.co/C0515Cr/image.png', buttons=ranch_sauce.buttons)
+    title='Ranch Sauce', image_url='https://i.ibb.co/fH7r0Y1/4.jpg', buttons=ranch_sauce.buttons)
 sauces.add_element(
-    title='1000 Island Sauce', image_url='https://i.ibb.co/C0515Cr/image.png', buttons=island1000.buttons)
+    title='1000 Island Sauce', image_url='https://i.ibb.co/pJMjz9h/3.jpg', buttons=island1000.buttons)
 sauces.add_element(
-    title='BBQ Sauce', image_url='https://i.ibb.co/C0515Cr/image.png', buttons=bbq_sauce.buttons)
+    title='BBQ Sauce', image_url='https://i.ibb.co/H7mgSQh/2.jpg', buttons=bbq_sauce.buttons)
 sauces.add_element(
-    title='Trex Sauce', image_url='https://i.ibb.co/C0515Cr/image.png', buttons=trex_sauce.buttons)
+    title='Trex Sauce', image_url='https://i.ibb.co/yqp4S0n/1.jpg', buttons=trex_sauce.buttons)
 sauces.add_element(
-    title='Cola (350ml)', image_url='https://i.ibb.co/C0515Cr/image.png', buttons=cola.buttons)
+    title='Cola (350ml)', image_url='', buttons=cola.buttons)
 sauces.add_element(
-    title='Small Water', image_url='https://i.ibb.co/C0515Cr/image.png', buttons=water.buttons)
+    title='Small Water', image_url='', buttons=water.buttons)
 sauces.add_quick_replies(**{'Back العودة للخلف': 'main_menu'})

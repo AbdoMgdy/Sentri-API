@@ -1,7 +1,7 @@
 from resources.menu import *
 from resources.buttons import confirm_block
 blocks = {
-    'get_started': welcome_message,
+    'get_started': main_menu,
     'main_menu': main_menu,
     'family_menu': family_menu,
     'sandwiches_menu': sandwiches_menu,
