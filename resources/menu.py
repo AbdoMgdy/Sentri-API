@@ -8,6 +8,13 @@ welcome_message.set_text('مرحبا بك في تركس تشيكن كيف أست
 welcome_message.add_quick_replies(
     **{'ابدأ أوردر': 'main_menu', 'المنيو': 'send_menu', 'العنوان والتليفون': 'info'})
 
+# Welcome Message
+info = TextTemplate()
+info.set_text(
+    'رقم التليفون للدليفري وطلبات التوصيل:01206444463\nالعنوان: شيراتون المطار - شارع البحر \nمواعيد العمل: من 10 ص حتي 3 ص')
+info.add_quick_replies(
+    **{'Back العودة للخلف': 'get_started'})
+
 
 # Main Menu
 main_menu = GenericTemplate()

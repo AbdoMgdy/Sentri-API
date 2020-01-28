@@ -16,7 +16,7 @@ from models.bot import Bot
 from resources.helper_functions import *
 from resources.dicts import orders, blocks, prices, arabic
 from resources.buttons import confirm_block
-from resources.menu import main_menu, welcome_message
+from resources.menu import main_menu, welcome_message, info
 
 
 app = Flask(__name__, static_folder='', static_url_path='',
@@ -81,13 +81,6 @@ def handle_incoming_messages():
         block = blocks[block_name]
         block.send(sender_id)
         return "quick_reply", 200
-    # elif webhook_type == "postback" and postback_events(data) == "cancel_order":
-    #     canceld_order = orders.pop(sender_id, None)
-    #     print(canceld_order)
-    #     if canceld_order is None:
-    #         bot.send_text_message(sender_id, 'cant cancel confirmed order')
-    #     else:
-    #         bot.send_text_message(sender_id, 'cant cancel confirmed order')
 
     elif webhook_type == "postback":
         # HANDLE POSTBACK HERE
