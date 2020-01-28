@@ -50,7 +50,7 @@ original = ButtonTemplate()
 original.add_web_url(
     **{'اطلب 150جم بـ30': 'https://trex-chat-bot.herokuapp.com/webview/order/sandwich/Original-150'})
 original.add_web_url(
-    **{'اطلب 150جم بـ45': 'https://trex-chat-bot.herokuapp.com/webview/order/sandwich/Original-300'})
+    **{'اطلب 300جم بـ45': 'https://trex-chat-bot.herokuapp.com/webview/order/sandwich/Original-300'})
 
 somke_house = ButtonTemplate()
 somke_house.add_web_url(

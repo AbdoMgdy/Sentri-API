@@ -16,7 +16,7 @@ from models.bot import Bot
 from resources.helper_functions import *
 from resources.dicts import orders, blocks, prices, arabic
 from resources.buttons import confirm_block
-from resources.menu import main_menu, welcome_message, info
+from resources.menu import main_menu, welcome_message, info, m1
 
 
 app = Flask(__name__, static_folder='', static_url_path='',
@@ -67,6 +67,7 @@ def handle_incoming_messages():
         welcome_message.send(sender_id)
         return "text", 200
     elif webhook_type == "quick_reply" and quick_replies_events(data) == "send_menu":
+        m1.send(sender_id)
         # bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67565693_482039199228242_942867753809739776_o.jpg?_nc_cat=106&_nc_ohc=sOPSs3CeRJQAX-6KOHv&_nc_ht=scontent-hbe1-1.xx&oh=5c8dc2b21fb143609e90db37f50714d8&oe=5ED3C77D')
         # bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67737619_482039219228240_1367836823375577088_o.jpg?_nc_cat=105&_nc_ohc=bLllxpl3qwEAX-ja5Wp&_nc_ht=scontent-hbe1-1.xx&oh=e855217378fdb313093aba6fbe1804e7&oe=5ED053E3')
         # bot.send_image_url(sender_id, 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67733290_482039119228250_731775149207977984_o.jpg?_nc_cat=105&_nc_ohc=C3QF8ZqKfCcAX8MX6UM&_nc_ht=scontent-hbe1-1.xx&oh=c1d2abc1f1c51cadcb4dadd7a04740c7&oe=5E8E7CE2')
