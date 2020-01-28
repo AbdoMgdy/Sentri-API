@@ -270,8 +270,8 @@ def get_order_info(sender_id):
     print(request.data)
     user = User.find_by_psid(sender_id)
     data = request.get_json()
-    if data['items'] is None:
-        bot.send_text_message('Order is Empty')
+    if not data['items']:
+        bot.send_text_message('انت لم تطلب شيء بعد!')
         return 'order Empty', 200
     if sender_id in orders:
         orders[sender_id] = data['items']
