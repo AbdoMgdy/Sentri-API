@@ -12,6 +12,7 @@
       <p class="login-box-msg">Login to start your session</p>
 
       <form action="#" method="post">
+      {{ form.csrf_token }}
         <div class="input-group mb-3">
           {{ form.username(class="form-control", size=32) }}
           <div class="input-group-append">
