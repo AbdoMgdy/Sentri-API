@@ -6,15 +6,19 @@ from models.data_models import LoginUser
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired()], render_kw={
+        'placeholder': 'Username'})
+    password = PasswordField('Password', validators=[DataRequired()], render_kw={
+        'placeholder': 'Password'})
     remember_me = BooleanField('Remember Me')
-    submit = SubmitField('Sign In')
+    submit = SubmitField('Login')
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired()], render_kw={
+        'placeholder': 'Username'})
+    password = PasswordField('Password', validators=[DataRequired()], render_kw={
+        'placeholder': 'Password'})
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
@@ -27,7 +31,7 @@ class RegistrationForm(FlaskForm):
 
 class OrderSandwich(FlaskForm):
     quantity = SelectField('Quantity الكمية', choices=[
-                           (1, 1), (2, 2), (3, 3), (4, 4)])
+        (1, 1), (2, 2), (3, 3), (4, 4)])
     spicy = SelectField('عادي أم سبايسي؟', choices=[('Normal', 'عادي'),
                                                     ('Spicy', 'سبايسي')])
     notes = StringField('اضافة ملحوظة؟', render_kw={
@@ -38,7 +42,7 @@ class OrderSandwich(FlaskForm):
 
 class OrderMeal(FlaskForm):
     quantity = SelectField('Quantity الكمية', choices=[
-                           (1, 1), (2, 2), (3, 3), (4, 4)])
+        (1, 1), (2, 2), (3, 3), (4, 4)])
     spicy = SelectField('عادي أم سبايسي؟', choices=[('Normal', 'عادي'),
                                                     ('Spicy', 'سبايسي')])
     notes = StringField('اضافة ملحوظة؟', render_kw={
@@ -47,7 +51,7 @@ class OrderMeal(FlaskForm):
 
 class OrderSauce(FlaskForm):
     quantity = SelectField('Quantity الكمية', choices=[
-                           (1, 1), (2, 2), (3, 3), (4, 4)])
+        (1, 1), (2, 2), (3, 3), (4, 4)])
 
 
 class CustomerInfo(FlaskForm):

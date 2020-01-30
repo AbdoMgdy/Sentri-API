@@ -37,10 +37,10 @@ bot = Bot()
 restaurant = ''
 
 
-@app.route('/signup', methods=['GET', 'POST'])
-def sign_up():
+@app.route('/register', methods=['GET', 'POST'])
+def register():
     if current_user.is_authenticated:
-        return redirect('/show_orders')
+        return redirect(url_for('show_orders'))
     form = RegistrationForm()
     if form.validate_on_submit():
         user = LoginUser(form.username.data, form.password.data)
@@ -63,7 +63,7 @@ def login():
         print(user.username)
         login_user(user, remember=form.remember_me.data)
         return redirect('/show_orders')
-    return render_template('login.jinja', title='Sign In', form=form)
+    return render_template('admin login.jinja', title='Sign In', form=form)
 
 
 @app.route('/logout')
