@@ -42,7 +42,7 @@ def login():
     return render_template('login.jinja', title='Sign In', form=form)
 
 
-@app.route('/confirm_lgin', methods=['POST'])
+@app.route('/confirm_lgin', methods=['GET', 'POST'])
 def confirm_lgin():
     if current_user.is_authenticated:
         return redirect(url_for('.show_orders'))
