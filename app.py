@@ -9,7 +9,7 @@ from flask_restful import Resource, Api
 from flask_login import current_user, login_user, logout_user, login_required
 
 # Local application imports
-from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo, LoginForm
+from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo, LoginForm, RegistrationForm
 from models.data_models import Order, OrderSchema, User, UserSchema, LoginUser, LoginUserSchema
 from models.receipt import ReceiptTemplate
 from models.bot import Bot
@@ -35,6 +35,18 @@ VERIFICATION_TOKEN = "test"
 bot = Bot()
 
 restaurant = ''
+
+@app.route('/signup', methods=['GET', 'POST'])
+def sign_up():
+    if current_user.is_authenticated:
+        return redirect('/show_orders')
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = LoginUser(form.username.data, form.password.data)
+        user.save()
+        flash('Congratulations, you are now a registered user!')
+        return redirect(url_for('login'))
+    return render_template('register.jinja', title='Register', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -214,7 +226,7 @@ def show_users():
 @app.route('/confirm_order', methods=['GET'])
 def confirm_order():
     form = CustomerInfo()
-    return render_template('signup.jinja', form=form)  # take user info
+    return render_template('user info.jinja', form=form)  # take user info
 
 
 @app.route('/user/<string:sender_id>/add_user_info', methods=['GET', 'POST'])
