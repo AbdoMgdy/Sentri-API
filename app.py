@@ -36,9 +36,6 @@ bot = Bot()
 
 restaurant = ''
 
-my_user = LoginUser('foo', 'bar')
-my_user.save()
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
