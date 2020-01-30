@@ -9,7 +9,7 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Login to start your session</p>
+      <p class="login-box-msg">Register New Admin</p>
 
       <form action="#" method="post">
         <div class="input-group mb-3">
@@ -28,18 +28,18 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              {{ form.remember_me(id="remember") }}
-              <label for="remember">
-                Remember Me
-              </label>
+        <div class="input-group mb-3">
+          {{ form.password(class="form-control", size=32) }}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
             </div>
           </div>
+        </div>
+        <div class="row">
           <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
           </div>
           <!-- /.col -->
         </div>
