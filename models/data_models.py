@@ -14,11 +14,11 @@ from db import db, ma, login
 class LoginUser(UserMixin, db.Model):
     __tablename__ = 'login_users'
     id = db.Column(db.Integer, primary_key=True)
-    user_name = db.Column(db.String, unique=True)
+    username = db.Column(db.String, unique=True)
     password = db.Column(db.String)
 
     def __init__(self, user_name, password):
-        self.user_name = user_name
+        self.username = user_name
         self.password = ''
         self.password_hash = generate_password_hash(password)
 
@@ -139,3 +139,8 @@ class OrderSchema(ma.ModelSchema):
     class Meta:
         model = Order
     user = ma.Nested(UserSchema)
+
+
+class LoginUserSchema(ma.ModelSchema):
+    class Meta:
+        model = LoginUser

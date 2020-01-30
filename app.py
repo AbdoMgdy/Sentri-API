@@ -10,7 +10,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 
 # Local application imports
 from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo, LoginForm
-from models.data_models import Order, OrderSchema, User, UserSchema, LoginUser
+from models.data_models import Order, OrderSchema, User, UserSchema, LoginUser, LoginUserSchema
 from models.receipt import ReceiptTemplate
 from models.bot import Bot
 
@@ -49,6 +49,7 @@ def login():
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect('/login')
+        print(user.user_name)
         login_user(user, remember=form.remember_me.data)
         return redirect('/show_orders')
     return render_template('login.jinja', title='Sign In', form=form)
@@ -204,8 +205,8 @@ def show_orders():
 
 @app.route('/show_users', methods=['GET'])
 def show_users():
-    users = User.query.all()
-    users_schema = UserSchema(many=True)
+    users = LoginUser.query.all()
+    users_schema = LoginUserSchema(many=True)
     output = users_schema.dump(users)
     print(output)
     return render_template('show users.jinja', rows=output)
