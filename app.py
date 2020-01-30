@@ -36,6 +36,7 @@ bot = Bot()
 
 restaurant = ''
 
+
 @app.route('/signup', methods=['GET', 'POST'])
 def sign_up():
     if current_user.is_authenticated:
@@ -230,7 +231,7 @@ def confirm_order():
 
 
 @app.route('/user/<string:sender_id>/add_user_info', methods=['GET', 'POST'])
-def sign_up(sender_id):
+def add_user_info(sender_id):
     # creat order object and fill it from temp dict
     order = Order(sender_id)
     if sender_id in orders:
