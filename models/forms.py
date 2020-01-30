@@ -22,12 +22,18 @@ class RegistrationForm(FlaskForm):
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')], render_kw={
             'placeholder': 'Repeat Password'})
+    admin_code = StringField('Admin Security Code', validators=[
+                             DataRequired()], render_kw={'placeholder': 'Admin Security Code'})
     submit = SubmitField('Register')
 
     def validate_username(self, username):
         user = LoginUser.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('Please use a different username.')
+
+    def validate_admin_code(self, admin_code):
+        if admin_code.data != 'Trex':
+            raise ValidationError('Wrong Security Code')
 
 
 class OrderSandwich(FlaskForm):
