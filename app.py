@@ -43,6 +43,7 @@ def register():
         return redirect(url_for('show_orders'))
     form = RegistrationForm()
     if form.validate_on_submit():
+        print('submit pressed')
         user = LoginUser(form.username.data, form.password.data)
         user.save()
         flash('Congratulations, you are now a registered user!')
@@ -56,6 +57,7 @@ def login():
         return redirect(url_for('show_orders'))
     form = LoginForm()
     if form.validate_on_submit():
+        print('submit pressed')
         user = LoginUser.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
