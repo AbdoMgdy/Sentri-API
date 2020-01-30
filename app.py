@@ -36,7 +36,7 @@ bot = Bot()
 restaurant = ''
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET'])
 def login():
     form = LoginForm()
     return render_template('login.jinja', title='Sign In', form=form)
