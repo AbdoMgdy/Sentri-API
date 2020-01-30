@@ -217,6 +217,14 @@ def show_orders():
     return render_template('show orders.jinja', data=data)
 
 
+@app.route('/omar_test', methods=['GET', 'POSt'])
+def test_omar():
+    orders = Order.query.filter_by(is_confirmed=True).all()
+    orders_schema = OrderSchema(many=True)
+    output = orders_schema.dump(orders)
+    return output
+
+
 @app.route('/show_users', methods=['GET'])
 def show_users():
     users = LoginUser.query.all()
@@ -293,7 +301,6 @@ def post_order_info(sender_id):
 
 @app.route('/user/<string:sender_id>/edit_order', methods=['POST'])
 def get_order_info(sender_id):
-    print(request.data)
     user = User.find_by_psid(sender_id)
     data = request.get_json()
     if not data['items']:
