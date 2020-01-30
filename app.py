@@ -48,7 +48,7 @@ def register():
         user.save()
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
-    return render_template('admin register.jinja', title='Register', form=form)
+    return render_template('admin register.jinja', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -65,7 +65,7 @@ def login():
         print(user.username)
         login_user(user, remember=form.remember_me.data)
         return redirect('/show_orders')
-    return render_template('admin login.jinja', title='Sign In', form=form)
+    return render_template('admin login.jinja', form=form)
 
 
 @app.route('/logout')
