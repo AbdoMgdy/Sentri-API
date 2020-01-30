@@ -20,6 +20,7 @@ class LoginUser(UserMixin, db.Model):
     def __init__(self, user_name, password=''):
         self.user_name = user_name
         self.password = password
+        self.password_hash = ''
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
