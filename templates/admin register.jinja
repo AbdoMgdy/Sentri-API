@@ -2,7 +2,6 @@
 
 {% block content %}
 <body class="hold-transition login-page">
-{{ form.csrf_token }}
 <div class="login-box">
   <div class="login-logo">
     <a href=""><b>Admin</b>TREX</a>
@@ -13,6 +12,7 @@
       <p class="login-box-msg">Register New Admin</p>
 
       <form action="#" method="post">
+      {{ form.csrf_token }}
         <div class="input-group mb-3">
           {{ form.username(class="form-control", size=32) }}
           <div class="input-group-append">
