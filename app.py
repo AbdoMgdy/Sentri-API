@@ -43,12 +43,14 @@ def login():
 
 
 @app.route('/confirm_login', methods=['GET', 'POST'])
-def confirm_lgin():
+def confirm_login():
+    print(request.data)
     if current_user.is_authenticated:
         return redirect(url_for('show_orders'))
     else:
         user = LoginUser.query.filter_by(
             user_name=request.form.get('username')).first()
+        print(user.user_name)
         if user is None or not user.check_password(request.form.get('password')):
             flash('Invalid username or password')
             return redirect(url_for('login'))
