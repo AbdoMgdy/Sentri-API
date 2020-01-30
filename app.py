@@ -185,7 +185,7 @@ def edit_order():
 
 
 @app.route('/show_orders', methods=['GET'])
-# @login_required
+@login_required
 def show_orders():
     orders = Order.query.filter_by(is_confirmed=True).all()
     orders_schema = OrderSchema(many=True)
