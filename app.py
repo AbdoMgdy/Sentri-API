@@ -39,15 +39,16 @@ restaurant = ''
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('show_orders'))
+        return redirect(url_for('.show_orders'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = LoginUser.query.filter_by(user_name=form.username.data).first()
-        print('user_name {}'.format(user.user_name))
+        user = LoginUser.query.filter_by(
+            user_name=request.form.get('username')).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
-        login_user(user, remember=form.remember_me.data)
+        print('user_name {}'.format(user.user_name))
+        login_user(user, remember=request.form.get('remember_me'))
         return redirect(url_for('show_orders'))
     return render_template('login.jinja', title='Sign In', form=form)
 

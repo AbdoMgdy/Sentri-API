@@ -17,12 +17,9 @@ class LoginUser(UserMixin, db.Model):
     user_name = db.Column(db.String, unique=True)
     password = db.Column(db.String)
 
-    def __init__(self, user_name, password=''):
+    def __init__(self, user_name, password):
         self.user_name = user_name
-        self.password = password
-        self.password_hash = ''
-
-    def set_password(self, password):
+        self.password = ''
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
