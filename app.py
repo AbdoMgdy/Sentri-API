@@ -4,11 +4,12 @@ import ast
 import json
 
 # Third party imports
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, url_for, redirect, flash
 from flask_restful import Resource, Api
+from flask_login import current_user, login_user, logout_user, login_required
 
 # Local application imports
-from models.forms import OrderSandwich, OrderMeal, OrderSauce, SignUpForm
+from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo, LoginForm
 from models.data_models import Order, OrderSchema, User, UserSchema
 from models.receipt import ReceiptTemplate
 from models.bot import Bot
@@ -16,7 +17,7 @@ from models.bot import Bot
 from resources.helper_functions import *
 from resources.dicts import orders, blocks, prices, arabic
 from resources.buttons import confirm_block
-from resources.menu import main_menu, welcome_message, info, m1, m2, m3, m4, m5
+from resources.menu import main_menu, welcome_message, info_menu, m1, m2, m3, m4, m5
 
 
 app = Flask(__name__, static_folder='', static_url_path='',
@@ -33,6 +34,27 @@ VERIFICATION_TOKEN = "test"
 bot = Bot()
 
 restaurant = ''
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('show_orders'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
+        return redirect(url_for('show_orders'))
+    return render_template('login.jinja', title='Sign In', form=form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 
 @app.route('/', methods=['GET'])
@@ -148,6 +170,7 @@ def edit_order():
 
 
 @app.route('/show_orders', methods=['GET'])
+@login_required
 def show_orders():
     orders = Order.query.filter_by(is_confirmed=True).all()
     orders_schema = OrderSchema(many=True)
@@ -187,7 +210,7 @@ def show_users():
 
 @app.route('/confirm_order', methods=['GET'])
 def confirm_order():
-    form = SignUpForm()
+    form = CustomerInfo()
     return render_template('signup.jinja', form=form)  # take user info
 
 

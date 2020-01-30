@@ -10,7 +10,7 @@ blocks = {
     'kids_meals_menu': kids_menu,
     'appetizers_menu': appetizers_menu,
     'sauces_menu': sauces,
-    'info': info,
+    'info': info_menu,
     'confirm_block': confirm_block,
 }
 

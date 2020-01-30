@@ -1,7 +1,14 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, FormField, FieldList
+from wtforms import StringField, SelectField, FormField, FieldList, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 from wtforms.fields.html5 import TelField
+
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Remember Me')
+    submit = SubmitField('Sign In')
 
 
 class OrderSandwich(FlaskForm):
@@ -29,7 +36,7 @@ class OrderSauce(FlaskForm):
                            (1, 1), (2, 2), (3, 3), (4, 4)])
 
 
-class SignUpForm(FlaskForm):
+class CustomerInfo(FlaskForm):
     name = StringField('الاسم', render_kw={
         'placeholder': 'من فضلك أدخل اسمك'})
     phone_number = TelField('رقم الموبيل', _prefix='20', render_kw={

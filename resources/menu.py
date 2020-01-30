@@ -11,10 +11,10 @@ welcome_message.add_quick_replies(
     **{'ابدأ أوردر': 'main_menu', 'المنيو': 'send_menu', 'العنوان والتليفون': 'info'})
 
 # Info Message
-info = TextTemplate()
-info.set_text(
+info_menu = TextTemplate()
+info_menu.set_text(
     'رقم التليفون للدليفري وطلبات التوصيل:01206444463\nالعنوان: شيراتون المطار - شارع البحر \nمواعيد العمل: من 10 ص حتي 3 ص')
-info.add_quick_replies(
+info_menu.add_quick_replies(
     **{'Back العودة للخلف': 'get_started'})
 
 
