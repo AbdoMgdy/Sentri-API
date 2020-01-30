@@ -42,10 +42,10 @@ def login():
     return render_template('login.jinja', title='Sign In', form=form)
 
 
-@app.route('/confirm_lgin', methods=['GET', 'POST'])
+@app.route('/confirm_login', methods=['GET', 'POST'])
 def confirm_lgin():
     if current_user.is_authenticated:
-        return redirect(url_for('.show_orders'))
+        return redirect(url_for('show_orders'))
     else:
         user = LoginUser.query.filter_by(
             user_name=request.form.get('username')).first()
