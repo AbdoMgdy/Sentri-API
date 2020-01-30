@@ -10,7 +10,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 
 # Local application imports
 from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo, LoginForm
-from models.data_models import Order, OrderSchema, User, UserSchema
+from models.data_models import Order, OrderSchema, User, UserSchema, LoginUser
 from models.receipt import ReceiptTemplate
 from models.bot import Bot
 
@@ -42,7 +42,7 @@ def login():
         return redirect(url_for('show_orders'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = LoginUser.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
