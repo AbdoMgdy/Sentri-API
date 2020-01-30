@@ -60,7 +60,7 @@ def login():
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return 'wrong'
-        print(user.user_name)
+        print(user.username)
         login_user(user, remember=form.remember_me.data)
         return redirect('/show_orders')
     return render_template('login.jinja', title='Sign In', form=form)
