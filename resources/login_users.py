@@ -1,3 +1,4 @@
-# from models.data_models import LoginUser
+from models.data_models import LoginUser
 
-# foo = LoginUser('foo', 'bar')
+foo = LoginUser('foo1', 'bar')
+foo.save()

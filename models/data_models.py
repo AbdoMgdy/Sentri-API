@@ -25,6 +25,14 @@ class LoginUser(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def remove(self):
+        db.session.remove(self)
+        db.session.commit()
+
 
 @login.user_loader
 def load_user(id):
