@@ -22,6 +22,7 @@ from resources.menu import main_menu, welcome_message, info_menu, m1, m2, m3, m4
 
 app = Flask(__name__, static_folder='', static_url_path='',
             template_folder='templates')
+
 api = Api(app)
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -48,7 +49,7 @@ def login():
         #     return redirect(url_for('show_orders'))
         # login_user(user, remember=form.remember_me.data)
         # return redirect(url_for('show_orders'))
-        return redirect('/show_tables')
+        return redirect('/show_orders')
     return render_template('login.jinja', title='Sign In', form=form)
 
 
