@@ -201,6 +201,7 @@ def show_orders():
         info['items'] = order
         data.append(info)
     print(data)
+    print(output)
     return render_template('show orders.jinja', data=data)
 
 
