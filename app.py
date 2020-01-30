@@ -38,7 +38,16 @@ restaurant = ''
 
 @app.route('/login', methods=['GET'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('show_orders'))
     form = LoginForm()
+    if form.validate_on_submit():
+        # user = LoginUser.query.filter_by(username=form.username.data).first()
+        # if user is None or not user.check_password(form.password.data):
+        #     flash('Invalid username or password')
+        #     return redirect(url_for('show_orders'))
+        # login_user(user, remember=form.remember_me.data)
+        return redirect(url_for('show_orders'))
     return render_template('login.jinja', title='Sign In', form=form)
 
 
