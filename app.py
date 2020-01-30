@@ -48,7 +48,7 @@ def login():
         #     return redirect(url_for('show_orders'))
         # login_user(user, remember=form.remember_me.data)
         # return redirect(url_for('show_orders'))
-        return form.username.data + form.password.data
+        return redirect('/show_tables')
     return render_template('login.jinja', title='Sign In', form=form)
 
 
