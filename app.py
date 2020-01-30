@@ -48,7 +48,7 @@ def login():
         user = LoginUser.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
-            return redirect('/login')
+            return 'wrong'
         print(user.user_name)
         login_user(user, remember=form.remember_me.data)
         return redirect('/show_orders')
