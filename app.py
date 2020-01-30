@@ -222,7 +222,7 @@ def test_omar():
     orders = Order.query.filter_by(is_confirmed=True).all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
-    return output
+    return json.dumps(output), 200
 
 
 @app.route('/show_users', methods=['GET'])
