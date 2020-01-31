@@ -339,5 +339,13 @@ def get_order_info(sender_id):
     return 'ok', 200
 
 
+@app.route('/omar_btn', methods=['POST'])
+def omar_btn():
+    print(request.data)
+    data = request.get_json()
+    print(data)
+    return 'Good Job', 200
+
+
 if __name__ == "__main__":
     app.run()
