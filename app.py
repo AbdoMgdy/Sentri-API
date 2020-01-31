@@ -223,9 +223,8 @@ def test_omar():
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
     print(output)
-    orders = output.reverse()
-    print(orders)
-    return json.dumps(orders), 200
+    output.reverse()
+    return json.dumps(output), 200
 
 
 @app.route('/show_users', methods=['GET'])
