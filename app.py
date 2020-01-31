@@ -225,7 +225,7 @@ def test_omar():
     output.reverse()
     for order in output:
         order.pop('items', None)
-    return json.dumps(output), 200
+    return json.dumps(output, ensure_ascii=False), 200
 
 
 @app.route('/omar_test_items', methods=['GET', 'POSt'])
@@ -293,8 +293,6 @@ def add_user_info(sender_id):
     user.phone_number = request.form.get('phone_number')
     user.address = request.form.get('address')
     user.save()
-    # get last order and confirm it
-    order.confirm()
     # make a receipt
     receipt = ReceiptTemplate(
         recipient_name=user.name, order_number=order.number)

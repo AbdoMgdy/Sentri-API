@@ -85,7 +85,7 @@ class Order(db.Model):
     number = db.Column(db.Integer, unique=True)
     items = db.Column(NestedMutableJson)
     total = db.Column(db.Float(precision=3))
-    is_confirmed = db.Column(db.Boolean, default=False)
+    status = db.Column(db.String)
     time = db.Column(db.DateTime)
     psid = db.Column(db.String, db.ForeignKey('users.psid'))
 
@@ -95,7 +95,7 @@ class Order(db.Model):
         self.number = random.randint(1000, 99999)
         self.items = []
         self.total = 0
-        self.is_confirmed = False
+        self.status = 'New'
 
     @classmethod
     def find_by_number(cls, number):
@@ -131,10 +131,6 @@ class Order(db.Model):
     def cancel(self):
         db.session.delete(self)
         db.session.commit()
-
-    def confirm(self):
-        self.is_confirmed = True
-        self.save()
 
 
 class UserSchema(ma.ModelSchema):
