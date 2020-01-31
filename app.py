@@ -232,7 +232,7 @@ def test_omar_items():
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
     output.reverse()
-    items = []
+    new_items = []
     order_s = ''
     for order in output:
         obj = {}
@@ -246,7 +246,7 @@ def test_omar_items():
                                                            item['name'], item['type'], combo, item['notes'])
             order_s += temp
         obj['string'] = order
-        items.append(obj)
+        new_items.append(obj)
     print(items)
     return json.dumps(items), 200
 
