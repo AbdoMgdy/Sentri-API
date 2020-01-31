@@ -245,7 +245,7 @@ def test_omar_items():
             temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
                                                            item['name'], item['type'], combo, item['notes'])
             order_s += temp
-        obj['string'] = order
+        obj['string'] = order_s
         new_items.append(obj)
     print(items)
     return json.dumps(new_items), 200
