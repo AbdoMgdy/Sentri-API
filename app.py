@@ -233,7 +233,7 @@ def test_omar_items():
     output = orders_schema.dump(orders)
     output.reverse()
     items = []
-    order = ''
+    order_s = ''
     for order in output:
         obj = {}
         items = ast.literal_eval(order['items'])
@@ -244,7 +244,7 @@ def test_omar_items():
                 combo = ''
             temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
                                                            item['name'], item['type'], combo, item['notes'])
-            order += temp
+            order_s += temp
         obj['string'] = order
         items.append(obj)
     print(items)
