@@ -222,6 +222,7 @@ def test_omar():
     orders = Order.query.filter_by(is_confirmed=True).all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
+    print(output)
     return json.dumps(output), 200
 
 
