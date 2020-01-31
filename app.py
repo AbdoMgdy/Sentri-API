@@ -234,8 +234,10 @@ def test_omar_items():
     output.reverse()
     items = []
     for order in output:
-        temp = order['items']
-        items.append(temp)
+        obj = {}
+        obj['number'] = order['number']
+        obj['items'] = order['items']
+        items.append(obj)
     print(items)
     return json.dumps(items), 200
 
