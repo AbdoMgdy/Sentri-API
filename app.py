@@ -235,7 +235,6 @@ def test_omar_items():
     items = []
     for order in output:
         obj = {}
-        obj['number'] = order['number']
         obj['items'] = order['items']
         items.append(obj)
     print(items)
