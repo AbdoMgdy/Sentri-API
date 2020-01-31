@@ -25,7 +25,7 @@
       <div class="invalid-feedback">
           {{error}}
         </div>
-    {% endfor %}
+       {% endfor %}
     
         <div class="input-group mb-3">
           {{ form.password(class="form-control", size=32) }}
@@ -45,9 +45,6 @@
         </div>
         <div class="input-group mb-3">
          {{ form.admin_code(class="form-control", size=32) }}
-         {% if form.admin_code.errors %}
-   
-    
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -58,9 +55,8 @@
       <div class="invalid-feedback">
           {{error}}
         </div>
-    {% endfor %}
-    
-  {% endif %}
+    {% endfor %}}
+    </div>
         <div class="row">
           <!-- /.col -->
           <div class="col-12">
