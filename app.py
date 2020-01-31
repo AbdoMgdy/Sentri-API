@@ -222,9 +222,22 @@ def test_omar():
     orders = Order.query.filter_by(is_confirmed=True).all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
-    print(output)
     output.reverse()
     return json.dumps(output), 200
+
+
+@app.route('/omar_test_items', methods=['GET', 'POSt'])
+def test_omar_items():
+    orders = Order.query.filter_by(is_confirmed=True).all()
+    orders_schema = OrderSchema(many=True)
+    output = orders_schema.dump(orders)
+    output.reverse()
+    items = []
+    for order in output:
+        temp = order['items']
+        items.append(temp)
+    print(items)
+    return json.dumps(items), 200
 
 
 @app.route('/show_users', methods=['GET'])
