@@ -189,7 +189,7 @@ def edit_order():
 @app.route('/show_orders', methods=['GET'])
 @login_required
 def show_orders():
-    orders = Order.query.filter_by(is_confirmed=True).all()
+    orders = Order.query.all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
     data = []
@@ -219,7 +219,7 @@ def show_orders():
 
 @app.route('/omar_test', methods=['GET', 'POSt'])
 def test_omar():
-    orders = Order.query.filter_by(is_confirmed=True).all()
+    orders = Order.query.all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
     output.reverse()
@@ -230,7 +230,7 @@ def test_omar():
 
 @app.route('/omar_test_items', methods=['GET', 'POSt'])
 def test_omar_items():
-    orders = Order.query.filter_by(is_confirmed=True).all()
+    orders = Order.query.all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
     output.reverse()
