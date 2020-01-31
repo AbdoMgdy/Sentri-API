@@ -241,7 +241,7 @@ def test_omar_items():
                 combo = 'Combo'
             else:
                 combo = ''
-            temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+            temp = '- {} * {} ({}) {} Notes({}) + '.format(item['quantity'],
                                                            item['name'], item['type'], combo, item['notes'])
             order_s += temp
         new_items.append(order_s)
