@@ -248,7 +248,7 @@ def test_omar_items():
         obj['string'] = order
         new_items.append(obj)
     print(items)
-    return json.dumps(items), 200
+    return json.dumps(new_items), 200
 
 
 @app.route('/show_users', methods=['GET'])
