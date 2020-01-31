@@ -223,6 +223,8 @@ def test_omar():
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
     output.reverse()
+    for order in output:
+        order.pop('items', None)
     return json.dumps(output), 200
 
 
@@ -241,8 +243,8 @@ def test_omar_items():
                 combo = 'Combo'
             else:
                 combo = ''
-            temp = '- {} * {} ({}) {} Notes({}) + '.format(item['quantity'],
-                                                           item['name'], item['type'], combo, item['notes'])
+            temp = ' {} * {} ({}) {} Notes({}) + '.format(item['quantity'],
+                                                          item['name'], item['type'], combo, item['notes'])
             order_s += temp
         new_items.append(order_s)
     print(items)
