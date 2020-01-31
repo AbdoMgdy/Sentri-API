@@ -233,9 +233,19 @@ def test_omar_items():
     output = orders_schema.dump(orders)
     output.reverse()
     items = []
+    order = ''
     for order in output:
         obj = {}
-        obj['items'] = order['items']
+        items = ast.literal_eval(order['items'])
+        for item in items:
+            if item['combo'] == 15:
+                combo = 'Combo'
+            else:
+                combo = ''
+            temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+                                                           item['name'], item['type'], combo, item['notes'])
+            order += temp
+        obj['string'] = order
         items.append(obj)
     print(items)
     return json.dumps(items), 200
