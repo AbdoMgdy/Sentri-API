@@ -15,6 +15,13 @@
       {{ form.csrf_token }}
         <div class="input-group mb-3">
           {{ form.username(class="form-control", size=32) }}
+          {% if form.username.errors %}
+    <ul class=errors>
+    {% for error in form.username.errors %}
+      <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -39,6 +46,13 @@
         </div>
         <div class="input-group mb-3">
          {{ form.admin_code(class="form-control", size=32) }}
+         {% if form.admin_code.errors %}
+    <ul class=errors>
+    {% for error in form.admin_code.errors %}
+      <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -51,8 +65,7 @@
             <button type="submit" class="btn btn-primary btn-block">Register</button>
           </div>
           <!-- /.col -->
-        </div>
-        
+        </div>     
       </form>
     </div>
     <!-- /.login-card-body -->
