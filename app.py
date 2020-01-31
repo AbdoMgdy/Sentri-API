@@ -235,7 +235,6 @@ def test_omar_items():
     new_items = []
     order_s = ''
     for order in output:
-        obj = {}
         items = ast.literal_eval(order['items'])
         for item in items:
             if item['combo'] == 15:
@@ -245,10 +244,9 @@ def test_omar_items():
             temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
                                                            item['name'], item['type'], combo, item['notes'])
             order_s += temp
-        obj['string'] = order_s
-        new_items.append(obj)
+        new_items.append(order_s)
     print(items)
-    return json.dumps(new_items), 200
+    return json.dumps(new_items, ensure_ascii=False), 200
 
 
 @app.route('/show_users', methods=['GET'])
