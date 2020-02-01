@@ -118,7 +118,6 @@ $(document).ready(function() {
     console.log(e)
     
     row = e.target.parentNode.parentNode.parentNode;
-    console.log(row.children[2].children[0].children[0].children[0])
     
     $('#data-name').val(row.children[0].textContent);
     $('#data-tel').val(row.children[1].textContent);
