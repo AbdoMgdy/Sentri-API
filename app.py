@@ -44,7 +44,6 @@ def register():
         return redirect(url_for('show_orders'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        print('submit pressed')
         user = LoginUser(form.username.data, form.password.data)
         user.save()
         flash('Congratulations, you are now a registered user!')
@@ -58,12 +57,12 @@ def login():
         return redirect(url_for('show_orders'))
     form = LoginForm()
     if form.validate_on_submit():
-        print('submit pressed')
+
         user = LoginUser.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return 'wrong'
-        print(user.username)
+
         login_user(user, remember=form.remember_me.data)
         return redirect('/show_orders')
     return render_template('admin login.jinja', form=form)
@@ -86,7 +85,6 @@ def verify():
 
 @app.route('/', methods=['POST'])
 def handle_incoming_messages():
-    print(request.data)
     data = request.get_json()
 
     webhook_type = get_type_from_payload(data)
@@ -225,7 +223,7 @@ def show_users():
     users_schema = LoginUserSchema(many=True)
     output = users_schema.dump(users)
     # print(output)
-    return render_template('show users.jinja', rows=output)
+    return output
 
 
 @app.route('/confirm_order', methods=['GET'])
@@ -253,7 +251,6 @@ def add_user_info(sender_id):
         bot.send_text_message(
             sender_id, 'انتهت صلاحة الأوردر من فضلك ابدأ أوردر جديد')
     result = orders.pop(sender_id, None)  # remove order from temp dict
-    print(result)
     # look for user
     user = User.find_by_psid(sender_id)
     # update user info
@@ -275,7 +272,6 @@ def add_user_info(sender_id):
             title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
     receipt.set_summary(total_cost=order.total)
     receipt.send(sender_id)
-    print(receipt.get_receipt())
     bot.send_text_message(
         sender_id, 'يتم الآن تحضير الأوردر وسيصلك في خلال 45 - 60 دقيقة')
     # receipt.send(restaurant)
@@ -284,7 +280,6 @@ def add_user_info(sender_id):
 
 @app.route('/user/<string:sender_id>/order_info', methods=['GET'])
 def post_order_info(sender_id):
-    print(request.data)
     if sender_id in orders:
         return json.dumps(orders[sender_id]), 200
     else:
@@ -298,7 +293,6 @@ def get_order_info(sender_id):
     if not data['items']:
         bot.send_text_message(sender_id, 'انت لم تطلب شيء بعد!')
         result = orders.pop(sender_id, None)  # remove order from temp dict
-        print(result)
         return 'order Empty', 200
     if sender_id in orders:
         orders[sender_id] = data['items']
