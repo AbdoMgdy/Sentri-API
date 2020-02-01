@@ -198,6 +198,8 @@ def show_orders():
     for order in output:
         info = {}
         info['user'] = order['user']
+        info['time'] = order['time']
+        info['number'] = order['number']
         info['total'] = order['total']
         info['status'] = order['status']
         items = ast.literal_eval(order['items'])
