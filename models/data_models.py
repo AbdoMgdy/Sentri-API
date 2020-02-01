@@ -95,7 +95,7 @@ class Order(db.Model):
         self.number = random.randint(1000, 99999)
         self.items = []
         self.total = 0
-        self.status = 'New'
+        self.status = 'Pending'
 
     @classmethod
     def find_by_number(cls, number):

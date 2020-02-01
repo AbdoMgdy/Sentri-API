@@ -196,10 +196,9 @@ def show_orders():
     print(output)
     for order in output:
         info = {}
-        user = order['user']
-        info['user'] = user
-        total = order['total']
-        info['total'] = total
+        info['user'] = order['user']
+        info['total'] = order['total']
+        info['status'] = order['status']
         items = ast.literal_eval(order['items'])
         order = ''
         for item in items:
@@ -214,7 +213,7 @@ def show_orders():
         data.append(info)
     print(data)
     print(output)
-    return render_template('show orders.jinja', data=data)
+    return render_template('admin-panel.jinja', data=data)
 
 
 @app.route('/omar_test', methods=['GET', 'POSt'])
