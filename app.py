@@ -314,6 +314,7 @@ def edit_order_status():
     order = Order.find_by_number(request.form.get('order_number'))
     if order:
         order.edit(request.form.get('order_status'))
+        order.save()
     return 'Order Stauts was edited', 200
 
 
