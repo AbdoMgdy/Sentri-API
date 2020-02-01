@@ -40,7 +40,6 @@ def quick_replies_events(data):
 
 def handle_first_time_user(sender_id):
     new_user = User(sender_id)
-    new_user.get_info()
     new_user.save()
     orders[sender_id] = []
     return new_user
