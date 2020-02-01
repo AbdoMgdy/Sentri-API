@@ -199,7 +199,7 @@
                                     <td class="product-name">{{list['user']['name']}}</td>
                                     <td class="product-category">{{list['user']['phone_number']}}</td>
                                     <td class="product-category">{{list['user']['address']}}</td>
-                                    {% if {{list['status'] == "Pending"}} %}
+                                    {% if {list['status'] == "Pending" %}
                                     <td>
                                         <div class="chip chip-info">
                                             <div class="chip-body">
@@ -207,7 +207,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    {% elif {{list['status'] == "Out"}} %}
+                                    {% elif {list['status'] == "Out" %}
                                     <td>
                                         <div class="chip chip-warning">
                                             <div class="chip-body">
@@ -216,7 +216,7 @@
                                         </div>
                                     </td>
                                     {% endif %}
-                                     {% elif {{list['status'] == "Delivered"}} %}
+                                     {% elif {list['status'] == "Delivered" %}
                                     <td>
                                         <div class="chip chip-warning">
                                             <div class="chip-body">
