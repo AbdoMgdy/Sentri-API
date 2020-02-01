@@ -74,13 +74,13 @@ down_bacon = ButtonTemplate()
 down_bacon.add_web_url(
     **{'اطلب 300جم بـ65': 'https://trex-chat-bot.herokuapp.com/webview/order/sandwich/Down-Bacon-300'})
 down_bacon.add_web_url(
-    **{'اطلب 450جم بـ78': 'https://trex-chat-bot.herokuapp.com/webview/order/sandwich/Donw-Bacon-450'})
+    **{'اطلب 450جم بـ78': 'https://trex-chat-bot.herokuapp.com/webview/order/sandwich/Down-Bacon-450'})
 
 down_turkey = ButtonTemplate()
 down_turkey.add_web_url(
     **{'اطلب 300جم بـ65': 'https://trex-chat-bot.herokuapp.com/webview/order/sandwich/Down-Turkey-300'})
 down_turkey.add_web_url(
-    **{'اطلب 450جم بـ78': 'https://trex-chat-bot.herokuapp.com/webview/order/sandwich/Donw-Turkey-450'})
+    **{'اطلب 450جم بـ78': 'https://trex-chat-bot.herokuapp.com/webview/order/sandwich/Down-Turkey-450'})
 
 chicken_pizza = ButtonTemplate()
 chicken_pizza.add_web_url(
@@ -112,7 +112,7 @@ quesadilla.add_web_url(
 
 mexican_wrap = ButtonTemplate()
 mexican_wrap.add_web_url(
-    **{'اطلب بـ35': 'https://trex-chat-bot.herokuapp.com/webview/order/sandwich/Mexican_Wrap'})
+    **{'اطلب بـ35': 'https://trex-chat-bot.herokuapp.com/webview/order/sandwich/Mexican-Wrap'})
 
 # Trex Meals
 trex = ButtonTemplate()
@@ -121,7 +121,7 @@ trex.add_web_url(
 
 dinner_box = ButtonTemplate()
 dinner_box.add_web_url(
-    **{'اطلب بـ55': 'https://trex-chat-bot.herokuapp.com/webview/order/meal/Dinner-box'})
+    **{'اطلب بـ55': 'https://trex-chat-bot.herokuapp.com/webview/order/meal/Dinner-Box'})
 
 snack_box = ButtonTemplate()
 snack_box.add_web_url(
@@ -137,7 +137,7 @@ crispy_strips.add_web_url(
 
 jumbo_crispy_strips = ButtonTemplate()
 jumbo_crispy_strips.add_web_url(
-    **{'اطلب بـ50': 'https://trex-chat-bot.herokuapp.com/webview/order/meal/Jump-Crispy-Strips'})
+    **{'اطلب بـ50': 'https://trex-chat-bot.herokuapp.com/webview/order/meal/Jumpo-Crispy-Strips'})
 
 
 # Appetizers
@@ -163,7 +163,7 @@ rizo.add_web_url(
 
 spicy_rice = ButtonTemplate()
 spicy_rice.add_web_url(
-    **{'اطلب بـ10': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Spicy-rice'})
+    **{'اطلب بـ10': 'https://trex-chat-bot.herokuapp.com/webview/order/sauce/Spicy-Rice'})
 
 # Kids Meals
 kids_chicken_piece = ButtonTemplate()
