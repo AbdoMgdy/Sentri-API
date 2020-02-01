@@ -311,6 +311,9 @@ def get_order_info(sender_id):
 def edit_order_status():
     print(request.form.get('order_status'))
     print(request.form.get('order_number'))
+    order = Order.find_by_number(request.form.get('order_number'))
+    if order:
+        order.edit(request.form.get('order_status'))
     return 'Order Stauts was edited', 200
 
 
