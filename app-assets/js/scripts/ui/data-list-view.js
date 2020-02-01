@@ -119,10 +119,10 @@ $(document).ready(function() {
     
     row = e.target.parentNode.parentNode.parentNode;
     
-    $('#data-name').val(row.children[1].textContent);
-    $('#data-tel').val(row.children[2].textContent);
-    $('#data-price').val(row.children[6].textContent);
-    $('#data-status').val(row.children[4].children[0].children[0].children[0].textContent);
+    $('#data-name').val(row.children[2].textContent);
+    $('#data-tel').val(row.children[3].textContent);
+    $('#data-price').val(row.children[7].textContent);
+    $('#data-status').val(row.children[5].children[0].children[0].children[0].textContent);
     $(".add-new-data").addClass("show");
     $(".overlay-bg").addClass("show");
   });
