@@ -136,21 +136,21 @@ $(document).ready(function() {
       $(".add-new-data").removeClass("show")
       $(".overlay-bg").removeClass("show")
       bodyFormData.set('order_number', row.children[0].textContent);
-      bodyFormData.set('order_status', row.children[4].children[0].children[0].children[0].textContent);
+      bodyFormData.set('order_status', row.children[5].children[0].children[0].children[0].textContent);
     } else if ($('#data-status').val() === "Out") { 
       row.children[5].children[0].setAttribute("class", "chip chip-warning")
       row.children[5].children[0].children[0].children[0].textContent = $('#data-status').val();
       $(".add-new-data").removeClass("show")
       $(".overlay-bg").removeClass("show")
       bodyFormData.set('order_number', row.children[0].textContent);
-      bodyFormData.set('order_status', row.children[4].children[0].children[0].children[0].textContent);
+      bodyFormData.set('order_status', row.children[5].children[0].children[0].children[0].textContent);
     } else {
       row.children[5].children[0].setAttribute("class", "chip chip-success")
       row.children[5].children[0].children[0].children[0].textContent = $('#data-status').val();
       $(".add-new-data").removeClass("show")
       $(".overlay-bg").removeClass("show")
       bodyFormData.set('order_number', row.children[0].textContent);
-      bodyFormData.set('order_status', row.children[4].children[0].children[0].children[0].textContent);
+      bodyFormData.set('order_status', row.children[5].children[0].children[0].children[0].textContent);
     }
 
     sendOrderStatus(bodyFormData)
