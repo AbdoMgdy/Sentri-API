@@ -121,8 +121,8 @@ $(document).ready(function() {
     
     $('#data-name').val(row.children[0].textContent);
     $('#data-tel').val(row.children[1].textContent);
-    $('#data-price').val(row.children[3].textContent);
-    $('#data-status').val(row.children[2].children[0].children[0].children[0].textContent);
+    $('#data-price').val(row.children[5].textContent);
+    $('#data-status').val(row.children[3].children[0].children[0].children[0].textContent);
     $(".add-new-data").addClass("show");
     $(".overlay-bg").addClass("show");
   });
