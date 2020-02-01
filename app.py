@@ -115,16 +115,18 @@ def handle_incoming_messages():
         # HANDLE QUICK REPLIES HERE
         bot.send_before_message(sender_id)
         block_name = quick_replies_events(data)
-        block = blocks[block_name]
-        block.send(sender_id)
+        if block_name in blocks:
+            block = blocks[block_name]
+            block.send(sender_id)
         return "quick_reply", 200
 
     elif webhook_type == "postback":
         # HANDLE POSTBACK HERE
         bot.send_before_message(sender_id)
         block_name = postback_events(data)
-        block = blocks[block_name]
-        block.send(sender_id)
+        if block_name in blocks:
+            block = blocks[block_name]
+            block.send(sender_id)
         return "postback", 200
     else:
         return "ok", 200

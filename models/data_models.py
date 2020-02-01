@@ -105,6 +105,10 @@ class Order(db.Model):
     def find_by_user_id(cls, psid):
         return cls.query.filter_by(user_id=psid).first()
 
+    @classmethod
+    def find_by_id(cls, _id):
+        return cls.query.get(_id)
+
     def add_item(self, category='', name='', quantity=0, _type='', notes='', price=0, combo=0):
         item = {}
         item['category'] = category
