@@ -9,9 +9,6 @@
 $(document).ready(function() {
   "use strict"
   // init list view datatable
-  setTimeout(function(){
-   window.location.reload(1);
-}, 30000);
   var dataListView = $(".data-list-view").DataTable({
     responsive: false,
     columnDefs: [
