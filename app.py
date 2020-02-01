@@ -207,8 +207,8 @@ def show_orders():
                 combo = 'Combo'
             else:
                 combo = ''
-            temp = '- {} * {} {} {} Notes({}) \n'.format(item['quantity'],
-                                                          item['name'], item['type'], combo, item['notes'])
+            temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+                                                           item['name'], item['type'], combo, item['notes'])
             order += temp
         info['items'] = order
         data.append(info)
