@@ -194,7 +194,7 @@ def show_orders():
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
     data = []
-    print(output)
+    # print(output)
     for order in output:
         info = {}
         info['user'] = order['user']
@@ -214,8 +214,8 @@ def show_orders():
             order += temp
         info['items'] = order
         data.append(info)
-    print(data)
-    print(output)
+    # print(data)
+    # print(output)
     return render_template('admin-panel.jinja', data=data)
 
 
@@ -224,7 +224,7 @@ def show_users():
     users = LoginUser.query.all()
     users_schema = LoginUserSchema(many=True)
     output = users_schema.dump(users)
-    print(output)
+    # print(output)
     return render_template('show users.jinja', rows=output)
 
 
