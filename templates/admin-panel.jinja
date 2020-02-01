@@ -219,6 +219,14 @@
                                             </div>
                                         </div>
                                     </td>
+                                    {% elif list['status'] == 'Caneled' %}
+                                    <td>
+                                        <div class="chip chip-danger">
+                                            <div class="chip-body">
+                                                <div class="chip-text">Canceled</div>
+                                            </div>
+                                        </div>
+                                    </td>
                                      {% else %}
                                     <td>
                                         <div class="chip chip-success">
@@ -271,9 +279,9 @@
                                                 <option value="Pending">Pending</option>
                                                 <option value="Out">Out</option>
                                                 <option value="Delivered">Delivered</option>
+                                                <option value="Canceled">Canceled</option>
                                             </select>
                                         </div>
-                                        <div class="col-sm-12 data-field-col">
                                             <label for="data-price">Price</label>
                                             <input type="text" class="form-control" id="data-price" disabled>
                                         </div>
