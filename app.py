@@ -217,40 +217,6 @@ def show_orders():
     return render_template('admin-panel.jinja', data=data)
 
 
-@app.route('/omar_test', methods=['GET', 'POSt'])
-def test_omar():
-    orders = Order.query.all()
-    orders_schema = OrderSchema(many=True)
-    output = orders_schema.dump(orders)
-    output.reverse()
-    for order in output:
-        order.pop('items', None)
-    return json.dumps(output, ensure_ascii=False), 200
-
-
-@app.route('/omar_test_items', methods=['GET', 'POSt'])
-def test_omar_items():
-    orders = Order.query.all()
-    orders_schema = OrderSchema(many=True)
-    output = orders_schema.dump(orders)
-    output.reverse()
-    new_items = []
-    order_s = ''
-    for order in output:
-        items = ast.literal_eval(order['items'])
-        for item in items:
-            if item['combo'] == 15:
-                combo = 'Combo'
-            else:
-                combo = ''
-            temp = ' {} * {} ({}) {} Notes({}) + '.format(item['quantity'],
-                                                          item['name'], item['type'], combo, item['notes'])
-            order_s += temp
-        new_items.append(order_s)
-    print(items)
-    return json.dumps(new_items, ensure_ascii=False), 200
-
-
 @app.route('/show_users', methods=['GET'])
 def show_users():
     users = LoginUser.query.all()
@@ -339,12 +305,11 @@ def get_order_info(sender_id):
     return 'ok', 200
 
 
-@app.route('/omar_btn', methods=['POST'])
-def omar_btn():
+@app.route('/edit_order_status', methods=['POST'])
+def edit_order_status():
     print(request.data)
-    data = request.get_json()
-    print(data)
-    return 'Good Job', 200
+    print(request.form.get('order_number'))
+    return 'Order Stauts was edited', 200
 
 
 if __name__ == "__main__":

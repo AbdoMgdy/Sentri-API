@@ -184,6 +184,8 @@
                         <table class="table data-list-view">
                             <thead>
                                 <tr>
+                                    <th>TIMESTAMP</th>
+                                    <th>ORDER NUMBER</th>
                                     <th>NAME</th>
                                     <th>PHONE</th>
                                     <th>ADDRESS</th>
@@ -196,9 +198,11 @@
                             <tbody>
                                 {% for list in data %}
                                 <tr>
+                                    <td class="product-umber">{{list['date']}}</td>
+                                    <td class="product-umber">{{list['number']}}</td>
                                     <td class="product-name">{{list['user']['name']}}</td>
                                     <td class="product-category">{{list['user']['phone_number']}}</td>
-                                    <td class="product-category">{{list['user']['address']}}</td>
+                                    <td class="product-address">{{list['user']['address']}}</td>
                                     {% if list['status'] == 'Pending' %}
                                     <td>
                                         <div class="chip chip-info">

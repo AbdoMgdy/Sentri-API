@@ -112,6 +112,7 @@ $(document).ready(function() {
   })
 
   var row;
+  var bodyFormData = new FormData()
   // On Edit
   $('.action-edit').on("click", function (e) {
     e.stopPropagation();
@@ -119,10 +120,10 @@ $(document).ready(function() {
     
     row = e.target.parentNode.parentNode.parentNode;
     
-    $('#data-name').val(row.children[0].textContent);
-    $('#data-tel').val(row.children[1].textContent);
-    $('#data-price').val(row.children[5].textContent);
-    $('#data-status').val(row.children[3].children[0].children[0].children[0].textContent);
+    $('#data-name').val(row.children[1].textContent);
+    $('#data-tel').val(row.children[2].textContent);
+    $('#data-price').val(row.children[6].textContent);
+    $('#data-status').val(row.children[4].children[0].children[0].children[0].textContent);
     $(".add-new-data").addClass("show");
     $(".overlay-bg").addClass("show");
   });
@@ -131,23 +132,47 @@ $(document).ready(function() {
   $('.action-confirm').on("click", function (e) {
     e.stopPropagation();
     if ($('#data-status').val() === "Pending") {
-      row.children[3].children[0].setAttribute("class", "chip chip-info")
-      row.children[3].children[0].children[0].children[0].textContent = $('#data-status').val();
+      row.children[4].children[0].setAttribute("class", "chip chip-info")
+      row.children[4].children[0].children[0].children[0].textContent = $('#data-status').val();
       $(".add-new-data").removeClass("show")
       $(".overlay-bg").removeClass("show")
+      bodyFormData.set('order_number', row.children[0].textContent);
+      bodyFormData.set('order_status', row.children[4].children[0].children[0].children[0].textContent);
     } else if ($('#data-status').val() === "Out") { 
-      row.children[3].children[0].setAttribute("class", "chip chip-warning")
-      row.children[3].children[0].children[0].children[0].textContent = $('#data-status').val();
+      row.children[4].children[0].setAttribute("class", "chip chip-warning")
+      row.children[4].children[0].children[0].children[0].textContent = $('#data-status').val();
       $(".add-new-data").removeClass("show")
       $(".overlay-bg").removeClass("show")
+      bodyFormData.set('order_number', row.children[0].textContent);
+      bodyFormData.set('order_status', row.children[4].children[0].children[0].children[0].textContent);
     } else {
-      row.children[3].children[0].setAttribute("class", "chip chip-success")
-      row.children[3].children[0].children[0].children[0].textContent = $('#data-status').val();
+      row.children[4].children[0].setAttribute("class", "chip chip-success")
+      row.children[4].children[0].children[0].children[0].textContent = $('#data-status').val();
       $(".add-new-data").removeClass("show")
       $(".overlay-bg").removeClass("show")
+      bodyFormData.set('order_number', row.children[0].textContent);
+      bodyFormData.set('order_status', row.children[4].children[0].children[0].children[0].textContent);
     }
+
+    sendOrderStatus(bodyFormData)
     
   });
+    var sendOrderStatus =  function (bodyFormData) {
+    axios({
+      method: 'post',
+      url: '/edit_order_status',
+      data: bodyFormData,
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      })
+  };
 
   // dropzone init
   Dropzone.options.dataListUpload = {

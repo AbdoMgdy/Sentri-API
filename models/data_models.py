@@ -121,8 +121,8 @@ class Order(db.Model):
         self.total += item_price
         self.save()
 
-    def edit(self):
-        pass
+    def edit(self, status):
+        self.status = status
 
     def save(self):
         db.session.add(self)
