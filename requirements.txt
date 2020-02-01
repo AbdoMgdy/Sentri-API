@@ -12,4 +12,5 @@ flask_sqlalchemy
 flask_restful
 flask_marshmallow
 marshmallow-sqlalchemy
+flask_socketio
 flask_table
