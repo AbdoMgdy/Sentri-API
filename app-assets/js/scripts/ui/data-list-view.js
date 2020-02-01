@@ -6,8 +6,6 @@
     Author: PIXINVENT
 ==========================================================================================*/
 
-import axios from 'axios';
-
 $(document).ready(function() {
   "use strict"
   // init list view datatable
