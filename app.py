@@ -126,6 +126,8 @@ def handle_incoming_messages():
         block = blocks[block_name]
         block.send(sender_id)
         return "postback", 200
+    else:
+        return "ok", 200
     return "ok", 200
 
 
