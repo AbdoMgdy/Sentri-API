@@ -254,6 +254,7 @@ def add_user_info(sender_id):
     else:
         bot.send_text_message(
             sender_id, 'انتهت صلاحة الأوردر من فضلك ابدأ أوردر جديد')
+        return 'Order Expired', 200
     result = orders.pop(sender_id, None)  # remove order from temp dict
     # look for user
     user = User.find_by_psid(sender_id)
