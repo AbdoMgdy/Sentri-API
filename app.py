@@ -309,7 +309,7 @@ def get_order_info(sender_id):
 
 @app.route('/edit_order_status', methods=['POST'])
 def edit_order_status():
-    print(request.data)
+    print(request.form.get('order_status'))
     print(request.form.get('order_number'))
     return 'Order Stauts was edited', 200
 
