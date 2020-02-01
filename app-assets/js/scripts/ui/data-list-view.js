@@ -131,18 +131,18 @@ $(document).ready(function() {
   $('.action-confirm').on("click", function (e) {
     e.stopPropagation();
     if ($('#data-status').val() === "Pending") {
-      row.children[2].children[0].setAttribute("class", "chip chip-info")
-      row.children[2].children[0].children[0].children[0].textContent = $('#data-status').val();
+      row.children[3].children[0].setAttribute("class", "chip chip-info")
+      row.children[3].children[0].children[0].children[0].textContent = $('#data-status').val();
       $(".add-new-data").removeClass("show")
       $(".overlay-bg").removeClass("show")
     } else if ($('#data-status').val() === "Out") { 
-      row.children[2].children[0].setAttribute("class", "chip chip-warning")
-      row.children[2].children[0].children[0].children[0].textContent = $('#data-status').val();
+      row.children[3].children[0].setAttribute("class", "chip chip-warning")
+      row.children[3].children[0].children[0].children[0].textContent = $('#data-status').val();
       $(".add-new-data").removeClass("show")
       $(".overlay-bg").removeClass("show")
     } else {
-      row.children[2].children[0].setAttribute("class", "chip chip-success")
-      row.children[2].children[0].children[0].children[0].textContent = $('#data-status').val();
+      row.children[3].children[0].setAttribute("class", "chip chip-success")
+      row.children[3].children[0].children[0].children[0].textContent = $('#data-status').val();
       $(".add-new-data").removeClass("show")
       $(".overlay-bg").removeClass("show")
     }
