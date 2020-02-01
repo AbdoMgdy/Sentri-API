@@ -7,6 +7,7 @@ import json
 from flask import Flask, request, render_template, url_for, redirect, flash
 from flask_restful import Resource, Api
 from flask_login import current_user, login_user, logout_user, login_required
+from flask_socketio import SocketIO, emit
 
 # Local application imports
 from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo, LoginForm, RegistrationForm
@@ -22,7 +23,7 @@ from resources.menu import main_menu, welcome_message, info_menu, m1, m2, m3, m4
 
 app = Flask(__name__, static_folder='', static_url_path='',
             template_folder='templates')
-
+socketio = SocketIO(app)
 api = Api(app)
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
