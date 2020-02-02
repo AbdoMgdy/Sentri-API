@@ -351,8 +351,8 @@
     document.onkeypress = resetTimer;
 
     function resetTimer() {
-        clearTimeout(time);
-        time = setTimeout(location.reload(), 10000)
+        window.clearTimeout(time);
+        time = window.setTimeout(location.reload(), 10000)
     }
 };
 window.onload = function() {
