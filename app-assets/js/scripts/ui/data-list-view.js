@@ -23,7 +23,7 @@ $(document).ready(function() {
       sLengthMenu: "_MENU_",
       sSearch: ""
     },
-    aLengthMenu: [[4, 10, 15, 20], [4, 10, 15, 20]],
+    aLengthMenu: [[-1, 10, 15, 20], ["All", 10, 15, 20]],
     select: {
       style: "single"
     },
