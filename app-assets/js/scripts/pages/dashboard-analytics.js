@@ -1,15 +1,12 @@
 /*=========================================================================================
     File Name: dashboard-analytics.js
     Description: dashboard analytics page content with Apexchart Examples
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 $(window).on("load", function () {
 
   var $primary = '#7367F0';
+  var $success = '#28c76f';
   var $danger = '#EA5455';
   var $warning = '#FF9F43';
   var $info = '#0DCCE1';
@@ -17,9 +14,15 @@ $(window).on("load", function () {
   var $warning_light = '#FFC085';
   var $danger_light = '#f29292';
   var $info_light = '#1edec5';
+  var $success_light = '#2ef06b';
   var $strok_color = '#b9c3cd';
   var $label_color = '#e7eef7';
   var $white = '#fff';
+  var $delivered = parseInt(document.querySelector('.orders_delivered').textContent);
+  var $out = parseInt(document.querySelector('.orders_out').textContent);
+  var $pending = parseInt(document.querySelector('.orders_pending').textContent);
+  var $canceled = parseInt(document.querySelector('.orders_canceled').textContent);
+  var $total = $delivered + $pending + $canceled + $out;
 
 
   // Subscribers Gained Chart starts //
@@ -27,7 +30,7 @@ $(window).on("load", function () {
 
   var gainedChartoptions = {
     chart: {
-      height: 100,
+      height: 250,
       type: 'area',
       toolbar: {
         show: false,
@@ -100,7 +103,7 @@ $(window).on("load", function () {
 
   var orderChartoptions = {
     chart: {
-      height: 100,
+      height: 250,
       type: 'area',
       toolbar: {
         show: false,
@@ -166,125 +169,7 @@ $(window).on("load", function () {
 
   // Orders Received Chart ends //
 
-
-
-  // Avg Session Chart Starts
-  // ----------------------------------
-
-  var sessionChartoptions = {
-    chart: {
-      type: 'bar',
-      height: 200,
-      sparkline: { enabled: true },
-      toolbar: { show: false },
-    },
-    states: {
-      hover: {
-        filter: 'none'
-      }
-    },
-    colors: [$label_color, $label_color, $primary, $label_color, $label_color, $label_color],
-    series: [{
-      name: 'Sessions',
-      data: [75, 125, 225, 175, 125, 75, 25]
-    }],
-    grid: {
-      show: false,
-      padding: {
-        left: 0,
-        right: 0
-      }
-    },
-
-    plotOptions: {
-      bar: {
-        columnWidth: '45%',
-        distributed: true,
-        endingShape: 'rounded'
-      }
-    },
-    tooltip: {
-      x: { show: false }
-    },
-    xaxis: {
-      type: 'numeric',
-    }
-  }
-
-  var sessionChart = new ApexCharts(
-    document.querySelector("#avg-session-chart"),
-    sessionChartoptions
-  );
-
-  sessionChart.render();
-
-  // Avg Session Chart ends //
-
-
-  // Support Tracker Chart starts
-  // -----------------------------
-
-  var supportChartoptions = {
-    chart: {
-      height: 270,
-      type: 'radialBar',
-    },
-    plotOptions: {
-      radialBar: {
-        size: 150,
-        startAngle: -150,
-        endAngle: 150,
-        offsetY: 20,
-        hollow: {
-          size: '65%',
-        },
-        track: {
-          background: $white,
-          strokeWidth: '100%',
-
-        },
-        dataLabels: {
-          value: {
-            offsetY: 30,
-            color: '#99a2ac',
-            fontSize: '2rem'
-          }
-        }
-      },
-    },
-    colors: [$danger],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        // enabled: true,
-        shade: 'dark',
-        type: 'horizontal',
-        shadeIntensity: 0.5,
-        gradientToColors: [$primary],
-        inverseColors: true,
-        opacityFrom: 1,
-        opacityTo: 1,
-        stops: [0, 100]
-      },
-    },
-    stroke: {
-      dashArray: 8
-    },
-    series: [83],
-    labels: ['Completed Tickets'],
-
-  }
-
-  var supportChart = new ApexCharts(
-    document.querySelector("#support-tracker-chart"),
-    supportChartoptions
-  );
-
-  supportChart.render();
-
-  // Support Tracker Chart ends
-
-
+  
   // Product Order Chart starts
   // -----------------------------
 
@@ -293,19 +178,19 @@ $(window).on("load", function () {
       height: 325,
       type: 'radialBar',
     },
-    colors: [$primary, $warning, $danger],
+    colors: [$success, $danger, $info , $warning],
     fill: {
       type: 'gradient',
       gradient: {
-        // enabled: true,
+        enabled: true,
         shade: 'dark',
         type: 'vertical',
         shadeIntensity: 0.5,
-        gradientToColors: [$primary_light, $warning_light, $danger_light],
+        gradientToColors: [$success_light, $danger_light, $info_light, $warning_light],
         inverseColors: false,
         opacityFrom: 1,
         opacityTo: 1,
-        stops: [0, 100]
+        stops: [25, 75]
       },
     },
     stroke: {
@@ -315,10 +200,10 @@ $(window).on("load", function () {
       radialBar: {
         size: 165,
         hollow: {
-          size: '20%'
+          size: '30%'
         },
         track: {
-          strokeWidth: '100%',
+          strokeWidth: '80%',
           margin: 15,
         },
         dataLabels: {
@@ -334,16 +219,18 @@ $(window).on("load", function () {
 
             formatter: function (w) {
               // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-              return 42459
+              return $total // total orders
             }
           }
         }
       }
     },
-    series: [70, 52, 26],
-    labels: ['Finished', 'Pending', 'Rejected'],
+    series: [($delivered / $total) * 100, ($canceled / $total) * 100, ($pending / $total) * 100, ($out / $total) * 100], // order status varibables
+    labels: ['Delivered', 'Out', 'Pending', 'Canceled'],
 
   }
+
+
 
   var productChart = new ApexCharts(
     document.querySelector("#product-order-chart"),

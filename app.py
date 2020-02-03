@@ -41,7 +41,7 @@ restaurant = ''
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('show_orders'))
+        return redirect(url_for('admin_panel'))
     form = RegistrationForm()
     if form.validate_on_submit():
         user = LoginUser(form.username.data, form.password.data)
@@ -54,7 +54,7 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('show_orders'))
+        return redirect(url_for('admin_panel'))
     form = LoginForm()
     if form.validate_on_submit():
 
@@ -64,7 +64,7 @@ def login():
             return 'wrong'
 
         login_user(user, remember=form.remember_me.data)
-        return redirect('/show_orders')
+        return redirect('/admin_panel')
     return render_template('admin login.jinja', form=form)
 
 
@@ -189,9 +189,10 @@ def edit_order():
     return app.send_static_file('index.html')
 
 
-@app.route('/show_orders', methods=['GET'])
+@app.route('/admin_panel', methods=['GET'])
 @login_required
-def show_orders():
+def admin_panel():
+
     orders = Order.query.all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
@@ -219,6 +220,21 @@ def show_orders():
     # print(data)
     # print(output)
     return render_template('admin-panel.jinja', data=data)
+
+
+@app.route('/admin_analytics', methods=['GET'])
+@login_required
+def admin_analytics():
+    subs = UserSchema.query.all()
+    subs_schema = UserSchema(many=True)
+    sub_count = subs_schema.dump(subs)
+    orders_d = Order.query.filter_by(status="Delivered").count()
+    orders_c = Order.query.filter_by(status="Canceled").count()
+    orders_o = Order.query.filter_by(status="Out").count()
+    orders_p = Order.query.filter_by(status="Pending").count()
+    total = orders_d + orders_c + orders_o + orders_p
+    print(total)
+    return render_template('admin-analytics.jinja', total=total, subs=subs, pending=orders_p, out=orders_o, canceled=orders_c, delivered=orders_d)
 
 
 @app.route('/show_users', methods=['GET'])

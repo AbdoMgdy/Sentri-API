@@ -9,16 +9,17 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Admin Panel - Trex</title>
+    <title>Dashboard analytics - Vuexy - Bootstrap HTML admin template</title>
     <link rel="apple-touch-icon" href="app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/vendors.min.css">
-    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/tables/datatable/datatables.min.css">
-    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/file-uploaders/dropzone.min.css">
-    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/tables/datatable/extensions/dataTables.checkboxes.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/charts/apexcharts.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/extensions/tether-theme-arrows.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/extensions/tether.min.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/extensions/shepherd-theme-default.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -32,14 +33,15 @@
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="app-assets/css/core/menu/menu-types/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="app-assets/css/core/colors/palette-gradient.css">
-    <link rel="stylesheet" type="text/css" href="app-assets/css/plugins/file-uploaders/dropzone.css">
-    <link rel="stylesheet" type="text/css" href="app-assets/css/pages/data-list-view.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/css/pages/dashboard-analytics.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/css/pages/card-analytics.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/css/plugins/tour/tour.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- END: Custom CSS-->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 </head>
 <!-- END: Head-->
 
@@ -47,7 +49,7 @@
 
 <body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
-    <!-- BEGIN: Header-->
+     <!-- BEGIN: Header-->
     <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu floating-nav navbar-light navbar-shadow">
         <div class="navbar-wrapper">
             <div class="navbar-container content">
@@ -76,7 +78,7 @@
                                         <h3 class="white">1 New</h3><span class="notification-title">Order</span>
                                     </div>
                                 </li>
-                                <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" href="javascript:void(0)">Read all notifications</a></li>
+                                <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" href="javascript:void(0)">Clear Notifications</a></li>
                             </ul>
                         </li>
                         <li class="dropdown dropdown-user nav-item" style="margin-top: 1rem;"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
@@ -111,7 +113,7 @@
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                 <li class=" nav-item"><a href="#"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
                     <ul class="menu-content">
-                        <li><a href="/admin_analytics"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Analytics">Analytics</span></a>
+                        <li><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Analytics">Analytics</span></a>
                         </li>
                     </ul>
                 </li>
@@ -125,139 +127,96 @@
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
             <div class="content-body">
-                <!-- Data list view starts -->
-                <section id="data-list-view" class="data-list-view-header">
-                    <div class="action-btns d-none">
-                        <div class="btn-dropdown mr-1 mb-1">
-                            <div class="btn-group dropdown actions-dropodown">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- DataTable starts -->
-                    <div class="table-responsive">
-                        <table class="table data-list-view">
-                            <thead>
-                                <tr>
-                                    <th>TIMESTAMP</th>
-                                    <th>ORDER NUMBER</th>
-                                    <th>NAME</th>
-                                    <th>PHONE</th>
-                                    <th>ADDRESS</th>
-                                    <th>ORDER STATUS</th>
-                                    <th>ORDER</th>
-                                    <th>PRICE</th>
-                                    <th>ACTION</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for list in data %}
-                                <tr>
-                                    <td class="product-time">{{list['time']}}</td>
-                                    <td class="product-number">{{list['number']}}</td>
-                                    <td class="product-name">{{list['user']['name']}}</td>
-                                    <td class="product-category">{{list['user']['phone_number']}}</td>
-                                    <td class="product-address">{{list['user']['address']}}</td>
-                                    {% if list['status'] == 'Pending' %}
-                                    <td>
-                                        <div class="chip chip-info">
-                                            <div class="chip-body">
-                                                <div class="chip-text">Pending</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    {% elif list['status'] == 'Out' %}
-                                    <td>
-                                        <div class="chip chip-warning">
-                                            <div class="chip-body">
-                                                <div class="chip-text">Out</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    {% elif list['status'] == 'Canceled' %}
-                                    <td>
-                                        <div class="chip chip-danger">
-                                            <div class="chip-body">
-                                                <div class="chip-text">Canceled</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                     {% else %}
-                                    <td>
-                                        <div class="chip chip-success">
-                                            <div class="chip-body">
-                                                <div class="chip-text">Delivered</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    {% endif %}
-                                    <td class="product-price">{{list['items']}}</td>
-                                    <td class="product-price">{{list['total']}} EGP</td>
-                                    <td class="product-action">
-                                        <span class="action-edit"><i class="feather icon-edit"></i></span>
-                                    
-                                    </td>
-                                </tr>
-                               {% endfor %}
-                            
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- DataTable ends -->
-
-                    <!-- add new sidebar starts -->
-                    <div class="add-new-data-sidebar">
-                        <div class="overlay-bg"></div>
-                        <div class="add-new-data">
-                            <div class="div mt-2 px-2 d-flex new-data-title justify-content-between">
-                                <div>
-                                    <h4 class="text-uppercase">Edit Order Data</h4>
+                <!-- Dashboard Analytics Start -->
+                <section id="dashboard-analytics">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between pb-0">
+                                    <h4>Order Status</h4>
                                 </div>
-                                <div class="hide-data-sidebar">
-                                    <i class="feather icon-x"></i>
-                                </div>
-                            </div>
-                            <div class="data-items pb-3">
-                                <div class="data-fields px-2 mt-3">
-                                    <div class="row">
-                                        <div class="col-sm-12 data-field-col">
-                                            <label for="data-name">Name</label>
-                                            <input type="text" class="form-control" id="data-name" disabled>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <div id="product-order-chart" class="mb-3"></div>
+                                        <div class="chart-info d-flex justify-content-between mb-1">
+                                            <div class="series-info d-flex align-items-center">
+                                                <i class="fa fa-circle-o text-bold-700 text-success"></i>
+                                                <span class="text-bold-600 ml-50">Delivered</span>
+                                            </div>
+                                            <div class="product-result">
+                                                <span class="orders_delivered">{{ delivered }}</span>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-12 data-field-col">
-                                            <label for="data-category"> Phone Number </label>
-                                          <input type="tel" class="form-control" id="data-tel" disabled>
+                                         <div class="chart-info d-flex justify-content-between mb-75">
+                                            <div class="series-info d-flex align-items-center">
+                                                <i class="fa fa-circle-o text-bold-700 text-danger"></i>
+                                                <span class="text-bold-600 ml-50">Canceled</span>
+                                            </div>
+                                            <div class="product-result">
+                                                <span class="orders_canceled">{{ canceled }}</span>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-12 data-field-col">
-                                            <label for="data-status">Order Status</label>
-                                            <select class="form-control" id="data-status">
-                                                <option value="Pending">Pending</option>
-                                                <option value="Out">Out</option>
-                                                <option value="Canceled">Canceled</option>
-                                                <option value="Delivered">Delivered</option>
-                                            </select>
+                                        <div class="chart-info d-flex justify-content-between mb-1">
+                                            <div class="series-info d-flex align-items-center">
+                                                <i class="fa fa-circle-o text-bold-700 text-warning"></i>
+                                                <span class="text-bold-600 ml-50">Out</span>
+                                            </div>
+                                            <div class="product-result">
+                                                <span class="orders_out">{{ out }}</span>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-12 data-field-col">
-                                            <label for="data-price">Price</label>
-                                            <input type="text" class="form-control" id="data-price" disabled>
+                                        <div class="chart-info d-flex justify-content-between mb-1">
+                                            <div class="series-info d-flex align-items-center">
+                                                <i class="fa fa-circle-o text-bold-700 text-info"></i>
+                                                <span class="text-bold-600 ml-50">Pending</span>
+                                            </div>
+                                            <div class="product-result">
+                                                <span class="orders_pending">{{ pending }}</span>
+                                            </div>
                                         </div>
+                                       
                                     </div>
                                 </div>
                             </div>
-                            <div class="add-data-footer d-flex justify-content-around px-3 mt-2">
-                                <div class="add-data-btn">
-                                    <button class="btn btn-success action-confirm">Confirm</button>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-header d-flex flex-column align-items-start pb-0">
+                                    <div class="avatar bg-rgba-primary p-50 m-0">
+                                        <div class="avatar-content">
+                                            <i class="feather icon-users text-primary font-medium-5"></i>
+                                        </div>
+                                    </div>
+                                    <h2 class="text-bold-700 mt-1 mb-25">{{ subs }}</h2>
+                                    <p class="mb-0">Subscribers</p>
                                 </div>
-                                <div class="cancel-data-btn">
-                                    <button class="btn btn-outline-danger">Cancel</button>
+                                <div class="card-content">
+                                    <div id="subscribe-gain-chart"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-header d-flex flex-column align-items-start pb-0">
+                                    <div class="avatar bg-rgba-warning p-50 m-0">
+                                        <div class="avatar-content">
+                                            <i class="feather icon-package text-warning font-medium-5"></i>
+                                        </div>
+                                    </div>
+                                    <h2 class="text-bold-700 mt-1 mb-25">{{ total }}</h2>
+                                    <p class="mb-0">Orders</p>
+                                </div>
+                                <div class="card-content">
+                                    <div id="orders-received-chart"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- add new sidebar ends -->
                 </section>
-                <!-- Data list view end -->
+                <!-- Dashboard Analytics end -->
 
             </div>
         </div>
@@ -281,13 +240,8 @@
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="app-assets/vendors/js/extensions/dropzone.min.js"></script>
-    <script src="app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
-    <script src="app-assets/vendors/js/tables/datatable/datatables.buttons.min.js"></script>
-    <script src="app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script>
-    <script src="app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js"></script>
-    <script src="app-assets/vendors/js/tables/datatable/dataTables.select.min.js"></script>
-    <script src="app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js"></script>
+    <script src="app-assets/vendors/js/charts/apexcharts.min.js"></script>
+    <script src="app-assets/vendors/js/extensions/tether.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -297,8 +251,9 @@
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="app-assets/js/scripts/ui/data-list-view.js"></script>
+    <script src="app-assets/js/scripts/pages/dashboard-analytics.js"></script>
     <!-- END: Page JS-->
+
 </body>
 <!-- END: Body-->
 
