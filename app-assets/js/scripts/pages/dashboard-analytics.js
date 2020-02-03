@@ -225,7 +225,7 @@ $(window).on("load", function () {
         }
       }
     },
-    series: [Math.floor(($delivered / $total) * 100), Math.floor(($canceled / $total) * 100), Math.floor(($pending / $total) * 100), Math.floor(($out / $total) * 100)], // order status varibables
+    series: [($delivered / $total) * 100, ($canceled / $total) * 100, ($pending / $total), ($out / $total) * 100], // order status varibables
     labels: ['Delivered', 'Out', 'Pending', 'Canceled'],
 
   }
