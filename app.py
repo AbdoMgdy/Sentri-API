@@ -225,7 +225,7 @@ def admin_panel():
 @app.route('/admin_analytics', methods=['GET'])
 @login_required
 def admin_analytics():
-    subs = User.query.all().count()
+    subs = User.query.count()
     orders_d = Order.query.filter_by(status="Delivered").count()
     orders_c = Order.query.filter_by(status="Canceled").count()
     orders_o = Order.query.filter_by(status="Out").count()
