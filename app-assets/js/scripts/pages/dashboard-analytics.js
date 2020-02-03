@@ -23,7 +23,10 @@ $(window).on("load", function () {
   var $pending = parseInt(document.querySelector('.orders_pending').textContent);
   var $canceled = parseInt(document.querySelector('.orders_canceled').textContent);
   var $total = $delivered + $pending + $canceled + $out;
-
+  var $deliveredPercentage =Math.round(($delivered / $total) * 100)
+  var $outPercentage =Math.round(($out / $total) * 100)
+  var $pendingPercentage =Math.round(($pending / $total) * 100)
+  var $canceledPercentage =Math.round(($canceled / $total) * 100)
 
   // Subscribers Gained Chart starts //
   // ----------------------------------
@@ -225,7 +228,7 @@ $(window).on("load", function () {
         }
       }
     },
-    series: [($delivered / $total) * 100, ($canceled / $total) * 100, ($pending / $total), ($out / $total) * 100], // order status varibables
+    series: [$deliveredPercentage, $canceledPercentage, $pendingPercentage, $outPercentage], // order status varibables
     labels: ['Delivered', 'Out', 'Pending', 'Canceled'],
 
   }
