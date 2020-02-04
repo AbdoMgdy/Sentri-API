@@ -1,4 +1,4 @@
-from app import app
+from app import app, socketio
 from db import db, ma, login
 
 
