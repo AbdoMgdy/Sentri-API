@@ -1,6 +1,8 @@
 Flask
 gunicorn
 eventlet
+greenlet
+pyopenssl
 gevent-websocket
 requests
 requests_toolbelt
