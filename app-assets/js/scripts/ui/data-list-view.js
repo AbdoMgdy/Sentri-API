@@ -66,9 +66,8 @@ $(document).ready(function() {
   var row;
   var bodyFormData = new FormData()
   // On Edit
-  $('.action-edit').on("click", function (e) {
-    e.stopPropagation();
-    console.log(e)
+  $('.data-list-view').on("click", function (e) {
+    console.log(e.target)
     
     row = e.target.parentNode.parentNode.parentNode;
     console.log(row)
