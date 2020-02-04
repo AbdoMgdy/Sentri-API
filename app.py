@@ -38,7 +38,7 @@ bot = Bot()
 restaurant = ''
 
 
-@app.rout('/socket')
+@app.route('/socket')
 def socket():
     return render_template('socket.jinja')
 
