@@ -1,5 +1,4 @@
 Flask
-# uwsgi
 gunicorn
 eventlet
 requests
