@@ -1,5 +1,6 @@
 Flask
-uwsgi
+# uwsgi
+gunicorn
 requests
 requests_toolbelt
 six
