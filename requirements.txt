@@ -1,7 +1,7 @@
 Flask
 gunicorn
 eventlet
-geventwebsocket
+gevent-websocket
 requests
 requests_toolbelt
 six
