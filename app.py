@@ -48,10 +48,10 @@ def messageReceived(methods=['GET', 'POST']):
     return True, 200
 
 
-@socketio.on('my event')
+@socketio.on('message')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
-    print('received my event: ' + str(json))
-    socketio.emit('my response', json, callback=messageReceived)
+    print('received message: ' + str(json))
+    socketio.emit('response', json, callback=messageReceived)
 
 
 @app.route('/register', methods=['GET', 'POST'])
