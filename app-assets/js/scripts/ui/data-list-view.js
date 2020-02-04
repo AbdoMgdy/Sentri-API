@@ -126,31 +126,13 @@ $(document).ready(function() {
     })
       .then(function (response) {
         //handle success
-        console.log(response);
+        return
       })
-      .catch(function (response) {
+      .catch(function (err) {
         //handle error
-        console.log(response);
+        console.log(err);
       })
   };
-
-  // dropzone init
-  Dropzone.options.dataListUpload = {
-    complete: function(files) {
-      var _this = this
-      // checks files in class dropzone and remove that files
-      $(".hide-data-sidebar, .cancel-data-btn, .actions .dt-buttons").on(
-        "click",
-        function() {
-          $(".dropzone")[0].dropzone.files.forEach(function(file) {
-            file.previewElement.remove()
-          })
-          $(".dropzone").removeClass("dz-started")
-        }
-      )
-    }
-  }
-  Dropzone.options.dataListUpload.complete()
 
   // mac chrome checkbox fix
   if (navigator.userAgent.indexOf("Mac OS X") != -1) {
