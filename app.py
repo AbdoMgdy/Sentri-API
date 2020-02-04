@@ -44,8 +44,8 @@ def socket():
 
 
 def messageReceived(methods=['GET', 'POST']):
-    print('message was received!!!')
-    return True, 200
+    print('Roget and Out!')
+    return 'ok', 200
 
 
 @socketio.on('message')
@@ -285,7 +285,7 @@ def add_user_info(sender_id):
         bot.send_text_message(
             sender_id, 'انتهت صلاحة الأوردر من فضلك ابدأ أوردر جديد')
         return 'Order Expired', 200
-    result = orders.pop(sender_id, None)  # remove order from temp dict
+    orders.pop(sender_id, None)  # remove order from temp dict
     # look for user
     user = User.find_by_psid(sender_id)
     # update user info
@@ -310,6 +310,7 @@ def add_user_info(sender_id):
     bot.send_text_message(
         sender_id, 'يتم الآن تحضير الأوردر وسيصلك في خلال 45 - 60 دقيقة')
     # receipt.send(restaurant)
+    socketio.emit('response', 'order Done', callback=messageReceived)
     return 'User info was added', 200
 
 
