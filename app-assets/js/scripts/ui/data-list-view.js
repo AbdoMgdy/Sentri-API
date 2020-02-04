@@ -71,7 +71,7 @@ $(document).ready(function() {
     
     row = e.target.parentNode.parentNode.parentNode;
     console.log(row)
-    if (e.target.className === '.action-edit') {
+    if (e.target.TagName === 'span') {
       $('#data-name').val(row.children[2].textContent);
       $('#data-tel').val(row.children[3].textContent);
       $('#data-price').val(row.children[7].textContent);
