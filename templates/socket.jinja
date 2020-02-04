@@ -49,7 +49,7 @@
       socket.on( 'connect', function() {
         socket.emit( 'my event', {
           data: 'User Connected'
-        } )
+        } );
         var form = $( 'form' ).on( 'submit', function( e ) {
           e.preventDefault()
           let user_name = $( 'input.username' ).val()

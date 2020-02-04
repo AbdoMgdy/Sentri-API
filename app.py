@@ -45,6 +45,7 @@ def socket():
 
 def messageReceived(methods=['GET', 'POST']):
     print('message was received!!!')
+    return True, 200
 
 
 @socketio.on('my event')
