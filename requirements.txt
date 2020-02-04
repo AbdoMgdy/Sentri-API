@@ -1,6 +1,7 @@
 Flask
 # uwsgi
 gunicorn
+eventlet
 requests
 requests_toolbelt
 six
