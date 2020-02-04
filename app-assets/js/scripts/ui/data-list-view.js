@@ -23,13 +23,13 @@ $(document).ready(function() {
       sLengthMenu: "_MENU_",
       sSearch: ""
     },
-    aLengthMenu: [[-1, 10, 15, 20], ["All", 10, 15, 20]],
+    aLengthMenu: [[5, 1, 15, -1], [5, 10, 15, "All"]],
     select: {
       style: "single"
     },
     order: [[1, "asc"]],
     bInfo: false,
-    pageLength: 4,
+    pageLength: 5,
     buttons: [{
     }],
     initComplete: function(settings, json) {
