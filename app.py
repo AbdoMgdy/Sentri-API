@@ -38,10 +38,13 @@ bot = Bot()
 restaurant = ''
 
 
-def send_order_to_vendor(data):
-    print(data)
-    idk = []
-    for order in data:
+def send_order_to_vendor(order):
+    print(order)
+    orders_schema = OrderSchema()
+    output = orders_schema.dump(order)
+    print(output)
+    data = []
+    for item in output:
         info = {}
         info['user'] = order['user']
         info['time'] = order['time']
@@ -59,8 +62,10 @@ def send_order_to_vendor(data):
                                                            item['name'], item['type'], combo, item['notes'])
             order_text += temp
         info['items'] = order_text
-        idk.append(info)     
-    socketio.emit('order', json.dumps(idk))
+        data.append(info)
+    print(info)
+    print(data)
+    socketio.emit('order', json.dumps(data))
     return info
 
 
@@ -286,7 +291,7 @@ def add_user_info(sender_id):
 
     result = orders.pop(sender_id, None)  # remove order from temp dict
     # receipt.send(restaurant)
-    send_order_to_vendor(result)
+    send_order_to_vendor(order)
     return 'User info was added', 200
 
 
