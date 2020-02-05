@@ -180,9 +180,9 @@ $(document).ready(function () {
       data: 'User Connected'
     });
     socket.on('order', function (order) {
-      item = JSON.parse(item);
-      console.log(item)
-      addItemTable(item);
+      item = JSON.parse(order);
+      console.log(order)
+      addItemTable(order);
     })
   });
 
