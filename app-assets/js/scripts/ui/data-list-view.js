@@ -152,8 +152,8 @@ $(document).ready(function () {
       notify.textContent = 1;
       notifyIn.textContent = 1;
     } else {
-      notify.textContent += 1;
-      notifyIn.textContent += 1;
+      notify.textContent = parseInt(notify.textContent) +  1;
+      notifyIn.textContent =parseInt(notifyIn.textContent) + 1;
     }
   
   };
