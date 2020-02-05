@@ -142,6 +142,7 @@ $(document).ready(function () {
   };
 
   const renderItem = function (obj) {
+    console.log(obj)
     console.log(obj.time);
     console.log(obj.user);
     console.log(obj.number);
@@ -184,7 +185,6 @@ $(document).ready(function () {
     });
     socket.on('order', function (order) {
       let item = JSON.parse(order);
-      console.log(item);
       addItemTable(item);
     })
   });
