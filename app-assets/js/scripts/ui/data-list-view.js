@@ -135,16 +135,16 @@ $(document).ready(function () {
         console.log(err);
       })
   };
-
+  let notify, notifyIn;
   // mac chrome checkbox fix
   if (navigator.userAgent.indexOf("Mac OS X") != -1) {
     $(".dt-checkboxes-cell input, .dt-checkboxes").addClass("mac-checkbox")
   };
-  $('.clear-notify').on('click', function){
+  $('.clear-notify').on('click', function () {
     notify = '';
     notifyIn = 0;
-  }
-  let notify, notifyIn;
+  });
+  
 
   const increaseNotfication = function () {
     notify = document.querySelector('.notify').textContent;
