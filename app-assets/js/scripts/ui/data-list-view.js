@@ -135,25 +135,25 @@ $(document).ready(function () {
         console.log(err);
       })
   };
-  let notify = document.querySelector('.notify').textContent;
-  let  notifyIn = document.querySelector('.notifyIn').textContent;
+  let notify = document.querySelector('.notify');
+  let notifyIn = document.querySelector('.notifyIn');
   // mac chrome checkbox fix
   if (navigator.userAgent.indexOf("Mac OS X") != -1) {
     $(".dt-checkboxes-cell input, .dt-checkboxes").addClass("mac-checkbox")
   };
   $('.clear-notify').on('click', function () {
-    notify = '';
-    notifyIn = 0;
+    notify.textContent = '';
+    notifyIn.textContent = 0;
   });
   
 
   const increaseNotfication = function () {
-    if (notify === '') {
-      notify = 1;
-      notifyIn = 1;
+    if (notify.textContent === '') {
+      notify.textContent = 1;
+      notifyIn.textContent = 1;
     } else {
-      notify += 1;
-      notifyIn += 1;
+      notify.textContent += 1;
+      notifyIn.textContent += 1;
     }
   
   };
