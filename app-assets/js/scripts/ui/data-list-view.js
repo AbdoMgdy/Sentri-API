@@ -140,7 +140,24 @@ $(document).ready(function () {
   if (navigator.userAgent.indexOf("Mac OS X") != -1) {
     $(".dt-checkboxes-cell input, .dt-checkboxes").addClass("mac-checkbox")
   };
+  $('.clear-notify').on('click', function){
+    notify = '';
+    notifyIn = 0;
+  }
+  let notify, notifyIn;
 
+  const increaseNotfication = function () {
+    notify = document.querySelector('.notify').textContent;
+    notifyIn = document.querySelector('.notifyIn').textContent;
+    if (notify === '') {
+      notify = 1;
+      notifyIn = 1;
+    } else {
+      notify += 1;
+      notifyIn += 1;
+    }
+  
+  };
   const renderItem = function (obj) {
     console.log(obj[0])
     console.log(obj[0].time);
@@ -186,6 +203,7 @@ $(document).ready(function () {
     socket.on('order', function (order) {
       let item = JSON.parse(order);
       addItemTable(item);
+      increaseNotfication();
     })
   });
 
