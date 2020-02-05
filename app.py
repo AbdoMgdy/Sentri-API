@@ -38,6 +38,10 @@ bot = Bot()
 restaurant = ''
 
 
+def test_socekt():
+    socketio.emit('response', 'order Done')
+
+
 @app.route('/socket')
 def socket():
     return render_template('socket.jinja')
@@ -310,7 +314,7 @@ def add_user_info(sender_id):
     bot.send_text_message(
         sender_id, 'يتم الآن تحضير الأوردر وسيصلك في خلال 45 - 60 دقيقة')
     # receipt.send(restaurant)
-    socketio.emit('response', 'order Done', callback=messageReceived)
+    test_socekt()
     return 'User info was added', 200
 
 
