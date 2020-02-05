@@ -173,7 +173,7 @@ $(document).ready(function () {
   };
   const addItemTable = function (obj) {
     let item = renderItem(obj);
-    document.querySelector.inserAdjacentHTML('afterbegin', item);
+    document.querySelector.insertAdjacentHTML('afterbegin', item);
   }
 
 
