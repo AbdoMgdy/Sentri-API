@@ -41,29 +41,28 @@ restaurant = ''
 def send_order_to_vendor(result):
     print(result)
     orders_schema = OrderSchema()
-    output = orders_schema.dump(result)
-    print(output)
-    print(type(output))
+    order = orders_schema.dump(result)
+    print(order)
+    print(type(order))
     data = []
-    for order in output:
-        info = {}
-        # info['user'] = order['user']
-        info['time'] = order['time']
-        info['number'] = order['number']
-        info['total'] = order['total']
-        info['status'] = order['status']
-        items = ast.literal_eval(order['items'])
-        order_text = ''
-        for item in items:
-            if item['combo'] == 15:
-                combo = 'Combo'
-            else:
-                combo = ''
-            temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
-                                                           item['name'], item['type'], combo, item['notes'])
-            order_text += temp
-        info['items'] = order_text
-        data.append(info)
+    info = {}
+    # info['user'] = order['user']
+    info['time'] = order['time']
+    info['number'] = order['number']
+    info['total'] = order['total']
+    info['status'] = order['status']
+    items = ast.literal_eval(order['items'])
+    order_text = ''
+    for item in items:
+        if item['combo'] == 15:
+            combo = 'Combo'
+        else:
+            combo = ''
+        temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+                                                       item['name'], item['type'], combo, item['notes'])
+        order_text += temp
+    info['items'] = order_text
+    data.append(info)
     print(info)
     print(data)
     socketio.emit('order', json.dumps(data))
