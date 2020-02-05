@@ -38,25 +38,29 @@ bot = Bot()
 restaurant = ''
 
 
-def send_order_to_vendor(order):
-    info = {}
-    info['user'] = order['user']
-    info['time'] = order['time']
-    info['number'] = order['number']
-    info['total'] = order['total']
-    info['status'] = order['status']
-    items = ast.literal_eval(order['items'])
-    order_text = ''
-    for item in items:
-        if item['combo'] == 15:
-            combo = 'Combo'
-        else:
-            combo = ''
-        temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
-                                                       item['name'], item['type'], combo, item['notes'])
-        order_text += temp
-    info['items'] = order_text
-    socketio.emit('order', json.dumps(info))
+def send_order_to_vendor(data):
+    print(data)
+    idk = []
+    for order in data:
+        info = {}
+        info['user'] = order['user']
+        info['time'] = order['time']
+        info['number'] = order['number']
+        info['total'] = order['total']
+        info['status'] = order['status']
+        items = ast.literal_eval(order['items'])
+        order_text = ''
+        for item in items:
+            if item['combo'] == 15:
+                combo = 'Combo'
+            else:
+                combo = ''
+            temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+                                                           item['name'], item['type'], combo, item['notes'])
+            order_text += temp
+        info['items'] = order_text
+        idk.append(info)     
+    socketio.emit('order', json.dumps(idk))
     return info
 
 

@@ -61,7 +61,7 @@
           } )
           $( 'input.message' ).val( '' ).focus()
         } )
-      socket.on('response', function( msg ) {
+      socket.on('order', function( msg ) {
         console.log( msg )
         $( 'h3' ).remove()
         $( 'div.message_holder' ).append( '<div><b style="color: #000">'+msg+'</b> '+msg.name+'</div>' )
