@@ -8,6 +8,8 @@ from flask import Flask, request, render_template, url_for, redirect, flash
 from flask_restful import Resource, Api
 from flask_login import current_user, login_user, logout_user, login_required
 from flask_socketio import SocketIO, emit
+from flask_cors import CORS
+
 
 # Local application imports
 from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo, LoginForm, RegistrationForm
@@ -25,6 +27,7 @@ app = Flask(__name__, static_folder='', static_url_path='',
             template_folder='templates')
 socketio = SocketIO(app)
 api = Api(app)
+CORS(app)
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(

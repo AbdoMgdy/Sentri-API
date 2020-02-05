@@ -8,6 +8,7 @@ requests
 requests_toolbelt
 six
 anytree
+flask_cors
 flask_wtf
 flask_login
 psycopg2
