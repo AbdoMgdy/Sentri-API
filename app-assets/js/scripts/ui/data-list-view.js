@@ -142,26 +142,26 @@ $(document).ready(function () {
   };
 
   const renderItem = function (obj) {
-    console.log(obj)
-    console.log(obj.time);
-    console.log(obj.user);
-    console.log(obj.number);
+    console.log(obj[0])
+    console.log(obj[0].time);
+    console.log(obj[0].user);
+    console.log(obj[0].number);
     let itemMarkup;
     itemMarkup = `<tr>
-                                    <td class="product-time">${obj.time}</td>
-                                    <td class="product-number">${obj.number}</td>
-                                    <td class="product-name">${obj.user.name}</td>
-                                    <td class="product-category">${obj.user.phone_number}</td>
-                                    <td class="product-address">${obj.user.address}</</td>
+                                    <td class="product-time">${obj[0].time}</td>
+                                    <td class="product-number">${obj[0].number}</td>
+                                    <td class="product-name">${obj[0].user.name}</td>
+                                    <td class="product-category">${obj[0].user.phone_number}</td>
+                                    <td class="product-address">${obj[0].user.address}</</td>
                                     <td>
                                         <div class="chip chip-info">
                                             <div class="chip-body">
-                                                <div class="chip-text">${obj.status}</</div>
+                                                <div class="chip-text">${obj[0].status}</</div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="product-price">${obj.items}</td>
-                                    <td class="product-price">{${obj.total} EGP</td>
+                                    <td class="product-price">${obj[0].items}</td>
+                                    <td class="product-price">{${obj[0].total} EGP</td>
                                     <td class="product-action">
                                         <span class="action-edit"><i class="feather icon-edit"></i></span>
                                     
