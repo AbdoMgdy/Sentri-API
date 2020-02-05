@@ -1,9 +1,6 @@
 /*=========================================================================================
     File Name: data-list-view.js
     Description: List View
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: PIXINVENT
 ==========================================================================================*/
 
 $(document).ready(function() {
@@ -137,5 +134,50 @@ $(document).ready(function() {
   // mac chrome checkbox fix
   if (navigator.userAgent.indexOf("Mac OS X") != -1) {
     $(".dt-checkboxes-cell input, .dt-checkboxes").addClass("mac-checkbox")
+  };
+
+  const renderItem = function (obj) {
+    let status, item;
+    itemMarkup = `<tr>
+                                    <td class="product-time">${obj.time}</td>
+                                    <td class="product-number">${obj.number}</td>
+                                    <td class="product-name">${obj.user.name}</td>
+                                    <td class="product-category">${obj.user.phone_number}</td>
+                                    <td class="product-address">${obj.user.address}</</td>
+                                    <td>
+                                        <div class="chip chip-info">
+                                            <div class="chip-body">
+                                                <div class="chip-text">${obj.status}</</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="product-price">${obj.items}</td>
+                                    <td class="product-price">{${obj.total} EGP</td>
+                                    <td class="product-action">
+                                        <span class="action-edit"><i class="feather icon-edit"></i></span>
+                                    
+                                    </td>
+                                </tr>`
+
+    return itemMarkup
+
   }
+  const addItemTable = function (obj) {
+    item = renderItem(obj);
+    document.querySelector.inserAdjacentHTML('afterbegin', item);
+  }
+
+
+   const socket = io.connect('https://' + document.domain + ':' + location.port);
+
+      socket.on( 'connect', function() {
+        socket.emit( 'message', {
+          data: 'User Connected'
+        });
+        socket.on('order', function (order) {
+          item = JSON.parse(item);
+          console.log(item)
+          addItemTable(item);
+      })
+        
 })
