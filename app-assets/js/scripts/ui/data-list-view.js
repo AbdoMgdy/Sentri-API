@@ -63,6 +63,7 @@ $(document).ready(function () {
     $("#data-category, #data-status").prop("selectedIndex", 0)
   })
 
+  const notifySound = new Audio("https://res.cloudinary.com/dxfq3iotg/video/upload/v1557233524/success.mp3");
   var row;
   var bodyFormData = new FormData()
   // On Edit
@@ -155,6 +156,7 @@ $(document).ready(function () {
       notify.textContent = parseInt(notify.textContent) +  1;
       notifyIn.textContent =parseInt(notifyIn.textContent) + 1;
     }
+    notifySound.play();
   
   };
   const renderItem = function (obj) {
