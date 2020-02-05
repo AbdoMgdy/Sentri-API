@@ -179,6 +179,6 @@ $(document).ready(function() {
       console.log(item)
       addItemTable(item);
     })
-  }
+  });
         
 })
