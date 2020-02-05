@@ -46,7 +46,7 @@ def send_order_to_vendor(result):
     data = []
     for order in output:
         info = {}
-        info['user'] = order['user']
+        # info['user'] = order['user']
         info['time'] = order['time']
         info['number'] = order['number']
         info['total'] = order['total']
