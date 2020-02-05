@@ -64,7 +64,7 @@
       socket.on('response', function( msg ) {
         console.log( msg )
         $( 'h3' ).remove()
-        $( 'div.message_holder' ).append( '<div><b style="color: #000">'+msg.user_name+'</b> '+msg.message+'</div>' )
+        $( 'div.message_holder' ).append( '<div><b style="color: #000">'+msg+'</b> '+msg.name+'</div>' )
       })
     </script>
 

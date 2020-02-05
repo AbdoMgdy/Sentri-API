@@ -38,63 +38,29 @@ bot = Bot()
 restaurant = ''
 
 
-def test_socekt():
-    socketio.emit('response', 'order Done')
+def send_order_to_vendor(order):
+    info = {}
+    info['user'] = order['user']
+    info['time'] = order['time']
+    info['number'] = order['number']
+    info['total'] = order['total']
+    info['status'] = order['status']
+    items = ast.literal_eval(order['items'])
+    order_text = ''
+    for item in items:
+        if item['combo'] == 15:
+            combo = 'Combo'
+        else:
+            combo = ''
+        temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+                                                       item['name'], item['type'], combo, item['notes'])
+        order_text += temp
+    info['items'] = order_text
+    socketio.emit('order', json.dumps(info))
+    return info
 
 
-@app.route('/socket')
-def socket():
-    return render_template('socket.jinja')
-
-
-def messageReceived(methods=['GET', 'POST']):
-    print('Roget and Out!')
-    return 'ok', 200
-
-
-@socketio.on('message')
-def handle_my_custom_event(json, methods=['GET', 'POST']):
-    print('received message: ' + str(json))
-    socketio.emit('response', json, callback=messageReceived)
-
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('admin_panel'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = LoginUser(form.username.data, form.password.data)
-        user.save()
-        flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('login'))
-    return render_template('admin register.jinja', form=form)
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('admin_panel'))
-    form = LoginForm()
-    if form.validate_on_submit():
-
-        user = LoginUser.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
-            return 'wrong'
-
-        login_user(user, remember=form.remember_me.data)
-        return redirect('/admin_panel')
-    return render_template('admin login.jinja', form=form)
-
-
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('login'))
-
-
-@app.route('/', methods=['GET'])
+@app.route('/webhook', methods=['GET'])
 def verify():
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
         if not request.args.get("hub.verify_token") == VERIFICATION_TOKEN:
@@ -103,7 +69,7 @@ def verify():
     return "Hello world", 200
 
 
-@app.route('/', methods=['POST'])
+@app.route('/webhook', methods=['POST'])
 def handle_incoming_messages():
     data = request.get_json()
 
@@ -209,7 +175,7 @@ def edit_order():
     return app.send_static_file('index.html')
 
 
-@app.route('/admin_panel', methods=['GET'])
+@app.route('/', methods=['GET'])
 @login_required
 def admin_panel():
 
@@ -226,7 +192,7 @@ def admin_panel():
         info['total'] = order['total']
         info['status'] = order['status']
         items = ast.literal_eval(order['items'])
-        order = ''
+        order_text = ''
         for item in items:
             if item['combo'] == 15:
                 combo = 'Combo'
@@ -234,8 +200,8 @@ def admin_panel():
                 combo = ''
             temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
                                                            item['name'], item['type'], combo, item['notes'])
-            order += temp
-        info['items'] = order
+            order_text += temp
+        info['items'] = order_text
         data.append(info)
     # print(data)
     # print(output)
@@ -289,7 +255,7 @@ def add_user_info(sender_id):
         bot.send_text_message(
             sender_id, 'انتهت صلاحة الأوردر من فضلك ابدأ أوردر جديد')
         return 'Order Expired', 200
-    orders.pop(sender_id, None)  # remove order from temp dict
+
     # look for user
     user = User.find_by_psid(sender_id)
     # update user info
@@ -313,8 +279,10 @@ def add_user_info(sender_id):
     receipt.send(sender_id)
     bot.send_text_message(
         sender_id, 'يتم الآن تحضير الأوردر وسيصلك في خلال 45 - 60 دقيقة')
+
+    result = orders.pop(sender_id, None)  # remove order from temp dict
     # receipt.send(restaurant)
-    test_socekt()
+    send_order_to_vendor(result)
     return 'User info was added', 200
 
 
@@ -350,6 +318,58 @@ def edit_order_status():
         order.edit(request.form.get('order_status'))
         order.save()
     return 'Order Stauts was edited', 200
+
+
+@app.route('/socket')
+def socket():
+    return render_template('socket.jinja')
+
+
+def messageReceived(methods=['GET', 'POST']):
+    print('Roget and Out!')
+    return 'ok', 200
+
+
+@socketio.on('message')
+def handle_my_custom_event(json, methods=['GET', 'POST']):
+    print('received message: ' + str(json))
+    socketio.emit('response', json, callback=messageReceived)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('admin_panel'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = LoginUser(form.username.data, form.password.data)
+        user.save()
+        flash('Congratulations, you are now a registered user!')
+        return redirect(url_for('login'))
+    return render_template('admin register.jinja', form=form)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('admin_panel'))
+    form = LoginForm()
+    if form.validate_on_submit():
+
+        user = LoginUser.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return 'wrong'
+
+        login_user(user, remember=form.remember_me.data)
+        return redirect('/admin_panel')
+    return render_template('admin login.jinja', form=form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 
 if __name__ == "__main__":
