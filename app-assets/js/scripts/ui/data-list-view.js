@@ -180,7 +180,7 @@ $(document).ready(function () {
       data: 'User Connected'
     });
     socket.on('order', function (order) {
-      item = JSON.parse(order);
+      let item = JSON.parse(order);
       console.log(item);
       addItemTable(item);
     })
