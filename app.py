@@ -27,7 +27,7 @@ app = Flask(__name__, static_folder='', static_url_path='',
             template_folder='templates')
 socketio = SocketIO(app)
 api = Api(app)
-CORS(app)
+# CORS(app)
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(

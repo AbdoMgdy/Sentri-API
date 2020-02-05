@@ -173,7 +173,7 @@ $(document).ready(function () {
   }
 
 
-  const socket = io.connect('https://cors-anywhere.herokuapp.com/http://' + document.domain + ':' + location.port);
+  const socket = io.connect('http://' + document.domain + ':' + location.port);
 
   socket.on('connect', function () {
     socket.emit('message', {
