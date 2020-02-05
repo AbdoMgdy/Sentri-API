@@ -3,39 +3,40 @@
     Description: List View
 ==========================================================================================*/
 
-$(document).ready(function() {
+$(document).ready(function () {
   "use strict"
   // init list view datatable
   var dataListView = $(".data-list-view").DataTable({
     responsive: false,
-    columnDefs: [
-      {
-        orderable: true,
-        targets: 0,
-      }
-    ],
-    dom:
-      '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
+    columnDefs: [{
+      orderable: true,
+      targets: 0,
+    }],
+    dom: '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
     oLanguage: {
       sLengthMenu: "_MENU_",
       sSearch: ""
     },
-    aLengthMenu: [[5, 1, 15, -1], [5, 10, 15, "All"]],
+    aLengthMenu: [
+      [5, 1, 15, -1],
+      [5, 10, 15, "All"]
+    ],
     select: {
       style: "single"
     },
-    order: [[1, "asc"]],
+    order: [
+      [1, "asc"]
+    ],
     bInfo: false,
     pageLength: 5,
-    buttons: [{
-    }],
-    initComplete: function(settings, json) {
+    buttons: [{}],
+    initComplete: function (settings, json) {
       $(".dt-buttons .btn").removeClass("btn-secondary")
     }
   });
 
-  dataListView.on('draw.dt', function(){
-    setTimeout(function(){
+  dataListView.on('draw.dt', function () {
+    setTimeout(function () {
       if (navigator.userAgent.indexOf("Mac OS X") != -1) {
         $(".dt-checkboxes-cell input, .dt-checkboxes").addClass("mac-checkbox")
       }
@@ -49,11 +50,13 @@ $(document).ready(function() {
 
   // Scrollbar
   if ($(".data-items").length > 0) {
-    new PerfectScrollbar(".data-items", { wheelPropagation: false })
+    new PerfectScrollbar(".data-items", {
+      wheelPropagation: false
+    })
   }
 
   // Close sidebar
-  $(".hide-data-sidebar,  .cancel-data-btn, .overlay-bg").on("click", function() {
+  $(".hide-data-sidebar,  .cancel-data-btn, .overlay-bg").on("click", function () {
     $(".add-new-data").removeClass("show")
     $(".overlay-bg").removeClass("show")
     $("#data-name, #data-price").val("")
@@ -65,17 +68,17 @@ $(document).ready(function() {
   // On Edit
   $('.data-list-view').on("click", function (e) {
     console.log(e.target)
-    
+
     row = e.target.parentNode.parentNode.parentNode;
     console.log(row)
-    
-      $('#data-name').val(row.children[2].textContent);
-      $('#data-tel').val(row.children[3].textContent);
-      $('#data-price').val(row.children[7].textContent);
-      $('#data-status').val(row.children[5].children[0].children[0].children[0].textContent);
-      $(".add-new-data").addClass("show");
-      $(".overlay-bg").addClass("show");
-    
+
+    $('#data-name').val(row.children[2].textContent);
+    $('#data-tel').val(row.children[3].textContent);
+    $('#data-price').val(row.children[7].textContent);
+    $('#data-status').val(row.children[5].children[0].children[0].children[0].textContent);
+    $(".add-new-data").addClass("show");
+    $(".overlay-bg").addClass("show");
+
   });
 
   // On Confirm
@@ -88,14 +91,14 @@ $(document).ready(function() {
       $(".overlay-bg").removeClass("show")
       bodyFormData.set('order_number', row.children[1].textContent);
       bodyFormData.set('order_status', row.children[5].children[0].children[0].children[0].textContent);
-    } else if ($('#data-status').val() === "Out") { 
+    } else if ($('#data-status').val() === "Out") {
       row.children[5].children[0].setAttribute("class", "chip chip-warning")
       row.children[5].children[0].children[0].children[0].textContent = $('#data-status').val();
       $(".add-new-data").removeClass("show")
       $(".overlay-bg").removeClass("show")
       bodyFormData.set('order_number', row.children[1].textContent);
       bodyFormData.set('order_status', row.children[5].children[0].children[0].children[0].textContent);
-    } else if ($('#data-status').val() === "Canceled") { 
+    } else if ($('#data-status').val() === "Canceled") {
       row.children[5].children[0].setAttribute("class", "chip chip-danger")
       row.children[5].children[0].children[0].children[0].textContent = $('#data-status').val();
       $(".add-new-data").removeClass("show")
@@ -112,15 +115,17 @@ $(document).ready(function() {
     }
 
     sendOrderStatus(bodyFormData)
-    
+
   });
-    var sendOrderStatus =  function (bodyFormData) {
+  var sendOrderStatus = function (bodyFormData) {
     axios({
-      method: 'post',
-      url: '/edit_order_status',
-      data: bodyFormData,
-      headers: { 'Content-Type': 'multipart/form-data' }
-    })
+        method: 'post',
+        url: '/edit_order_status',
+        data: bodyFormData,
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
       .then(function (response) {
         //handle success
         return
@@ -168,7 +173,7 @@ $(document).ready(function() {
   }
 
 
-   const socket = io.connect('https://' + document.domain + ':' + location.port);
+  const socket = io.connect('https://' + document.domain + ':' + location.port);
 
   socket.on('connect', function () {
     socket.emit('message', {
@@ -180,5 +185,5 @@ $(document).ready(function() {
       addItemTable(item);
     })
   });
-        
+
 })

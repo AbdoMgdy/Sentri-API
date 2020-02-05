@@ -372,7 +372,7 @@ def login():
             return 'wrong'
 
         login_user(user, remember=form.remember_me.data)
-        return redirect('/admin_panel')
+        return redirect(url_for('admin_panel'))
     return render_template('admin login.jinja', form=form)
 
 
