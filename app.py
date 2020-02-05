@@ -38,13 +38,13 @@ bot = Bot()
 restaurant = ''
 
 
-def send_order_to_vendor(order):
-    print(order)
+def send_order_to_vendor(result):
+    print(result)
     orders_schema = OrderSchema()
-    output = orders_schema.dump(order)
+    output = orders_schema.dump(result)
     print(output)
     data = []
-    for item in output:
+    for order in output:
         info = {}
         info['user'] = order['user']
         info['time'] = order['time']
