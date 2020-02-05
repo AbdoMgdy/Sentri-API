@@ -135,7 +135,8 @@ $(document).ready(function () {
         console.log(err);
       })
   };
-  let notify, notifyIn;
+  let notify = document.querySelector('.notify').textContent;
+  let  notifyIn = document.querySelector('.notifyIn').textContent;
   // mac chrome checkbox fix
   if (navigator.userAgent.indexOf("Mac OS X") != -1) {
     $(".dt-checkboxes-cell input, .dt-checkboxes").addClass("mac-checkbox")
@@ -147,8 +148,6 @@ $(document).ready(function () {
   
 
   const increaseNotfication = function () {
-    notify = document.querySelector('.notify').textContent;
-    notifyIn = document.querySelector('.notifyIn').textContent;
     if (notify === '') {
       notify = 1;
       notifyIn = 1;
