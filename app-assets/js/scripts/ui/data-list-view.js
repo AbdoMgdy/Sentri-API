@@ -172,7 +172,7 @@ $(document).ready(function () {
 
   };
   const addItemTable = function (obj) {
-    item = renderItem(obj);
+    let item = renderItem(obj);
     document.querySelector.inserAdjacentHTML('afterbegin', item);
   }
 
