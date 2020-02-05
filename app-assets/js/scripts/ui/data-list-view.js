@@ -161,7 +161,7 @@ $(document).ready(function() {
 
     return itemMarkup
 
-  }
+  };
   const addItemTable = function (obj) {
     item = renderItem(obj);
     document.querySelector.inserAdjacentHTML('afterbegin', item);
@@ -170,14 +170,15 @@ $(document).ready(function() {
 
    const socket = io.connect('https://' + document.domain + ':' + location.port);
 
-      socket.on( 'connect', function() {
-        socket.emit( 'message', {
-          data: 'User Connected'
-        });
-        socket.on('order', function (order) {
-          item = JSON.parse(item);
-          console.log(item)
-          addItemTable(item);
-      })
+  socket.on('connect', function () {
+    socket.emit('message', {
+      data: 'User Connected'
+    });
+    socket.on('order', function (order) {
+      item = JSON.parse(item);
+      console.log(item)
+      addItemTable(item);
+    })
+  }
         
 })
