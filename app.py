@@ -44,6 +44,8 @@ def send_order_to_vendor(result):
     order = orders_schema.dump(result)
     print(order)
     print(type(order))
+    print(order['user'])
+    print(order.user)
     data = []
     info = {}
     # info['user'] = order['user']
