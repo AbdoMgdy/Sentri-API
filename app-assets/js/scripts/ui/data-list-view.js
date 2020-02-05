@@ -142,7 +142,8 @@ $(document).ready(function () {
   };
 
   const renderItem = function (obj) {
-    let status, item;
+    console.log(obj);
+    let itemMarkup;
     itemMarkup = `<tr>
                                     <td class="product-time">${obj.time}</td>
                                     <td class="product-number">${obj.number}</td>
