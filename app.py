@@ -43,6 +43,7 @@ def send_order_to_vendor(result):
     orders_schema = OrderSchema()
     output = orders_schema.dump(result)
     print(output)
+    print(type(output))
     data = []
     for order in output:
         info = {}
