@@ -181,8 +181,8 @@ $(document).ready(function () {
     });
     socket.on('order', function (order) {
       item = JSON.parse(order);
-      console.log(order)
-      addItemTable(order);
+      console.log(item);
+      addItemTable(item);
     })
   });
 
