@@ -195,7 +195,7 @@ $(document).ready(function () {
   }
 
 
-  const socket = io.connect('https://' + document.domain + ':' + location.port);
+  const socket = io();
 
   socket.on('connect', function () {
     socket.emit('message', {
