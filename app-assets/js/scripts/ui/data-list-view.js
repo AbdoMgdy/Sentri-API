@@ -147,6 +147,14 @@ $(document).ready(function () {
     notifyIn.textContent = 0;
   });
   
+  var noOfRepetitions = 7;
+
+  notifySound.addEventListener('ended', function() {
+            noOfRepetitions = noOfRepetitions-1;
+            if (noOfRepetitions > 0) {
+                this.currentTime = 0;
+                this.play()};
+}, false);
 
   const increaseNotfication = function () {
     if (notify.textContent === '') {
