@@ -63,7 +63,7 @@ $(document).ready(function () {
     $("#data-category, #data-status").prop("selectedIndex", 0)
   })
 
-  const notifySound = new Audio("https://res.cloudinary.com/dxfq3iotg/video/upload/v1557233524/success.mp3");
+  const notifySound = new Audio("https://cdn.jsdelivr.net/npm/ion-sound@3.0.7/sounds/bell_ring.mp3");
   var row;
   var bodyFormData = new FormData()
   // On Edit
