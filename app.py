@@ -8,7 +8,7 @@ from flask import Flask, request, render_template, url_for, redirect, flash
 from flask_restful import Resource, Api
 from flask_login import current_user, login_user, logout_user, login_required
 from flask_socketio import SocketIO, emit
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 
 # Local application imports
@@ -27,7 +27,7 @@ app = Flask(__name__, static_folder='', static_url_path='',
             template_folder='templates')
 socketio = SocketIO(app)
 api = Api(app)
-CORS(app)
+CORS(app, support_credentials=True)
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
@@ -220,6 +220,7 @@ def vuexy():
 
 
 @app.route('/', methods=['GET'])
+@cross_origin(supports_credentials=True)
 @login_required
 def admin_panel():
     orders = Order.query.all()
