@@ -27,7 +27,7 @@ app = Flask(__name__, static_folder='', static_url_path='',
             template_folder='templates')
 socketio = SocketIO(app, cors_allowed_origins="*")
 api = Api(app)
-CORS(app, support_credentials=True)
+
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
@@ -220,7 +220,7 @@ def vuexy():
 
 
 @app.route('/', methods=['GET'])
-@cross_origin(supports_credentials=True)
+
 @login_required
 def admin_panel():
     orders = Order.query.all()
