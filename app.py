@@ -27,7 +27,7 @@ app = Flask(__name__, static_folder='', static_url_path='',
             template_folder='templates')
 socketio = SocketIO(app)
 api = Api(app)
-# CORS(app)
+CORS(app)
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
@@ -199,9 +199,9 @@ def vuexy():
         info = {}
         info['user'] = order['user']
         info['time'] = order['time']
-        info['number'] = order['number']
-        info['total'] = order['total']
-        info['status'] = order['status']
+        info['order_number'] = order['number']
+        info['price'] = order['total']
+        info['order_status'] = order['status']
         items = ast.literal_eval(order['items'])
         order_text = ''
         for item in items:
@@ -361,11 +361,6 @@ def edit_order_status():
         order.edit(request.form.get('order_status'))
         order.save()
     return 'Order Stauts was edited', 200
-
-
-@app.route('/socket')
-def socket():
-    return render_template('socket.jinja')
 
 
 def messageReceived(methods=['GET', 'POST']):
