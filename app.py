@@ -25,7 +25,7 @@ from resources.menu import main_menu, welcome_message, info_menu, m1, m2, m3, m4
 
 app = Flask(__name__, static_folder='', static_url_path='',
             template_folder='templates')
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 api = Api(app)
 CORS(app, support_credentials=True)
 SECRET_KEY = os.urandom(32)
