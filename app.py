@@ -216,7 +216,7 @@ def vuexy():
         data.append(info)
     print(data)
     # print(output)
-    return data
+    return json.dumps(data)
 
 
 @app.route('/', methods=['GET'])
