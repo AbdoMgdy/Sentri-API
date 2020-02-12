@@ -188,10 +188,40 @@ def edit_order():
     return app.send_static_file('index.html')
 
 
+@app.route('/vuexy', methods=['GET'])
+def vuexy():
+    orders = Order.query.all()
+    orders_schema = OrderSchema(many=True)
+    output = orders_schema.dump(orders)
+    data = []
+    # print(output)
+    for order in output:
+        info = {}
+        info['user'] = order['user']
+        info['time'] = order['time']
+        info['number'] = order['number']
+        info['total'] = order['total']
+        info['status'] = order['status']
+        items = ast.literal_eval(order['items'])
+        order_text = ''
+        for item in items:
+            if item['combo'] == 15:
+                combo = 'Combo'
+            else:
+                combo = ''
+            temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+                                                           item['name'], item['type'], combo, item['notes'])
+            order_text += temp
+        info['items'] = order_text
+        data.append(info)
+    print(data)
+    # print(output)
+    return data
+
+
 @app.route('/', methods=['GET'])
 @login_required
 def admin_panel():
-
     orders = Order.query.all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
