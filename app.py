@@ -220,7 +220,6 @@ def vuexy():
 
 
 @app.route('/', methods=['GET'])
-
 @login_required
 def admin_panel():
     orders = Order.query.all()
@@ -263,6 +262,12 @@ def admin_analytics():
     total = orders_d + orders_c + orders_o + orders_p
     print(total)
     return render_template('admin-analytics.jinja', total=total, subs=subs, pending=orders_p, out=orders_o, canceled=orders_c, delivered=orders_d)
+
+
+@app.route('/vuexy_users', methods=['GET'])
+def vuexy_users():
+    subs = User.query.count()
+    return subs
 
 
 @app.route('/show_users', methods=['GET'])
