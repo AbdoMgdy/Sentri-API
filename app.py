@@ -27,7 +27,7 @@ app = Flask(__name__, static_folder='', static_url_path='',
             template_folder='templates')
 socketio = SocketIO(app, cors_allowed_origins="*")
 api = Api(app)
-
+CORS(app)
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
@@ -199,9 +199,9 @@ def vuexy():
         info = {}
         info['user'] = order['user']
         info['time'] = order['time']
-        info['order_number'] = order['number']
+        info['number'] = order['number']
         info['price'] = order['total']
-        info['order_status'] = order['status']
+        info['status'] = order['status']
         items = ast.literal_eval(order['items'])
         order_text = ''
         for item in items:
