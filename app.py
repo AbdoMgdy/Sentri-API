@@ -267,7 +267,8 @@ def admin_analytics():
 @app.route('/vuexy_users', methods=['GET'])
 def vuexy_users():
     subs = User.query.count()
-    return subs
+
+    return json.dumps({'users': subs})
 
 
 @app.route('/show_users', methods=['GET'])
