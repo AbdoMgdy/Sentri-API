@@ -47,11 +47,13 @@ class User(Bot, db.Model):
     name = db.Column(db.String(80))
     phone_number = db.Column(db.String)
     address = db.Column(db.String)
+    created_time = db.Column(db.DateTime)
     orders = db.relationship('Order', backref='user', lazy='select')
 
     def __init__(self, psid):
         super().__init__()
         self.psid = psid
+        self.created_time = datetime.datetime.utcnow()
         self.name = ''
         self.phone_number = 0
         self.address = ''
