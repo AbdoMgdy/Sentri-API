@@ -17,3 +17,4 @@ flask_restful
 flask_marshmallow
 marshmallow-sqlalchemy
 flask_socketio
+redis

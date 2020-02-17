@@ -59,10 +59,10 @@ def handle_current_customer(sender_id):
     return current_customer
 
 
-def handle_customer(sender_id):
+def handle_customer(sender_id, vendor):
     customer = Customer.find_by_psid(sender_id)
     if customer is None:
-        customer = handle_first_time_customer(sender_id)
+        customer = handle_first_time_customer(sender_id, vendor)
     elif customer and len(customer.orders) > 0:
         customer = handle_current_customer(sender_id)
     return customer
