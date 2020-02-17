@@ -157,7 +157,59 @@ blocks = {
             }
         ]
     },
-    'family_menu': {},
+    'family_menu': {
+        'payload': {
+            'template_type': 'generic',
+            'elements': [
+                {
+                    'title': '9 Chicken',
+                    'image_url': 'https://i.ibb.co/N7Z2Y0Y/image.png',
+                    'subtitle': '',
+                    'buttons': [{
+                        'type': 'web_url',
+                        'title': 'Buy',
+                        'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/9-Chicken'
+                    }]
+                },
+                {
+                    'title': '12 Chicken',
+                    'image_url': 'https://i.ibb.co/N7Z2Y0Y/image.png',
+                    'subtitle': '',
+                    'buttons': [{
+                        'type': 'web_url',
+                        'title': 'Buy',
+                        'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/12-Chicken'
+                    }]
+                },
+                {
+                    'title': '12 Chicken',
+                    'image_url': 'https://i.ibb.co/N7Z2Y0Y/image.png',
+                    'subtitle': '',
+                    'buttons': [{
+                        'type': 'web_url',
+                        'title': 'Buy',
+                        'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/15-Chicken'
+                    }]
+                },
+                {
+                'title': '18 Chicken',
+                'image_url': 'https://i.ibb.co/N7Z2Y0Y/image.png',
+                'subtitle': '',
+                'buttons': [{
+                    'type': 'web_url',
+                    'title': 'Buy',
+                    'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/18-Chicken'
+                }]
+            },
+        ]
+    },
+    'quick_replies': [
+        {
+            'content_type': 'text',
+            'title': 'back',
+            'payload': 'main_menu',
+        }
+    ],
     'sandwiches_menu': {},
     'trex_meals_menu': {},
     'special_menu': {},
