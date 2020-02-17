@@ -84,6 +84,7 @@ def verify():
 @app.route('/webhook', methods=['POST'])
 def handle_incoming_messages():
     data = request.get_json()
+    print(data)
 
     webhook_type = get_type_from_payload(data)
     page_id = get_vendor_from_message(data)
@@ -122,7 +123,9 @@ def handle_incoming_messages():
         # HANDLE POSTBACK HERE
         # bot.send_before_message(sender_id)
         block_name = postback_events(data)
+        print(block_name)
         if block_name in blocks:
+            print('Found it')
             block = blocks[block_name]
             bot.send_template_message(sender_id, block)
 
