@@ -96,7 +96,7 @@ def handle_incoming_messages():
         # HANDLE TEXT MESSAGES HERE
         # bot.send_before_message(sender_id)
         text = 'مرحبا بك {} كيف أستطيع مساعدتك؟'.format(customer.name)
-
+        bot.send_text_message(sender_id, text)
         return "text", 200
     elif webhook_type == "quick_reply" and quick_replies_events(data) == "send_menu":
         m1.send(sender_id)
