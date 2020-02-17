@@ -114,8 +114,9 @@ def handle_incoming_messages():
         # bot.send_before_message(sender_id)
         block_name = quick_replies_events(data)
         if block_name in blocks:
+            print('Found it')
             block = blocks[block_name]
-            block.send(sender_id)
+            bot.send_template_message(sender_id, block)
 
         return "quick_reply", 200
 
