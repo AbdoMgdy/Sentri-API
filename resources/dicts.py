@@ -1,4 +1,5 @@
 from resources.menu import *
+from flask import url_for
 from resources.buttons import confirm_block
 # blocks = {
 #     'get_started': welcome_message,
@@ -168,7 +169,7 @@ blocks = {
                     'buttons': [{
                         'type': 'web_url',
                         'title': 'Buy',
-                        'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/9-Chicken',
+                        'url': url_for('show_webview', food='meal', item='9-Chicken'),
                         'webview_height_ratio': 'tall',
                         'messenger_extensions': 'true'
                     }]
