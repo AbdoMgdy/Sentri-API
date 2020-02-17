@@ -13,7 +13,7 @@ from flask_cors import CORS, cross_origin
 
 # Local application imports
 # Models
-from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo, LoginForm, RegistrationForm
+from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo
 from models.data_models import Order, OrderSchema, User, UserSchema, Vendor, VendorSchema
 from models.receipt import ReceiptTemplate
 from models.bot import Bot
