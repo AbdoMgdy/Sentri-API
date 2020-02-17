@@ -53,7 +53,7 @@ class User(Bot, db.Model):
     def __init__(self, psid):
         super().__init__()
         self.psid = psid
-        self.created_time = datetime.datetime.utcnow()
+        # self.created_time = datetime.datetime.utcnow()
         self.name = ''
         self.phone_number = 0
         self.address = ''
