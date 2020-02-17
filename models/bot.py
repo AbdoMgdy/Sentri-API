@@ -138,6 +138,30 @@ class Bot:
                 'quick_replies': quick_replies
             }, notification_type)
 
+    def send_template_message(self, recipient_id, payload, quick_replies=[], notification_type=NotificationType.regular):
+        """Send generic messages to the specified recipient.
+        https://developers.facebook.com/docs/messenger-platform/send-api-reference/generic-template
+        Input:
+            recipient_id: recipient id to send to
+            elements: generic message elements to send
+        Output:
+            Response from API as <dict>
+        """
+        if not quick_replies:
+            return self.send_message(recipient_id, {
+                "attachment": {
+                    "type": "template",
+                    "payload": payload
+                }
+            }, notification_type)
+        return self.send_message(recipient_id, {
+            "attachment": {
+                "type": "template",
+                "payload": payload
+            },
+            "quick_replies": quick_replies
+        }, notification_type)
+
     def send_generic_message(self, recipient_id, elements, quick_replies=[], notification_type=NotificationType.regular):
         """Send generic messages to the specified recipient.
         https://developers.facebook.com/docs/messenger-platform/send-api-reference/generic-template

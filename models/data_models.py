@@ -13,16 +13,27 @@ from db import db, ma, login
 
 class Vendor(UserMixin, db.Model):
     __tablename__ = 'vendors'
+    __table_args__ = (db.UniqueConstraint(
+        'page_id', 'id', name='unique_vendor_customers'),)
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
     password = db.Column(db.String)
+    access_token = db.Column(db.String, unique=True)
+    page_id = db.Column(db.String, unique=True)
+    customers = db.relationship('Customer', backref='vendor', lazy='select')
 
-    def __init__(self, user_name, password):
+    def __init__(self, user_name, password, access_token='', page_id=''):
         self.username = user_name
         self.password = generate_password_hash(password)
+        self.access_token = access_token
+        self.page_id = page_id
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+    @classmethod
+    def find_by_page_id(cls, page_id):
+        return cls.query.filter_by(page_id=page_id).first()
 
     def save(self):
         db.session.add(self)
@@ -38,21 +49,23 @@ def load_user(id):
     return Vendor.query.get(int(id))
 
 
-class User(Bot, db.Model):
-    __tablename__ = 'users'
+class Customer(Bot, db.Model):
+    __tablename__ = 'customers'
     __table_args__ = (db.UniqueConstraint(
-        'psid', 'id', name='unique_user_orders'),)
+        'psid', 'id', name='unique_customer_orders'),)
     id = db.Column(db.Integer, primary_key=True)
     psid = db.Column(db.String, unique=True)
     name = db.Column(db.String(80))
     phone_number = db.Column(db.String)
     address = db.Column(db.String)
     # created_time = db.Column(db.DateTime)
-    orders = db.relationship('Order', backref='user', lazy='select')
+    orders = db.relationship('Order', backref='customer', lazy='select')
+    page_id = db.Column(db.String, db.ForeignKey('vendors.page_id'))
 
-    def __init__(self, psid):
+    def __init__(self, psid, page_id):
         super().__init__()
         self.psid = psid
+        self.page_id = page_id
         # self.created_time = datetime.datetime.utcnow()
         self.name = ''
         self.phone_number = 0
@@ -89,7 +102,7 @@ class Order(db.Model):
     total = db.Column(db.Float(precision=3))
     status = db.Column(db.String)
     time = db.Column(db.DateTime)
-    psid = db.Column(db.String, db.ForeignKey('users.psid'))
+    psid = db.Column(db.String, db.ForeignKey('customers.psid'))
 
     def __init__(self, psid):
         self.psid = psid
@@ -104,7 +117,7 @@ class Order(db.Model):
         return cls.query.filter_by(number=number).first()
 
     @classmethod
-    def find_by_user_id(cls, psid):
+    def find_by_customer_id(cls, psid):
         return cls.query.filter_by(user_id=psid).first()
 
     @classmethod
@@ -139,17 +152,18 @@ class Order(db.Model):
         db.session.commit()
 
 
-class UserSchema(ma.ModelSchema):
+class VendorSchema(ma.ModelSchema):
     class Meta:
-        model = User
+        model = Vendor
+
+
+class CustomerSchema(ma.ModelSchema):
+    class Meta:
+        model = Customer
+    vendor = ma.Nested(VendorSchema)
 
 
 class OrderSchema(ma.ModelSchema):
     class Meta:
         model = Order
-    user = ma.Nested(UserSchema)
-
-
-class VendorSchema(ma.ModelSchema):
-    class Meta:
-        model = Vendor
+    customer = ma.Nested(CustomerSchema)

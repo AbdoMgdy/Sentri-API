@@ -1,5 +1,5 @@
 from resources.dicts import blocks, orders
-from models.data_models import User
+from models.data_models import Customer, Vendor
 
 
 def get_type_from_payload(data):
@@ -14,9 +14,14 @@ def get_type_from_payload(data):
             return "text"
 
 
-def get_user_from_message(data):
+def get_customer_from_message(data):
     messaging_events = data["entry"][0]["messaging"][-1]
     return messaging_events["sender"]["id"]
+
+
+def get_vendor_from_message(data):
+    messaging_events = data["entry"][0]["messaging"][-1]
+    return messaging_events["recipient"]["id"]
 
 
 def postback_events(data):
@@ -38,29 +43,54 @@ def quick_replies_events(data):
         return quick_reply
 
 
-def handle_first_time_user(sender_id):
-    new_user = User(sender_id)
-    new_user.save()
+def handle_first_time_customer(sender_id, page_id):
+    new_customer = Customer(sender_id, page_id)
+    new_customer.save()
     orders[sender_id] = []
-    return new_user
+    return new_customer
 
 
-def handle_current_user(sender_id):
-    current_user = User.find_by_psid(sender_id)
+def handle_current_customer(sender_id):
+    current_customer = Customer.find_by_psid(sender_id)
     if sender_id in orders:
         pass
     else:
         orders[sender_id] = []
-    return current_user
+    return current_customer
 
 
-def handle_user(sender_id):
-    user = User.find_by_psid(sender_id)
-    if user is None:
-        user = handle_first_time_user(sender_id)
-    elif user and len(user.orders) > 0:
-        user = handle_current_user(sender_id)
-    return user
+def handle_customer(sender_id):
+    customer = Customer.find_by_psid(sender_id)
+    if customer is None:
+        customer = handle_first_time_customer(sender_id)
+    elif customer and len(customer.orders) > 0:
+        customer = handle_current_customer(sender_id)
+    return customer
+
+
+def handle_first_time_vendor(sender_id, page_id):
+    new_vendor = Vendor(sender_id, page_id)
+    new_vendor.save()
+    orders[sender_id] = []
+    return new_vendor
+
+
+def handle_current_vendor(page_id):
+    current_vendor = Vendor.find_by_page_id(page_id)
+    if page_id in orders:
+        pass
+    else:
+        orders[page_id] = []
+    return current_vendor
+
+
+def handle_vendor(page_id):
+    vendor = Vendor.find_by_page_id(page_id)
+    if vendor is None:
+        vendor = handle_first_time_vendor(page_id)
+    elif vendor and len(vendor.orders) > 0:
+        vendor = handle_current_vendor(page_id)
+    return vendor
 
 
 def update_order(sender_id, item):

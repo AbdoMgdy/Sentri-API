@@ -14,7 +14,7 @@ from flask_cors import CORS, cross_origin
 # Local application imports
 # Models
 from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo
-from models.data_models import Order, OrderSchema, User, UserSchema, Vendor, VendorSchema
+from models.data_models import Order, OrderSchema, Customer, CustomerSchema, Vendor, VendorSchema
 from models.receipt import ReceiptTemplate
 from models.bot import Bot
 # resources
@@ -46,10 +46,10 @@ def send_order_to_vendor(result):
     order = orders_schema.dump(result)
     print(order)
     print(type(order))
-    print(order['user'])
+    print(order['customer'])
     data = []
     info = {}
-    info['user'] = order['user']
+    info['customer'] = order['customer']
     info['time'] = order['time']
     info['number'] = order['number']
     info['total'] = order['total']
@@ -86,19 +86,17 @@ def handle_incoming_messages():
     data = request.get_json()
 
     webhook_type = get_type_from_payload(data)
-
-    user = get_user_from_message(data)
-    print(user)
+    sender_id = get_customer_from_message(data)
+    customer = handle_cusomtr(sender_id, vendor)
+    vendor = get_vendor_from_message(data)
+    print(sender_id)
     print(webhook_type)
-
-    sender_id = get_user_from_message(data)
-    user = handle_user(sender_id)
 
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
         # bot.send_before_message(sender_id)
         welcome_message.set_text(
-            'مرحبا بك {} في تركس تشيكن كيف أستطيع مساعدتك؟'.format(user.name))
+            'مرحبا بك {} كيف أستطيع مساعدتك؟'.format(user.name))
         welcome_message.send(sender_id)
         return "text", 200
     elif webhook_type == "quick_reply" and quick_replies_events(data) == "send_menu":
@@ -116,7 +114,7 @@ def handle_incoming_messages():
         if block_name in blocks:
             block = blocks[block_name]
             block.send(sender_id)
-            print(block.send(sender_id))
+
         return "quick_reply", 200
 
     elif webhook_type == "postback":
@@ -125,8 +123,8 @@ def handle_incoming_messages():
         block_name = postback_events(data)
         if block_name in blocks:
             block = blocks[block_name]
-            block.send(sender_id)
-            print(block.send(sender_id))
+            bot.send_template_message(sender_id, block)
+
         return "postback", 200
     else:
         return "ok", 200
@@ -198,7 +196,7 @@ def vuexy():
     # print(output)
     for order in output:
         info = {}
-        info['user'] = order['user']
+        info['customer'] = order['customer']
         info['time'] = order['time']
         info['number'] = order['number']
         info['price'] = order['total']
@@ -230,7 +228,7 @@ def vuexy():
 #     # print(output)
 #     for order in output:
 #         info = {}
-#         info['user'] = order['user']
+#         info['customer'] = order['user']
 #         info['time'] = order['time']
 #         info['number'] = order['number']
 #         info['total'] = order['total']
@@ -267,8 +265,8 @@ def vuexy():
 
 @app.route('/vuexy_users', methods=['GET'])
 def vuexy_users():
-    subs = User.query.count()
-    return json.dumps({'users': subs})
+    subs = Customer.query.count()
+    return json.dumps({'Customers': subs})
 
 
 @app.route('/confirm_order', methods=['GET'])
@@ -297,16 +295,16 @@ def add_user_info(sender_id):
             sender_id, 'انتهت صلاحة الأوردر من فضلك ابدأ أوردر جديد')
         return 'Order Expired', 200
 
-    # look for user
-    user = User.find_by_psid(sender_id)
-    # update user info
-    user.name = request.form.get('name')
-    user.phone_number = request.form.get('phone_number')
-    user.address = request.form.get('address')
-    user.save()
+    # look for customer
+    customer = Customer.find_by_psid(sender_id)
+    # update customer info
+    customer.name = request.form.get('name')
+    customer.phone_number = request.form.get('phone_number')
+    customer.address = request.form.get('address')
+    customer.save()
     # make a receipt
     receipt = ReceiptTemplate(
-        recipient_name=user.name, order_number=order.number)
+        recipient_name=customer.name, order_number=order.number)
 
     for item in order.items:
         # fill receipt with order from database
@@ -324,7 +322,7 @@ def add_user_info(sender_id):
     result = orders.pop(sender_id, None)  # remove order from temp dict
     # receipt.send(restaurant)
     send_order_to_vendor(order)
-    return 'User info was added', 200
+    return 'Customer info was added', 200
 
 
 @app.route('/user/<string:sender_id>/order_info', methods=['GET'])
@@ -332,12 +330,12 @@ def post_order_info(sender_id):
     if sender_id in orders:
         return json.dumps(orders[sender_id]), 200
     else:
-        return 'user not found', 404
+        return 'Customer not found', 404
 
 
 @app.route('/user/<string:sender_id>/edit_order', methods=['POST'])
 def get_order_info(sender_id):
-    user = User.find_by_psid(sender_id)
+    customer = Customer.find_by_psid(sender_id)
     data = request.get_json()
     if not data['items']:
         bot.send_text_message(sender_id, 'انت لم تطلب شيء بعد!')
@@ -361,15 +359,10 @@ def edit_order_status():
     return 'Order Stauts was edited', 200
 
 
-def messageReceived(methods=['GET', 'POST']):
-    print('Roget and Out!')
-    return 'ok', 200
-
-
 @socketio.on('message')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
     print('received message: ' + str(json))
-    socketio.emit('response', json, callback=messageReceived)
+    socketio.emit('response', json)
 
 
 # @app.route('/register', methods=['GET', 'POST'])

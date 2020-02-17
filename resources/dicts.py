@@ -1,18 +1,18 @@
 from resources.menu import *
 from resources.buttons import confirm_block
-blocks = {
-    'get_started': welcome_message,
-    'main_menu': main_menu,
-    'family_menu': family_menu,
-    'sandwiches_menu': sandwiches_menu,
-    'trex_meals_menu': trex_meals_menu,
-    'special_menu': special_menu,
-    'kids_meals_menu': kids_menu,
-    'appetizers_menu': appetizers_menu,
-    'sauces_menu': sauces,
-    'info': info_menu,
-    'confirm_block': confirm_block,
-}
+# blocks = {
+#     'get_started': welcome_message,
+#     'main_menu': main_menu,
+#     'family_menu': family_menu,
+#     'sandwiches_menu': sandwiches_menu,
+#     'trex_meals_menu': trex_meals_menu,
+#     'special_menu': special_menu,
+#     'kids_meals_menu': kids_menu,
+#     'appetizers_menu': appetizers_menu,
+#     'sauces_menu': sauces,
+#     'info': info_menu,
+#     'confirm_block': confirm_block,
+# }
 
 
 orders = {}
@@ -129,4 +129,41 @@ arabic = {
     'Coleslaw-Large': 'كول سلو كبير',
     'Cola': 'كولا 350 ملل',
     'Water': 'مياه صغير',
+}
+
+blocks = {
+
+    'main_menu': {
+        'payload': {
+            'template_type': 'generic',
+            'elements': [
+                {
+                    'title': 'Family Menu',
+                    'image_url': 'https://i.ibb.co/N7Z2Y0Y/image.png',
+                    'subtitle': '',
+                    'buttons': [{
+                        'type': 'postback',
+                        'title': 'Show Menu',
+                        'payload': 'family_menu'
+                    }]
+                }
+            ]
+        },
+        'quick_replies': [
+            {
+                'content_type': 'text',
+                'title': 'back',
+                'payload': 'main_menu',
+            }
+        ]
+    },
+    'family_menu': {},
+    'sandwiches_menu': {},
+    'trex_meals_menu': {},
+    'special_menu': {},
+    'kids_meals_menu': {},
+    'appetizers_menu': {},
+    'sauces_menu': {},
+    'info': {},
+    'confirm_block': {},
 }

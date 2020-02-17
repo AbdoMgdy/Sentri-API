@@ -17,6 +17,22 @@ info_menu.set_text(
 info_menu.add_quick_replies(
     **{'Back العودة للخلف': 'get_started'})
 
+"""
+{
+    'sandwiches_menu': {
+        {
+            'title': 'smoke',
+            'subtitle': 'ss',
+            'image_url': '',
+            'buttons': {
+                'title': 'btn_ttl'
+                'type': 'web_url',
+                'url': '.com',
+            }
+        }
+    }
+}
+"""
 
 # Menu Media
 m1 = MediaTemplate(

@@ -15,6 +15,7 @@ ELEMENTS_LIMIT = 10
 class GenericTemplate(Bot):
     def __init__(self):
         super().__init__()
+        self.template = {'template_type': 'generic'}
         self.elements = []
         self.quick_replies = []
 
@@ -42,6 +43,13 @@ class GenericTemplate(Bot):
                 quick_reply['payload'] = json.dumps(
                     paylod)[:PAYLOAD_CHARACTER_LIMIT]
                 self.quick_replies.append(quick_reply)
+
+    def get_generic(self):
+        if self.elements is not None:
+            self.template['elements'] = self.elements
+        if self.quick_replies is not None:
+            pass
+        return self.template
 
     def send(self, reciepiant_id):
         super().send_generic_message(reciepiant_id,
