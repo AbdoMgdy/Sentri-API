@@ -147,7 +147,7 @@ class Bot:
         Output:
             Response from API as <dict>
         """
-        if not template['quick_replies']:
+        if 'quick_replies' not in template:
             return self.send_message(recipient_id, {
                 "attachment": {
                     "type": "template",
