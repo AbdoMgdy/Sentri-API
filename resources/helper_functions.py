@@ -68,28 +68,25 @@ def handle_customer(sender_id, vendor):
     return customer
 
 
-def handle_first_time_vendor(sender_id, page_id):
-    new_vendor = Vendor(sender_id, page_id)
+def handle_first_time_vendor(page_id):
+    new_vendor = Vendor(page_id=page_id)
     new_vendor.save()
-    orders[sender_id] = []
     return new_vendor
 
 
-def handle_current_vendor(page_id):
-    current_vendor = Vendor.find_by_page_id(page_id)
-    if page_id in orders:
-        pass
-    else:
-        orders[page_id] = []
-    return current_vendor
+# def handle_current_vendor(page_id):
+#     current_vendor = Vendor.find_by_page_id(page_id)
+#     if :
+#         pass
+#     else:
+#         orders[page_id] = []
+#     return current_vendor
 
 
 def handle_vendor(page_id):
     vendor = Vendor.find_by_page_id(page_id)
     if vendor is None:
         vendor = handle_first_time_vendor(page_id)
-    elif vendor and len(vendor.orders) > 0:
-        vendor = handle_current_vendor(page_id)
     return vendor
 
 

@@ -86,8 +86,8 @@ def handle_incoming_messages():
     data = request.get_json()
 
     webhook_type = get_type_from_payload(data)
+    vendor = get_vendor_from_message(data)
     sender_id = get_customer_from_message(data)
-    vendor = 'sentri'
     customer = handle_customer(sender_id, vendor)
     print(sender_id)
     print(webhook_type)
