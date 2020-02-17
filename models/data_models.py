@@ -19,7 +19,7 @@ class Vendor(UserMixin, db.Model):
     username = db.Column(db.String, unique=True)
     password = db.Column(db.String)
     access_token = db.Column(db.String, unique=True)
-    page_id = db.Column(db.String)
+    page_id = db.Column(db.String, unique=True)
     customers = db.relationship('Customer', backref='vendor', lazy='select')
 
     def __init__(self, user_name='', password='', access_token='', page_id=''):
