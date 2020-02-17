@@ -83,11 +83,12 @@ def verify():
 def handle_incoming_messages():
     data = request.get_json()
     print(data)
-
+    access_token = 'EAAF5Cd9fC3YBAJmuHxR8QDEZB07kkZBlY8lH6bk0RhLklxOAFaqIrylvgBOCQtaZADGG2gr34ePPzj4ScTy2fHsfxw1FlDJ9gxBn6i8cvwtEOzcPBxIH8xlVZAtGr65nZAQ6GEokrBqvZAGMlN7keMPHD68shwg8Mlt01ZA8pFzfAZDZD'
     webhook_type = get_type_from_payload(data)
     page_id = get_vendor_from_message(data)
     vendor = handle_vendor(page_id)
-    bot = bot = Bot(access_token=vendor.access_token)
+    bot = Bot(access_token=vendor.access_token)
+    print(vendor.access_token)
     sender_id = get_customer_from_message(data)
     customer = handle_customer(sender_id, page_id)
     print(sender_id)
@@ -96,9 +97,8 @@ def handle_incoming_messages():
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
         # bot.send_before_message(sender_id)
-        welcome_message.set_text(
-            'مرحبا بك {} كيف أستطيع مساعدتك؟'.format(user.name))
-        welcome_message.send(sender_id)
+        text = 'مرحبا بك {} كيف أستطيع مساعدتك؟'.format(customer.name)
+
         return "text", 200
     elif webhook_type == "quick_reply" and quick_replies_events(data) == "send_menu":
         m1.send(sender_id)
@@ -115,7 +115,7 @@ def handle_incoming_messages():
         if block_name in blocks:
             print('Found it')
             block = blocks[block_name]
-            bot.send_template_message(sender_id, block)
+            # bot.send_template_message(sender_id, block)
             print(bot.send_template_message(sender_id, block))
 
         return "quick_reply", 200
@@ -128,7 +128,7 @@ def handle_incoming_messages():
         if block_name in blocks:
             print('Found it')
             block = blocks[block_name]
-            bot.send_template_message(sender_id, block)
+            # bot.send_template_message(sender_id, block)
             print(bot.send_template_message(sender_id, block))
 
         return "postback", 200

@@ -68,8 +68,8 @@ def handle_customer(sender_id, vendor):
     return customer
 
 
-def handle_first_time_vendor(page_id):
-    new_vendor = Vendor(page_id=page_id, access_token='EAAF5Cd9fC3YBAJmuHxR8QDEZB07kkZBlY8lH6bk0RhLklxOAFaqIrylvgBOCQtaZADGG2gr34ePPzj4ScTy2fHsfxw1FlDJ9gxBn6i8cvwtEOzcPBxIH8xlVZAtGr65nZAQ6GEokrBqvZAGMlN7keMPHD68shwg8Mlt01ZA8pFzfAZDZD')
+def handle_first_time_vendor(page_id, access_token):
+    new_vendor = Vendor(page_id=page_id, access_token=access_token)
     new_vendor.save()
     return new_vendor
 
