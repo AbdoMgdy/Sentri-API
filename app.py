@@ -19,7 +19,7 @@ from models.receipt import ReceiptTemplate
 from models.bot import Bot
 # resources
 from resources.helper_functions import *
-from resources.dicts import orders, blocks, prices, arabic
+from resources.dicts import orders, blocks, prices, arabic, access_tokens
 from resources.buttons import confirm_block
 from resources.menu import main_menu, welcome_message, info_menu, m1, m2, m3, m4, m5
 
@@ -31,7 +31,6 @@ api = Api(app)
 CORS(app)
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
-app.config['SERVER_NAME'] = 'localhost'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     'DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -84,10 +83,9 @@ def verify():
 def handle_incoming_messages():
     data = request.get_json()
     print(data)
-    access_token = 'EAAF5Cd9fC3YBAJmuHxR8QDEZB07kkZBlY8lH6bk0RhLklxOAFaqIrylvgBOCQtaZADGG2gr34ePPzj4ScTy2fHsfxw1FlDJ9gxBn6i8cvwtEOzcPBxIH8xlVZAtGr65nZAQ6GEokrBqvZAGMlN7keMPHD68shwg8Mlt01ZA8pFzfAZDZD'
     webhook_type = get_type_from_payload(data)
     page_id = get_vendor_from_message(data)
-    vendor = handle_vendor(page_id, access_token)
+    vendor = handle_vendor(page_id, access_token[page_id])
     bot = Bot(access_token=vendor.access_token)
     sender_id = get_customer_from_message(data)
     customer = handle_customer(sender_id, page_id)

@@ -1,6 +1,4 @@
 from resources.menu import *
-from flask import url_for
-from resources.buttons import confirm_block
 # blocks = {
 #     'get_started': welcome_message,
 #     'main_menu': main_menu,
@@ -15,6 +13,12 @@ from resources.buttons import confirm_block
 #     'confirm_block': confirm_block,
 # }
 
+
+access_tokens = {
+    '103750251156613': 'EAAF5Cd9fC3YBAMMLFa6wSdsVqFNj9ZAZB98DQ3j9VdBldeZBZAOwA3hBPpOaELLBiVgjQpEVKueddMQlIAS2DyBffJAXiZBqO70Jno7G1Q88AVF2I5yARXze0G5jVtc7rnKmqefAPZCONDsxQE4ma5Di5EOSePHZCbnpCdEYl2RqgZDZD',
+    '2163571837030935': 'EAAF5Cd9fC3YBAHcR5o0ZBZBlIt1zUx5MltRBstLBtViHyNjpbtUoL9JYITpZBSiVXmmp1L0FHoGANcseLyD2zrctszDxKv3w7ZBgUF0fKaMTyqYDbFzjeGsZCjxKRnrY6WwtMnVQZAmRLm1EGWtPcjdMc0Wq1qTYbb4uytywcDcQZDZD',
+    '2190651954374978': 'EAAF5Cd9fC3YBAOwQO9WCHDGjWCsYqjuQ2W0nZCNypoiGdwPMhCqgJluHu64IEH5vpUkuJmU9BmjouVgZAAJNWpHwWv1T4DDyZAUpK0pdDGQIdt92qaCh5MZCZBZBSR2ZCe8WZCDmMbcwzprjweQmEJhb5tyPJIfkY9alPekavdY6LwZDZD'
+}
 
 orders = {}
 
@@ -169,7 +173,7 @@ blocks = {
                     'buttons': [{
                         'type': 'web_url',
                         'title': 'Buy',
-                        'url': url_for('show_webview', food='meal', item='9-Chicken'),
+                        'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/19-Chicken',
                         'webview_height_ratio': 'tall',
                         'messenger_extensions': 'true'
                     }]
