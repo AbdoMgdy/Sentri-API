@@ -85,13 +85,9 @@ def handle_incoming_messages():
     print(data)
     access_token = 'EAAF5Cd9fC3YBAJmuHxR8QDEZB07kkZBlY8lH6bk0RhLklxOAFaqIrylvgBOCQtaZADGG2gr34ePPzj4ScTy2fHsfxw1FlDJ9gxBn6i8cvwtEOzcPBxIH8xlVZAtGr65nZAQ6GEokrBqvZAGMlN7keMPHD68shwg8Mlt01ZA8pFzfAZDZD'
     webhook_type = get_type_from_payload(data)
-    print(access_token)
     page_id = get_vendor_from_message(data)
     vendor = handle_vendor(page_id, access_token)
-    print(vendor)
-    print(vendor.page_id)
     bot = Bot(access_token=vendor.access_token)
-    print(vendor.access_token)
     sender_id = get_customer_from_message(data)
     customer = handle_customer(sender_id, page_id)
     print(sender_id)

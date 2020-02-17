@@ -168,7 +168,9 @@ blocks = {
                     'buttons': [{
                         'type': 'web_url',
                         'title': 'Buy',
-                        'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/9-Chicken'
+                        'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/9-Chicken',
+                        'webview_height_ratio': 'tall',
+                        'messenger_extensions': 'true'
                     }]
                 },
                 {
@@ -178,7 +180,9 @@ blocks = {
                     'buttons': [{
                         'type': 'web_url',
                         'title': 'Buy',
-                        'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/12-Chicken'
+                        'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/12-Chicken',
+                        'webview_height_ratio': 'tall',
+                        'messenger_extensions': 'true'
                     }]
                 },
                 {
@@ -188,7 +192,9 @@ blocks = {
                     'buttons': [{
                         'type': 'web_url',
                         'title': 'Buy',
-                        'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/15-Chicken'
+                        'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/15-Chicken',
+                        'webview_height_ratio': 'tall',
+                        'messenger_extensions': 'true'
                     }]
                 },
                 {
@@ -198,7 +204,10 @@ blocks = {
                     'buttons': [{
                         'type': 'web_url',
                         'title': 'Buy',
-                        'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/18-Chicken'
+                        'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/18-Chicken',
+                        'webview_height_ratio': 'tall',
+                        'messenger_extensions': 'true'
+
                     }]
                 }
 
