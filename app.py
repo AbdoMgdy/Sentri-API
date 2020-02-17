@@ -12,11 +12,12 @@ from flask_cors import CORS, cross_origin
 
 
 # Local application imports
+# Models
 from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo, LoginForm, RegistrationForm
 from models.data_models import Order, OrderSchema, User, UserSchema, LoginUser, LoginUserSchema
 from models.receipt import ReceiptTemplate
 from models.bot import Bot
-
+# resources
 from resources.helper_functions import *
 from resources.dicts import orders, blocks, prices, arabic
 from resources.buttons import confirm_block
@@ -36,9 +37,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 VERIFICATION_TOKEN = "test"
 
-bot = Bot()
-
-restaurant = ''
+bot = Bot({'access_token': 'EAAF5Cd9fC3YBAIyTvlAMGcUZA00ac4u1PZAooUCBYV2az0IeccbpmJ3TrXopi13ikxamoa7NzM2E45vX4IxGfZCSZBzIJ8uKAu4chH8sIZAiiSZCmZAI4xhU0RvMlYf7XFsa5vcP9QHRr34pMcRPTZCx0geEQZCesjKqVqp7tR2FsqQZDZD'})
 
 
 def send_order_to_vendor(result):
@@ -97,7 +96,7 @@ def handle_incoming_messages():
 
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
-        bot.send_before_message(sender_id)
+        # bot.send_before_message(sender_id)
         welcome_message.set_text(
             'مرحبا بك {} في تركس تشيكن كيف أستطيع مساعدتك؟'.format(user.name))
         welcome_message.send(sender_id)
@@ -112,7 +111,7 @@ def handle_incoming_messages():
 
     elif webhook_type == "quick_reply":
         # HANDLE QUICK REPLIES HERE
-        bot.send_before_message(sender_id)
+        # bot.send_before_message(sender_id)
         block_name = quick_replies_events(data)
         if block_name in blocks:
             block = blocks[block_name]
@@ -121,7 +120,7 @@ def handle_incoming_messages():
 
     elif webhook_type == "postback":
         # HANDLE POSTBACK HERE
-        bot.send_before_message(sender_id)
+        # bot.send_before_message(sender_id)
         block_name = postback_events(data)
         if block_name in blocks:
             block = blocks[block_name]
@@ -219,64 +218,55 @@ def vuexy():
     return json.dumps(data)
 
 
-@app.route('/', methods=['GET'])
-@login_required
-def admin_panel():
-    orders = Order.query.all()
-    orders_schema = OrderSchema(many=True)
-    output = orders_schema.dump(orders)
-    data = []
-    # print(output)
-    for order in output:
-        info = {}
-        info['user'] = order['user']
-        info['time'] = order['time']
-        info['number'] = order['number']
-        info['total'] = order['total']
-        info['status'] = order['status']
-        items = ast.literal_eval(order['items'])
-        order_text = ''
-        for item in items:
-            if item['combo'] == 15:
-                combo = 'Combo'
-            else:
-                combo = ''
-            temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
-                                                           item['name'], item['type'], combo, item['notes'])
-            order_text += temp
-        info['items'] = order_text
-        data.append(info)
-    # print(data)
-    # print(output)
-    return render_template('admin-panel.jinja', data=data)
+# @app.route('/', methods=['GET'])
+# @login_required
+# def admin_panel():
+#     orders = Order.query.all()
+#     orders_schema = OrderSchema(many=True)
+#     output = orders_schema.dump(orders)
+#     data = []
+#     # print(output)
+#     for order in output:
+#         info = {}
+#         info['user'] = order['user']
+#         info['time'] = order['time']
+#         info['number'] = order['number']
+#         info['total'] = order['total']
+#         info['status'] = order['status']
+#         items = ast.literal_eval(order['items'])
+#         order_text = ''
+#         for item in items:
+#             if item['combo'] == 15:
+#                 combo = 'Combo'
+#             else:
+#                 combo = ''
+#             temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+#                                                            item['name'], item['type'], combo, item['notes'])
+#             order_text += temp
+#         info['items'] = order_text
+#         data.append(info)
+#     # print(data)
+#     # print(output)
+#     return render_template('admin-panel.jinja', data=data)
 
 
-@app.route('/admin_analytics', methods=['GET'])
-@login_required
-def admin_analytics():
-    subs = User.query.count()
-    orders_d = Order.query.filter_by(status="Delivered").count()
-    orders_c = Order.query.filter_by(status="Canceled").count()
-    orders_o = Order.query.filter_by(status="Out").count()
-    orders_p = Order.query.filter_by(status="Pending").count()
-    total = orders_d + orders_c + orders_o + orders_p
-    print(total)
-    return render_template('admin-analytics.jinja', total=total, subs=subs, pending=orders_p, out=orders_o, canceled=orders_c, delivered=orders_d)
+# @app.route('/admin_analytics', methods=['GET'])
+# @login_required
+# def admin_analytics():
+#     subs = User.query.count()
+#     orders_d = Order.query.filter_by(status="Delivered").count()
+#     orders_c = Order.query.filter_by(status="Canceled").count()
+#     orders_o = Order.query.filter_by(status="Out").count()
+#     orders_p = Order.query.filter_by(status="Pending").count()
+#     total = orders_d + orders_c + orders_o + orders_p
+#     print(total)
+#     return render_template('admin-analytics.jinja', total=total, subs=subs, pending=orders_p, out=orders_o, canceled=orders_c, delivered=orders_d)
 
 
 @app.route('/vuexy_users', methods=['GET'])
 def vuexy_users():
     subs = User.query.count()
     return json.dumps({'users': subs})
-
-
-@app.route('/show_users', methods=['GET'])
-def show_users():
-    users = LoginUser.query.all()
-    users_schema = LoginUserSchema(many=True)
-    output = users_schema.dump(users)
-    # print(output)
-    return output
 
 
 @app.route('/confirm_order', methods=['GET'])
@@ -380,40 +370,40 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
     socketio.emit('response', json, callback=messageReceived)
 
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('admin_panel'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = LoginUser(form.username.data, form.password.data)
-        user.save()
-        flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('login'))
-    return render_template('admin register.jinja', form=form)
+# @app.route('/register', methods=['GET', 'POST'])
+# def register():
+#     if current_user.is_authenticated:
+#         return redirect(url_for('admin_panel'))
+#     form = RegistrationForm()
+#     if form.validate_on_submit():
+#         user = LoginUser(form.username.data, form.password.data)
+#         user.save()
+#         flash('Congratulations, you are now a registered user!')
+#         return redirect(url_for('login'))
+#     return render_template('admin register.jinja', form=form)
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('admin_panel'))
-    form = LoginForm()
-    if form.validate_on_submit():
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     if current_user.is_authenticated:
+#         return redirect(url_for('admin_panel'))
+#     form = LoginForm()
+#     if form.validate_on_submit():
 
-        user = LoginUser.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
-            return 'wrong'
+#         user = LoginUser.query.filter_by(username=form.username.data).first()
+#         if user is None or not user.check_password(form.password.data):
+#             flash('Invalid username or password')
+#             return 'wrong'
 
-        login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('admin_panel'))
-    return render_template('admin login.jinja', form=form)
+#         login_user(user, remember=form.remember_me.data)
+#         return redirect(url_for('admin_panel'))
+#     return render_template('admin login.jinja', form=form)
 
 
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('login'))
+# @app.route('/logout')
+# def logout():
+#     logout_user()
+#     return redirect(url_for('login'))
 
 
 if __name__ == "__main__":

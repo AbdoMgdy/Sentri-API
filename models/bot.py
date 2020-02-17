@@ -5,8 +5,8 @@ from requests_toolbelt import MultipartEncoder
 
 from models import utils
 
-DEFAULT_API_VERSION = 5.0
-ACCESS_TOKEN = "EAAF5Cd9fC3YBACVM0l2TnsP7AVVbfnzsAo7TOkwNFRntgAnlfjl3EOmE7WEBpBTAV5ROGMXP3RbjKCrSHZAtCUKTNiCBqOY89uoUfBGLbK6cVhCGWS9iGkIAZBE90s2WTBhtkss2az74SJdexvoIW0iaka1ZAcS74XoM9Kd4gZDZD"
+DEFAULT_API_VERSION = 6.0
+ACCESS_TOKEN = "Default_Access_Token"
 
 
 class NotificationType(Enum):
@@ -401,5 +401,5 @@ class Bot:
     # Custom Made
 
     def send_before_message(self, recipient_id):
-        self.send_action(recipient_id, 'mark_seen', time_out=1)
-        self.send_action(recipient_id, 'typing_on', time_out=2)
+        self.send_action(recipient_id, 'mark_seen')  # time_out=1
+        self.send_action(recipient_id, 'typing_on')  # time_out=2

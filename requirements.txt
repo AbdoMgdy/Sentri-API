@@ -7,7 +7,6 @@ gevent-websocket
 requests
 requests_toolbelt
 six
-anytree
 flask_cors
 flask_wtf
 flask_login
@@ -18,4 +17,3 @@ flask_restful
 flask_marshmallow
 marshmallow-sqlalchemy
 flask_socketio
-flask_table
