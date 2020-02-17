@@ -88,6 +88,8 @@ def handle_incoming_messages():
     print(access_token)
     page_id = get_vendor_from_message(data)
     vendor = handle_vendor(page_id)
+    print(vendor)
+    print(vendor.page_id)
     bot = Bot(access_token=vendor.access_token)
     print(vendor.access_token)
     sender_id = get_customer_from_message(data)
