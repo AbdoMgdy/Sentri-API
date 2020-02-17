@@ -85,7 +85,7 @@ def handle_incoming_messages():
     print(data)
     webhook_type = get_type_from_payload(data)
     page_id = get_vendor_from_message(data)
-    vendor = handle_vendor(page_id, access_token[page_id])
+    vendor = handle_vendor(page_id, access_tokens[page_id])
     bot = Bot(access_token=vendor.access_token)
     sender_id = get_customer_from_message(data)
     customer = handle_customer(sender_id, page_id)
