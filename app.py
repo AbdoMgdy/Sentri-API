@@ -116,6 +116,7 @@ def handle_incoming_messages():
             print('Found it')
             block = blocks[block_name]
             bot.send_template_message(sender_id, block)
+            print(bot.send_template_message(sender_id, block))
 
         return "quick_reply", 200
 
