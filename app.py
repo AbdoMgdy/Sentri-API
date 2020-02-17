@@ -37,7 +37,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 VERIFICATION_TOKEN = "test"
 
-bot = Bot({'access_token': 'EAAF5Cd9fC3YBAIyTvlAMGcUZA00ac4u1PZAooUCBYV2az0IeccbpmJ3TrXopi13ikxamoa7NzM2E45vX4IxGfZCSZBzIJ8uKAu4chH8sIZAiiSZCmZAI4xhU0RvMlYf7XFsa5vcP9QHRr34pMcRPTZCx0geEQZCesjKqVqp7tR2FsqQZDZD'})
+bot = Bot(access_token='EAAF5Cd9fC3YBAIyTvlAMGcUZA00ac4u1PZAooUCBYV2az0IeccbpmJ3TrXopi13ikxamoa7NzM2E45vX4IxGfZCSZBzIJ8uKAu4chH8sIZAiiSZCmZAI4xhU0RvMlYf7XFsa5vcP9QHRr34pMcRPTZCx0geEQZCesjKqVqp7tR2FsqQZDZD')
 
 
 def send_order_to_vendor(result):
