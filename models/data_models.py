@@ -11,8 +11,8 @@ from models.bot import Bot
 from db import db, ma, login
 
 
-class LoginUser(UserMixin, db.Model):
-    __tablename__ = 'login_users'
+class Vendor(UserMixin, db.Model):
+    __tablename__ = 'vendors'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
     password = db.Column(db.String)
@@ -35,7 +35,7 @@ class LoginUser(UserMixin, db.Model):
 
 @login.user_loader
 def load_user(id):
-    return LoginUser.query.get(int(id))
+    return Vendor.query.get(int(id))
 
 
 class User(Bot, db.Model):
@@ -150,6 +150,6 @@ class OrderSchema(ma.ModelSchema):
     user = ma.Nested(UserSchema)
 
 
-class LoginUserSchema(ma.ModelSchema):
+class VendorSchema(ma.ModelSchema):
     class Meta:
-        model = LoginUser
+        model = Vendor

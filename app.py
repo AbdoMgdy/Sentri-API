@@ -14,7 +14,7 @@ from flask_cors import CORS, cross_origin
 # Local application imports
 # Models
 from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo, LoginForm, RegistrationForm
-from models.data_models import Order, OrderSchema, User, UserSchema, LoginUser, LoginUserSchema
+from models.data_models import Order, OrderSchema, User, UserSchema, Vendor, VendorSchema
 from models.receipt import ReceiptTemplate
 from models.bot import Bot
 # resources
@@ -116,6 +116,7 @@ def handle_incoming_messages():
         if block_name in blocks:
             block = blocks[block_name]
             block.send(sender_id)
+            print(block.send(sender_id))
         return "quick_reply", 200
 
     elif webhook_type == "postback":
@@ -125,6 +126,7 @@ def handle_incoming_messages():
         if block_name in blocks:
             block = blocks[block_name]
             block.send(sender_id)
+            print(block.send(sender_id))
         return "postback", 200
     else:
         return "ok", 200
@@ -376,7 +378,7 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
 #         return redirect(url_for('admin_panel'))
 #     form = RegistrationForm()
 #     if form.validate_on_submit():
-#         user = LoginUser(form.username.data, form.password.data)
+#         user = Vendor(form.username.data, form.password.data)
 #         user.save()
 #         flash('Congratulations, you are now a registered user!')
 #         return redirect(url_for('login'))
@@ -390,7 +392,7 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
 #     form = LoginForm()
 #     if form.validate_on_submit():
 
-#         user = LoginUser.query.filter_by(username=form.username.data).first()
+#         user = Vendor.query.filter_by(username=form.username.data).first()
 #         if user is None or not user.check_password(form.password.data):
 #             flash('Invalid username or password')
 #             return 'wrong'
