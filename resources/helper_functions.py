@@ -83,10 +83,10 @@ def handle_first_time_vendor(page_id, access_token):
 #     return current_vendor
 
 
-def handle_vendor(page_id):
+def handle_vendor(page_id, access_token):
     vendor = Vendor.find_by_page_id(page_id)
     if vendor is None:
-        vendor = handle_first_time_vendor(page_id)
+        vendor = handle_first_time_vendor(page_id, access_token)
     return vendor
 
 
