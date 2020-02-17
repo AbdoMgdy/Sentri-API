@@ -18,7 +18,7 @@ class Vendor(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
     password = db.Column(db.String)
-    access_token = db.Column(db.String, unique=True)
+    access_token = db.Column(db.String)
     page_id = db.Column(db.String, unique=True)
     customers = db.relationship('Customer', backref='vendor', lazy='select')
 
