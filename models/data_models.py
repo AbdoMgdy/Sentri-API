@@ -19,7 +19,7 @@ class Vendor(UserMixin, db.Model):
     username = db.Column(db.String, unique=True)
     password = db.Column(db.String)
     access_token = db.Column(db.String, unique=True)
-    page_id = db.Column(db.String, unique=True)
+    page_id = db.Column(db.String)
     customers = db.relationship('Customer', backref='vendor', lazy='select')
 
     def __init__(self, user_name='', password='', access_token='', page_id=''):
@@ -36,6 +36,7 @@ class Vendor(UserMixin, db.Model):
         return cls.query.filter_by(page_id=page_id).first()
 
     def save(self):
+        print('Vendor_Created')
         db.session.add(self)
         db.session.commit()
 

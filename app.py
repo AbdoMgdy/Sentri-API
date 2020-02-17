@@ -89,7 +89,7 @@ def handle_incoming_messages():
     page_id = get_vendor_from_message(data)
     vendor = handle_vendor(page_id)
     sender_id = get_customer_from_message(data)
-    customer = handle_customer(sender_id, vendor)
+    customer = handle_customer(sender_id, page_id)
     print(sender_id)
     print(webhook_type)
 
