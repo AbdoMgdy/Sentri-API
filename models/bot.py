@@ -6,7 +6,6 @@ from requests_toolbelt import MultipartEncoder
 from models import utils
 
 DEFAULT_API_VERSION = 6.0
-ACCESS_TOKEN = "Default_Access_Token"
 
 
 class NotificationType(Enum):
@@ -16,7 +15,7 @@ class NotificationType(Enum):
 
 
 class Bot:
-    def __init__(self, **kwargs):
+    def __init__(self, access_token="EAAF5Cd9fC3YBAPmi62qUO0ZCT8tZBG1cst5IaYM0j7tZA0c0p2K8K2b2IHJK7jIMYPGZCztM7ol8iko1LTCJZAfZB6zKiY1FH2EnQdllOnqyk5sRyLW9pFuHnVnYFUnzvrG0SJzeZC54J4xn5mvvMqfvuV8CgbQNTCbOxC4hNQ2VAZDZD", **kwargs):
         """
             @required:
                 access_token
@@ -29,7 +28,7 @@ class Bot:
         self.app_secret = kwargs.get('app_secret')
         self.graph_url = 'https://graph.facebook.com/v{}'.format(
             self.api_version)
-        self.access_token = kwargs.get('access_token') or ACCESS_TOKEN
+        self.access_token = access_token
 
     @property
     def auth_args(self):
