@@ -1,5 +1,6 @@
 from resources.dicts import blocks, orders
 from models.data_models import Customer, Vendor
+from models.bot import Bot
 
 
 def get_type_from_payload(data):
@@ -71,6 +72,8 @@ def handle_customer(sender_id, vendor):
 def handle_first_time_vendor(page_id, access_token):
     new_vendor = Vendor(page_id=page_id, access_token=access_token)
     new_vendor.menu = blocks
+    bot = Bot(access_token)
+    bot.
     new_vendor.save()
     return new_vendor
 

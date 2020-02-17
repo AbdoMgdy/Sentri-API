@@ -368,7 +368,11 @@ class Bot:
         response = requests.post(
             request_endpoint,
             params=self.auth_args,
-            json=gs_obj
+            json={
+                'get_started': {
+                    'payload': 'main_menu'
+                }
+            }
         )
         result = response.json()
         return result
