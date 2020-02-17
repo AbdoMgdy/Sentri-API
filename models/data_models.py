@@ -11,31 +11,31 @@ from models.bot import Bot
 from db import db, ma, login
 
 
-# class LoginUser(UserMixin, db.Model):
-#     __tablename__ = 'login_users'
-#     id = db.Column(db.Integer, primary_key=True)
-#     username = db.Column(db.String, unique=True)
-#     password = db.Column(db.String)
+class LoginUser(UserMixin, db.Model):
+    __tablename__ = 'login_users'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String, unique=True)
+    password = db.Column(db.String)
 
-#     def __init__(self, user_name, password):
-#         self.username = user_name
-#         self.password = generate_password_hash(password)
+    def __init__(self, user_name, password):
+        self.username = user_name
+        self.password = generate_password_hash(password)
 
-#     def check_password(self, password):
-#         return check_password_hash(self.password, password)
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
-#     def save(self):
-#         db.session.add(self)
-#         db.session.commit()
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
-#     def remove(self):
-#         db.session.remove(self)
-#         db.session.commit()
+    def remove(self):
+        db.session.remove(self)
+        db.session.commit()
 
 
-# @login.user_loader
-# def load_user(id):
-#     return LoginUser.query.get(int(id))
+@login.user_loader
+def load_user(id):
+    return LoginUser.query.get(int(id))
 
 
 class User(Bot, db.Model):
