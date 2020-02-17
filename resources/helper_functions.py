@@ -70,6 +70,7 @@ def handle_customer(sender_id, vendor):
 
 def handle_first_time_vendor(page_id, access_token):
     new_vendor = Vendor(page_id=page_id, access_token=access_token)
+    new_vendor.menu = blocks
     new_vendor.save()
     return new_vendor
 

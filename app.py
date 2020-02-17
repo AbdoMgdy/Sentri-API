@@ -19,7 +19,7 @@ from models.receipt import ReceiptTemplate
 from models.bot import Bot
 # resources
 from resources.helper_functions import *
-from resources.dicts import orders, blocks, prices, arabic, access_tokens
+from resources.dicts import orders, prices, arabic, access_tokens
 from resources.buttons import confirm_block
 from resources.menu import main_menu, welcome_message, info_menu, m1, m2, m3, m4, m5
 
@@ -110,8 +110,8 @@ def handle_incoming_messages():
         # HANDLE QUICK REPLIES HERE
         # bot.send_before_message(sender_id)
         block_name = quick_replies_events(data)
+        blocks = vendor.menu
         if block_name in blocks:
-            print('Found it')
             block = blocks[block_name]
             # bot.send_template_message(sender_id, block)
             print(bot.send_template_message(sender_id, block))
@@ -123,6 +123,7 @@ def handle_incoming_messages():
         # bot.send_before_message(sender_id)
         block_name = postback_events(data)
         print(block_name)
+        blocks = vendor.menu
         if block_name in blocks:
             print('Found it')
             block = blocks[block_name]

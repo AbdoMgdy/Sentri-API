@@ -16,17 +16,21 @@ class Vendor(UserMixin, db.Model):
     __table_args__ = (db.UniqueConstraint(
         'page_id', 'id', name='unique_vendor_customers'),)
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, unique=True)
     username = db.Column(db.String, unique=True)
+    menu = db.Column(NestedMutableJson)
     password = db.Column(db.String)
     access_token = db.Column(db.String)
     page_id = db.Column(db.String, unique=True)
     customers = db.relationship('Customer', backref='vendor', lazy='select')
 
-    def __init__(self, user_name='', password='', access_token='', page_id=''):
+    def __init__(self, name='', user_name='', password='', access_token='', page_id=''):
+        self.name = name
         self.username = user_name
         self.password = generate_password_hash(password)
         self.access_token = access_token
         self.page_id = page_id
+        self.menu = {}
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
