@@ -4,7 +4,7 @@ import ast
 import json
 
 # Third party imports
-from flask import Flask, request, render_template, url_for, redirect, flash
+from flask import Flask, request, render_template, url_for, redirect, flash, send_file
 from flask_restful import Resource, Api
 from flask_login import current_user, login_user, logout_user, login_required
 from flask_socketio import SocketIO, emit
@@ -231,33 +231,8 @@ def vuexy():
 @app.route('/', methods=['GET'])
 @login_required
 def dashboard():
-    orders = Order.query.all()
-    orders_schema = OrderSchema(many=True)
-    output = orders_schema.dump(orders)
-    data = []
-    # print(output)
-    for order in output:
-        info = {}
-        info['customer'] = order['user']
-        info['time'] = order['time']
-        info['number'] = order['number']
-        info['total'] = order['total']
-        info['status'] = order['status']
-        items = ast.literal_eval(order['items'])
-        order_text = ''
-        for item in items:
-            if item['combo'] == 15:
-                combo = 'Combo'
-            else:
-                combo = ''
-            temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
-                                                           item['name'], item['type'], combo, item['notes'])
-            order_text += temp
-        info['items'] = order_text
-        data.append(info)
-    # print(data)
-    # print(output)
-    return render_template('admin-panel.jinja', data=data)
+    # Start Vue SPA
+    return send_file('./front_end/dist/index.html')
 
 
 # @app.route('/admin_analytics', methods=['GET'])
@@ -328,9 +303,9 @@ def add_user_info(sender_id):
         receipt.add_element(
             title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
     receipt.set_summary(total_cost=order.total)
+    bot.send_template_message(sender_id, {'payload': receipt.get_receipt()})
     bot.send_text_message(
         sender_id, 'يتم الآن تحضير الأوردر وسيصلك في خلال 45 - 60 دقيقة')
-    bot.send_template_message(sender_id, {'payload': receipt.get_receipt()})
     result = orders.pop(sender_id, None)  # remove order from temp dict
     # receipt.send(restaurant)
     send_order_to_vendor(order)
