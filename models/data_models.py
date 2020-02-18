@@ -21,7 +21,7 @@ class Vendor(UserMixin, db.Model):
     menu = db.Column(NestedMutableJson)
     password = db.Column(db.String)
     access_token = db.Column(db.String)
-    is_setup = db.Column(db.Bolean)
+    is_setup = db.Column(db.Boolean)
     page_id = db.Column(db.String, unique=True)
     customers = db.relationship('Customer', backref='vendor', lazy='select')
 
