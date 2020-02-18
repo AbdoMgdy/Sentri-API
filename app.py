@@ -231,7 +231,7 @@ def vuexy():
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 @login_required
-def dashboard():
+def dashboard(path):
     # Start Vue SPA
     return render_template('index.html')
 
