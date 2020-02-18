@@ -55,9 +55,9 @@ class Vendor(UserMixin, db.Model):
         db.session.commit()
 
 
-@login.user_loader
-def load_user(id):
-    return Vendor.query.get(int(id))
+# @login.user_loader
+# def load_user(id):
+#     return Vendor.query.get(int(id))
 
 
 class Customer(Bot, db.Model):

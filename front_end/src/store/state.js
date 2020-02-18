@@ -14,11 +14,12 @@ import colors from "@/../themeConfig.js";
 // *From Auth - Data will be received from auth provider
 const userDefaults = {
   uid: 0, // From Auth
-  displayName: "John Doe", // From Auth
+  displayName: "Admin", // From Auth
   about:
     "Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw brownie brownie marshmallow.",
   photoURL: require("@/assets/images/portrait/small/avatar-s-11.jpg"), // From Auth
   status: "online",
+  isLoggedIn: false,
   userRole: "admin"
 };
 
@@ -32,7 +33,7 @@ const getUserInfo = () => {
   // Update property in user
   Object.keys(userDefaults).forEach(key => {
     // If property is defined in localStorage => Use that
-    userInfo[key] = userInfoLocalStorage[key]
+    userInfo[key] == userInfoLocalStorage[key]
       ? userInfoLocalStorage[key]
       : userDefaults[key];
   });

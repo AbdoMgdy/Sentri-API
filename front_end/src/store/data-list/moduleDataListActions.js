@@ -16,9 +16,7 @@ export default {
   fetchDataListItems({ commit }) {
     return new Promise((resolve, reject) => {
       axios
-        .get(
-          "https://cors-anywhere.herokuapp.com/https://rest-bot-dev.herokuapp.com/vuexy"
-        )
+        .get("orders")
         .then(response => {
           commit("SET_PRODUCTS", response.data);
           resolve(response);
@@ -31,9 +29,7 @@ export default {
   fetchUsers({ commit }) {
     return new Promise((resolve, reject) => {
       axios
-        .get(
-          "https://cors-anywhere.herokuapp.com/https://rest-bot-dev.herokuapp.com/vuexy_users"
-        )
+        .get("customers")
         .then(response => {
           commit("SET_USERS", response.data.users);
 

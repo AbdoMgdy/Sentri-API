@@ -4,7 +4,7 @@
     v-if="activeUserInfo.displayName"
   >
     <div class="text-right leading-tight hidden sm:block">
-      <p class="font-semibold">Admin</p>
+      <p class="font-semibold">{{ activeUserInfo.displayName }}</p>
     </div>
 
     <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
@@ -30,14 +30,14 @@
           </li>
 
           <vs-divider class="m-1" />
-          <a href="/logout">
-            <li
-              class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-            >
-              <feather-icon icon="LogOutIcon" svgClasses="w-4 h-4" />
-              <span class="ml-2">Logout</span>
-            </li>
-          </a>
+
+          <li
+            class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
+            @click="logout"
+          >
+            <feather-icon icon="LogOutIcon" svgClasses="w-4 h-4" />
+            <span class="ml-2">Logout</span>
+          </li>
         </ul>
       </vs-dropdown-menu>
     </vs-dropdown>
@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import firebase from "firebase/app";
-import "firebase/auth";
+// import firebase from "firebase/app";
+// import "firebase/auth";
 
 export default {
   data() {
@@ -59,20 +59,20 @@ export default {
   },
   methods: {
     logout() {
-      // if user is logged in via auth0
-      if (this.$auth.profile) this.$auth.logOut();
+      // // if user is logged in via auth0
+      // if (this.$auth.profile) this.$auth.logOut();
 
-      // if user is logged in via firebase
-      const firebaseCurrentUser = firebase.auth().currentUser;
+      // // if user is logged in via firebase
+      // const firebaseCurrentUser = firebase.auth().currentUser;
 
-      if (firebaseCurrentUser) {
-        firebase
-          .auth()
-          .signOut()
-          .then(() => {
-            this.$router.push("/pages/login").catch(() => {});
-          });
-      }
+      // if (firebaseCurrentUser) {
+      //   firebase
+      //     .auth()
+      //     .signOut()
+      //     .then(() => {
+      //       this.$router.push("/pages/login").catch(() => {});
+      //     });
+      // }
       // If JWT login
       if (localStorage.getItem("accessToken")) {
         localStorage.removeItem("accessToken");

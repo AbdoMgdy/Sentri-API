@@ -27,12 +27,12 @@
     />
     <span class="text-danger text-sm">{{ errors.first("password") }}</span>
 
-    <div class="flex flex-wrap justify-between my-5">
+    <!-- <div class="flex flex-wrap justify-between my-5" style="display:none">
       <vs-checkbox v-model="checkbox_remember_me" class="mb-3"
         >Remember Me</vs-checkbox
       >
-    </div>
-    <div class="flex flex-wrap justify-between mb-3">
+    </div> -->
+    <div class="flex flex-wrap justify-between mb-3 mt-5">
       <vs-button :disabled="!validateForm" @click="loginJWT">Login</vs-button>
     </div>
   </div>

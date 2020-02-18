@@ -12,8 +12,7 @@
   <footer class="the-footer flex-wrap justify-between" :class="classes">
     <vs-spacer />
     <span class="md:flex hidden items-center">
-      <span>Powered by</span>
-      <a href="https:\\sentri.io">Sentri</a>
+      <span>Powered by <a href="#">Sentri</a></span>
     </span>
   </footer>
 </template>

@@ -33,7 +33,7 @@ import '../themeConfig.js'
 
 
 // Firebase
-import '@/firebase/firebaseConfig'
+// import '@/firebase/firebaseConfig'
 
 
 // Auth0 Plugin

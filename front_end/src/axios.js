@@ -1,9 +1,9 @@
 // axios
-import axios from 'axios'
+import axios from "axios";
 
-const domain = ""
+const domain = "https://rest-bot-dev.herokuapp.com/vendor/";
 
 export default axios.create({
-  domain
+  baseURL: domain
   // You can add your headers here
-})
+});

@@ -69,7 +69,7 @@ def send_order_to_vendor(result):
     socketio.emit('order', json.dumps(data))
     return info
 
-
+# Webhook Routes
 @app.route('/webhook', methods=['GET'])
 def verify():
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
@@ -136,7 +136,51 @@ def handle_incoming_messages():
         return "ok", 200
     return "ok", 200
 
+# Dashboard Routes
+@app.route('/dashboard/orders', methods=['GET'])
+def dashboard_orders():
+    orders = Order.query.all()
+    orders_schema = OrderSchema(many=True)
+    output = orders_schema.dump(orders)
+    data = []
+    # print(output)
+    for order in output:
+        info = {}
+        info['customer'] = order['customer']
+        info['time'] = order['time']
+        info['number'] = order['number']
+        info['price'] = order['total']
+        info['status'] = order['status']
+        items = ast.literal_eval(order['items'])
+        order_text = ''
+        for item in items:
+            if item['combo'] == 15:
+                combo = 'Combo'
+            else:
+                combo = ''
+            temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+                                                           item['name'], item['type'], combo, item['notes'])
+            order_text += temp
+        info['items'] = order_text
+        data.append(info)
+    print(data)
+    # print(output)
+    return json.dumps(data)
 
+
+@app.route('/', defaults={'u_path': ''})
+@app.route('/<path:u_path>')
+def dashboard(u_path):
+    # Start Vue SPA
+    return app.send_static_file('index.html')
+
+
+@app.route('/dashboard/customers', methods=['GET'])
+def dashboard_customers():
+    subs = Customer.query.count()
+    return json.dumps({'Customers': subs})
+
+# Ordering Routes
 @app.route('/webview/order/<string:food>/<string:item>', methods=['GET'])
 def show_webview(food, item):
     if food == "sandwich":
@@ -195,51 +239,6 @@ def add_to_order(sender_id, food, item):
 @app.route('/edit_order/', methods=['GET'])
 def edit_order():
     return app.send_static_file('index.html')
-
-
-@app.route('/vuexy', methods=['GET'])
-def vuexy():
-    orders = Order.query.all()
-    orders_schema = OrderSchema(many=True)
-    output = orders_schema.dump(orders)
-    data = []
-    # print(output)
-    for order in output:
-        info = {}
-        info['customer'] = order['customer']
-        info['time'] = order['time']
-        info['number'] = order['number']
-        info['price'] = order['total']
-        info['status'] = order['status']
-        items = ast.literal_eval(order['items'])
-        order_text = ''
-        for item in items:
-            if item['combo'] == 15:
-                combo = 'Combo'
-            else:
-                combo = ''
-            temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
-                                                           item['name'], item['type'], combo, item['notes'])
-            order_text += temp
-        info['items'] = order_text
-        data.append(info)
-    print(data)
-    # print(output)
-    return json.dumps(data)
-
-
-@app.route('/', defaults={'u_path': ''})
-@app.route('/<path:u_path>')
-@login_required
-def dashboard(u_path):
-    # Start Vue SPA
-    return app.send_static_file('index.html')
-
-
-@app.route('/vuexy_users', methods=['GET'])
-def vuexy_users():
-    subs = Customer.query.count()
-    return json.dumps({'Customers': subs})
 
 
 @app.route('/confirm_order', methods=['GET'])
@@ -334,49 +333,42 @@ def edit_order_status():
     return 'Order Stauts was edited', 200
 
 
-@socketio.on('message')
-def handle_my_custom_event(json, methods=['GET', 'POST']):
-    print('received message: ' + str(json))
-    socketio.emit('response', json)
+# @app.route('/register', methods=['GET', 'POST'])
+# def register():
+#     if current_user.is_authenticated:
+#         return redirect(url_for('dashboard'))
+#     form = RegistrationForm()
+#     if form.validate_on_submit():
+#         vendor = Vendor(user_name=form.username.data,
+#                         password=form.password.data,
+#                         name=form.vendor_name.data,
+#                         access_token=form.access_token.data,
+#                         page_id=form.page_id.data)
+#         vendor.save()
+#         return redirect(url_for('login'))
+#     return render_template('admin register.jinja', form=form)
 
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('dashboard'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        vendor = Vendor(user_name=form.username.data,
-                        password=form.password.data,
-                        name=form.vendor_name.data,
-                        access_token=form.access_token.data,
-                        page_id=form.page_id.data)
-        vendor.save()
-        return redirect(url_for('login'))
-    return render_template('admin register.jinja', form=form)
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     if current_user.is_authenticated:
+#         return redirect(url_for('dashboard'))
+#     form = LoginForm()
+#     if form.validate_on_submit():
+#         vendor = Vendor.query.filter_by(username=form.username.data).first()
+#         if vendor is None or not vendor.check_password(form.password.data):
+#             flash('Invalid username or password')
+#             return 'Invalid username or password'
+#         else:
+#             login_user(vendor, remember=form.remember_me.data)
+#             return redirect(url_for('dashboard'))
+#     return render_template('admin login.jinja', form=form)
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('dashboard'))
-    form = LoginForm()
-    if form.validate_on_submit():
-        vendor = Vendor.query.filter_by(username=form.username.data).first()
-        if vendor is None or not vendor.check_password(form.password.data):
-            flash('Invalid username or password')
-            return 'Invalid username or password'
-        else:
-            login_user(vendor, remember=form.remember_me.data)
-            return redirect(url_for('dashboard'))
-    return render_template('admin login.jinja', form=form)
-
-
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('login'))
-
+# @app.route('/logout')
+# def logout():
+#     logout_user()
+#     return redirect(url_for('login'))
 
 if __name__ == "__main__":
     socketio.run(app)
