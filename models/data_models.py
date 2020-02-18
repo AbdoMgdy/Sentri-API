@@ -16,8 +16,8 @@ class Vendor(UserMixin, db.Model):
     __table_args__ = (db.UniqueConstraint(
         'page_id', 'id', name='unique_vendor_customers'),)
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    username = db.Column(db.String, unique=True)
+    name = db.Column(db.String)  # unique
+    username = db.Column(db.String)  # unique
     menu = db.Column(NestedMutableJson)
     password = db.Column(db.String)
     access_token = db.Column(db.String)
