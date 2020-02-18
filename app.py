@@ -330,7 +330,7 @@ def add_user_info(sender_id):
     receipt.set_summary(total_cost=order.total)
     bot.send_text_message(
         sender_id, 'يتم الآن تحضير الأوردر وسيصلك في خلال 45 - 60 دقيقة')
-    bot.send_template_message(sender_id, receipt.get_receipt())
+    bot.send_template_message(sender_id, {'payload': receipt.get_receipt()})
     result = orders.pop(sender_id, None)  # remove order from temp dict
     # receipt.send(restaurant)
     send_order_to_vendor(order)

@@ -19,6 +19,8 @@ class Vendor(UserMixin, db.Model):
     name = db.Column(db.String)  # unique
     username = db.Column(db.String)  # unique
     menu = db.Column(NestedMutableJson)
+    prices = db.Column(NestedMutableJson)
+    arabic = db.Column(NestedMutableJson)
     password = db.Column(db.String)
     access_token = db.Column(db.String)
     is_setup = db.Column(db.Boolean)
@@ -32,6 +34,8 @@ class Vendor(UserMixin, db.Model):
         self.access_token = access_token
         self.page_id = page_id
         self.menu = {}
+        self.prices = {}
+        self.arabic = {}
         self.is_setup = False
 
     def check_password(self, password):
