@@ -137,7 +137,26 @@ arabic = {
 }
 
 blocks = {
+    'welcome_message': {
+        'payload': {
+            'template_type': 'generic',
+            'elements': [
+                {
+                    'title': 'مرحبا بك كيف أستطيع مساعدتك؟',
+                    'image_url': '',
+                    'subtitle': '',
 
+                }
+            ]
+        },
+        'qucik_replies': [
+            {
+                'content_type': 'text',
+                'title': 'ابدأ أوردر',
+                'payload': 'main_menu',
+            }
+        ]
+    },
     'main_menu': {
         'payload': {
             'template_type': 'generic',
