@@ -32,8 +32,6 @@ import "./fake-db/index.js"
 import '../themeConfig.js'
 
 
-// Firebase
-// import '@/firebase/firebaseConfig'
 
 
 // Auth0 Plugin

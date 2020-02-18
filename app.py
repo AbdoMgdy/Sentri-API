@@ -6,6 +6,10 @@ import json
 # Third party imports
 from flask import Flask, request, render_template, url_for, redirect, flash, send_file
 from flask_restful import Resource, Api
+from flask_jwt_extended import (
+    JWTManager, jwt_required, create_access_token,
+    get_jwt_identity
+)
 from flask_login import current_user, login_user, logout_user, login_required
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS, cross_origin
@@ -27,9 +31,12 @@ from resources.menu import main_menu, welcome_message, info_menu, m1, m2, m3, m4
 app = Flask(__name__, static_folder='templates', static_url_path='',
             template_folder='templates')
 socketio = SocketIO(app, cors_allowed_origins="*")
+
+jwt = JWTManager(app)
 api = Api(app)
 CORS(app)
 SECRET_KEY = os.urandom(32)
+app.config['JWT_SECRET_KEY'] = SECRET_KEY
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     'DATABASE_URL', 'sqlite:///data.db')
@@ -166,6 +173,22 @@ def vendor_orders():
     print(data)
     # print(output)
     return json.dumps(data)
+
+
+@app.route('/vendor/login', methods=['POST'])
+def vendor_login():
+    data = request.get_json()
+    access_token = create_access_token(identity='test')
+    print(data)
+    return json.dumps(access_token), 200
+
+
+@app.route('/vendor/register', methods=['POST'])
+def vendor_register():
+    data = request.get_json()
+    access_token = create_access_token(identity='test')
+    print(data)
+    return json.dumps(access_token), 200
 
 
 @app.route('/', defaults={'u_path': ''})
