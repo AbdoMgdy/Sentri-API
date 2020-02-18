@@ -197,7 +197,7 @@ blocks = {
                     'buttons': [{
                         'type': 'web_url',
                         'title': 'Buy',
-                        'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/19-Chicken',
+                        'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/9-Chicken',
                         'webview_height_ratio': 'tall',
                         'messenger_extensions': 'true'
                     }]
@@ -215,7 +215,7 @@ blocks = {
                     }]
                 },
                 {
-                    'title': '12 Chicken',
+                    'title': '15 Chicken',
                     'image_url': 'https://i.ibb.co/N7Z2Y0Y/image.png',
                     'subtitle': '',
                     'buttons': [{
