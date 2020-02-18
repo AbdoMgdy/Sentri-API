@@ -21,7 +21,7 @@ template = {
 class ReceiptTemplate(Bot):
     def __init__(self, recipient_name='', order_number='', timestamp='', order_url=''):
         super().__init__()
-        self.template = copy(template['payload'])
+        self.template = copy(template['value']['attachment']['payload'])
         self.template['recipient_name'] = recipient_name
         self.template['order_number'] = order_number
         self.template['currency'] = 'EGP'
