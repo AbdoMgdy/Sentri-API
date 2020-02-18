@@ -78,7 +78,7 @@ def handle_first_time_vendor(page_id, access_token):
             'payload': 'main_menu'
         }
     })
-    bot.set_pe({
+    bot.set_persistent_menu({
         'persistent_menu': [
             {
                 'locale': 'default',
