@@ -228,25 +228,12 @@ def vuexy():
     return json.dumps(data)
 
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
+@app.route('/', defaults={'u_path': ''})
+@app.route('/<path:u_path>')
 @login_required
 def dashboard(path):
     # Start Vue SPA
-    return render_template('index.html')
-
-
-# @app.route('/admin_analytics', methods=['GET'])
-# @login_required
-# def admin_analytics():
-#     subs = User.query.count()
-#     orders_d = Order.query.filter_by(status="Delivered").count()
-#     orders_c = Order.query.filter_by(status="Canceled").count()
-#     orders_o = Order.query.filter_by(status="Out").count()
-#     orders_p = Order.query.filter_by(status="Pending").count()
-#     total = orders_d + orders_c + orders_o + orders_p
-#     print(total)
-#     return render_template('admin-analytics.jinja', total=total, subs=subs, pending=orders_p, out=orders_o, canceled=orders_c, delivered=orders_d)
+    return app.send_static_file('index.html')
 
 
 @app.route('/vuexy_users', methods=['GET'])

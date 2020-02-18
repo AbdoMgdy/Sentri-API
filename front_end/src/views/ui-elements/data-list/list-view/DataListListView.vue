@@ -92,16 +92,16 @@
 
             <vs-td>
               <p class="product-name font-medium truncate">
-                {{ tr.user.name }}
+                {{ tr.customer.name }}
               </p>
             </vs-td>
 
             <vs-td>
-              <p class="product-phone">{{ tr.user.phone_number }}</p>
+              <p class="product-phone">{{ tr.customer.phone_number }}</p>
             </vs-td>
 
             <vs-td>
-              <p class="product-address">{{ tr.user.address }}</p>
+              <p class="product-address">{{ tr.customer.address }}</p>
             </vs-td>
 
             <vs-td>

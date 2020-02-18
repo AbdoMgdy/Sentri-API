@@ -30,14 +30,14 @@
           </li>
 
           <vs-divider class="m-1" />
-
-          <li
-            class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-            @click="logout"
-          >
-            <feather-icon icon="LogOutIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Logout</span>
-          </li>
+          <a href="/logout">
+            <li
+              class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
+            >
+              <feather-icon icon="LogOutIcon" svgClasses="w-4 h-4" />
+              <span class="ml-2">Logout</span>
+            </li>
+          </a>
         </ul>
       </vs-dropdown-menu>
     </vs-dropdown>

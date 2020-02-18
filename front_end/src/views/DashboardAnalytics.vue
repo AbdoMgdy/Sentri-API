@@ -152,27 +152,6 @@ export default {
     StatisticsCardLine,
     flatPickr
   },
-  created() {
-    // Subscribers gained - Statistics
-    this.$http
-      .get("/api/card/card-statistics/subscribers")
-      .then(response => {
-        this.subscribersGained = response.data;
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    // Products Order
-    this.$http
-      .get("/api/card/card-analytics/products-orders")
-      .then(response => {
-        this.productsOrder = response.data;
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  },
   computed: {
     users() {
       return this.$store.state.dataList.users;
