@@ -145,6 +145,11 @@ blocks = {
                     'title': 'مرحبا بك كيف أستطيع مساعدتك؟',
                     'image_url': '',
                     'subtitle': '',
+                    'buttons': [{
+                        'type': 'postback',
+                        'title': 'ابدأ أوردر',
+                        'payload': 'main_menu'
+                    }]
 
                 }
             ]
