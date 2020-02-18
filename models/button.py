@@ -14,6 +14,7 @@ BUTTON_LIMIT = 3
 class ButtonTemplate(Bot):
     def __init__(self):
         super().__init__()
+        self.template = {'template_type': 'button'}
         self.text = ''
         self.buttons = []
         self.quick_replies = []
@@ -51,6 +52,6 @@ class ButtonTemplate(Bot):
                     paylod)[:PAYLOAD_CHARACTER_LIMIT]
                 self.quick_replies.append(quick_reply)
 
-    def send(self, reciepiant_id):
-        super().send_button_message(reciepiant_id,
-                                    self.text, self.buttons)
+    def get_template(self):
+        self.template['buttons'] = self.buttons
+        return self.template

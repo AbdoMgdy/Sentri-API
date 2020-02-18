@@ -15,7 +15,7 @@ class NotificationType(Enum):
 
 
 class Bot:
-    def __init__(self, access_token="EAAF5Cd9fC3YBAPmi62qUO0ZCT8tZBG1cst5IaYM0j7tZA0c0p2K8K2b2IHJK7jIMYPGZCztM7ol8iko1LTCJZAfZB6zKiY1FH2EnQdllOnqyk5sRyLW9pFuHnVnYFUnzvrG0SJzeZC54J4xn5mvvMqfvuV8CgbQNTCbOxC4hNQ2VAZDZD", **kwargs):
+    def __init__(self, access_token='', **kwargs):
         """
             @required:
                 access_token

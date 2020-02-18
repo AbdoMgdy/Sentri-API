@@ -152,6 +152,9 @@ def show_webview(food, item):
 
 @app.route('/user/<string:sender_id>/add_to_order/<string:food>/<string:item>/', methods=['GET', 'POST'])
 def add_to_order(sender_id, food, item):
+    customer = Customer.find_by_psid(sender_id)
+    vendor = customer.vendor
+    bot = Bot(access_token=vendor.access_token)
     # save unconfirmed orders in dict
     order_item = {}
     qty = request.form.get('quantity')
@@ -184,7 +187,7 @@ def add_to_order(sender_id, food, item):
         text = '{} * {} {} تمت اضافته للأوردو الخاص بك'.format(qty,
                                                                arabic[item], spicy)
     confirm_block.set_text(text)
-    confirm_block.send(sender_id)
+    bot.send_template_message(sender_id, confirm_block.get_template())
     return 'Item added to Order', 200
 
 
