@@ -45,6 +45,10 @@ class Vendor(UserMixin, db.Model):
     def find_by_page_id(cls, page_id):
         return cls.query.filter_by(page_id=page_id).first()
 
+    @classmethod
+    def find_by_username(cls, username):
+        return cls.query.filter_by(username=username).first()
+
     def save(self):
         print('Vendor_Created')
         db.session.add(self)

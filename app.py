@@ -186,8 +186,10 @@ def vendor_login():
 @app.route('/vendor/register', methods=['POST'])
 def vendor_register():
     data = request.get_json()
+    vendoer = Vendor.find_by_username(data['username'])
     access_token = create_access_token(identity='test')
     print(data)
+
     return json.dumps(access_token), 200
 
 
