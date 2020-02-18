@@ -17,22 +17,31 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()], render_kw={
         'placeholder': 'Username'})
+    vendor_name = StringField('Vendor Name', validators=[DataRequired()], render_kw={
+        'placeholder': 'Vendor Name'})
     password = PasswordField('Password', validators=[DataRequired()], render_kw={
         'placeholder': 'Password'})
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')], render_kw={
             'placeholder': 'Repeat Password'})
+    access_token = StringField('Access Token', validators=[DataRequired()], render_kw={
+        'placeholder': 'Access Token'})
     admin_code = StringField('Admin Security Code', validators=[
                              DataRequired()], render_kw={'placeholder': 'Admin Security Code'})
     submit = SubmitField('Register')
 
     def validate_username(self, username):
-        user = Vendor.query.filter_by(username=username.data).first()
-        if user is not None:
+        vendor = Vendor.query.filter_by(username=username.data).first()
+        if vendor is not None:
             raise ValidationError('Please use a different username.')
 
+    def validate_vendo_name(self, vendor_name):
+        vendor = Vendor.query.filter_by(name=vendor_name.data).first()
+        if vendor is not None:
+            raise ValidationError('Please use a different vendor name.')
+
     def validate_admin_code(self, admin_code):
-        if admin_code.data != 'Trex':
+        if admin_code.data != 'Sentri101':
             raise ValidationError('Wrong Security Code')
 
 

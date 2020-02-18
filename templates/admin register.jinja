@@ -4,7 +4,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href=""><b>Admin</b>TREX</a>
+    <a href=""><b>Admin</b>Sentri</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -29,6 +29,22 @@
         </div>
        {% endfor %}
         {% endif %}
+        <div class="input-group mb-3">
+          {{ form.vendo_name(class="form-control", size=32) }}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          {{ form.access_token(class="form-control", size=32) }}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
         <div class="input-group mb-3">
           {{ form.password(class="form-control", size=32) }}
           <div class="input-group-append">

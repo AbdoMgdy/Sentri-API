@@ -21,6 +21,7 @@ class Vendor(UserMixin, db.Model):
     menu = db.Column(NestedMutableJson)
     password = db.Column(db.String)
     access_token = db.Column(db.String)
+    is_setup = db.Column(db.Bolean)
     page_id = db.Column(db.String, unique=True)
     customers = db.relationship('Customer', backref='vendor', lazy='select')
 
@@ -31,6 +32,7 @@ class Vendor(UserMixin, db.Model):
         self.access_token = access_token
         self.page_id = page_id
         self.menu = {}
+        self.is_setup = False
 
     def check_password(self, password):
         return check_password_hash(self.password, password)

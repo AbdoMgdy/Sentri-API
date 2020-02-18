@@ -13,7 +13,7 @@ from flask_cors import CORS, cross_origin
 
 # Local application imports
 # Models
-from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo
+from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo, RegistrationForm, LoginForm
 from models.data_models import Order, OrderSchema, Customer, CustomerSchema, Vendor, VendorSchema
 from models.receipt import ReceiptTemplate
 from models.bot import Bot
@@ -227,36 +227,36 @@ def vuexy():
     return json.dumps(data)
 
 
-# @app.route('/', methods=['GET'])
-# @login_required
-# def admin_panel():
-#     orders = Order.query.all()
-#     orders_schema = OrderSchema(many=True)
-#     output = orders_schema.dump(orders)
-#     data = []
-#     # print(output)
-#     for order in output:
-#         info = {}
-#         info['customer'] = order['user']
-#         info['time'] = order['time']
-#         info['number'] = order['number']
-#         info['total'] = order['total']
-#         info['status'] = order['status']
-#         items = ast.literal_eval(order['items'])
-#         order_text = ''
-#         for item in items:
-#             if item['combo'] == 15:
-#                 combo = 'Combo'
-#             else:
-#                 combo = ''
-#             temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
-#                                                            item['name'], item['type'], combo, item['notes'])
-#             order_text += temp
-#         info['items'] = order_text
-#         data.append(info)
-#     # print(data)
-#     # print(output)
-#     return render_template('admin-panel.jinja', data=data)
+@app.route('/', methods=['GET'])
+@login_required
+def dashboard():
+    orders = Order.query.all()
+    orders_schema = OrderSchema(many=True)
+    output = orders_schema.dump(orders)
+    data = []
+    # print(output)
+    for order in output:
+        info = {}
+        info['customer'] = order['user']
+        info['time'] = order['time']
+        info['number'] = order['number']
+        info['total'] = order['total']
+        info['status'] = order['status']
+        items = ast.literal_eval(order['items'])
+        order_text = ''
+        for item in items:
+            if item['combo'] == 15:
+                combo = 'Combo'
+            else:
+                combo = ''
+            temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+                                                           item['name'], item['type'], combo, item['notes'])
+            order_text += temp
+        info['items'] = order_text
+        data.append(info)
+    # print(data)
+    # print(output)
+    return render_template('admin-panel.jinja', data=data)
 
 
 # @app.route('/admin_analytics', methods=['GET'])
@@ -376,40 +376,38 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
     socketio.emit('response', json)
 
 
-# @app.route('/register', methods=['GET', 'POST'])
-# def register():
-#     if current_user.is_authenticated:
-#         return redirect(url_for('admin_panel'))
-#     form = RegistrationForm()
-#     if form.validate_on_submit():
-#         user = Vendor(form.username.data, form.password.data)
-#         user.save()
-#         flash('Congratulations, you are now a registered user!')
-#         return redirect(url_for('login'))
-#     return render_template('admin register.jinja', form=form)
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        vendor = Vendor(form.username.data, form.password.data)
+        vendor.save()
+        return redirect(url_for('login'))
+    return render_template('admin register.jinja', form=form)
 
 
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     if current_user.is_authenticated:
-#         return redirect(url_for('admin_panel'))
-#     form = LoginForm()
-#     if form.validate_on_submit():
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        vendor = Vendor.query.filter_by(username=form.username.data).first()
+        if vendor is None or not vendor.check_password(form.password.data):
+            flash('Invalid username or password')
+            return 'Invalid username or password'
 
-#         user = Vendor.query.filter_by(username=form.username.data).first()
-#         if user is None or not user.check_password(form.password.data):
-#             flash('Invalid username or password')
-#             return 'wrong'
-
-#         login_user(user, remember=form.remember_me.data)
-#         return redirect(url_for('admin_panel'))
-#     return render_template('admin login.jinja', form=form)
+            login_user(vendor, remember=form.remember_me.data)
+            return redirect(url_for('dashboard'))
+    return render_template('admin login.jinja', form=form)
 
 
-# @app.route('/logout')
-# def logout():
-#     logout_user()
-#     return redirect(url_for('login'))
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 
 if __name__ == "__main__":

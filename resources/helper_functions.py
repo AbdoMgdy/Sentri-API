@@ -70,7 +70,7 @@ def handle_customer(sender_id, vendor):
 
 
 def handle_first_time_vendor(page_id, access_token):
-    new_vendor = Vendor(page_id=page_id, access_token=access_token)
+    new_vendor = Vendor.find_by_page_id(page_id)
     new_vendor.menu = blocks
     bot = Bot(access_token)
     bot.set_get_started({
@@ -93,6 +93,7 @@ def handle_first_time_vendor(page_id, access_token):
             }
         ]
     })
+    new_vendor.is_setup = True
     new_vendor.save()
     return new_vendor
 
@@ -105,10 +106,10 @@ def handle_current_vendor(page_id, access_token):
 
 def handle_vendor(page_id, access_token):
     vendor = Vendor.find_by_page_id(page_id)
-    if vendor is None:
-        vendor = handle_first_time_vendor(page_id, access_token)
-    else:
+    if vendor.is_setup:
         vendor = handle_current_vendor(page_id, access_token)
+    else:
+        vendor = handle_first_time_vendor(page_id, access_token)
     return vendor
 
 
