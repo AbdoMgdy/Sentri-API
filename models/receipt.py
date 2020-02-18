@@ -84,6 +84,3 @@ class ReceiptTemplate(Bot):
         if self.adjustments != []:
             self.template['attachment']['payload']['adjustments'] = self.adjustments
         return self.template
-
-    def send(self, recipient_id):
-        super().send_message(recipient_id, self.template)

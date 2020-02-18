@@ -283,6 +283,11 @@ def confirm_order():
 
 @app.route('/user/<string:sender_id>/add_user_info', methods=['GET', 'POST'])
 def add_user_info(sender_id):
+    # look for customer
+    customer = Customer.find_by_psid(sender_id)
+    vendor = customer.vendor
+    bot = Bot(access_token=vendor.access_token)
+
     # creat order object and fill it from temp dict
     order = Order(sender_id)
     if sender_id in orders:
@@ -301,8 +306,6 @@ def add_user_info(sender_id):
             sender_id, 'انتهت صلاحة الأوردر من فضلك ابدأ أوردر جديد')
         return 'Order Expired', 200
 
-    # look for customer
-    customer = Customer.find_by_psid(sender_id)
     # update customer info
     customer.name = request.form.get('name')
     customer.phone_number = request.form.get('phone_number')
@@ -321,10 +324,9 @@ def add_user_info(sender_id):
         receipt.add_element(
             title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
     receipt.set_summary(total_cost=order.total)
-    receipt.send(sender_id)
     bot.send_text_message(
         sender_id, 'يتم الآن تحضير الأوردر وسيصلك في خلال 45 - 60 دقيقة')
-
+    bot.send_template_message(sender_id, receipt.get_receipt())
     result = orders.pop(sender_id, None)  # remove order from temp dict
     # receipt.send(restaurant)
     send_order_to_vendor(order)
