@@ -228,11 +228,12 @@ def vuexy():
     return json.dumps(data)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
 @login_required
 def dashboard():
     # Start Vue SPA
-    return send_file('app/dist/index.html')
+    return render_template('index.html')
 
 
 # @app.route('/admin_analytics', methods=['GET'])
