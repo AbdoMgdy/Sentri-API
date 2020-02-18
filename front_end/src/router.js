@@ -18,6 +18,7 @@
 
 import Vue from "vue";
 import Router from "vue-router";
+import store from "./store/store";
 // import auth from "@/auth/authService";
 
 // import firebase from 'firebase/app'
@@ -1481,7 +1482,7 @@ router.afterEach(() => {
 });
 
 router.beforeEach((to, from, next) => {
-  if (this.$store.state.AppActiveUser.isLoggedIn) {
+  if (store.state.AppActiveUser) {
     return next();
   } else {
     router.push({ path: "/pages/login", query: { to: to.path } });

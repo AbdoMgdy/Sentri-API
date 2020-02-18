@@ -137,8 +137,8 @@ def handle_incoming_messages():
     return "ok", 200
 
 # Dashboard Routes
-@app.route('/dashboard/orders', methods=['GET'])
-def dashboard_orders():
+@app.route('/vendor/orders', methods=['GET'])
+def vendor_orders():
     orders = Order.query.all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
@@ -175,8 +175,8 @@ def dashboard(u_path):
     return app.send_static_file('index.html')
 
 
-@app.route('/dashboard/customers', methods=['GET'])
-def dashboard_customers():
+@app.route('/vendor/customers', methods=['GET'])
+def vendor_customers():
     subs = Customer.query.count()
     return json.dumps({'Customers': subs})
 
