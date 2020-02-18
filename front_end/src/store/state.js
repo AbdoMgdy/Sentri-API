@@ -52,6 +52,7 @@ const getUserInfo = () => {
 // /////////////////////////////////////////////
 
 const state = {
+  isUserLoggedIn: false,
   AppActiveUser: getUserInfo(),
   bodyOverlay: false,
   isVerticalNavMenuActive: true,

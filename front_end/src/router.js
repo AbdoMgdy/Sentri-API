@@ -39,6 +39,9 @@ const router = new Router({
       // =============================================================================
       path: "",
       component: () => import("./layouts/main/Main.vue"),
+      meta: {
+        authRequired: true
+      },
       children: [
         // =============================================================================
         // Theme Routes
@@ -1388,7 +1391,8 @@ const router = new Router({
           name: "page-login",
           component: () => import("@/views/pages/login/Login.vue"),
           meta: {
-            rule: "editor"
+            rule: "editor",
+            authRequired: false
           }
         },
         {
@@ -1396,7 +1400,8 @@ const router = new Router({
           name: "page-register",
           component: () => import("@/views/pages/register/Register.vue"),
           meta: {
-            rule: "editor"
+            rule: "editor",
+            authRequired: false
           }
         },
         {
@@ -1482,11 +1487,11 @@ router.afterEach(() => {
 });
 
 router.beforeEach((to, from, next) => {
-  if (store.state.AppActiveUser) {
-    return next();
-  } else {
-    router.push({ path: "/pages/login", query: { to: to.path } });
-  }
+  console.log(to.matched.some(record => record.meta.authRequired));
+  return next();
+  //   } else {
+  //     router.push({ path: "/pages/login", query: { to: to.path } });
+  //   }
 });
 
 export default router;
