@@ -73,7 +73,26 @@ def handle_first_time_vendor(page_id, access_token):
     new_vendor = Vendor(page_id=page_id, access_token=access_token)
     new_vendor.menu = blocks
     bot = Bot(access_token)
-    bot.set_get_started()
+    bot.set_get_started({
+        'get_started': {
+            'payload': 'main_menu'
+        }
+    })
+    bot.set_pe({
+        'persistent_menu': [
+            {
+                'locale': 'default',
+                'composer_input_disabled': False,
+                'call_to_actions': [
+                    {
+                        'type': 'web_url',
+                        'title': 'Powered By Sentri',
+                        'url': 'https://www.sentri.io/',
+                    }
+                ]
+            }
+        ]
+    })
     new_vendor.save()
     return new_vendor
 
