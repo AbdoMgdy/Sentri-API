@@ -31,7 +31,7 @@ export default {
       axios
         .get("customers")
         .then(response => {
-          commit("SET_USERS", response.data.users);
+          commit("SET_USERS", response.data.customers);
 
           resolve(response);
         })

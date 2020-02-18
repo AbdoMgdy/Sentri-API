@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="the-navbar__user-meta flex items-center"
-    v-if="activeUserInfo.displayName"
-  >
+  <div class="the-navbar__user-meta flex items-center">
     <div class="text-right leading-tight hidden sm:block">
       <p class="font-semibold">{{ activeUserInfo.displayName }}</p>
     </div>
@@ -10,7 +7,6 @@
     <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
       <div class="con-img ml-3">
         <img
-          v-if="activeUserInfo.photoURL"
           key="onlineImg"
           src="https://ui-avatars.com/api/?name=S+I"
           alt="user-img"
@@ -59,20 +55,6 @@ export default {
   },
   methods: {
     logout() {
-      // // if user is logged in via auth0
-      // if (this.$auth.profile) this.$auth.logOut();
-
-      // // if user is logged in via firebase
-      // const firebaseCurrentUser = firebase.auth().currentUser;
-
-      // if (firebaseCurrentUser) {
-      //   firebase
-      //     .auth()
-      //     .signOut()
-      //     .then(() => {
-      //       this.$router.push("/pages/login").catch(() => {});
-      //     });
-      // }
       // If JWT login
       if (localStorage.getItem("accessToken")) {
         localStorage.removeItem("accessToken");

@@ -170,9 +170,15 @@ def vendor_orders():
             order_text += temp
         info['items'] = order_text
         data.append(info)
-    print(data)
+    # print(data)
     # print(output)
     return json.dumps(data)
+
+
+@app.route('/vendor/customers', methods=['GET'])
+def vendor_customers():
+    subs = Customer.query.count()
+    return json.dumps({'customers': subs})
 
 
 @app.route('/vendor/login', methods=['POST'])
@@ -199,11 +205,6 @@ def dashboard(u_path):
     # Start Vue SPA
     return app.send_static_file('index.html')
 
-
-@app.route('/vendor/customers', methods=['GET'])
-def vendor_customers():
-    subs = Customer.query.count()
-    return json.dumps({'Customers': subs})
 
 # Ordering Routes
 @app.route('/webview/order/<string:food>/<string:item>', methods=['GET'])

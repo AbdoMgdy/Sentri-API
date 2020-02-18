@@ -33,7 +33,7 @@ const getUserInfo = () => {
   // Update property in user
   Object.keys(userDefaults).forEach(key => {
     // If property is defined in localStorage => Use that
-    userInfo[key] == userInfoLocalStorage[key]
+    userInfo[key] = userInfoLocalStorage[key]
       ? userInfoLocalStorage[key]
       : userDefaults[key];
   });
@@ -52,7 +52,6 @@ const getUserInfo = () => {
 // /////////////////////////////////////////////
 
 const state = {
-  isUserLoggedIn: false,
   AppActiveUser: getUserInfo(),
   bodyOverlay: false,
   isVerticalNavMenuActive: true,

@@ -14,6 +14,7 @@ import actions from "./actions";
 Vue.use(Vuex);
 
 import moduleDataList from "./data-list/moduleDataList";
+import moduleAuth from "./auth/moduleAuth";
 
 export default new Vuex.Store({
   getters,
@@ -21,7 +22,8 @@ export default new Vuex.Store({
   state,
   actions,
   modules: {
-    dataList: moduleDataList
+    dataList: moduleDataList,
+    auth: moduleAuth
   },
   strict: process.env.NODE_ENV !== "production"
 });

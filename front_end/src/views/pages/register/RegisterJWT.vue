@@ -21,22 +21,22 @@ Author URL: http://www.themeforest.net/user/pixinvent
     <span class="text-danger text-sm">{{ errors.first("displayName") }}</span>
 
     <vs-input
-      v-validate="'required|page_id'"
+      v-validate="'required'"
       data-vv-validate-on="blur"
       name="page_id"
       label-placeholder="Page Id"
       placeholder="Page Id"
-      v-model="email"
+      v-model="page_id"
       class="w-full mt-6"
     />
     <span class="text-danger text-sm">{{ errors.first("page_id") }}</span>
     <vs-input
-      v-validate="'required|access_token'"
+      v-validate="'required'"
       data-vv-validate-on="blur"
       name="access_token"
       label-placeholder="Access Token"
       placeholder="Access Token"
-      v-model="email"
+      v-model="access_token"
       class="w-full mt-6"
     />
     <span class="text-danger text-sm">{{ errors.first("access_token") }}</span>
@@ -102,10 +102,21 @@ export default {
       );
     }
   },
+  mounted() {
+    this.$store.dispatch("auth/registerUserJWT", {
+      userDetails: {
+        displayName: 'this.displayName',
+        page_id: 'this.page_id',
+        access_token: 'this.access_token',
+        password: 'this.password',
+        confirmPassword: 'this.password'
+      }
+    });
+  },
   methods: {
     checkLogin() {
       // If user is already logged in notify
-      if (this.$store.state.auth.isUserLoggedIn()) {
+      if (false) {
         // Close animation if passed as payload
         // this.$vs.loading.close()
 
