@@ -356,7 +356,7 @@ class Bot:
 
         return None
 
-    def set_get_started(self, gs_obj):
+    def set_get_started(self):
         """Set a get started button shown on welcome screen for first time users
         https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/get-started-button
         Input:

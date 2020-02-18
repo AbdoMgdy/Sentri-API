@@ -73,7 +73,7 @@ def handle_first_time_vendor(page_id, access_token):
     new_vendor = Vendor(page_id=page_id, access_token=access_token)
     new_vendor.menu = blocks
     bot = Bot(access_token)
-    bot.
+    bot.set_get_started()
     new_vendor.save()
     return new_vendor
 
