@@ -232,7 +232,7 @@ def vuexy():
 @login_required
 def dashboard():
     # Start Vue SPA
-    return send_file('/dist/index.html')
+    return send_file('app/dist/index.html')
 
 
 # @app.route('/admin_analytics', methods=['GET'])
