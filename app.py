@@ -24,7 +24,7 @@ from resources.buttons import confirm_block
 from resources.menu import main_menu, welcome_message, info_menu, m1, m2, m3, m4, m5
 
 
-app = Flask(__name__, static_folder='', static_url_path='',
+app = Flask(__name__, static_folder='templates', static_url_path='',
             template_folder='templates')
 socketio = SocketIO(app, cors_allowed_origins="*")
 api = Api(app)
