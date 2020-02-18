@@ -14,7 +14,9 @@ BUTTON_LIMIT = 3
 class ButtonTemplate(Bot):
     def __init__(self):
         super().__init__()
-        self.template = {'template_type': 'button'}
+        self.template = {
+            'template_type': 'button'
+        }
         self.text = ''
         self.buttons = []
         self.quick_replies = []
@@ -53,5 +55,6 @@ class ButtonTemplate(Bot):
                 self.quick_replies.append(quick_reply)
 
     def get_template(self):
+        self.template['text'] = self.text
         self.template['buttons'] = self.buttons
         return self.template

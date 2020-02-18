@@ -187,7 +187,8 @@ def add_to_order(sender_id, food, item):
         text = '{} * {} {} تمت اضافته للأوردو الخاص بك'.format(qty,
                                                                arabic[item], spicy)
     confirm_block.set_text(text)
-    bot.send_template_message(sender_id, confirm_block.get_template())
+    bot.send_template_message(
+        sender_id, {'payload': confirm_block.get_template()})
     return 'Item added to Order', 200
 
 
