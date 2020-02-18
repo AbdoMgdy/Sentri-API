@@ -378,7 +378,7 @@ def login():
         if vendor is None or not vendor.check_password(form.password.data):
             flash('Invalid username or password')
             return 'Invalid username or password'
-
+        else:
             login_user(vendor, remember=form.remember_me.data)
             return redirect(url_for('dashboard'))
     return render_template('admin login.jinja', form=form)
