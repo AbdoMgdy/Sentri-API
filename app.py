@@ -382,7 +382,11 @@ def register():
         return redirect(url_for('dashboard'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        vendor = Vendor(form.username.data, form.password.data)
+        vendor = Vendor(user_name=form.username.data,
+                        password=form.password.data,
+                        name=form.vendor_name.data,
+                        access_token=form.access_token.data,
+                        page_id=form.page_id.data)
         vendor.save()
         return redirect(url_for('login'))
     return render_template('admin register.jinja', form=form)

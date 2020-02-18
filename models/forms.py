@@ -19,6 +19,8 @@ class RegistrationForm(FlaskForm):
         'placeholder': 'Username'})
     vendor_name = StringField('Vendor Name', validators=[DataRequired()], render_kw={
         'placeholder': 'Vendor Name'})
+    page_id = StringField('Page Id', validators=[DataRequired()], render_kw={
+        'placeholder': 'Page Id'})
     password = PasswordField('Password', validators=[DataRequired()], render_kw={
         'placeholder': 'Password'})
     password2 = PasswordField(
@@ -35,10 +37,15 @@ class RegistrationForm(FlaskForm):
         if vendor is not None:
             raise ValidationError('Please use a different username.')
 
-    def validate_vendo_name(self, vendor_name):
+    def validate_vendor_name(self, vendor_name):
         vendor = Vendor.query.filter_by(name=vendor_name.data).first()
         if vendor is not None:
-            raise ValidationError('Please use a different vendor name.')
+            raise ValidationError('Please use a different Vendor Name.')
+
+    def validate_page_id(self, page_id):
+        vendor = Vendor.query.filter_by(page_id=page_id.data).first()
+        if vendor is not None:
+            raise ValidationError('Please use a different Page Id.')
 
     def validate_admin_code(self, admin_code):
         if admin_code.data != 'Sentri101':
