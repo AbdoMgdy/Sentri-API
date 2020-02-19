@@ -26,6 +26,7 @@ class Vendor(UserMixin, db.Model):
     is_setup = db.Column(db.Boolean)
     page_id = db.Column(db.String, unique=True)
     customers = db.relationship('Customer', backref='vendor', lazy='select')
+    orders = db.relationship('Order', backref='vendor', lazy='select')
 
     def __init__(self, name='', user_name='', password='', access_token='', page_id=''):
         self.name = name
@@ -118,9 +119,11 @@ class Order(db.Model):
     status = db.Column(db.String)
     time = db.Column(db.DateTime)
     psid = db.Column(db.String, db.ForeignKey('customers.psid'))
+    page_id = db.Column(db.String, db.ForeignKey('vendors.page_id'))
 
-    def __init__(self, psid):
+    def __init__(self, psid, page_id):
         self.psid = psid
+        self.page_id = page_id
         self.time = datetime.datetime.utcnow()
         self.number = random.randint(1000, 99999)
         self.items = []
@@ -130,6 +133,10 @@ class Order(db.Model):
     @classmethod
     def find_by_number(cls, number):
         return cls.query.filter_by(number=number).first()
+
+    @classmethod
+    def find_by_page_id(cls, page_id):
+        return cls.query.filter_by(page_id=page_id).all()
 
     @classmethod
     def find_by_customer_id(cls, psid):
