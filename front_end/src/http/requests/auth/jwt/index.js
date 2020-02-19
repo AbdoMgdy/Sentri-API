@@ -53,7 +53,6 @@ export default {
     });
   },
   registerUser(username, pwd, page_id, access_token) {
-    console.log(username);
     return axios.post("register", {
       username: username,
       page_id: page_id,

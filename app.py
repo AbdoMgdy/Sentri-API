@@ -207,7 +207,7 @@ def vendor_register():
     data = request.get_json()
     print(data)
     vendor = Vendor.find_by_username(data['username'])
-    if vendor is not None:
+    if vendor is None:
         print('new Vendor')
         access_token = create_access_token(identity=data['username'])
         vendor = Vendor(name=data['username'], user_name=data['username'],

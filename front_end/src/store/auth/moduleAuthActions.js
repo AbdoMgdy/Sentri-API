@@ -64,12 +64,12 @@ export default {
             root: true
           });
 
-          resolve(response);
-
           // Redirect User
           router.push({ path: "/" });
+          resolve(response);
         })
         .catch(error => {
+          console.log(error);
           reject(error);
         });
     });
