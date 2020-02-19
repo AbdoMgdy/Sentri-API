@@ -8,7 +8,7 @@ from sqlalchemy_json import NestedMutableJson
 
 
 from models.bot import Bot
-from db import db, ma, login
+from db import db, ma
 
 
 class Vendor(db.Model):

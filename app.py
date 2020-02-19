@@ -381,10 +381,5 @@ def edit_order_status():
     return 'Order Stauts was edited', 200
 
 
-
-
-
-
-
 if __name__ == "__main__":
     socketio.run(app)
