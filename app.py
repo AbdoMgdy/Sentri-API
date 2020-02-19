@@ -145,6 +145,7 @@ def handle_incoming_messages():
 
 # Dashboard Routes
 @app.route('/vendor/orders', methods=['GET'])
+@jwt_required
 def vendor_orders():
     orders = Order.query.all()
     orders_schema = OrderSchema(many=True)
@@ -176,6 +177,7 @@ def vendor_orders():
 
 
 @app.route('/vendor/customers', methods=['GET'])
+@jwt_required
 def vendor_customers():
     subs = Customer.query.count()
     return json.dumps({'customers': subs})
@@ -184,19 +186,27 @@ def vendor_customers():
 @app.route('/vendor/login', methods=['POST'])
 def vendor_login():
     data = request.get_json()
-    access_token = create_access_token(identity='test')
+    vendor = Vendor.find_by_username(data['username'])
+    if vendor is not None and vendor.password == data['password']:
+        access_token = create_access_token(identity=data['username'])
+        return json.dumps({'userData': data, 'accessToken': access_token}), 200
+
     print(data)
-    return json.dumps(access_token), 200
+    return 'Wrong Username or Password', 401
 
 
 @app.route('/vendor/register', methods=['POST'])
 def vendor_register():
     data = request.get_json()
-    vendoer = Vendor.find_by_username(data['username'])
-    access_token = create_access_token(identity='test')
     print(data)
+    vendor = Vendor.find_by_username(data['username'])
+    if vendor is not None:
+        access_token = create_access_token(identity=data['username'])
+        vendor = Vendor(name=data['username'], user_name=data['username'],
+                        password=data['password'], access_token=data['access_token'], page_id=data['page_id'])
+        return json.dumps({'userData': data, 'accessToken': access_token}), 200
 
-    return json.dumps(access_token), 200
+    return 'Username is Taken Please Choose another one!', 301
 
 
 @app.route('/', defaults={'u_path': ''})

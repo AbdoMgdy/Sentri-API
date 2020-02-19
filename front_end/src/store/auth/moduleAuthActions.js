@@ -9,7 +9,6 @@ import jwt from "../../http/requests/auth/jwt/index.js";
 import router from "@/router";
 
 export default {
-
   // JWT
   loginJWT({ commit }, payload) {
     return new Promise((resolve, reject) => {

@@ -11,6 +11,7 @@
 // import tailwindConfig from "../../tailwind.config.js"
 
 const getters = {
+  AppActiveUser: state => state.AppActiveUser,
   // COMPONENT
   // vx-autosuggest
   // starredPages: state => state.navbarSearchAndPinList.data.filter((page) => page.highlightAction),
