@@ -188,8 +188,8 @@ def vendor_login():
     data = request.get_json()
     print(data)
     vendor = Vendor.find_by_username(data['username'])
+    access_token = create_access_token(identity=data['username'])
     if vendor is not None and vendor.password == data['password']:
-        access_token = create_access_token(identity=data['username'])
         return json.dumps({'userData': data, 'accessToken': access_token}), 200
 
     return json.dumps({'userData': data, 'accessToken': access_token}), 200
