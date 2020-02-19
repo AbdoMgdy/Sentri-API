@@ -5,7 +5,7 @@
 ==========================================================================================*/
 
 import jwt from "../../http/requests/auth/jwt/index.js";
-
+import store from "../../store/store";
 import router from "@/router";
 
 export default {
@@ -15,11 +15,11 @@ export default {
       jwt
         .login(payload.userDetails.username, payload.userDetails.password)
         .then(response => {
+          console.log(response);
           // If there's user data in response
           if (response.data.userData) {
-            // Navigate User to homepage
-            router.push(router.currentRoute.query.to || "/");
-
+            console.log(response);
+            store.dispatch("loginUser");
             // Set accessToken
             localStorage.setItem("accessToken", response.data.accessToken);
 
@@ -29,6 +29,8 @@ export default {
             // Set bearer token in axios
             commit("SET_BEARER", response.data.accessToken);
 
+            // Navigate User to homepage
+            router.push({ path: "/" });
             resolve(response);
           } else {
             reject({ message: "Wrong Usernmae or Password" });

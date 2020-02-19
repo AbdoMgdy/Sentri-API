@@ -72,7 +72,7 @@ export default {
       return true;
     },
     loginJWT() {
-      if (!this.checkLogin()) return;
+      // if (!this.checkLogin()) return; Uncomment This in production
 
       // Loading
       this.$vs.loading();
@@ -92,7 +92,7 @@ export default {
           this.$vs.loading.close();
         })
         .catch(error => {
-          console.log("2");
+          console.log(error);
           this.$vs.loading.close();
           this.$vs.notify({
             title: "Error",

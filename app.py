@@ -192,7 +192,7 @@ def vendor_login():
     if vendor is not None and vendor.password == data['password']:
         return json.dumps({'userData': data, 'accessToken': access_token}), 200
 
-    return json.dumps({'userData': data, 'accessToken': access_token}), 200
+    return json.dumps('Wront Username or Pasword'), 401
 
 
 @app.route('/vendor/register', methods=['POST'])
