@@ -208,6 +208,7 @@ def vendor_register():
     print(data)
     vendor = Vendor.find_by_username(data['username'])
     if vendor is not None:
+        print('new Vendor')
         access_token = create_access_token(identity=data['username'])
         vendor = Vendor(name=data['username'], user_name=data['username'],
                         password=data['password'], access_token=data['access_token'], page_id=data['page_id'])

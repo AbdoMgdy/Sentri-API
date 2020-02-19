@@ -69,7 +69,7 @@ Author URL: http://www.themeforest.net/user/pixinvent
       errors.first("confirm_password")
     }}</span>
 
-    <vs-button type="border" to="/pages/login" class="mt-6">Login</vs-button>
+    <vs-button type="border" @click="logout" class="mt-6">Logout</vs-button>
     <vs-button
       class="float-right mt-6"
       @click="registerUserJWt"
@@ -120,6 +120,10 @@ export default {
         return false;
       }
       return true;
+    },
+    logout() {
+      localStorage.removeItem("accessToken");
+      this.$store.dispatch("logoutUser");
     },
     registerUserJWt() {
       // If form is not validated or user is already login return
