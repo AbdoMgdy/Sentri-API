@@ -192,7 +192,7 @@ def vendor_login():
         access_token = create_access_token(identity=data['username'])
         return json.dumps({'userData': data, 'accessToken': access_token}), 200
 
-    return json.dumps({'error': 'Wrong Username or Password'}), 401
+    return json.dumps({'userData': data, 'accessToken': access_token}), 200
 
 
 @app.route('/vendor/register', methods=['POST'])
