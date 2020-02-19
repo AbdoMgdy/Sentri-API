@@ -215,6 +215,7 @@ def vendor_register():
         access_token = create_access_token(identity=data['username'])
         vendor = Vendor(name=data['username'], user_name=data['username'],
                         password=data['password'], access_token=data['access_token'], page_id=data['page_id'])
+        vendor.save()
         return json.dumps({'userData': data, 'accessToken': access_token}), 200
 
     return 'Username is Taken Please Choose another one!', 200
