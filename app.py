@@ -325,7 +325,7 @@ def add_user_info(sender_id):
     customer.name = request.form.get('name')
     customer.phone_number = request.form.get('phone_number')
     customer.address = request.form.get('address')
-    customer.save()
+    customer.save()  # imp
     # make a receipt
     receipt = ReceiptTemplate(
         recipient_name=customer.name, order_number=order.number)
@@ -344,6 +344,7 @@ def add_user_info(sender_id):
         sender_id, 'يتم الآن تحضير الأوردر وسيصلك في خلال 45 - 60 دقيقة')
     result = orders.pop(sender_id, None)  # remove order from temp dict
     # receipt.send(restaurant)
+    order.save()  # imp
     send_order_to_vendor(order)
     return 'Customer info was added', 200
 
