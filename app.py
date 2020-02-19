@@ -198,30 +198,30 @@ def vendor_login():
     access_token = create_access_token(identity=data['username'])
     print(vendor)
     print(vendor is not None and vendor.password == data['password'])
-    if vendor is not None and vendor.check_password(data['password']):
+    if vendor is not None and vendor.password == data['password']):
         print(vendor)
         return json.dumps({'userData': data, 'accessToken': access_token}), 200
 
     return json.dumps('Wrong Username or Pasword'), 200
 
 
-@app.route('/vendor/register', methods=['POST'])
+@app.route('/vendor/register', methods = ['POST'])
 def vendor_register():
-    data = request.get_json()
+    data=request.get_json()
     print(data)
-    vendor = Vendor.find_by_username(data['username'])
+    vendor=Vendor.find_by_username(data['username'])
     if vendor is None:
         print('new Vendor')
-        access_token = create_access_token(identity=data['username'])
-        vendor = Vendor(name=data['username'], user_name=data['username'],
-                        password=data['password'], access_token=data['access_token'], page_id=data['page_id'])
+        access_token=create_access_token(identity = data['username'])
+        vendor=Vendor(name = data['username'], user_name = data['username'],
+                        password = data['password'], access_token = data['access_token'], page_id = data['page_id'])
         vendor.save()
         return json.dumps({'userData': data, 'accessToken': access_token}), 200
 
     return 'Username is Taken Please Choose another one!', 200
 
 
-@app.route('/', defaults={'u_path': ''})
+@app.route('/', defaults = {'u_path': ''})
 @app.route('/<path:u_path>')
 def dashboard(u_path):
     # Start Vue SPA
@@ -229,54 +229,54 @@ def dashboard(u_path):
 
 
 # Ordering Routes
-@app.route('/webview/order/<string:food>/<string:item>', methods=['GET'])
+@app.route('/webview/order/<string:food>/<string:item>', methods = ['GET'])
 def show_webview(food, item):
     if food == "sandwich":
-        sandwich = OrderSandwich()
-        return render_template('order sandwich.jinja', food="sandwich", item=item, form=sandwich)
+        sandwich=OrderSandwich()
+        return render_template('order sandwich.jinja', food = "sandwich", item = item, form = sandwich)
     elif food == "meal":
-        meal = OrderMeal()
-        return render_template('order meal.jinja', food="meal", item=item, form=meal)
+        meal=OrderMeal()
+        return render_template('order meal.jinja', food = "meal", item = item, form = meal)
     elif food == "sauce":
-        sauce = OrderSauce()
-        return render_template('order sauce.jinja', food="sauce", item=item, form=sauce)
+        sauce=OrderSauce()
+        return render_template('order sauce.jinja', food = "sauce", item = item, form = sauce)
 
 
-@app.route('/user/<string:sender_id>/add_to_order/<string:food>/<string:item>/', methods=['GET', 'POST'])
+@app.route('/user/<string:sender_id>/add_to_order/<string:food>/<string:item>/', methods = ['GET', 'POST'])
 def add_to_order(sender_id, food, item):
-    customer = Customer.find_by_psid(sender_id)
-    vendor = customer.vendor
-    bot = Bot(access_token=vendor.access_token)
+    customer=Customer.find_by_psid(sender_id)
+    vendor=customer.vendor
+    bot=Bot(access_token = vendor.access_token)
     # save unconfirmed orders in dict
-    order_item = {}
-    qty = request.form.get('quantity')
+    order_item={}
+    qty=request.form.get('quantity')
     if request.form.get('spicy') is None:
-        spicy = ''
+        spicy=''
     elif request.form.get('spicy') is not None:
-        spicy = request.form.get('spicy')
+        spicy=request.form.get('spicy')
     if request.form.get('notes') is None:
-        notes = ''
+        notes=''
     elif request.form.get('notes') is not None:
-        notes = request.form.get('notes')
+        notes=request.form.get('notes')
     if request.form.get('combo') is None:
-        combo = 0
+        combo=0
     elif request.form.get('combo') is not None:
-        combo = request.form.get('combo')
-    order_item['category'] = food
-    order_item['name'] = item
-    order_item['quantity'] = qty
-    order_item['type'] = spicy
-    order_item['price'] = prices[item]
-    order_item['combo'] = combo
-    order_item['notes'] = notes
+        combo=request.form.get('combo')
+    order_item['category']=food
+    order_item['name']=item
+    order_item['quantity']=qty
+    order_item['type']=spicy
+    order_item['price']=prices[item]
+    order_item['combo']=combo
+    order_item['notes']=notes
 
     update_order(sender_id, order_item)
 
     if spicy in arabic:
-        text = '{} * {} {} تمت اضافته للأوردو الخاص بك'.format(qty,
+        text='{} * {} {} تمت اضافته للأوردو الخاص بك'.format(qty,
                                                                arabic[item], arabic[spicy])
     else:
-        text = '{} * {} {} تمت اضافته للأوردو الخاص بك'.format(qty,
+        text='{} * {} {} تمت اضافته للأوردو الخاص بك'.format(qty,
                                                                arabic[item], spicy)
     confirm_block.set_text(text)
     bot.send_template_message(
