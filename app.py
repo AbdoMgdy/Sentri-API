@@ -381,5 +381,64 @@ def edit_order_status():
     return 'Order Stauts was edited', 200
 
 
+@app.route('/load_test', methods=['POST'])
+def load_test():
+    data = {'object': 'page', 'entry': [{'id': '103750251156613', 'time': 1582133174018, 'messaging': [{'sender': {'id': '1826620787462649'}, 'recipient': {
+        'id': '103750251156613'}, 'timestamp': 1582133173655, 'postback': {'title': 'Show Menu', 'payload': 'family_menu'}}]}]}
+    print(data)
+    webhook_type = get_type_from_payload(data)
+    page_id = get_vendor_from_message(data)
+    vendor = handle_vendor(page_id, access_tokens[page_id])
+    bot = Bot(access_token=vendor.access_token)
+    sender_id = get_customer_from_message(data)
+    customer = handle_customer(sender_id, page_id)
+    print(sender_id)
+    print(webhook_type)
+
+    if webhook_type == "text":
+        # HANDLE TEXT MESSAGES HERE
+        # bot.send_before_message(sender_id)
+        blocks = vendor.menu
+        block = blocks['welcome_message']
+        print(bot.send_template_message(sender_id, block))
+        return "text", 200
+    elif webhook_type == "quick_reply" and quick_replies_events(data) == "send_menu":
+        m1.send(sender_id)
+        m2.send(sender_id)
+        m3.send(sender_id)
+        m4.send(sender_id)
+        m5.send(sender_id)
+        return "Sent Menu", 200
+
+    elif webhook_type == "quick_reply":
+        # HANDLE QUICK REPLIES HERE
+        # bot.send_before_message(sender_id)
+        block_name = quick_replies_events(data)
+        blocks = vendor.menu
+        if block_name in blocks:
+            block = blocks[block_name]
+            # bot.send_template_message(sender_id, block)
+            print(bot.send_template_message(sender_id, block))
+
+        return "quick_reply", 200
+
+    elif webhook_type == "postback":
+        # HANDLE POSTBACK HERE
+        # bot.send_before_message(sender_id)
+        block_name = postback_events(data)
+        print(block_name)
+        blocks = vendor.menu
+        if block_name in blocks:
+            print('Found it')
+            block = blocks[block_name]
+            # bot.send_template_message(sender_id, block)
+            print(bot.send_template_message(sender_id, block))
+
+        return "postback", 200
+    else:
+        return "ok", 200
+    return "ok", 200
+
+
 if __name__ == "__main__":
     socketio.run(app)

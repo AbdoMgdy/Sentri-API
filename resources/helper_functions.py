@@ -1,4 +1,4 @@
-from resources.dicts import blocks, orders
+from resources.dicts import menus, orders, arabic, prices
 from models.data_models import Customer, Vendor
 from models.bot import Bot
 
