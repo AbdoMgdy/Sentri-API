@@ -5,4 +5,4 @@ from flask_login import LoginManager
 
 db = SQLAlchemy()
 ma = Marshmallow()
-login = LoginManager()
+

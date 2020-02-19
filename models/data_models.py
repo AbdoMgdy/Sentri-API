@@ -5,13 +5,13 @@ import requests
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy_json import NestedMutableJson
-from flask_login import UserMixin
+
 
 from models.bot import Bot
 from db import db, ma, login
 
 
-class Vendor(UserMixin, db.Model):
+class Vendor(db.Model):
     __tablename__ = 'vendors'
     __table_args__ = (db.UniqueConstraint(
         'page_id', 'id', name='unique_vendor_customers'),)
@@ -58,11 +58,6 @@ class Vendor(UserMixin, db.Model):
     def remove(self):
         db.session.remove(self)
         db.session.commit()
-
-
-# @login.user_loader
-# def load_user(id):
-#     return Vendor.query.get(int(id))
 
 
 class Customer(Bot, db.Model):
@@ -189,3 +184,4 @@ class OrderSchema(ma.ModelSchema):
     class Meta:
         model = Order
     customer = ma.Nested(CustomerSchema)
+    vendor = ma.Nested(VendorSchema)

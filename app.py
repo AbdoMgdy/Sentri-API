@@ -11,7 +11,6 @@ from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token,
     get_jwt_identity
 )
-from flask_login import current_user, login_user, logout_user, login_required
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS, cross_origin
 
@@ -382,42 +381,10 @@ def edit_order_status():
     return 'Order Stauts was edited', 200
 
 
-# @app.route('/register', methods=['GET', 'POST'])
-# def register():
-#     if current_user.is_authenticated:
-#         return redirect(url_for('dashboard'))
-#     form = RegistrationForm()
-#     if form.validate_on_submit():
-#         vendor = Vendor(user_name=form.username.data,
-#                         password=form.password.data,
-#                         name=form.vendor_name.data,
-#                         access_token=form.access_token.data,
-#                         page_id=form.page_id.data)
-#         vendor.save()
-#         return redirect(url_for('login'))
-#     return render_template('admin register.jinja', form=form)
 
 
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     if current_user.is_authenticated:
-#         return redirect(url_for('dashboard'))
-#     form = LoginForm()
-#     if form.validate_on_submit():
-#         vendor = Vendor.query.filter_by(username=form.username.data).first()
-#         if vendor is None or not vendor.check_password(form.password.data):
-#             flash('Invalid username or password')
-#             return 'Invalid username or password'
-#         else:
-#             login_user(vendor, remember=form.remember_me.data)
-#             return redirect(url_for('dashboard'))
-#     return render_template('admin login.jinja', form=form)
 
 
-# @app.route('/logout')
-# def logout():
-#     logout_user()
-#     return redirect(url_for('login'))
 
 if __name__ == "__main__":
     socketio.run(app)

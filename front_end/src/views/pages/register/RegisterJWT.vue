@@ -127,7 +127,7 @@ export default {
     },
     registerUserJWt() {
       // If form is not validated or user is already login return
-      if (!this.validateForm || !this.checkLogin()) return;
+      // if (!this.validateForm || !this.checkLogin()) return;  //uncomment this in production
 
       const payload = {
         userDetails: {

@@ -1,11 +1,9 @@
 from app import app, socketio
-from db import db, ma, login
+from db import db, ma
 
 
 db.init_app(app)
 ma.init_app(app)
-login.init_app(app)
-login.login_view = 'login'
 
 
 @app.before_first_request
