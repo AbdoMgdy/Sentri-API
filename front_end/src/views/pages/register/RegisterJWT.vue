@@ -102,21 +102,10 @@ export default {
       );
     }
   },
-  mounted() {
-    this.$store.dispatch("auth/registerUserJWT", {
-      userDetails: {
-        displayName: 'this.displayName',
-        page_id: 'this.page_id',
-        access_token: 'this.access_token',
-        password: 'this.password',
-        confirmPassword: 'this.password'
-      }
-    });
-  },
   methods: {
     checkLogin() {
       // If user is already logged in notify
-      if (false) {
+      if (this.$store.getters.AppActiveUser.isLoggedIn) {
         // Close animation if passed as payload
         // this.$vs.loading.close()
 

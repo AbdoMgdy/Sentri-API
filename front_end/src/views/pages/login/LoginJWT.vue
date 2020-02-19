@@ -87,8 +87,7 @@ export default {
 
       this.$store
         .dispatch("auth/loginJWT", payload)
-        .then(response => {
-          console.log(response);
+        .then(() => {
           this.$vs.loading.close();
         })
         .catch(error => {
@@ -98,6 +97,7 @@ export default {
             title: "Error",
             text: error.message,
             iconPack: "feather",
+            position: "top-center",
             icon: "icon-alert-circle",
             color: "danger"
           });

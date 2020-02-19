@@ -36,6 +36,7 @@ jwt = JWTManager(app)
 api = Api(app)
 CORS(app)
 SECRET_KEY = os.urandom(32)
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
 app.config['JWT_SECRET_KEY'] = SECRET_KEY
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
@@ -212,7 +213,7 @@ def vendor_register():
                         password=data['password'], access_token=data['access_token'], page_id=data['page_id'])
         return json.dumps({'userData': data, 'accessToken': access_token}), 200
 
-    return 'Username is Taken Please Choose another one!', 301
+    return 'Username is Taken Please Choose another one!', 200
 
 
 @app.route('/', defaults={'u_path': ''})

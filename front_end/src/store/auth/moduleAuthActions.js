@@ -15,10 +15,8 @@ export default {
       jwt
         .login(payload.userDetails.username, payload.userDetails.password)
         .then(response => {
-          console.log(response);
           // If there's user data in response
           if (response.data.userData) {
-            console.log(response);
             store.dispatch("loginUser");
             // Set accessToken
             localStorage.setItem("accessToken", response.data.accessToken);
@@ -60,14 +58,16 @@ export default {
       jwt
         .registerUser(displayName, password, page_id, access_token)
         .then(response => {
-          // Redirect User
-          router.push(router.currentRoute.query.to || "/");
-
           // Update data in localStorage
           localStorage.setItem("accessToken", response.data.accessToken);
-          commit("UPDATE_USER_INFO", response.data.userData, { root: true });
+          commit("UPDATE_USER_INFO", response.data.userData, {
+            root: true
+          });
 
           resolve(response);
+
+          // Redirect User
+          router.push({ path: "/" });
         })
         .catch(error => {
           reject(error);
