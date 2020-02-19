@@ -87,8 +87,8 @@ export default {
 
       this.$store
         .dispatch("auth/loginJWT", payload)
-        .then(() => {
-          console.log("1");
+        .then(response => {
+          console.log(response);
           this.$vs.loading.close();
         })
         .catch(error => {

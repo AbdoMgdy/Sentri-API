@@ -100,7 +100,7 @@ export default {
   },
   sockets: {
     connect() {
-      console.log("Ntt Socket Connected");
+      console.log("Ntf Socket Connected");
     },
     order(data) {
       console.log(data);

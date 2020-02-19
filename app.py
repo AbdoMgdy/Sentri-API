@@ -147,7 +147,10 @@ def handle_incoming_messages():
 @app.route('/vendor/orders', methods=['GET'])
 @jwt_required
 def vendor_orders():
-    orders = Order.query.all()
+    identity = get_jwt_identity()
+    print(identity)
+    vendor = Vendor.find_by_username(identity)
+    orders = Order.query.filter_by(page_id=vendor.page_id).all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
     data = []
@@ -179,7 +182,10 @@ def vendor_orders():
 @app.route('/vendor/customers', methods=['GET'])
 @jwt_required
 def vendor_customers():
-    subs = Customer.query.count()
+    identity = get_jwt_identity()
+    print(identity)
+    vendor = Vendor.find_by_username(identity)
+    subs = Customer.query.filter_by(page_id=vendor.page_id).count()
     return json.dumps({'customers': subs})
 
 
@@ -192,7 +198,7 @@ def vendor_login():
     if vendor is not None and vendor.password == data['password']:
         return json.dumps({'userData': data, 'accessToken': access_token}), 200
 
-    return json.dumps('Wront Username or Pasword'), 401
+    return json.dumps('Wrong Username or Pasword'), 200
 
 
 @app.route('/vendor/register', methods=['POST'])

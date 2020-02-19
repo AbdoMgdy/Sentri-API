@@ -47,10 +47,17 @@ export default {
     );
   },
   login(username, pwd) {
-    return axios.post("login", {
-      username: username,
-      password: pwd
-    });
+    return axios
+      .post("login", {
+        username: username,
+        password: pwd
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   registerUser(username, pwd, page_id, access_token) {
     console.log(username);
