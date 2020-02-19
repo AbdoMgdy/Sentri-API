@@ -196,7 +196,9 @@ def vendor_login():
     print(data)
     vendor = Vendor.find_by_username(data['username'])
     access_token = create_access_token(identity=data['username'])
+    print(vendor)
     if vendor is not None and vendor.password == data['password']:
+        print(vendor)
         return json.dumps({'userData': data, 'accessToken': access_token}), 200
 
     return json.dumps('Wrong Username or Pasword'), 200
