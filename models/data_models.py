@@ -30,7 +30,7 @@ class Vendor(UserMixin, db.Model):
     def __init__(self, name='', user_name='', password='', access_token='', page_id=''):
         self.name = name
         self.username = user_name
-        self.password = generate_password_hash(password)
+        self.password = password
         self.access_token = access_token
         self.page_id = page_id
         self.menu = {}
