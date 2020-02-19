@@ -80,7 +80,7 @@ export default {
       const payload = {
         checkbox_remember_me: this.checkbox_remember_me,
         userDetails: {
-          email: this.email,
+          username: this.username,
           password: this.password
         }
       };
@@ -88,9 +88,11 @@ export default {
       this.$store
         .dispatch("auth/loginJWT", payload)
         .then(() => {
+          console.log("1");
           this.$vs.loading.close();
         })
         .catch(error => {
+          console.log("2");
           this.$vs.loading.close();
           this.$vs.notify({
             title: "Error",
