@@ -9,6 +9,9 @@ import store from "../../store/store";
 import router from "@/router";
 
 export default {
+  setBearerToken({ commit }) {
+    commit("SET_BEARER", localStorage.accessToken);
+  },
   // JWT
   loginJWT({ commit }, payload) {
     return new Promise((resolve, reject) => {

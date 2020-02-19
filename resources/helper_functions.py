@@ -71,7 +71,9 @@ def handle_customer(sender_id, vendor):
 
 def handle_first_time_vendor(page_id, access_token):
     new_vendor = Vendor.find_by_page_id(page_id)
-    new_vendor.menu = menus
+    new_vendor.menu = menus[Vendor.page_id]
+    new_vendor.price = prices[Vendor.page_id]
+    new_vendor.arabic = arabic[Vendor.page_id]
     bot = Bot(access_token)
     bot.set_get_started({
         'get_started': {
@@ -106,7 +108,7 @@ def handle_current_vendor(page_id, access_token):
 
 def handle_vendor(page_id, access_token):
     vendor = Vendor.find_by_page_id(page_id)
-    if vendor.is_setup:
+    if vendor is not None and vendor.is_setup:
         vendor = handle_current_vendor(page_id, access_token)
     else:
         vendor = handle_first_time_vendor(page_id, access_token)

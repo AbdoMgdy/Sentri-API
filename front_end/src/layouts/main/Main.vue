@@ -205,6 +205,7 @@ export default {
       this.hideScrollToTop = val;
     },
     async filldata() {
+      await this.$store.dispatch("auth/setBearerToken");
       await this.$store.dispatch("dataList/fetchDataListItems");
       await this.$store.dispatch("dataList/fetchUsers");
       this.$vs.loading.close();

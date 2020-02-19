@@ -23,7 +23,7 @@ from models.receipt import ReceiptTemplate
 from models.bot import Bot
 # resources
 from resources.helper_functions import *
-from resources.dicts import orders, prices, arabic, access_tokens
+from resources.dicts import orders, access_tokens
 from resources.buttons import confirm_block
 from resources.menu import main_menu, welcome_message, info_menu, m1, m2, m3, m4, m5
 
@@ -247,6 +247,8 @@ def show_webview(food, item):
 def add_to_order(sender_id, food, item):
     customer = Customer.find_by_psid(sender_id)
     vendor = customer.vendor
+    prices = vendor.prices
+    arabic = vendor.arabic
     bot = Bot(access_token=vendor.access_token)
     # save unconfirmed orders in dict
     order_item = {}
@@ -383,7 +385,7 @@ def edit_order_status():
     return 'Order Stauts was edited', 200
 
 
-@app.route('/load_test', methods=['POST'])
+@app.route('/load_test/2525', methods=['POST'])
 def load_test():
     data = {'object': 'page', 'entry': [{'id': '103750251156613', 'time': 1582133174018, 'messaging': [{'sender': {'id': '1826620787462649'}, 'recipient': {
         'id': '103750251156613'}, 'timestamp': 1582133173655, 'postback': {'title': 'Show Menu', 'payload': 'family_menu'}}]}]}
