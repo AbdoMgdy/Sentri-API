@@ -4,7 +4,9 @@ import ast
 import json
 import logging
 
+
 # Third party imports
+import eventlet
 from flask import Flask, request, render_template, url_for, redirect, flash, send_file
 from flask_restful import Resource, Api
 from flask_jwt_extended import (
@@ -28,9 +30,11 @@ from resources.buttons import confirm_block
 from resources.menu import main_menu, welcome_message, info_menu, m1, m2, m3, m4, m5
 
 
+eventlet.monkey_patch()  # to enable message queue for Flask-SockeIO
 app = Flask(__name__, static_folder='templates', static_url_path='',
             template_folder='templates')
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*",
+                    message_queue=os.environ.get('REDIS_URL', None))
 
 jwt = JWTManager(app)
 api = Api(app)
