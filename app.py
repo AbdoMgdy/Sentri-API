@@ -99,6 +99,7 @@ def handle_incoming_messages():
     customer = handle_customer(sender_id, page_id)
     print(sender_id)
     print(webhook_type)
+    bot.send_before_message()
 
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
