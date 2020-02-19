@@ -303,7 +303,7 @@ def add_user_info(sender_id):
     bot = Bot(access_token=vendor.access_token)
 
     # creat order object and fill it from temp dict
-    order = Order(sender_id)
+    order = Order(sender_id, vendor.page_id)
     if sender_id in orders:
         items = orders[sender_id]
         for item in items:
