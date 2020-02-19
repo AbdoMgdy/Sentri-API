@@ -185,7 +185,7 @@ export default {
   },
   sockets: {
     connect() {
-      console.log("socket connected");
+      console.log("Dtlst Socket connected");
     },
     order(data) {
       const order = JSON.parse(data);

@@ -186,6 +186,7 @@ def vendor_customers():
 @app.route('/vendor/login', methods=['POST'])
 def vendor_login():
     data = request.get_json()
+    print(data)
     vendor = Vendor.find_by_username(data['username'])
     if vendor is not None and vendor.password == data['password']:
         access_token = create_access_token(identity=data['username'])
