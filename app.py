@@ -446,7 +446,7 @@ def load_test():
 def connect(data):
     room = data['username']
     join_room(room)
-    send('connected to room: {}'.format(room))
+    send('connected to room: {}'.format(room), room=room)
 
 
 if __name__ == "__main__":
