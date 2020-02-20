@@ -227,18 +227,18 @@ def vendor_register():
     return 'Username is Taken Please Choose another one!', 200
 
 
-# @app.route('/', defaults={'path': ''})
-# @app.route('/<path:path>')
-# def dashboard(path):
-#     # Start Vue SPA
-#     return app.send_static_file('index.html')
-
-
-@app.route('/')
-def index_client():
-    dist_dir = current_app.config['DIST_DIR']
-    entry = os.path.join(dist_dir, 'index.html')
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def dashboard(path):
+    # Start Vue SPA
     return app.send_static_file('index.html')
+
+
+# @app.route('/')
+# def index_client():
+#     dist_dir = current_app.config['DIST_DIR']
+#     entry = os.path.join(dist_dir, 'index.html')
+#     return app.send_static_file('index.html')
 # Ordering Routes
 @app.route('/webview/order/<string:food>/<string:item>', methods=['GET'])
 def show_webview(food, item):
