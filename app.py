@@ -31,7 +31,7 @@ from resources.menu import main_menu, welcome_message, info_menu, m1, m2, m3, m4
 
 
 eventlet.monkey_patch()  # to enable message queue for Flask-SockeIO
-app = Flask(__name__, static_folder='templates', static_url_path='',
+app = Flask(__name__, static_folder='templates/dist', static_url_path='',
             template_folder='templates')
 socketio = SocketIO(app, cors_allowed_origins="*",
                     message_queue=os.environ.get('REDIS_URL', None))
