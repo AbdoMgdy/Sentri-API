@@ -1,7 +1,7 @@
 <template>
   <div class="the-navbar__user-meta flex items-center">
     <div class="text-right leading-tight hidden sm:block">
-      <p class="font-semibold">{{ activeUserInfo.displayName }}</p>
+      <p class="font-semibold">{{ activeUserInfo.username }}</p>
     </div>
 
     <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">

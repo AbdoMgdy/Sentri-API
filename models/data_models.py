@@ -60,7 +60,7 @@ class Vendor(db.Model):
         db.session.commit()
 
 
-class Customer(Bot, db.Model):
+class Customer(db.Model):
     __tablename__ = 'customers'
     __table_args__ = (db.UniqueConstraint(
         'psid', 'id', name='unique_customer_orders'),)
@@ -69,15 +69,14 @@ class Customer(Bot, db.Model):
     name = db.Column(db.String(80))
     phone_number = db.Column(db.String)
     address = db.Column(db.String)
-    # created_time = db.Column(db.DateTime)
+    created_time = db.Column(db.DateTime)
     orders = db.relationship('Order', backref='customer', lazy='select')
     page_id = db.Column(db.String, db.ForeignKey('vendors.page_id'))
 
     def __init__(self, psid, page_id):
-        super().__init__()
         self.psid = psid
         self.page_id = page_id
-        # self.created_time = datetime.datetime.utcnow()
+        self.created_time = datetime.datetime.utcnow()
         self.name = ''
         self.phone_number = 0
         self.address = ''
@@ -85,15 +84,6 @@ class Customer(Bot, db.Model):
     @classmethod
     def find_by_psid(cls, psid):
         return cls.query.filter_by(psid=psid).first()
-
-    def get_info(self):
-        request_endpoint = '{}/{}'.format(self.graph_url, self.psid)
-        response = requests.get(
-            request_endpoint,
-            params=self.auth_args
-        )
-        result = response.json()
-        self.name = result['first_name']
 
     def save(self):
         db.session.add(self)

@@ -9,6 +9,7 @@ requests_toolbelt
 six
 flask_cors
 flask_wtf
+redis   
 psycopg2
 sqlalchemy_json
 flask_sqlalchemy

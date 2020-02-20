@@ -8,6 +8,7 @@
 ==========================================================================================*/
 
 import axios from "@/axios.js";
+import router from "../../router";
 
 export default {
   addItem({ commit }, item) {
@@ -18,6 +19,11 @@ export default {
       axios
         .get("orders")
         .then(response => {
+          if (response.status != 200) {
+            // fix error when flask jwt token gives error 422
+            router.push("/login");
+          }
+
           commit("SET_PRODUCTS", response.data);
           resolve(response);
         })

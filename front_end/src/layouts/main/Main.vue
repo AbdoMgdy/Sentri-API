@@ -125,6 +125,9 @@ export default {
     }
   },
   computed: {
+    activeUserInfo() {
+      return this.$store.state.AppActiveUser;
+    },
     bodyOverlay() {
       return this.$store.state.bodyOverlay;
     },
@@ -173,10 +176,12 @@ export default {
       return this.$store.state.windowWidth;
     }
   },
-  
+
   methods: {
     joinRoom() {
-      this.$socket.emit('join',{data} )
+      this.$socket.client.emit("join", {
+        username: this.activeUserInfo.username
+      });
     },
     changeRouteTitle(title) {
       this.routeTitle = title;
@@ -209,6 +214,7 @@ export default {
       this.hideScrollToTop = val;
     },
     async filldata() {
+      await this.joinRoom();
       await this.$store.dispatch("auth/setBearerToken");
       await this.$store.dispatch("dataList/fetchDataListItems");
       await this.$store.dispatch("dataList/fetchUsers");
