@@ -15,7 +15,7 @@ from flask_jwt_extended import (
 )
 from flask_socketio import SocketIO, emit, join_room, leave_room, send
 from flask_cors import CORS, cross_origin
-from whitenoise import WhiteNoise
+
 
 
 # Local application imports
@@ -37,16 +37,14 @@ app = Flask(__name__, static_folder='dist', static_url_path='',
 socketio = SocketIO(app, cors_allowed_origins="*",
                     message_queue=os.environ.get('REDIS_URL', None))
 
-app.wsgi_app = WhiteNoise(app.wsgi_app, root='dist/')
+
 jwt = JWTManager(app)
 api = Api(app)
 CORS(app)
 SECRET_KEY = os.urandom(32)
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
 app.config['JWT_SECRET_KEY'] = SECRET_KEY
-APP_DIR = os.path.dirname(__file__)
-ROOT_DIR = os.path.dirname(APP_DIR)
-app.config['DIST_DIR'] = os.path.join(ROOT_DIR, 'dist')
+
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     'DATABASE_URL', 'sqlite:///data.db')
@@ -227,19 +225,7 @@ def vendor_register():
     return 'Username is Taken Please Choose another one!', 200
 
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def dashboard(path):
-    # Start Vue SPA
-    return app.send_static_file('index.html')
 
-
-# @app.route('/')
-# def index_client():
-#     dist_dir = current_app.config['DIST_DIR']
-#     entry = os.path.join(dist_dir, 'index.html')
-#     return app.send_static_file('index.html')
-# Ordering Routes
 @app.route('/webview/order/<string:food>/<string:item>', methods=['GET'])
 def show_webview(food, item):
     if food == "sandwich":

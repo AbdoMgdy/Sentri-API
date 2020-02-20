@@ -8,9 +8,7 @@ requests
 requests_toolbelt
 six
 flask_cors
-flask_wtf
-redis
-whitenoise   
+flask_wtf   
 psycopg2
 sqlalchemy_json
 flask_sqlalchemy
