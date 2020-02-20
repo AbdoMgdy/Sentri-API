@@ -372,6 +372,8 @@ def post_order_info(sender_id):
 @app.route('/user/<string:sender_id>/edit_order', methods=['POST'])
 def get_order_info(sender_id):
     customer = Customer.find_by_psid(sender_id)
+    vendor = Vendor.find_by_page_id(customer.page_id)
+    bot = Bot(access_token=vendor.access_token)
     data = request.get_json()
     if not data['items']:
         bot.send_text_message(sender_id, 'انت لم تطلب شيء بعد!')

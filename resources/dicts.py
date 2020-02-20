@@ -432,25 +432,13 @@ menus = {
                 'template_type': 'generic',
                 'elements': [
                     {
-                        'title': 'Burger',
+                        'title': 'Original 300',
                         'image_url': 'https://i.ibb.co/N7Z2Y0Y/image.png',
                         'subtitle': '',
                         'buttons': [{
                             'type': 'web_url',
                             'title': 'Buy',
                             'url': 'https://rest-bot-dev.herokuapp.com/webview/order/sandwich/Original-300',
-                            'webview_height_ratio': 'tall',
-                            'messenger_extensions': 'true'
-                        }]
-                    },
-                    {
-                        'title': 'big burger',
-                        'image_url': 'https://i.ibb.co/N7Z2Y0Y/image.png',
-                        'subtitle': '',
-                        'buttons': [{
-                            'type': 'web_url',
-                            'title': 'Buy',
-                            'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/big-burger',
                             'webview_height_ratio': 'tall',
                             'messenger_extensions': 'true'
                         }]
