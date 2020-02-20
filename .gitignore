@@ -3,3 +3,4 @@ ignore/
 *.pyc
 *-workspace
 images
+node_modules
