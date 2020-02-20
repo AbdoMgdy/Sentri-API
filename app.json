@@ -1,0 +1,14 @@
+{
+  "name": "Sentri",
+  "description": "",
+  "repository": "https://github.com/AbdoMgdy/Bot-Dev",
+  "keywords": ["flask", "vue"],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
