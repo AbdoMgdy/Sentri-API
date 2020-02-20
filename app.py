@@ -50,7 +50,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 VERIFICATION_TOKEN = "test"
 
 
-def send_order_to_vendor(result):
+def send_order_to_vendor(result, vendor_username):
     orders_schema = OrderSchema()
     order = orders_schema.dump(result)
     print(order)
@@ -74,7 +74,7 @@ def send_order_to_vendor(result):
     info['items'] = order_text
     data.append(info)
     print(data)
-    socketio.emit('order', json.dumps(data))
+    socketio.emit('order', json.dumps(data), room=vendor_username)
     return info
 
 # Webhook Routes
@@ -347,7 +347,7 @@ def add_user_info(sender_id):
     result = orders.pop(sender_id, None)  # remove order from temp dict
     # receipt.send(restaurant)
     order.save()  # imp
-    send_order_to_vendor(order)
+    send_order_to_vendor(order, vendor.username)
     return 'Customer info was added', 200
 
 
