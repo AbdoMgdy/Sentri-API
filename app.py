@@ -238,7 +238,7 @@ def vendor_register():
 def index_client():
     dist_dir = current_app.config['DIST_DIR']
     entry = os.path.join(dist_dir, 'index.html')
-    return send_file(entry)
+    return app.send_static_file('index.html')
 # Ordering Routes
 @app.route('/webview/order/<string:food>/<string:item>', methods=['GET'])
 def show_webview(food, item):
