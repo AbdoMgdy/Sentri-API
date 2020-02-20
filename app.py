@@ -7,7 +7,7 @@ import logging
 
 # Third party imports
 import eventlet
-from flask import Flask, request, render_template, url_for, redirect, flash, send_file
+from flask import Flask, request, render_template, url_for, redirect, flash, send_file, send_from_directory
 from flask_restful import Resource, Api
 from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token,
@@ -222,13 +222,17 @@ def vendor_register():
     return 'Username is Taken Please Choose another one!', 200
 
 
-@app.route('/', defaults={'u_path': ''})
-@app.route('/<path:u_path>')
-def dashboard(u_path):
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def dashboard(path):
     # Start Vue SPA
     return app.send_static_file('index.html')
 
 
+@app.route('/js/<path:filename>')
+def serve_static(filename):
+    root_dir = os.path.dirname(os.getcwd())
+    return send_from_directory(os.path.join(root_dir, 'static', 'js'), filename)
 # Ordering Routes
 @app.route('/webview/order/<string:food>/<string:item>', methods=['GET'])
 def show_webview(food, item):
