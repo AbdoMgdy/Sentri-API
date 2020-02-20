@@ -7,7 +7,7 @@ import logging
 
 # Third party imports
 import eventlet
-from flask import Flask, request, render_template, url_for, redirect, flash, send_file, send_from_directory
+from flask import Flask, request, render_template, url_for, redirect, flash, send_file, send_from_directory, current_app
 from flask_restful import Resource, Api
 from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token,
@@ -31,7 +31,7 @@ from resources.menu import main_menu, welcome_message, info_menu, m1, m2, m3, m4
 
 
 eventlet.monkey_patch()  # to enable message queue for Flask-SockeIO
-app = Flask(__name__, static_folder='static', static_url_path='',
+app = Flask(__name__, static_folder='dist', static_url_path='',
             template_folder='templates')
 socketio = SocketIO(app, cors_allowed_origins="*",
                     message_queue=os.environ.get('REDIS_URL', None))
@@ -42,6 +42,9 @@ CORS(app)
 SECRET_KEY = os.urandom(32)
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
 app.config['JWT_SECRET_KEY'] = SECRET_KEY
+APP_DIR = os.path.dirname(__file__)
+ROOT_DIR = os.path.dirname(APP_DIR)
+app.config['DIST_DIR'] = os.path.join(ROOT_DIR, 'dist')
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     'DATABASE_URL', 'sqlite:///data.db')
@@ -222,17 +225,18 @@ def vendor_register():
     return 'Username is Taken Please Choose another one!', 200
 
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def dashboard(path):
-    # Start Vue SPA
-    return app.send_static_file('index.html')
+# @app.route('/', defaults={'path': ''})
+# @app.route('/<path:path>')
+# def dashboard(path):
+#     # Start Vue SPA
+#     return app.send_static_file('index.html')
 
 
-@app.route('/js/<path:filename>')
-def serve_static(filename):
-    root_dir = os.path.dirname(os.getcwd())
-    return send_from_directory(os.path.join(root_dir, 'static', 'js'), filename)
+@app.route('/')
+def index_client():
+    dist_dir = current_app.config['DIST_DIR']
+    entry = os.path.join(dist_dir, 'index.html')
+    return send_file(entry)
 # Ordering Routes
 @app.route('/webview/order/<string:food>/<string:item>', methods=['GET'])
 def show_webview(food, item):
@@ -293,7 +297,7 @@ def add_to_order(sender_id, food, item):
 
 @app.route('/edit_order/', methods=['GET'])
 def edit_order():
-    return app.send_static_file('index.html')
+    return app.send_static_file('edit_order.html')
 
 
 @app.route('/confirm_order', methods=['GET'])
