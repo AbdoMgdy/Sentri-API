@@ -438,7 +438,7 @@ menus = {
                         'buttons': [{
                             'type': 'web_url',
                             'title': 'Buy',
-                            'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/burger',
+                            'url': 'https://rest-bot-dev.herokuapp.com/webview/order/sandwich/Original-300',
                             'webview_height_ratio': 'tall',
                             'messenger_extensions': 'true'
                         }]
