@@ -74,7 +74,7 @@ def send_order_to_vendor(result):
     info['items'] = order_text
     data.append(info)
     print(data)
-    emit('order', json.dumps(data))
+    socketio.emit('order', json.dumps(data))
     return info
 
 # Webhook Routes
