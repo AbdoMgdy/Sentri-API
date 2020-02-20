@@ -17,7 +17,7 @@ const userDefaults = {
   displayName: "Admin", // From Auth
   about:
     "Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw brownie brownie marshmallow.",
-  photoURL: require("@/assets/images/portrait/small/avatar-s-11.jpg"), // From Auth
+  photoURL: "https://ui-avatars.com/api/?name=S+E", // From Auth
   status: "online",
   isLoggedIn: false,
   userRole: "admin"

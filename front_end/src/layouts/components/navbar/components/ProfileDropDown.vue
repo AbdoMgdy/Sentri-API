@@ -8,7 +8,7 @@
       <div class="con-img ml-3">
         <img
           key="onlineImg"
-          src="https://ui-avatars.com/api/?name=S+I"
+          :src="activeUserInfo.photoUrl"
           alt="user-img"
           width="40"
           height="40"
