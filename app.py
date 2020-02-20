@@ -442,8 +442,9 @@ def load_test():
     return "ok", 200
 
 
-@socketio.on('connect')
-def connect(data):
+@socketio.on('join')
+def join(data):
+    print(data)
     room = data['username']
     join_room(room)
     send('connected to room: {}'.format(room), room=room)

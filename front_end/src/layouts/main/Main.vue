@@ -173,12 +173,11 @@ export default {
       return this.$store.state.windowWidth;
     }
   },
-  sockets: {
-  //   connect: function(data) {
-  //     // this.$socket.emit("connect", val);
-  //   }
-  // },
+  
   methods: {
+    joinRoom() {
+      this.$socket.emit('join',{data} )
+    },
     changeRouteTitle(title) {
       this.routeTitle = title;
     },
