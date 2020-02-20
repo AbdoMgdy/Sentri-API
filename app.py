@@ -13,7 +13,7 @@ from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token,
     get_jwt_identity
 )
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit, join_room, leave_room, send
 from flask_cors import CORS, cross_origin
 
 
@@ -51,12 +51,9 @@ VERIFICATION_TOKEN = "test"
 
 
 def send_order_to_vendor(result):
-    print(result)
     orders_schema = OrderSchema()
     order = orders_schema.dump(result)
     print(order)
-    print(type(order))
-    print(order['customer'])
     data = []
     info = {}
     info['customer'] = order['customer']
@@ -76,9 +73,8 @@ def send_order_to_vendor(result):
         order_text += temp
     info['items'] = order_text
     data.append(info)
-    print(info)
     print(data)
-    socketio.emit('order', json.dumps(data))
+    emit('order', json.dumps(data))
     return info
 
 # Webhook Routes
@@ -444,6 +440,13 @@ def load_test():
     else:
         return "ok", 200
     return "ok", 200
+
+
+@socketio.on('connect')
+def connect(data):
+    room = data['username']
+    join_room(room)
+    send('connected to room: {}'.format(room))
 
 
 if __name__ == "__main__":

@@ -8,7 +8,7 @@
       <div class="con-img ml-3">
         <img
           key="onlineImg"
-          :src="activeUserInfo.photoUrl"
+          :src="activeUserInfo.photoURL"
           alt="user-img"
           width="40"
           height="40"

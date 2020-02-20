@@ -1387,6 +1387,10 @@ const router = new Router({
           }
         },
         {
+          path: "/login",
+          redirect: "/pages/login"
+        },
+        {
           path: "/pages/login",
           name: "page-login",
           component: () => import("@/views/pages/login/Login.vue"),
@@ -1487,9 +1491,8 @@ router.afterEach(() => {
 });
 
 router.beforeEach((to, from, next) => {
-//   console.log(to.matched.some(record => record.meta.authRequired));
+  //   console.log(to.matched.some(record => record.meta.authRequired));
   if (to.matched.some(record => record.meta.authRequired)) {
-    
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (!store.getters.AppActiveUser.isLoggedIn) {
@@ -1498,8 +1501,7 @@ router.beforeEach((to, from, next) => {
       next(); // go to wherever I'm going
     }
   } else {
-    
-    return next(); // does not require auth, make sure to always Return next()  
+    return next(); // does not require auth, make sure to always Return next()
   }
 });
 
