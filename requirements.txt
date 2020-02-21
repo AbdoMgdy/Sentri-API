@@ -18,3 +18,4 @@ flask_marshmallow
 marshmallow-sqlalchemy
 flask_socketio
 redis
+flask-migrate

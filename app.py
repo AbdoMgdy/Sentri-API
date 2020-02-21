@@ -15,7 +15,7 @@ from flask_jwt_extended import (
 )
 from flask_socketio import SocketIO, emit, join_room, leave_room, send
 from flask_cors import CORS, cross_origin
-
+from flask_migrate import Migrate
 
 
 # Local application imports
@@ -29,15 +29,15 @@ from resources.helper_functions import *
 from resources.dicts import orders, access_tokens
 from resources.buttons import confirm_block
 from resources.menu import main_menu, welcome_message, info_menu, m1, m2, m3, m4, m5
-
+from db import db
 
 eventlet.monkey_patch()  # to enable message queue for Flask-SockeIO
-app = Flask(__name__, static_folder='dist', static_url_path='',
+app = Flask(__name__, static_folder='static', static_url_path='',
             template_folder='templates')
 socketio = SocketIO(app, cors_allowed_origins="*",
                     message_queue=os.environ.get('REDIS_URL', None))
 
-
+migrate = Migrate(app, db)
 jwt = JWTManager(app)
 api = Api(app)
 CORS(app)
@@ -225,7 +225,6 @@ def vendor_register():
     return 'Username is Taken Please Choose another one!', 200
 
 
-
 @app.route('/webview/order/<string:food>/<string:item>', methods=['GET'])
 def show_webview(food, item):
     if food == "sandwich":
@@ -283,7 +282,7 @@ def add_to_order(sender_id, food, item):
     return 'Item added to Order', 200
 
 
-@app.route('/edit_order/', methods=['GET'])
+@app.route('/edit_order', methods=['GET'])
 def edit_order():
     return app.send_static_file('edit_order.html')
 
