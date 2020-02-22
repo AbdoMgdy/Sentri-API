@@ -18,6 +18,8 @@ class Vendor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)  # unique
     username = db.Column(db.String, unique=True)  # unique
+    address_info = db.Column(db.String)
+    menu_info = db.Column(db.String)
     menu = db.Column(NestedMutableJson)
     prices = db.Column(NestedMutableJson)
     arabic = db.Column(NestedMutableJson)
