@@ -381,7 +381,15 @@ def edit_order_status():
         order.save()
     return 'Order Stauts was edited', 200
 
+# For Comments
+@app.route('/vendors', methods=['GET'])
+def vendors():
+    vendors = Vendor.query.all()
+    vendor_schema = VendorSchema(many=True)
+    output = vendor_schema.dump(vendors)
+    return json.dumps(output)
 
+# Load Test
 @app.route('/load_test/2525', methods=['POST'])
 def load_test():
     data = {'object': 'page', 'entry': [{'id': '103750251156613', 'time': 1582133174018, 'messaging': [{'sender': {'id': '1826620787462649'}, 'recipient': {
