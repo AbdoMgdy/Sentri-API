@@ -10,7 +10,7 @@ six
 flask_cors
 flask_wtf   
 psycopg2
-SQLAlchemy-utils
+ a
 sqlalchemy_json
 flask_sqlalchemy
 flask_restful
