@@ -225,6 +225,19 @@ def vendor_register():
     return 'Username is Taken Please Choose another one!', 200
 
 
+@app.route('/vendor/edit', methods=['POST'])
+def vendor_edit():
+    data = request.get_json()
+    vendor = Vendor.find_by_page_id(data['page_id'])
+    if vendor is not None:
+        for prop in data:
+            v_prop = eval('vendor.{}'.format(prop))
+            v_prop = data[prop]
+        return 'Success', 200
+    else:
+        return 'Not Found', 404
+
+
 @app.route('/webview/order/<string:food>/<string:item>', methods=['GET'])
 def show_webview(food, item):
     if food == "sandwich":
