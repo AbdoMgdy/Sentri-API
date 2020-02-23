@@ -26,6 +26,8 @@ class Vendor(db.Model):
     password = db.Column(db.String)
     access_token = db.Column(db.String)
     is_setup = db.Column(db.Boolean)
+    open_hours = db.Column(db.DateTime)
+    close_hours = db.Column(db.DateTime)
     page_id = db.Column(db.String, unique=True)
     customers = db.relationship('Customer', backref='vendor', lazy='select')
     orders = db.relationship('Order', backref='vendor', lazy='select')
@@ -39,9 +41,21 @@ class Vendor(db.Model):
         self.access_token = access_token
         self.page_id = page_id
         self.menu = {}
+        self.close_hours = datetime.datetime.time()
+        self.open_hours = datetime.datetime.time()
         self.prices = {}
         self.arabic = {}
         self.is_setup = False
+
+    def is_open(self):
+        time = datetime.datetime.time()
+        if time > self.open_hours and time < self.close_hours:
+            return True
+        else:
+            return False
+
+    def set_working_hours(open_hours, close_hours):
+        pass
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
