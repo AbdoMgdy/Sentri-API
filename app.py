@@ -39,7 +39,7 @@ app = Flask(__name__, static_folder='static', static_url_path='',
 socketio = SocketIO(app, cors_allowed_origins="*",
                     message_queue=os.environ.get('REDIS_URL', None))
 
-migrate = Migrate(app, db)
+migrate = Migrate(app, db, compare_type=True)
 jwt = JWTManager(app)
 api = Api(app)
 CORS(app)
