@@ -53,33 +53,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 VERIFICATION_TOKEN = "test"
 
 
-def send_order_to_vendor(result, vendor_username):
-    orders_schema = OrderSchema()
-    order = orders_schema.dump(result)
-    print(order)
-    data = []
-    info = {}
-    info['customer'] = order['customer']
-    info['time'] = order['time']
-    info['number'] = order['number']
-    info['total'] = order['total']
-    info['status'] = order['status']
-    items = ast.literal_eval(order['items'])
-    order_text = ''
-    for item in items:
-        if item['combo'] == 15:
-            combo = 'Combo'
-        else:
-            combo = ''
-        temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
-                                                       item['name'], item['type'], combo, item['notes'])
-        order_text += temp
-    info['items'] = order_text
-    data.append(info)
-    print(data)
-    socketio.emit('order', json.dumps(data), room=vendor_username)
-    return info
-
 # Webhook Routes
 @app.route('/webhook', methods=['GET'])
 def verify():
@@ -103,7 +76,10 @@ def handle_incoming_messages():
     print(sender_id)
     print(webhook_type)
     bot.send_before_message(sender_id)
-
+    if not vendor.is_open():
+        bot.send_text_message(
+            sender_id, 'الرجاء المحاولة مرة أخرى خلال مواعيد العمل الرسمية')
+        return 'Vendor is Closed', 200
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
         # bot.send_before_message(sender_id)
@@ -467,6 +443,34 @@ def join(data):
     room = data['username']
     join_room(room)
     send('connected to room: {}'.format(room), room=room)
+
+
+def send_order_to_vendor(result, vendor_username):
+    orders_schema = OrderSchema()
+    order = orders_schema.dump(result)
+    print(order)
+    data = []
+    info = {}
+    info['customer'] = order['customer']
+    info['time'] = order['time']
+    info['number'] = order['number']
+    info['total'] = order['total']
+    info['status'] = order['status']
+    items = ast.literal_eval(order['items'])
+    order_text = ''
+    for item in items:
+        if item['combo'] == 15:
+            combo = 'Combo'
+        else:
+            combo = ''
+        temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+                                                       item['name'], item['type'], combo, item['notes'])
+        order_text += temp
+    info['items'] = order_text
+    data.append(info)
+    print(data)
+    socketio.emit('order', json.dumps(data), room=vendor_username)
+    return info
 
 
 if __name__ == "__main__":
