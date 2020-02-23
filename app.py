@@ -233,6 +233,7 @@ def vendor_edit():
         for prop in data:
             v_prop = eval('vendor.{}'.format(prop))
             v_prop = data[prop]
+        vendor.save()
         return 'Success', 200
     else:
         return 'Not Found', 404
