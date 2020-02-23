@@ -26,8 +26,8 @@ class Vendor(db.Model):
     password = db.Column(db.String)
     access_token = db.Column(db.String)
     is_setup = db.Column(db.Boolean)
-    open_hours = db.Column(db.DateTime)
-    close_hours = db.Column(db.DateTime)
+    opening_hours = db.Column(db.Time)
+    closing_hours = db.Column(db.Time)
     page_id = db.Column(db.String, unique=True)
     customers = db.relationship('Customer', backref='vendor', lazy='select')
     orders = db.relationship('Order', backref='vendor', lazy='select')
@@ -41,8 +41,8 @@ class Vendor(db.Model):
         self.access_token = access_token
         self.page_id = page_id
         self.menu = {}
-        self.close_hours = datetime.datetime.time()
-        self.open_hours = datetime.datetime.time()
+        self.closing_hours = datetime.datetime.utcnow().time()
+        self.opening_hours = datetime.datetime.utcnow().time()
         self.prices = {}
         self.arabic = {}
         self.is_setup = False

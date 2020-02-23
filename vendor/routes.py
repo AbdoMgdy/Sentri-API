@@ -104,10 +104,10 @@ def vendor_edit():
         if 'password' in data:
             vendor.password = data['password']
         if 'close_hours' in data:
-            vendor.close_hours = datetime.strptime(
+            vendor.closing_hours = datetime.strptime(
                 data['close_hours'], time_format).time()
         if 'open_hours' in data:
-            vendor.open_time = datetime.strptime(
+            vendor.opening_hours = datetime.strptime(
                 data['open_hours'], time_format).time()
         if 'menu' in data:
             vendor.menu = data['menu']
