@@ -6,6 +6,7 @@ from flask_jwt_extended import (
 )
 from models.data_models import Order, OrderSchema, Customer, CustomerSchema, Vendor, VendorSchema
 import json
+from datetime import datetime
 import ast
 # Set up a Blueprint
 vendor_bp = Blueprint('vendor_bp', __name__,
@@ -93,11 +94,30 @@ def vendor_register():
 def vendor_edit():
     data = request.get_json()
     print(data)
+    time_format = '%H:%M'
     vendor = Vendor.find_by_page_id(data['page_id'])
     if vendor is not None:
-        vendor.address_info = data['address_info']
-        vendor.menu_info = data['menu_info']
+        if 'address_info' in data:
+            vendor.address_info = data['address_info']
+        if 'menu_info' in data:
+            vendor.menu_info = data['menu_info']
+        if 'password' in data:
+            vendor.password = data['password']
+        if 'close_hours' in data:
+            vendor.close_hours = datetime.strptime(
+                data['close_hours'], time_format).time()
+        if 'open_hours' in data:
+            vendor.open_time = datetime.strptime(
+                data['open_hours'], time_format).time()
+        if 'menu' in data:
+            vendor.menu = data['menu']
+        if 'access_token' in data:
+            vendor.access_token = data['access_token']
+        if 'prices' in data:
+            vendor.prices = data['prices']
+        if 'arabic' in data:
+            vendor.arabic = data['arabic']
         vendor.save()
         return 'Success', 200
     else:
-        return 'Not Found', 404
+        return 'Vendor Not Found', 404
