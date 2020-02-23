@@ -236,6 +236,7 @@ def vendor_edit():
             print(v_prop)
             print(data[prop])
             v_prop = data[prop]
+            print(v_prop)
         vendor.save()
         return 'Success', 200
     else:
