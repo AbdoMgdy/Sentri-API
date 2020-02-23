@@ -30,7 +30,7 @@ from resources.dicts import orders, access_tokens
 from resources.buttons import confirm_block
 from resources.menu import main_menu, welcome_message, info_menu, m1, m2, m3, m4, m5
 from db import db
-from .vendor import routes as vendor_routes
+from vendor import routes as vendor_routes
 
 eventlet.monkey_patch()  # to enable message queue for Flask-SockeIO
 app = Flask(__name__, static_folder='static', static_url_path='',
