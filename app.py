@@ -30,6 +30,7 @@ from resources.dicts import orders, access_tokens
 from resources.buttons import confirm_block
 from resources.menu import main_menu, welcome_message, info_menu, m1, m2, m3, m4, m5
 from db import db
+from .vendor import routes as vendor_routes
 
 eventlet.monkey_patch()  # to enable message queue for Flask-SockeIO
 app = Flask(__name__, static_folder='static', static_url_path='',
@@ -49,7 +50,7 @@ app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     'DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+app.register_blueprint(vendor_routes.vendor_bp)
 VERIFICATION_TOKEN = "test"
 
 
@@ -76,10 +77,10 @@ def handle_incoming_messages():
     print(sender_id)
     print(webhook_type)
     bot.send_before_message(sender_id)
-    if not vendor.is_open():
-        bot.send_text_message(
-            sender_id, 'الرجاء المحاولة مرة أخرى خلال مواعيد العمل الرسمية')
-        return 'Vendor is Closed', 200
+    # if not vendor.is_open():
+    #     bot.send_text_message(
+    #         sender_id, 'الرجاء المحاولة مرة أخرى خلال مواعيد العمل الرسمية')
+    #     return 'Vendor is Closed', 200
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
         # bot.send_before_message(sender_id)
@@ -125,94 +126,6 @@ def handle_incoming_messages():
     return "ok", 200
 
 # Dashboard Routes
-@app.route('/vendor/orders', methods=['GET'])
-@jwt_required
-def vendor_orders():
-    identity = get_jwt_identity()
-    print(identity)
-    vendor = Vendor.find_by_username(identity)
-    orders = Order.query.filter_by(page_id=vendor.page_id).all()
-    orders_schema = OrderSchema(many=True)
-    output = orders_schema.dump(orders)
-    data = []
-    # print(output)
-    for order in output:
-        info = {}
-        info['customer'] = order['customer']
-        info['time'] = order['time']
-        info['number'] = order['number']
-        info['price'] = order['total']
-        info['status'] = order['status']
-        items = ast.literal_eval(order['items'])
-        order_text = ''
-        for item in items:
-            if item['combo'] == 15:
-                combo = 'Combo'
-            else:
-                combo = ''
-            temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
-                                                           item['name'], item['type'], combo, item['notes'])
-            order_text += temp
-        info['items'] = order_text
-        data.append(info)
-    # print(data)
-    # print(output)
-    return json.dumps(data)
-
-
-@app.route('/vendor/customers', methods=['GET'])
-@jwt_required
-def vendor_customers():
-    identity = get_jwt_identity()
-    print(identity)
-    vendor = Vendor.find_by_username(identity)
-    subs = Customer.query.filter_by(page_id=vendor.page_id).count()
-    return json.dumps({'customers': subs})
-
-
-@app.route('/vendor/login', methods=['POST'])
-def vendor_login():
-    data = request.get_json()
-    print(data)
-    vendor = Vendor.find_by_username(data['username'])
-    access_token = create_access_token(identity=data['username'])
-    print(vendor)
-    print(vendor is not None and vendor.password == data['password'])
-    if vendor is not None and vendor.password == data['password']:
-        print(vendor)
-        return json.dumps({'userData': data, 'accessToken': access_token}), 200
-
-    return json.dumps('Wrong Username or Pasword'), 200
-
-
-@app.route('/vendor/register', methods=['POST'])
-def vendor_register():
-    data = request.get_json()
-    print(data)
-    vendor = Vendor.find_by_username(data['username'])
-    if vendor is None:
-        print('new Vendor')
-        access_token = create_access_token(identity=data['username'])
-        vendor = Vendor(name=data['username'], user_name=data['username'],
-                        password=data['password'], access_token=data['access_token'], page_id=data['page_id'])
-        vendor.save()
-        return json.dumps({'userData': data, 'accessToken': access_token}), 200
-
-    return 'Username is Taken Please Choose another one!', 200
-
-
-@app.route('/vendor/edit', methods=['POST'])
-def vendor_edit():
-    data = request.get_json()
-    print(data)
-    vendor = Vendor.find_by_page_id(data['page_id'])
-    if vendor is not None:
-        vendor.address_info = data['address_info']
-        vendor.menu_info = data['menu_info']
-        vendor.save()
-        return 'Success', 200
-    else:
-        return 'Not Found', 404
 
 
 @app.route('/webview/order/<string:food>/<string:item>', methods=['GET'])
@@ -397,7 +310,7 @@ def load_test():
         # bot.send_before_message(sender_id)
         blocks = vendor.menu
         block = blocks['welcome_message']
-        bot.send_template_message(sender_id, block)
+
         return "text", 200
     elif webhook_type == "quick_reply" and quick_replies_events(data) == "send_menu":
         m1.send(sender_id)
@@ -415,7 +328,6 @@ def load_test():
         if block_name in blocks:
             block = blocks[block_name]
             # bot.send_template_message(sender_id, block)
-            bot.send_template_message(sender_id, block)
 
         return "quick_reply", 200
 
@@ -429,7 +341,6 @@ def load_test():
 
             block = blocks[block_name]
             # bot.send_template_message(sender_id, block)
-            bot.send_template_message(sender_id, block)
 
         return "postback", 200
     else:
