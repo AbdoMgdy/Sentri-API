@@ -231,12 +231,8 @@ def vendor_edit():
     print(data)
     vendor = Vendor.find_by_page_id(data['page_id'])
     if vendor is not None:
-        for prop in data:
-            v_prop = eval('vendor.{}'.format(prop))
-            print(v_prop)
-            print(data[prop])
-            v_prop = data[prop]
-            print(v_prop)
+        vendor.address_info = data['address_info']
+        vendor.menu_info = data['menu_info']
         vendor.save()
         return 'Success', 200
     else:
