@@ -30,8 +30,10 @@ class Vendor(db.Model):
     customers = db.relationship('Customer', backref='vendor', lazy='select')
     orders = db.relationship('Order', backref='vendor', lazy='select')
 
-    def __init__(self, name='', user_name='', password='', access_token='', page_id=''):
+    def __init__(self, name='', user_name='', password='', access_token='', page_id='', address_info='', menu_info=''):
         self.name = name
+        self.address_info = address_info
+        self.menu_info = menu_info
         self.username = user_name
         self.password = password
         self.access_token = access_token
@@ -53,7 +55,7 @@ class Vendor(db.Model):
         return cls.query.filter_by(username=username).first()
 
     def save(self):
-        print('Vendor_Created')
+        print('Vendor Saved')
         db.session.add(self)
         db.session.commit()
 
