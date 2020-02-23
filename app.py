@@ -233,6 +233,8 @@ def vendor_edit():
     if vendor is not None:
         for prop in data:
             v_prop = eval('vendor.{}'.format(prop))
+            print(v_prop)
+            print(data[prop])
             v_prop = data[prop]
         vendor.save()
         return 'Success', 200
