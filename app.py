@@ -228,6 +228,7 @@ def vendor_register():
 @app.route('/vendor/edit', methods=['POST'])
 def vendor_edit():
     data = request.get_json()
+    print(data)
     vendor = Vendor.find_by_page_id(data['page_id'])
     if vendor is not None:
         for prop in data:
