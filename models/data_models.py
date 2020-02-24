@@ -49,6 +49,9 @@ class Vendor(db.Model):
 
     def is_open(self):
         time = datetime.datetime.utcnow().time()
+        print(self.closing_hours)
+        print(self.opening_hours)
+        print(time)
         if time > self.opening_hours and time < self.closing_hours:
             return True
         else:
