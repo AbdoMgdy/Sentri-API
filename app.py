@@ -267,6 +267,7 @@ def get_order_info(sender_id):
     vendor = Vendor.find_by_page_id(customer.page_id)
     bot = Bot(access_token=vendor.access_token)
     data = request.get_json()
+    print(data)
     if not data['items']:
         bot.send_text_message(sender_id, 'انت لم تطلب شيء بعد!')
         result = orders.pop(sender_id, None)  # remove order from temp dict
