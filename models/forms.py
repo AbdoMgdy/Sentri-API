@@ -52,6 +52,17 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Wrong Security Code')
 
 
+class OrderForm(FlaskForm):
+    quantity = SelectField('الكمية', choices=[
+        (1, 1), (2, 2), (3, 3), (4, 4), (5, 5)])
+    spicy = SelectField('عادي أم سبايسي؟', choices=[('Normal', 'عادي'),
+                                                    ('Spicy', 'سبايسي')])
+    notes = StringField('اضافة ملحوظة؟', render_kw={
+        'placeholder': 'اضافة ملحوظة'})
+    combo = SelectField('اضافة كومبو (بطاطس + كولا)', choices=[(0, 'بدون كومبو'),
+                                                               (15, 'اضف كومبو (بطاطس + كولا)')])
+
+
 class OrderSandwich(FlaskForm):
     quantity = SelectField('الكمية', choices=[
         (1, 1), (2, 2), (3, 3), (4, 4)])

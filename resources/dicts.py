@@ -22,13 +22,16 @@ access_tokens = {
 
 orders = {}
 
+
 prices = {
     '103750251156613': {
-        # Family Meals
-        '9-Chicken': 155,
-        '12-Chicken': 196,
-        '15-Chicken': 230,
-        '18-Chicken': 270,
+        
+        'Koshary-Small': 15,
+        'Koshary-Medium': 20,
+        'Koshary-Large': 25,
+        'Hot-Sauce': 5,
+        'Fried-Onions': 5,
+        'Milk-Rice': 10,
         # Sandwiches
         'Original-150': 32,
         'Original-300': 45,
@@ -137,8 +140,12 @@ prices = {
 
 arabic = {
     '103750251156613': {
-        'Spicy': 'سبايسي',
-        'Normal': 'عادي',
+        'Koshary-Small': 'كشري صغير',
+        'Koshar-Medium': 'كشري وسط',
+        'Koshar-Large': 'كشري كبير',
+        'Hot-Sauce': 'صلصة حارة',
+        'Fried-Onions': 'بصل محمر',
+        'Milk-Rice': 'أرز باللبن',
         # Family Meals
         '9-Chicken': 'وجبة 9 قطع دجاج',
         '12-Chicken': 'وجبة 12 قطع دجاج',
@@ -254,18 +261,35 @@ arabic = {
 
 menus = {
     '103750251156613': {
+        'info': {
+            'payload': {'teplate_type': 'button',
+                        'text': """ العنوان:50 حسن المأمون - مدينة نصر
+        التليفون لخدمات الدليفيري والتوصيل: 16920  """,
+                        'buttons': [{
+                            'type': 'postback',
+                            'title': 'المنيو',
+                            'payload': 'main_menu'
+                        }],
+                        }
+        },
         'welcome_message': {
             'payload': {
                 'template_type': 'generic',
                 'elements': [
                     {
-                        'title': 'مرحبا بك كيف أستطيع مساعدتك؟',
-                        'image_url': '',
+                        'title': """مرحبا بك في مطعم سيد حنفي
+                     انا مساعدك الافتراضي كيف أستطيع مساعدتك؟""",
+                        'image_url': 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/p960x960/80390516_2962955900382554_7936731969642037248_o.jpg?_nc_cat=108&_nc_ohc=68iQXp-Lxn0AX9pBDCk&_nc_ht=scontent-hbe1-1.xx&_nc_tp=6&oh=f886d8238a13919294e79f9bfb70fa0b&oe=5EFDAE46',
                         'subtitle': '',
                         'buttons': [{
                             'type': 'postback',
-                            'title': 'ابدأ أوردر',
+                            'title': 'المنيو',
                             'payload': 'main_menu'
+                        },
+                            {
+                            'type': 'postback',
+                            'title': 'العنوان/التليفون',
+                            'payload': 'info'
                         }]
 
                     }
@@ -284,8 +308,8 @@ menus = {
                 'template_type': 'generic',
                 'elements': [
                     {
-                        'title': 'Family Menu',
-                        'image_url': 'https://i.ibb.co/N7Z2Y0Y/image.png',
+                        'title': 'كشري',
+                        'image_url': 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/p960x960/80390516_2962955900382554_7936731969642037248_o.jpg?_nc_cat=108&_nc_ohc=68iQXp-Lxn0AX9pBDCk&_nc_ht=scontent-hbe1-1.xx&_nc_tp=6&oh=f886d8238a13919294e79f9bfb70fa0b&oe=5EFDAE46',
                         'subtitle': '',
                         'buttons': [{
                             'type': 'postback',
@@ -294,88 +318,110 @@ menus = {
                         }]
                     }
                 ]
-            },
-            'quick_replies': [
-                {
-                    'content_type': 'text',
-                    'title': 'back',
-                    'payload': 'main_menu',
-                }
-            ]
+            }
         },
-        'family_menu': {
+        'sub-menu-1': {
             'payload': {
                 'template_type': 'generic',
                 'elements': [
                     {
-                        'title': '9 Chicken',
-                        'image_url': 'https://i.ibb.co/N7Z2Y0Y/image.png',
+                        'title': 'كشري صغير',
+                        'image_url': 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/p960x960/80390516_2962955900382554_7936731969642037248_o.jpg?_nc_cat=108&_nc_ohc=68iQXp-Lxn0AX9pBDCk&_nc_ht=scontent-hbe1-1.xx&_nc_tp=6&oh=f886d8238a13919294e79f9bfb70fa0b&oe=5EFDAE46',
                         'subtitle': '',
                         'buttons': [{
                             'type': 'web_url',
-                            'title': 'Buy',
-                            'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/9-Chicken',
+                            'title': 'اطلب بـ15ج',
+                            'url': 'https://rest-bot-dev.herokuapp.com/webview/order/type-1/Koshary-Small',
                             'webview_height_ratio': 'tall',
                             'messenger_extensions': 'true'
                         }]
                     },
                     {
-                        'title': '12 Chicken',
-                        'image_url': 'https://i.ibb.co/N7Z2Y0Y/image.png',
+                        'title': 'كشري وسط',
+                        'image_url': 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/p960x960/80390516_2962955900382554_7936731969642037248_o.jpg?_nc_cat=108&_nc_ohc=68iQXp-Lxn0AX9pBDCk&_nc_ht=scontent-hbe1-1.xx&_nc_tp=6&oh=f886d8238a13919294e79f9bfb70fa0b&oe=5EFDAE46',
                         'subtitle': '',
                         'buttons': [{
                             'type': 'web_url',
-                            'title': 'Buy',
-                            'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/12-Chicken',
+                            'title': 'اطلب بـ20ج',
+                            'url': 'https://rest-bot-dev.herokuapp.com/webview/order/type-1/Koshary-Medium',
                             'webview_height_ratio': 'tall',
                             'messenger_extensions': 'true'
                         }]
                     },
                     {
-                        'title': '15 Chicken',
-                        'image_url': 'https://i.ibb.co/N7Z2Y0Y/image.png',
+                        'title': 'كشري كبير',
+                        'image_url': 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/p960x960/80390516_2962955900382554_7936731969642037248_o.jpg?_nc_cat=108&_nc_ohc=68iQXp-Lxn0AX9pBDCk&_nc_ht=scontent-hbe1-1.xx&_nc_tp=6&oh=f886d8238a13919294e79f9bfb70fa0b&oe=5EFDAE46',
                         'subtitle': '',
                         'buttons': [{
                             'type': 'web_url',
-                            'title': 'Buy',
-                            'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/15-Chicken',
+                            'title': 'اطلب بـ25ج',
+                            'url': 'https://rest-bot-dev.herokuapp.com/webview/order/type-1/Koshary-Large',
                             'webview_height_ratio': 'tall',
                             'messenger_extensions': 'true'
                         }]
                     },
-                    {
-                        'title': '18 Chicken',
-                        'image_url': 'https://i.ibb.co/N7Z2Y0Y/image.png',
-                        'subtitle': '',
-                        'buttons': [{
-                            'type': 'web_url',
-                            'title': 'Buy',
-                            'url': 'https://rest-bot-dev.herokuapp.com/webview/order/meal/18-Chicken',
-                            'webview_height_ratio': 'tall',
-                            'messenger_extensions': 'true'
-
-                        }]
-                    }
-
                 ]
             },
 
             'quick_replies': [
                 {
                     'content_type': 'text',
-                    'title': 'back',
+                    'title': 'العودة للخلف',
                     'payload': 'main_menu',
                 }
             ],
         },
-        'sandwiches_menu': {},
-        'trex_meals_menu': {},
-        'special_menu': {},
-        'kids_meals_menu': {},
-        'appetizers_menu': {},
-        'sauces_menu': {},
-        'info': {},
-        'confirm_block': {},
+        'sub-menu-2': {
+            'payload': {
+                'template_type': 'generic',
+                'elements': [
+                    {
+                        'title': 'اضافة شطة',
+                        'image_url': 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/p960x960/80390516_2962955900382554_7936731969642037248_o.jpg?_nc_cat=108&_nc_ohc=68iQXp-Lxn0AX9pBDCk&_nc_ht=scontent-hbe1-1.xx&_nc_tp=6&oh=f886d8238a13919294e79f9bfb70fa0b&oe=5EFDAE46',
+                        'subtitle': '',
+                        'buttons': [{
+                            'type': 'web_url',
+                            'title': 'اطلب بـ5ج',
+                            'url': 'https://rest-bot-dev.herokuapp.com/webview/order/type-1/Hot-Sauce',
+                            'webview_height_ratio': 'tall',
+                            'messenger_extensions': 'true'
+                        }]
+                    },
+                    {
+                        'title': 'اضافة تقلية',
+                        'image_url': 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/p960x960/80390516_2962955900382554_7936731969642037248_o.jpg?_nc_cat=108&_nc_ohc=68iQXp-Lxn0AX9pBDCk&_nc_ht=scontent-hbe1-1.xx&_nc_tp=6&oh=f886d8238a13919294e79f9bfb70fa0b&oe=5EFDAE46',
+                        'subtitle': '',
+                        'buttons': [{
+                            'type': 'web_url',
+                            'title': 'اطلب بـ5ج',
+                            'url': 'https://rest-bot-dev.herokuapp.com/webview/order/type-1/Fired-Onions',
+                            'webview_height_ratio': 'tall',
+                            'messenger_extensions': 'true'
+                        }]
+                    },
+                    {
+                        'title': 'أرز باللبن',
+                        'image_url': 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/p960x960/80390516_2962955900382554_7936731969642037248_o.jpg?_nc_cat=108&_nc_ohc=68iQXp-Lxn0AX9pBDCk&_nc_ht=scontent-hbe1-1.xx&_nc_tp=6&oh=f886d8238a13919294e79f9bfb70fa0b&oe=5EFDAE46',
+                        'subtitle': '',
+                        'buttons': [{
+                            'type': 'web_url',
+                            'title': 'اطلب بـ10ج',
+                            'url': 'https://rest-bot-dev.herokuapp.com/webview/order/type-1/Milk-Rice',
+                            'webview_height_ratio': 'tall',
+                            'messenger_extensions': 'true'
+                        }]
+                    },
+                ]
+            },
+
+            'quick_replies': [
+                {
+                    'content_type': 'text',
+                    'title': 'العودة للخلف',
+                    'payload': 'main_menu',
+                }
+            ],
+        },
     },
     '2163571837030935': {
         'welcome_message': {

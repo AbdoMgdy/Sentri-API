@@ -21,7 +21,7 @@ from flask_migrate import Migrate
 
 # Local application imports
 # Models
-from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo, RegistrationForm, LoginForm
+from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo, OrderForm
 from models.data_models import Order, OrderSchema, Customer, CustomerSchema, Vendor, VendorSchema
 from models.receipt import ReceiptTemplate
 from models.bot import Bot
@@ -80,7 +80,7 @@ def handle_incoming_messages():
     bot.send_before_message(sender_id)
     if not vendor.is_open():
         bot.send_text_message(
-            sender_id, 'الرجاء المحاولة مرة أخرى خلال مواعيد العمل الرسمية من {} الى {}'.format(vendor.opening_hours.strftime('%H:%M'), vendor.closing_hours.strftime('%H:%M')))
+            sender_id, 'المطعم مغلق حاليا \nالرجاء المحاولة مرة أخرى خلال مواعيد العمل الرسمية من {} الى {}'.format(vendor.opening_hours.strftime('%H:%M'), vendor.closing_hours.strftime('%H:%M')))
         return 'Vendor is Closed', 200
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
@@ -131,6 +131,9 @@ def handle_incoming_messages():
 
 @app.route('/webview/order/<string:food>/<string:item>', methods=['GET'])
 def show_webview(food, item):
+    if food == "type-1":
+        order = OrderForm()
+        return render_template('order.jinja', food="sandwich", item=item, form=order)
     if food == "sandwich":
         sandwich = OrderSandwich()
         return render_template('order sandwich.jinja', food="sandwich", item=item, form=sandwich)
