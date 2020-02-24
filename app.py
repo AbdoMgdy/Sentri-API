@@ -78,10 +78,10 @@ def handle_incoming_messages():
     print(sender_id)
     print(webhook_type)
     bot.send_before_message(sender_id)
-    if not vendor.is_open():
-        bot.send_text_message(
-            sender_id, 'المطعم مغلق حاليا \nالرجاء المحاولة مرة أخرى خلال مواعيد العمل الرسمية من {} الى {}'.format(vendor.opening_hours.strftime('%H:%M'), vendor.closing_hours.strftime('%H:%M')))
-        return 'Vendor is Closed', 200
+    # if not vendor.is_open():
+    #     bot.send_text_message(
+    #         sender_id, 'المطعم مغلق حاليا \nالرجاء المحاولة مرة أخرى خلال مواعيد العمل الرسمية من {} الى {}'.format(vendor.opening_hours.strftime('%H:%M'), vendor.closing_hours.strftime('%H:%M')))
+    #     return 'Vendor is Closed', 200
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
         # bot.send_before_message(sender_id)
