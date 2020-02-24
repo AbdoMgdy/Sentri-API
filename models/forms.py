@@ -53,14 +53,14 @@ class RegistrationForm(FlaskForm):
 
 
 class OrderSandwich(FlaskForm):
-    quantity = SelectField('Quantity الكمية', choices=[
+    quantity = SelectField('الكمية', choices=[
         (1, 1), (2, 2), (3, 3), (4, 4)])
     spicy = SelectField('عادي أم سبايسي؟', choices=[('Normal', 'عادي'),
                                                     ('Spicy', 'سبايسي')])
     notes = StringField('اضافة ملحوظة؟', render_kw={
         'placeholder': 'اضافة ملحوظة'})
-    combo = SelectField('اضافة كومبو بـ15ج (بطاطس + كولا)', choices=[(0, 'بدون كومبو'),
-                                                                     (15, 'اضف كومبو (بطاطس + كولا) بـ15ج')])
+    combo = SelectField('اضافة كومبو (بطاطس + كولا)', choices=[(0, 'بدون كومبو'),
+                                                               (15, 'اضف كومبو (بطاطس + كولا)')])
 
 
 class OrderMeal(FlaskForm):
