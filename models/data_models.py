@@ -49,12 +49,12 @@ class Vendor(db.Model):
 
     def is_open(self):
         time = datetime.datetime.utcnow().time()
-        if time > self.open_hours and time < self.close_hours:
+        if time > self.opening_hours and time < self.closing_hours:
             return True
         else:
             return False
 
-    def set_working_hours(open_hours, close_hours):
+    def set_working_hours(opening_hours, closing_hours):
         pass
 
     def check_password(self, password):
