@@ -86,7 +86,7 @@ def handle_incoming_messages():
         # HANDLE TEXT MESSAGES HERE
         # bot.send_before_message(sender_id)
         blocks = vendor.menu
-        block = blocks['welcome_message']
+        block = blocks['get_started']
         print(bot.send_template_message(sender_id, block))
         return "text", 200
     elif webhook_type == "quick_reply" and quick_replies_events(data) == "send_menu":
@@ -113,10 +113,10 @@ def handle_incoming_messages():
         # HANDLE POSTBACK HERE
         # bot.send_before_message(sender_id)
         block_name = postback_events(data)
-        print(block_name)
+
         blocks = vendor.menu
         if block_name in blocks:
-            print('Found it')
+
             block = blocks[block_name]
             # bot.send_template_message(sender_id, block)
             print(bot.send_template_message(sender_id, block))
