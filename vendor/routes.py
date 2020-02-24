@@ -103,12 +103,12 @@ def vendor_edit():
             vendor.menu_info = data['menu_info']
         if 'password' in data:
             vendor.password = data['password']
-        if 'close_hours' in data:
+        if 'closing_hours' in data:
             vendor.closing_hours = datetime.strptime(
-                data['close_hours'], time_format).time()
-        if 'open_hours' in data:
+                data['closing_hours'], time_format).time()
+        if 'opening_hours' in data:
             vendor.opening_hours = datetime.strptime(
-                data['open_hours'], time_format).time()
+                data['opening_hours'], time_format).time()
         if 'menu' in data:
             vendor.menu = data['menu']
         if 'access_token' in data:
