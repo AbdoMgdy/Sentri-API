@@ -275,7 +275,8 @@ def get_order_info(sender_id):
     if sender_id in orders:
         orders[sender_id] = data['items']
     confirm_block.set_text('تم تعديل الأوردر الخاص بك')
-    confirm_block.send(sender_id)
+    bot.send_template_message(
+        sender_id, {'payload': confirm_block.get_template()})
     return 'ok', 200
 
 
