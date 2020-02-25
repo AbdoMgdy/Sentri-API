@@ -1,37 +1,6 @@
 from resources.dicts import menus, orders, arabic, prices
 from models.data_models import Customer, Vendor, OrderSchema
 from models.bot import Bot
-from app import socketio
-import ast
-import json
-
-
-def send_order_to_vendor(result, vendor_username):
-    orders_schema = OrderSchema()
-    order = orders_schema.dump(result)
-    print(order)
-    data = []
-    info = {}
-    info['customer'] = order['customer']
-    info['time'] = order['time']
-    info['number'] = order['number']
-    info['total'] = order['total']
-    info['status'] = order['status']
-    items = ast.literal_eval(order['items'])
-    order_text = ''
-    for item in items:
-        if item['combo'] == 15:
-            combo = 'Combo'
-        else:
-            combo = ''
-        temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
-                                                       item['name'], item['type'], combo, item['notes'])
-        order_text += temp
-    info['items'] = order_text
-    data.append(info)
-    print(data)
-    socketio.emit('order', json.dumps(data), room=vendor_username)
-    return info
 
 
 def get_type_from_payload(data):

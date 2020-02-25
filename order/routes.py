@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template, request
-from flask import current_app as app
+from flask import Blueprint, render_template, request, send_file
 from flask_jwt_extended import (
     jwt_required, create_access_token,
     get_jwt_identity
@@ -72,7 +71,7 @@ def add_to_order(sender_id, food, item):
 
 @order_bp.route('/edit_order', methods=['GET'])
 def edit_order():
-    return app.send_static_file('edit_order.html')
+    return send_file('edit_order.html')
 
 
 @order_bp.route('/confirm_order', methods=['GET'])

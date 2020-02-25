@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request
-from flask import current_app as app
 from flask_jwt_extended import (
     jwt_required, create_access_token,
     get_jwt_identity

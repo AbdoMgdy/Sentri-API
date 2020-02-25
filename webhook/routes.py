@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request
-from flask import current_app as app
 import json
 from datetime import datetime
 import ast

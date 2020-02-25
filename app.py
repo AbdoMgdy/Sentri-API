@@ -3,6 +3,7 @@ import os
 import json
 import datetime
 import logging
+import ast
 
 # Third party imports
 from flask_migrate import Migrate
@@ -17,6 +18,7 @@ from flask_jwt_extended import JWTManager
 # BluePrints
 from webhook import routes as webhook_routes
 from vendor import routes as vendor_routes
+from order import routes as order_routes
 from db import db
 
 # resources
@@ -26,7 +28,7 @@ import resources.helper_functions as helper
 # Models
 from models.bot import Bot
 from models.receipt import ReceiptTemplate
-from models.data_models import Order, Customer, Vendor
+from models.data_models import Order, Customer, Vendor, OrderSchema
 from models.forms import OrderSandwich, OrderMeal, OrderSauce, CustomerInfo, OrderForm
 
 
@@ -48,6 +50,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.register_blueprint(vendor_routes.vendor_bp)
 app.register_blueprint(webhook_routes.webhook_bp)
+app.register_blueprint(order_routes.order_bp)
 
 
 @app.route('/user/<string:sender_id>/add_user_info', methods=['GET', 'POST'])
@@ -99,7 +102,7 @@ def add_user_info(sender_id):
     result = orders.pop(sender_id, None)  # remove order from temp dict
     # receipt.send(restaurant)
     order.save()  # imp
-    helper.send_order_to_vendor(order, vendor.username)
+    send_order_to_vendor(order, vendor.username)
     return 'Customer info was added', 200
 
 
@@ -184,6 +187,34 @@ def join(data):
     room = data['username']
     join_room(room)
     send('connected to room: {}'.format(room), room=room)
+
+
+def send_order_to_vendor(result, vendor_username):
+    orders_schema = OrderSchema()
+    order = orders_schema.dump(result)
+    print(order)
+    data = []
+    info = {}
+    info['customer'] = order['customer']
+    info['time'] = order['time']
+    info['number'] = order['number']
+    info['total'] = order['total']
+    info['status'] = order['status']
+    items = ast.literal_eval(order['items'])
+    order_text = ''
+    for item in items:
+        if item['combo'] == 15:
+            combo = 'Combo'
+        else:
+            combo = ''
+        temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+                                                       item['name'], item['type'], combo, item['notes'])
+        order_text += temp
+    info['items'] = order_text
+    data.append(info)
+    print(data)
+    socketio.emit('order', json.dumps(data), room=vendor_username)
+    return info
 
 
 if __name__ == "__main__":
