@@ -57,7 +57,7 @@ def add_to_order(sender_id, food, item):
 
     helper.update_order(sender_id, order_item)
 
-    if order_item['type'] in arabic:
+    if 'type' in order_item:
         text = '{} * {} {} تمت اضافته للأوردو الخاص بك'.format(order_item['quantity'],
                                                                arabic[item], arabic[order_item['type']])
     else:
