@@ -1,4 +1,4 @@
-from models.bot import Bot
+
 from copy import deepcopy as copy
 
 template = {
@@ -16,7 +16,7 @@ template = {
 }
 
 
-class MediaTemplate(Bot):
+class MediaTemplate():
     def __init__(self, url=''):
         super().__init__()
         self.template = copy(template['value'])
@@ -25,5 +25,5 @@ class MediaTemplate(Bot):
             'url': url
         }]
 
-    def send(self, recipient_id):
-        super().send_message(recipient_id, self.template)
+    def get_template(self):
+        return self.template

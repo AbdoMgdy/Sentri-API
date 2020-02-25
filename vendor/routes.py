@@ -121,3 +121,11 @@ def vendor_edit():
         return 'Success', 200
     else:
         return 'Vendor Not Found', 404
+
+# For Comments
+@vendor_bp.route('/vendors', methods=['GET'])
+def vendors():
+    vendors = Vendor.query.all()
+    vendor_schema = VendorSchema(many=True)
+    output = vendor_schema.dump(vendors)
+    return json.dumps(output)

@@ -1,6 +1,37 @@
 from resources.dicts import menus, orders, arabic, prices
-from models.data_models import Customer, Vendor
+from models.data_models import Customer, Vendor, OrderSchema
 from models.bot import Bot
+from app import socketio
+import ast
+import json
+
+
+def send_order_to_vendor(result, vendor_username):
+    orders_schema = OrderSchema()
+    order = orders_schema.dump(result)
+    print(order)
+    data = []
+    info = {}
+    info['customer'] = order['customer']
+    info['time'] = order['time']
+    info['number'] = order['number']
+    info['total'] = order['total']
+    info['status'] = order['status']
+    items = ast.literal_eval(order['items'])
+    order_text = ''
+    for item in items:
+        if item['combo'] == 15:
+            combo = 'Combo'
+        else:
+            combo = ''
+        temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+                                                       item['name'], item['type'], combo, item['notes'])
+        order_text += temp
+    info['items'] = order_text
+    data.append(info)
+    print(data)
+    socketio.emit('order', json.dumps(data), room=vendor_username)
+    return info
 
 
 def get_type_from_payload(data):
@@ -71,13 +102,10 @@ def handle_customer(sender_id, vendor):
 
 def handle_first_time_vendor(page_id, access_token):
     new_vendor = Vendor.find_by_page_id(page_id)
-    new_vendor.menu = menus[new_vendor.page_id]
-    new_vendor.prices = prices[new_vendor.page_id]
-    new_vendor.arabic = arabic[new_vendor.page_id]
-    bot = Bot(access_token)
+    bot = Bot(new_vendor.access_token)
     bot.set_get_started({
         'get_started': {
-            'payload': 'main_menu'
+            'payload': 'get_started'
         }
     })
     bot.set_persistent_menu({
@@ -100,18 +128,17 @@ def handle_first_time_vendor(page_id, access_token):
     return new_vendor
 
 
-def handle_current_vendor(page_id, access_token):
+def handle_current_vendor(page_id, ):
     current_vendor = Vendor.find_by_page_id(page_id)
-    current_vendor.access_token = access_token
     return current_vendor
 
 
-def handle_vendor(page_id, access_token):
+def handle_vendor(page_id):
     vendor = Vendor.find_by_page_id(page_id)
     if vendor is not None and vendor.is_setup:
-        vendor = handle_current_vendor(page_id, access_token)
+        vendor = handle_current_vendor(page_id)
     else:
-        vendor = handle_first_time_vendor(page_id, access_token)
+        vendor = handle_first_time_vendor(page_id)
     return vendor
 
 

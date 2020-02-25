@@ -1,5 +1,4 @@
 import json
-from models.bot import Bot
 
 
 QUICK_REPLIES_LIMIT = 11
@@ -11,9 +10,9 @@ BUTTON_TITLE_CHARACTER_LIMIT = 20
 BUTTON_LIMIT = 3
 
 
-class ButtonTemplate(Bot):
+class ButtonTemplate():
     def __init__(self):
-        super().__init__()
+
         self.template = {
             'template_type': 'button'
         }
@@ -23,6 +22,12 @@ class ButtonTemplate(Bot):
 
     def set_text(self, text):
         self.text = text
+
+    def set_vendor(self, page_id):
+        self.template['buttons'][0]['url'] = 'https://rest-bot-dev.herokuapp.com/{}/confirm_order'.format(
+            page_id)
+        self.template['buttons'][2]['url'] = 'https://rest-bot-dev.herokuapp.com/{}/edit_url'.format(
+            page_id)
 
     def add_web_url(self, **kwargs):
         for title, url in kwargs.items():

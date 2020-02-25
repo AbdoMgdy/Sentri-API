@@ -1,4 +1,4 @@
-from resources.menu import *
+
 # blocks = {
 #     'get_started': welcome_message,
 #     'main_menu': main_menu,
@@ -25,7 +25,7 @@ orders = {}
 
 prices = {
     '103750251156613': {
-        
+
         'Koshary-Small': 15,
         'Koshary-Medium': 20,
         'Koshary-Large': 25,
