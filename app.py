@@ -68,7 +68,6 @@ def add_user_info(sender_id):
             order.add_item(category=item['category'],
                            name=item['name'],
                            quantity=item['quantity'],
-                           _type=item['type'],
                            price=item['price'],
                            combo=item['combo'],
                            notes=item['notes'])

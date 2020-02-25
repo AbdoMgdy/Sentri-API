@@ -141,8 +141,8 @@ prices = {
 arabic = {
     '103750251156613': {
         'Koshary-Small': 'كشري صغير',
-        'Koshar-Medium': 'كشري وسط',
-        'Koshar-Large': 'كشري كبير',
+        'Koshary-Medium': 'كشري وسط',
+        'Koshary-Large': 'كشري كبير',
         'Hot-Sauce': 'صلصة حارة',
         'Fried-Onions': 'بصل محمر',
         'Milk-Rice': 'أرز باللبن',
