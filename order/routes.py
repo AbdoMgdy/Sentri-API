@@ -62,7 +62,7 @@ def add_to_order(sender_id, food, item):
                                                                arabic[item], arabic[order_item['type']])
     else:
         text = '{} * {} تمت اضافته للأوردو الخاص بك'.format(order_item['quantity'],
-                                                               arabic[item])
+                                                            arabic[item])
     confirm_block.set_text(text)
     bot.send_template_message(
         sender_id, {'payload': confirm_block.get_template()})
