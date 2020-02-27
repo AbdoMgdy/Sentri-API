@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 from flask_jwt_extended import (
     jwt_required, create_access_token,
     get_jwt_identity
@@ -14,7 +14,6 @@ vendor_bp = Blueprint('vendor_bp', __name__,
 
 
 @vendor_bp.route('/vendor/orders', methods=['GET'])
-@jwt_required
 def vendor_orders():
     identity = get_jwt_identity()
     print(identity)
@@ -49,7 +48,6 @@ def vendor_orders():
 
 
 @vendor_bp.route('/vendor/customers', methods=['GET'])
-@jwt_required
 def vendor_customers():
     identity = get_jwt_identity()
     print(identity)
@@ -120,6 +118,13 @@ def vendor_edit():
         return 'Success', 200
     else:
         return 'Vendor Not Found', 404
+
+
+@vendor_bp.route('/vendor/FbLogin', methods=['POST'])
+def vendor_FbLogin():
+    print(request.get_json())
+    return redirect('https://www.google.com')
+
 
 # For Comments
 @vendor_bp.route('/vendors', methods=['GET'])

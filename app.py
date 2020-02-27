@@ -74,7 +74,7 @@ def add_user_info(sender_id):
 
     else:
         bot.send_text_message(
-            sender_id, 'انتهت صلاحة الأوردر من فضلك ابدأ أوردر جديد')
+            sender_id, 'انتهت صلاحية الأوردر من فضلك ابدأ أوردر جديد')
         return 'Order Expired', 200
 
     # update customer info
