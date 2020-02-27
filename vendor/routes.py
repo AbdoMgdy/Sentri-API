@@ -120,7 +120,7 @@ def vendor_edit():
         return 'Vendor Not Found', 404
 
 
-@vendor_bp.route('/vendor/FbLogin', methods=['POST'])
+@vendor_bp.route('/vendor/fblogin', methods=['GET', 'POST'])
 def vendor_FbLogin():
     print(request.get_json())
     return redirect('https://www.google.com')
