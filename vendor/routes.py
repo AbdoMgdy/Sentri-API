@@ -75,16 +75,15 @@ def vendor_login():
 def vendor_register():
     data = request.get_json()
     print(data)
-    vendor = Vendor.find_by_username(data['username'])
+    vendor = Vendor.find_by_uid(data['uid'])
     if vendor is None:
         print('new Vendor')
-        access_token = create_access_token(identity=data['username'])
-        vendor = Vendor(name=data['username'], user_name=data['username'],
-                        password=data['password'], access_token=data['access_token'], page_id=data['page_id'])
+        vendor = Vendor(uid=data['uid'],
+                        access_token=data['access_token'])
         vendor.save()
-        return json.dumps({'userData': data, 'accessToken': access_token}), 200
+        return json.dumps({'userData': data}), 200
 
-    return 'Username is Taken Please Choose another one!', 200
+    return 'User is already registerd', 200
 
 
 @vendor_bp.route('/vendor/edit', methods=['POST'])

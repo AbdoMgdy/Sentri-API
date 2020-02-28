@@ -17,9 +17,10 @@ class Vendor(db.Model):
         'page_id', 'id', name='unique_vendor_customers'),)
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)  # unique
-    username = db.Column(db.String, unique=True)  # unique
-    address_info = db.Column(db.String)
+    username = db.Column(db.String)  # unique
+    uid = db.Column(db.Integer, unique=True)  # unique
     menu_info = db.Column(db.String)
+    address_info = db.Column(db.String)
     menu = db.Column(NestedMutableJson)
     prices = db.Column(NestedMutableJson)
     arabic = db.Column(NestedMutableJson)
@@ -32,7 +33,7 @@ class Vendor(db.Model):
     customers = db.relationship('Customer', backref='vendor', lazy='select')
     orders = db.relationship('Order', backref='vendor', lazy='select')
 
-    def __init__(self, name='', user_name='', password='', access_token='', page_id='', address_info='', menu_info=''):
+    def __init__(self, name='', user_name='', password='', uid='', access_token='', page_id='', address_info='', menu_info=''):
         self.name = name
         self.address_info = address_info
         self.menu_info = menu_info
@@ -68,8 +69,8 @@ class Vendor(db.Model):
         return cls.query.filter_by(page_id=page_id).first()
 
     @classmethod
-    def find_by_username(cls, username):
-        return cls.query.filter_by(username=username).first()
+    def find_by_uid(cls, uid):
+        return cls.query.filter_by(uid=uid).first()
 
     def save(self):
         print('Vendor Saved')
