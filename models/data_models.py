@@ -35,6 +35,7 @@ class Vendor(db.Model):
 
     def __init__(self, name='', user_name='', password='', uid='', access_token='', page_id='', address_info='', menu_info=''):
         self.name = name
+        self.uid = uid
         self.address_info = address_info
         self.menu_info = menu_info
         self.username = user_name
