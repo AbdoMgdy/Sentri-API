@@ -82,9 +82,9 @@ def vendor_register():
         vendor = Vendor(name='ne', uid=data['uid'],
                         access_token=data['accessToken'], user_name='ne', page_id='25')
         vendor.save()
-        return json.dumpas(data), 201
+        return json.dumps(data), 201
 
-    return json.dumpas(data), 200
+    return json.dumps(data), 200
 
 
 @vendor_bp.route('/vendor/edit', methods=['POST'])
