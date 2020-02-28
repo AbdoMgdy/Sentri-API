@@ -82,7 +82,7 @@ def vendor_register():
         vendor = Vendor(name=data['displayName'], uid=data['uid'],
                         access_token=data['accessToken'], user_name=data['displayName'], page_id=data['uid'])
         vendor.save()
-        return 'Vendor Registered', 201
+        return json.dumpas(data), 201
 
     return 'User is already registerd', 403
 
