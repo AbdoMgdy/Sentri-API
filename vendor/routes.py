@@ -80,7 +80,7 @@ def vendor_register():
     if vendor is None:
         print('new Vendor')
         vendor = Vendor(name=data['displayName'], uid=data['uid'],
-                        access_token=data['accessToken'])
+                        access_token=data['accessToken'], user_name=data['displayName'])
         vendor.save()
         return 'Vendor Registered', 201
 

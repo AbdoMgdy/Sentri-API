@@ -17,7 +17,7 @@ class Vendor(db.Model):
         'page_id', 'id', name='unique_vendor_customers'),)
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)  # unique
-    username = db.Column(db.String)  # unique
+    username = db.Column(db.String, nullable=True)  # unique
     uid = db.Column(db.String, unique=True)  # unique
     menu_info = db.Column(db.String)
     address_info = db.Column(db.String)
