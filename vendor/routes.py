@@ -79,8 +79,8 @@ def vendor_register():
     vendor = Vendor.find_by_uid(data['uid'])
     if vendor is None:
         print('new Vendor')
-        vendor = Vendor(name=data['displayName'], uid=data['uid'],
-                        access_token=data['accessToken'], user_name=data['displayName'], page_id=data['uid'])
+        vendor = Vendor(name='ne', uid=data['uid'],
+                        access_token=data['accessToken'], user_name='ne', page_id=data['uid'])
         vendor.save()
         return json.dumpas(data), 201
 
