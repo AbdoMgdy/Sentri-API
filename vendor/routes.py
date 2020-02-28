@@ -131,6 +131,17 @@ def connect_page():
     print(response)
     return 'Page Connected', 200
 
+
+@vendor_bp.route('/vendor/disconnect_page', methods=['GET', 'POST'])
+def disconnect_page():
+    data = request.get_json()
+    print(data)
+    request_endpoint = 'https://graph.facebook.com/v6.0/{}/subscribed_apps?access_token={}&subscribed_fields=messages,messaging_postbacks'.format(
+        data['id'], data['access_token'])
+    response = requests.delete(request_endpoint)
+    print(response)
+    return 'Page Disconnected', 200
+
 # For Comments
 @vendor_bp.route('/vendors', methods=['GET'])
 def vendors():
