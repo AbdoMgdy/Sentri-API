@@ -82,9 +82,9 @@ def vendor_register():
         vendor = Vendor(uid=data['uid'],
                         access_token=data['accessToken'])
         vendor.save()
-        return json.dumps({'userData': data}), 200
+        return 'Vendor Registered', 201
 
-    return 'User is already registerd', 200
+    return 'User is already registerd', 403
 
 
 @vendor_bp.route('/vendor/edit', methods=['POST'])
