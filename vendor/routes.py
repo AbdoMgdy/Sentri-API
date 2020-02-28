@@ -1,3 +1,4 @@
+import requests
 from flask import Blueprint, render_template, request, redirect
 from flask_jwt_extended import (
     jwt_required, create_access_token,
@@ -124,6 +125,12 @@ def vendor_FbLogin():
     print(request)
     return redirect('https://www.google.com')
 
+
+@vendor_bp.route('/vendor/connect_page', methods=['GET', 'POST'])
+def connect_page():
+    data = request.get_json()
+    print(data)
+    pass
 
 # For Comments
 @vendor_bp.route('/vendors', methods=['GET'])
