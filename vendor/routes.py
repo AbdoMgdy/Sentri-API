@@ -80,7 +80,7 @@ def vendor_register():
     if vendor is None:
         print('new Vendor')
         vendor = Vendor(uid=data['uid'],
-                        access_token=data['access_token'])
+                        access_token=data['accessToken'])
         vendor.save()
         return json.dumps({'userData': data}), 200
 
