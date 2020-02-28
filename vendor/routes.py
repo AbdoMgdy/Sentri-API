@@ -18,7 +18,7 @@ vendor_bp = Blueprint('vendor_bp', __name__,
 def vendor_orders():
     identity = get_jwt_identity()
     print(identity)
-    vendor = Vendor.find_by_username(identity)
+    vendor = Vendor.find_by_uid(identity)
     orders = Order.query.filter_by(page_id=vendor.page_id).all()
     orders_schema = OrderSchema(many=True)
     output = orders_schema.dump(orders)
@@ -52,7 +52,7 @@ def vendor_orders():
 def vendor_customers():
     identity = get_jwt_identity()
     print(identity)
-    vendor = Vendor.find_by_username(identity)
+    vendor = Vendor.find_by_uid(identity)
     subs = Customer.query.filter_by(page_id=vendor.page_id).count()
     return json.dumps({'customers': subs})
 
@@ -76,11 +76,12 @@ def vendor_login():
 def vendor_register():
     data = request.get_json()
     print(data)
+    access_token = create_access_token(identity=data['uid'])
     vendor = Vendor.find_by_uid(data['uid'])
     if vendor is None:
-        print('new Vendor')
-        vendor = Vendor(name='ne', uid=data['uid'],
-                        access_token=data['accessToken'], user_name='ne', page_id='25')
+        print('New Vendor')
+        vendor = Vendor(name=data['displayName'], uid=data['uid'],
+                        access_token=data['accessToken'], user_name=data['displayName'], page_id=data['uid'])
         vendor.save()
         return json.dumps(data), 201
 
@@ -120,20 +121,15 @@ def vendor_edit():
         return 'Vendor Not Found', 404
 
 
-@vendor_bp.route('/vendor/fblogin', methods=['GET', 'POST'])
-def vendor_FbLogin():
-    print(request)
-    return redirect('https://www.google.com')
-
-
 @vendor_bp.route('/vendor/connect_page', methods=['GET', 'POST'])
 def connect_page():
     data = request.get_json()
     print(data)
     request_endpoint = 'https://graph.facebook.com/v6.0/{}/subscribed_apps?access_token={}&subscribed_fields=messages,messaging_postbacks'.format(
         data['page_id'], data['accessToken'])
-    requests.post(request_endpoint)
-    pass
+    response = requests.post(request_endpoint)
+    print(response)
+    return 'Page Connected', 200
 
 # For Comments
 @vendor_bp.route('/vendors', methods=['GET'])
