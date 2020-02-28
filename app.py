@@ -101,7 +101,7 @@ def add_user_info(sender_id):
     result = orders.pop(sender_id, None)  # remove order from temp dict
     # receipt.send(restaurant)
     order.save()  # imp
-    send_order_to_vendor(order, vendor.username)
+    send_order_to_vendor(order, vendor.uid)
     return 'Customer info was added', 200
 
 
@@ -183,12 +183,12 @@ def load_test():
 @socketio.on('join')
 def join(data):
     print(data)
-    room = data['username']
+    room = data['uid']
     join_room(room)
     send('connected to room: {}'.format(room), room=room)
 
 
-def send_order_to_vendor(result, vendor_username):
+def send_order_to_vendor(result, vendor_uid):
     orders_schema = OrderSchema()
     order = orders_schema.dump(result)
     print(order)
@@ -212,7 +212,7 @@ def send_order_to_vendor(result, vendor_username):
     info['items'] = order_text
     data.append(info)
     print(data)
-    socketio.emit('order', json.dumps(data), room=vendor_username)
+    socketio.emit('order', json.dumps(data), room=vendor_uid)
     return info
 
 
