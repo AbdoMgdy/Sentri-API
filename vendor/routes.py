@@ -126,7 +126,7 @@ def connect_page():
     data = request.get_json()
     print(data)
     request_endpoint = 'https://graph.facebook.com/v6.0/{}/subscribed_apps?access_token={}&subscribed_fields=messages,messaging_postbacks'.format(
-        data['page_id'], data['accessToken'])
+        data['id'], data['accessToken'])
     response = requests.post(request_endpoint)
     print(response)
     return 'Page Connected', 200
