@@ -126,10 +126,16 @@ def vendor_edit():
 def connect_page():
     data = request.get_json()
     print(data)
+    vendor = Vendor.find_by_uid(data['uid'])
+    if vendor is None:
+        return 'Vendor Not Found', 404
+
     request_endpoint = 'https://graph.facebook.com/v6.0/{}/subscribed_apps?access_token={}&subscribed_fields=messages,messaging_postbacks'.format(
-        data['id'], data['access_token'])
+        data['page']['id'], data['page']['access_token'])
     response = requests.post(request_endpoint)
     print(response.json())
+    vendor.page_id = data['page']['id']
+    vendor.save()
     return 'Page Connected', 200
 
 
