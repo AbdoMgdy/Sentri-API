@@ -134,7 +134,7 @@ def connect_page():
         data['page']['id'], data['page']['access_token'])
     response = requests.post(request_endpoint)
     print(response.json())
-    vendor.access_token = data['page']['access_tokne']
+    vendor.access_token = data['page']['access_token']
     vendor.page_id = data['page']['id']
     vendor.save()
     return 'Page Connected', 200
