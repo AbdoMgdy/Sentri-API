@@ -134,6 +134,7 @@ def connect_page():
         data['page']['id'], data['page']['access_token'])
     response = requests.post(request_endpoint)
     print(response.json())
+    vendor.access_token = data['page']['access_tokne']
     vendor.page_id = data['page']['id']
     vendor.save()
     return 'Page Connected', 200
@@ -144,7 +145,7 @@ def disconnect_page():
     data = request.get_json()
     print(data)
     request_endpoint = 'https://graph.facebook.com/v6.0/{}/subscribed_apps?access_token={}&subscribed_fields=messages,messaging_postbacks'.format(
-        data['id'], data['access_token'])
+        data['page']['id'], data['page']['access_token'])
     response = requests.delete(request_endpoint)
     print(response.json())
     return 'Page Disconnected', 200
