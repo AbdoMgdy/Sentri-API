@@ -14,7 +14,7 @@ vendor_bp = Blueprint('vendor_bp', __name__,
                       static_folder='static')
 
 
-@vendor_bp.route('/vendor/orders', methods=['POST'])
+@vendor_bp.route('/vendor/orders', methods=['GET', 'POST'])
 @jwt_required
 def vendor_orders():
     identity = get_jwt_identity()
@@ -49,7 +49,7 @@ def vendor_orders():
     return json.dumps(data)
 
 
-@vendor_bp.route('/vendor/customers', methods=['GET'])
+@vendor_bp.route('/vendor/customers', methods=['GET', 'POST'])
 @jwt_required
 def vendor_customers():
     identity = get_jwt_identity()
