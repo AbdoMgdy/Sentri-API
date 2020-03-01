@@ -92,6 +92,9 @@ def handle_first_time_vendor(page_id, access_token):
             }
         ]
     })
+    new_vendor.menu = menus['103750251156613']
+    new_vendor.arabic = arabic['103750251156613']
+    new_vendor.prices = prices['103750251156613']
     new_vendor.is_setup = True
     new_vendor.save()
     return new_vendor

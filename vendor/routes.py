@@ -53,8 +53,9 @@ def vendor_customers():
     identity = get_jwt_identity()
     print(identity)
     vendor = Vendor.find_by_uid(identity)
-    subs = Customer.query.filter_by(page_id=vendor.page_id).count()
-    return json.dumps({'customers': subs})
+    customers = Customer.query.filter_by(page_id=vendor.page_id).all()
+    customers_schema = CustomerSchema(many=True).dump(customers)
+    return json.dumps({'customers': customers_schema})
 
 
 @vendor_bp.route('/vendor/login', methods=['POST'])
