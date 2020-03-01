@@ -50,6 +50,7 @@ def vendor_orders():
 
 
 @vendor_bp.route('/vendor/customers', methods=['GET'])
+@jwt_required
 def vendor_customers():
     identity = get_jwt_identity()
     print(identity)
@@ -75,7 +76,6 @@ def vendor_login():
 
 
 @vendor_bp.route('/vendor/register', methods=['POST'])
-@jwt_required
 def vendor_register():
     data = request.get_json()
     print(data)
