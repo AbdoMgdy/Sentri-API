@@ -15,6 +15,7 @@ vendor_bp = Blueprint('vendor_bp', __name__,
 
 
 @vendor_bp.route('/vendor/orders', methods=['POST'])
+@jwt_required
 def vendor_orders():
     identity = get_jwt_identity()
     print(identity)
@@ -74,6 +75,7 @@ def vendor_login():
 
 
 @vendor_bp.route('/vendor/register', methods=['POST'])
+@jwt_required
 def vendor_register():
     data = request.get_json()
     print(data)
@@ -85,9 +87,9 @@ def vendor_register():
         vendor = Vendor(name=data['displayName'], uid=data['uid'],
                         access_token=data['accessToken'], user_name=data['displayName'], page_id=data['uid'])
         vendor.save()
-        return json.dumps(data), 201
+        return json.dumps({'data': data, 'jwt_token': access_token}), 201
 
-    return json.dumps(data), 200
+    return json.dumps({'data': data, 'jwt_token': access_token}), 200
 
 
 @vendor_bp.route('/vendor/edit', methods=['POST'])
