@@ -13,7 +13,7 @@ ma = Marshmallow()
 
 
 def create_app(env=None):
-    from app.config import config_by_name
+    from config import config_by_name
     from webhook import routes as webhook_routes
     from vendor import routes as vendor_routes
     from customer import routes as customer_routes
