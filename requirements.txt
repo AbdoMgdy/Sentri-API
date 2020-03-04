@@ -3,6 +3,7 @@ gunicorn
 eventlet
 greenlet
 pyopenssl
+werkzeug == 0.16.1
 gevent-websocket
 requests
 requests_toolbelt

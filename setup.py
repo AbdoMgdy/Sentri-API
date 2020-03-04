@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, url_for, redirect, current_app
 from flask_sqlalchemy import SQLAlchemy
-from flask_restx import Api
+# from flask_restx import Api
 from flask_migrate import Migrate
 from flask_cors import CORS, cross_origin
 from flask_jwt_extended import JWTManager
