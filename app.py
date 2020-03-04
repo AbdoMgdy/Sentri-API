@@ -42,13 +42,13 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 migrate = Migrate(app, db, compare_type=True)
 jwt = JWTManager(app)
 CORS(app)
-# SECRET_KEY = os.urandom(32)
-# app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
-# app.config['JWT_SECRET_KEY'] = SECRET_KEY
-# app.config['SECRET_KEY'] = SECRET_KEY
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-#     'DATABASE_URL', 'sqlite:///data.db')
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+SECRET_KEY = os.urandom(32)
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
+app.config['JWT_SECRET_KEY'] = SECRET_KEY
+app.config['SECRET_KEY'] = SECRET_KEY
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DATABASE_URL', 'sqlite:///data.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.register_blueprint(vendor_routes.vendor_bp)
 app.register_blueprint(webhook_routes.webhook_bp)
 app.register_blueprint(order_routes.order_bp)

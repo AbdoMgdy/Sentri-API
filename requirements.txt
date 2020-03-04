@@ -12,7 +12,7 @@ flask_wtf
 psycopg2
 sqlalchemy_json
 flask_sqlalchemy
-flask_restx
+
 flask_jwt_extended
 flask_marshmallow
 marshmallow-sqlalchemy
