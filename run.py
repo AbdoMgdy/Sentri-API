@@ -1,6 +1,7 @@
-from app import app, socketio
+from setup import create_app
 from db import db, ma
 
+app = create_app(env='prod')
 
 db.init_app(app)
 ma.init_app(app)

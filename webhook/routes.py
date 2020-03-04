@@ -40,22 +40,15 @@ def handle_incoming_messages():
     #     return 'Vendor is Closed', 200
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
-        # bot.send_before_message(sender_id)
+        bot.send_before_message(sender_id)
         blocks = vendor.menu
         block = blocks['get_started']
         print(bot.send_template_message(sender_id, block))
         return "text", 200
-    # elif webhook_type == "quick_reply" and helper.quick_replies_events(data) == "send_menu":
-    #     m1.send(sender_id)
-    #     m2.send(sender_id)
-    #     m3.send(sender_id)
-    #     m4.send(sender_id)
-    #     m5.send(sender_id)
-    #     return "Sent Menu", 200
 
     elif webhook_type == "quick_reply":
         # HANDLE QUICK REPLIES HERE
-        # bot.send_before_message(sender_id)
+        bot.send_before_message(sender_id)
         block_name = helper.quick_replies_events(data)
         blocks = vendor.menu
         if block_name in blocks:
@@ -67,7 +60,7 @@ def handle_incoming_messages():
 
     elif webhook_type == "postback":
         # HANDLE POSTBACK HERE
-        # bot.send_before_message(sender_id)
+        bot.send_before_message(sender_id)
         block_name = helper.postback_events(data)
 
         blocks = vendor.menu

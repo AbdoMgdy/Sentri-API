@@ -18,6 +18,7 @@ from flask_jwt_extended import JWTManager
 # BluePrints
 from webhook import routes as webhook_routes
 from vendor import routes as vendor_routes
+from customer import routes as customer_routes
 from order import routes as order_routes
 from db import db
 
@@ -41,95 +42,17 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 migrate = Migrate(app, db, compare_type=True)
 jwt = JWTManager(app)
 CORS(app)
-SECRET_KEY = os.urandom(32)
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
-app.config['JWT_SECRET_KEY'] = SECRET_KEY
-app.config['SECRET_KEY'] = SECRET_KEY
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-    'DATABASE_URL', 'sqlite:///data.db')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# SECRET_KEY = os.urandom(32)
+# app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
+# app.config['JWT_SECRET_KEY'] = SECRET_KEY
+# app.config['SECRET_KEY'] = SECRET_KEY
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+#     'DATABASE_URL', 'sqlite:///data.db')
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.register_blueprint(vendor_routes.vendor_bp)
 app.register_blueprint(webhook_routes.webhook_bp)
 app.register_blueprint(order_routes.order_bp)
-
-
-@app.route('/user/<string:sender_id>/add_user_info', methods=['GET', 'POST'])
-def add_user_info(sender_id):
-    # look for customer
-    customer = Customer.find_by_psid(sender_id)
-    vendor = customer.vendor
-    bot = Bot(access_token=vendor.access_token)
-
-    # creat order object and fill it from temp dict
-    order = Order(sender_id, vendor.page_id)
-    if sender_id in orders:
-        items = orders[sender_id]
-        for item in items:
-            order.add_item(category=item['category'],
-                           name=item['name'],
-                           quantity=item['quantity'],
-                           price=item['price'],
-                           combo=item['combo'],
-                           notes=item['notes'])
-
-    else:
-        bot.send_text_message(
-            sender_id, 'انتهت صلاحية الأوردر من فضلك ابدأ أوردر جديد')
-        return 'Order Expired', 200
-
-    # update customer info
-    customer.name = request.form.get('name')
-    customer.phone_number = request.form.get('phone_number')
-    customer.address = request.form.get('address')
-    customer.save()  # imp
-    # make a receipt
-    receipt = ReceiptTemplate(
-        recipient_name=customer.name, order_number=order.number)
-
-    for item in order.items:
-        # fill receipt with order from database
-        if item['combo'] == 15:
-            details = '{} + Combo'.format(item['type'])
-        else:
-            details = '{}'.format(item['type'])
-        receipt.add_element(
-            title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
-    receipt.set_summary(total_cost=order.total)
-    bot.send_template_message(sender_id, {'payload': receipt.get_receipt()})
-    bot.send_text_message(
-        sender_id, 'يتم الآن تحضير الأوردر وسيصلك في خلال 45 - 60 دقيقة')
-    result = orders.pop(sender_id, None)  # remove order from temp dict
-    # receipt.send(restaurant)
-    order.save()  # imp
-    send_order_to_vendor(order, vendor.uid)
-    return 'Customer info was added', 200
-
-
-@app.route('/user/<string:sender_id>/order_info', methods=['GET'])
-def post_order_info(sender_id):
-    if sender_id in orders:
-        return json.dumps(orders[sender_id]), 200
-    else:
-        return 'Customer not found', 404
-
-
-@app.route('/user/<string:sender_id>/edit_order', methods=['POST'])
-def get_order_info(sender_id):
-    customer = Customer.find_by_psid(sender_id)
-    vendor = Vendor.find_by_page_id(customer.page_id)
-    bot = Bot(access_token=vendor.access_token)
-    data = request.get_json()
-    print(data)
-    if not data['items']:
-        bot.send_text_message(sender_id, 'انت لم تطلب شيء بعد!')
-        result = orders.pop(sender_id, None)  # remove order from temp dict
-        return 'order Empty', 200
-    if sender_id in orders:
-        orders[sender_id] = data['items']
-    confirm_block.set_text('تم تعديل الأوردر الخاص بك')
-    bot.send_template_message(
-        sender_id, {'payload': confirm_block.get_template()})
-    return 'ok', 200
+app.register_blueprint(customer_routes.customer_bp)
 
 
 # Load Test
@@ -186,6 +109,58 @@ def join(data):
     room = data['uid']
     join_room(room)
     send('connected to room: {}'.format(room), room=room)
+
+
+@app.route('/user/<string:sender_id>/add_user_info', methods=['GET', 'POST'])
+def add_user_info(sender_id):
+    # look for customer
+    customer = Customer.find_by_psid(sender_id)
+    vendor = customer.vendor
+    bot = Bot(access_token=vendor.access_token)
+
+    # creat order object and fill it from temp dict
+    order = Order(sender_id, vendor.page_id)
+    if sender_id in orders:
+        items = orders[sender_id]
+        for item in items:
+            order.add_item(category=item['category'],
+                           name=item['name'],
+                           quantity=item['quantity'],
+                           price=item['price'],
+                           combo=item['combo'],
+                           notes=item['notes'])
+
+    else:
+        bot.send_text_message(
+            sender_id, 'انتهت صلاحية الأوردر من فضلك ابدأ أوردر جديد')
+        return 'Order Expired', 200
+
+    # update customer info
+    customer.name = request.form.get('name')
+    customer.phone_number = request.form.get('phone_number')
+    customer.address = request.form.get('address')
+    customer.save()  # imp
+    # make a receipt
+    receipt = ReceiptTemplate(
+        recipient_name=customer.name, order_number=order.number)
+
+    for item in order.items:
+        # fill receipt with order from database
+        if item['combo'] == 15:
+            details = '{} + Combo'.format(item['type'])
+        else:
+            details = '{}'.format(item['type'])
+        receipt.add_element(
+            title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
+    receipt.set_summary(total_cost=order.total)
+    bot.send_template_message(sender_id, {'payload': receipt.get_receipt()})
+    bot.send_text_message(
+        sender_id, 'يتم الآن تحضير الأوردر وسيصلك في خلال 45 - 60 دقيقة')
+    result = orders.pop(sender_id, None)  # remove order from temp dict
+    # receipt.send(restaurant)
+    order.save()  # imp
+    send_order_to_vendor(order, vendor.uid)
+    return 'Customer info was added', 200
 
 
 def send_order_to_vendor(result, vendor_uid):
