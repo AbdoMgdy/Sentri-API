@@ -20,6 +20,7 @@ class VendorResource(Resource):
         identity = get_jwt_identity()
         print(identity)
         vendor = Vendor.find_by_uid(identity)
+        print(vendor)
         if vendor:
             output = VendorSchema.dump(vendor)
             return jsonify(output)
