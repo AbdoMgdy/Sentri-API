@@ -99,4 +99,4 @@ class VendorFbPage(Resource):
             data['page']['id'], data['page']['access_token'])
         response = requests.delete(request_endpoint)
         print(response.json())
-        return response
+        return 'Page Disconected'

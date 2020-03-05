@@ -28,7 +28,7 @@ def handle_incoming_messages():
     webhook_type = helper.get_type_from_payload(data)
     page_id = helper.get_vendor_from_message(data)
     vendor = helper.handle_vendor(page_id)
-    bot = Bot(access_token=vendor.access_token)
+    bot = Bot(access_token=vendor.page_access_token)
     sender_id = helper.get_customer_from_message(data)
     customer = helper.handle_customer(sender_id, page_id)
     print(sender_id)
@@ -41,7 +41,7 @@ def handle_incoming_messages():
     if webhook_type == "text":
         # HANDLE TEXT MESSAGES HERE
         bot.send_before_message(sender_id)
-        blocks = vendor.menu
+        blocks = vendor.blocks
         block = blocks['get_started']
         print(bot.send_template_message(sender_id, block))
         return "text", 200
@@ -50,7 +50,7 @@ def handle_incoming_messages():
         # HANDLE QUICK REPLIES HERE
         bot.send_before_message(sender_id)
         block_name = helper.quick_replies_events(data)
-        blocks = vendor.menu
+        blocks = vendor.blocks
         if block_name in blocks:
             block = blocks[block_name]
             # bot.send_template_message(sender_id, block)
@@ -63,7 +63,7 @@ def handle_incoming_messages():
         bot.send_before_message(sender_id)
         block_name = helper.postback_events(data)
 
-        blocks = vendor.menu
+        blocks = vendor.blocks
         if block_name in blocks:
 
             block = blocks[block_name]

@@ -272,7 +272,7 @@ menus = {
                         }],
                         }
         },
-        'welcome_message': {
+        'get_started': {
             'payload': {
                 'template_type': 'generic',
                 'elements': [
