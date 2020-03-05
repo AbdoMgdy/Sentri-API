@@ -5,9 +5,11 @@ greenlet
 pyopenssl
 werkzeug == 0.16.1
 gevent-websocket
+firebase_admin
 requests
 requests_toolbelt
 six
+flask_script
 flask_cors
 flask_wtf   
 psycopg2

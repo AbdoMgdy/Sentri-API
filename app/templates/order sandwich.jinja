@@ -1,0 +1,52 @@
+{% extends "layout.jinja" %}
+
+
+
+{% block content %}
+
+
+<!-- Material form contact -->
+<div class="card">
+
+    <h5 class="card-header warning-color-dark white-text text-center py-4">
+        <strong>{{item}}</strong>
+    </h5>
+
+    <!--Card content-->
+    <div class="card-body px-lg-5 pt-0">
+        <!-- Form -->
+        <form id='orderForm' class="text-center" style="color: #757575;" action="/add_to_order/sandwich/{{item}}/{{price}}" method="POST">
+            {{ form.csrf_token }}
+
+            <!-- Quantity -->
+            <div class="mt-5">
+                {{ form.quantity.label }} {{ form.quantity(dir="rtl",class="custom-select") }}
+            </div>
+
+            <!-- Spicy -->
+            <div class="mt-5">
+                {{ form.spicy(dir="rtl",class="custom-select") }}
+            </div>
+            
+            <!-- Combo -->
+            <div class="mt-5">
+                {{ form.combo(dir="rtl",class="custom-select") }}
+            </div>
+
+            <!--Notes-->
+            <div class="md-form mt-5">
+               {{form.notes(dir="rtl",class="form-control")}}
+            </div>
+
+            <!-- Send button -->
+            <button class="btn btn-warning btn-block z-depth-0 my-4 waves-effect" type="submit"
+                id="submitButton">تأكيد</button>
+
+        </form>
+        <!-- Form -->
+
+    </div>
+
+</div>
+
+{% endblock content %}
