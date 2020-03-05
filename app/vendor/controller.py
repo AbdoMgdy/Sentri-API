@@ -6,8 +6,8 @@ from flask_jwt_extended import (
     get_jwt_identity
 )
 
-from app.vendor.model import Vendor
-from app.vendor.schema import VendorSchema
+from .model import Vendor
+from .schema import VendorSchema
 
 api = Namespace('Vendor')
 
@@ -22,7 +22,7 @@ class VendorResource(Resource):
         vendor = Vendor.find_by_uid(identity)
         print(vendor)
         if vendor:
-            output = VendorSchema.dump(vendor)
+            output = VendorSchema().dump(vendor)
             return jsonify(output)
         return 'Vendor Not Found'
 
