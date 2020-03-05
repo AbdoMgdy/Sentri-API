@@ -12,10 +12,10 @@ api = Namespace('Customer')
 
 @api.route('/<string:psid>')
 class CustomerResource(Resource):
-    def get(psid):
+    def get(self, psid):
         pass
 
-    def post(psid):
+    def post(self, psid):
         # look for customer
         customer = Customer.find_by_psid(psid)
         vendor = customer.vendor

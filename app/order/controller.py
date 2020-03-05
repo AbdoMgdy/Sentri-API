@@ -18,10 +18,10 @@ class OrderResourceByNumber(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('order_status')
 
-    def get():
+    def get(self):
         pass
 
-    def post():
+    def post(self):
         pass
 
     def put(self, order_number):
@@ -38,7 +38,7 @@ class OrderResourceByNumber(Resource):
                 raise e
         return 'Order Not Found', 404
 
-    def delete(order_number):
+    def delete(self, order_number):
         order = Order.find_by_number(order_number)
         if order:
             try:
@@ -51,7 +51,7 @@ class OrderResourceByNumber(Resource):
 
 @api.route('/<string:psid>')
 class OrderResourceByPsid(Resource):
-    def get(psid):
+    def get(self, psid):
         order = Order.query.filter_by(psid=psid, is_confirmed=False)
         if order:
             output = OrderSchema.dump(order)
@@ -62,10 +62,10 @@ class OrderResourceByPsid(Resource):
 
 @api.route('/item/<string:sender_id>/<string:category>/<string:item>/')
 class OrderItem(Resource):
-    def get():
+    def get(self):
         pass
 
-    def post(sender_id, category, item):
+    def post(self, sender_id, category, item):
         customer = Customer.find_by_psid(sender_id)
         vendor = customer.vendor
         prices = vendor.prices
@@ -102,7 +102,7 @@ class OrderItem(Resource):
             sender_id, {'payload': confirm_block.get_template()})
         return 'Item added to Order', 200
 
-        def put(sender_id):
+        def put(self, sender_id):
             customer = Customer.find_by_psid(sender_id)
             vendor = Vendor.find_by_page_id(customer.page_id)
             bot = Bot(access_token=vendor.access_token)

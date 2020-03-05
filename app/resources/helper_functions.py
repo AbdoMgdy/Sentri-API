@@ -51,17 +51,15 @@ def quick_replies_events(data):
 def handle_first_time_customer(sender_id, page_id):
     new_customer = Customer(sender_id, page_id)
     new_customer.save()
-    orders[sender_id] = []
     return new_customer
 
 
 def handle_current_customer(sender_id):
     current_customer = Customer.find_by_psid(sender_id)
-    if sender_id in orders:
-        pass
+    if current_customer:
+        return current_customer
     else:
-        orders[sender_id] = []
-    return current_customer
+        return 'Customer Not Found'
 
 
 def handle_customer(sender_id, vendor):
@@ -75,7 +73,7 @@ def handle_customer(sender_id, vendor):
 
 def handle_first_time_vendor(page_id):
     new_vendor = Vendor.find_by_page_id(page_id)
-    bot = Bot(new_vendor.access_token)
+    bot = Bot(new_vendor.page_access_token)
     bot.set_get_started({
         'get_started': {
             'payload': 'get_started'

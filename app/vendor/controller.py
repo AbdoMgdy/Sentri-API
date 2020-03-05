@@ -16,7 +16,7 @@ api = Namespace('Vendor')
 class VendorResource(Resource):
     parser = reqparse.RequestParser()
     @jwt_required
-    def get():
+    def get(self):
         identity = get_jwt_identity()
         print(identity)
         vendor = Vendor.find_by_uid(identity)
@@ -25,7 +25,7 @@ class VendorResource(Resource):
             return jsonify(output), 200
         return 'Vendor Not Found', 404
 
-    def post():
+    def post(self):
         data = request.get_json()
         print(data)
         access_token = create_access_token(identity=data['uid'])
@@ -34,14 +34,14 @@ class VendorResource(Resource):
         if vendor is None:
             print('New Vendor')
             vendor = Vendor(name=data['displayName'], uid=data['uid'],
-                            page_access_token=data['accessToken'], user_name=data['displayName'], page_id=data['uid'])
+                            page_access_token=data['pageAccessToken'], page_id=data['uid'])
             vendor.save()
             return jsonify({'data': data, 'jwt_token': access_token}), 201
 
         return jsonify({'data': data, 'jwt_token': access_token}), 200
 
     @jwt_required
-    def put():
+    def put(self):
         identity = get_jwt_identity()
         data = request.get_json()
         print(data)
@@ -57,13 +57,13 @@ class VendorResource(Resource):
             return 'Vendor Updated', 200
         return 'Vendor Not Found', 404
 
-    def delete():
+    def delete(self):
         pass
 
 
 @api.route('/all')
 class VendorAll(Resource):
-    def get():
+    def get(self):
         vendors = Vendor.query.all()
         vendor_schema = VendorSchema(many=True)
         output = vendor_schema.dump(vendors)
@@ -72,10 +72,10 @@ class VendorAll(Resource):
 
 @api.route('/fb_page')
 class VendorFbPage(Resource):
-    def get():
+    def get(self):
         pass
 
-    def post():
+    def post(self):
         data = request.get_json()
         print(data)
         vendor = Vendor.find_by_uid(data['uid'])
@@ -91,7 +91,7 @@ class VendorFbPage(Resource):
         vendor.save()
         return 'Page Connected', 200
 
-    def delete():
+    def delete(self):
         data = request.get_json()
         print(data)
         request_endpoint = 'https://graph.facebook.com/v6.0/{}/subscribed_apps?access_token={}&subscribed_fields=messages,messaging_postbacks'.format(
