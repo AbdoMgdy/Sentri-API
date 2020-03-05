@@ -11,7 +11,7 @@ class Vendor(db.Model):
         'page_id', 'id', name='unique_vendor_customers'),)
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)  # unique
-    created_time = db.Column(db.Time)
+    created_time = db.Column(db.DateTime)
     uid = db.Column(db.String, unique=True)  # unique
     comments = db.Column(NestedMutableJson)
     blocks = db.Column(NestedMutableJson)
@@ -34,7 +34,7 @@ class Vendor(db.Model):
         self.fcm_token = fcm_token
         self.page_id = page_id
         self.blocks = {}
-        self.created_time = datetime.datetime.utcnow().time()
+        self.created_time = datetime.datetime.utcnow()
         self.closing_hours = datetime.datetime.utcnow().time()
         self.opening_hours = datetime.datetime.utcnow().time()
         self.prices = {}
