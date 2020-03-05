@@ -1,6 +1,7 @@
 
 import os
 from typing import List, Type
+abdo
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -31,6 +32,7 @@ class ProductionConfig(BaseConfig):
     CONFIG_NAME = "prod"
     JWT_ACCESS_TOKEN_EXPIRES = False
     JWT_SECRET_KEY = os.urandom(32)
+    CORS_HEADERS = 'Content-Type'
 
 
 EXPORT_CONFIGS: List[Type[BaseConfig]] = [

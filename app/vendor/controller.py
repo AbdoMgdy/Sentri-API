@@ -22,8 +22,8 @@ class VendorResource(Resource):
         vendor = Vendor.find_by_uid(identity)
         if vendor:
             output = VendorSchema.dump(vendor)
-            return jsonify(output), 200
-        return 'Vendor Not Found', 404
+            return jsonify(output)
+        return 'Vendor Not Found'
 
     def post(self):
         data = request.get_json()
@@ -36,9 +36,9 @@ class VendorResource(Resource):
             vendor = Vendor(name=data['displayName'], uid=data['uid'],
                             page_access_token=data['pageAccessToken'], page_id=data['uid'])
             vendor.save()
-            return jsonify({'data': data, 'jwt_token': access_token}), 201
+            return jsonify({'data': data, 'jwt_token': access_token})
 
-        return jsonify({'data': data, 'jwt_token': access_token}), 200
+        return jsonify({'data': data, 'jwt_token': access_token})
 
     @jwt_required
     def put(self):
@@ -54,8 +54,8 @@ class VendorResource(Resource):
             else:
                 vendor.update(data)
             vendor.save()
-            return 'Vendor Updated', 200
-        return 'Vendor Not Found', 404
+            return 'Vendor Updated'
+        return 'Vendor Not Found'
 
     def delete(self):
         pass
@@ -80,7 +80,7 @@ class VendorFbPage(Resource):
         print(data)
         vendor = Vendor.find_by_uid(data['uid'])
         if vendor is None:
-            return 'Vendor Not Found', 404
+            return 'Vendor Not Found'
 
         request_endpoint = 'https://graph.facebook.com/v6.0/{}/subscribed_apps?access_token={}&subscribed_fields=messages,messaging_postbacks'.format(
             data['page']['id'], data['page']['access_token'])
@@ -89,7 +89,7 @@ class VendorFbPage(Resource):
         vendor.access_token = data['page']['access_token']
         vendor.page_id = data['page']['id']
         vendor.save()
-        return 'Page Connected', 200
+        return 'Page Connected'
 
     def delete(self):
         data = request.get_json()
@@ -98,4 +98,4 @@ class VendorFbPage(Resource):
             data['page']['id'], data['page']['access_token'])
         response = requests.delete(request_endpoint)
         print(response.json())
-        return response.json(), 200
+        return response
