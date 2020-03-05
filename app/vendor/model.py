@@ -33,7 +33,7 @@ class Vendor(db.Model):
         self.page_access_token = page_access_token
         self.fcm_token = fcm_token
         self.page_id = page_id
-        self.menu = {}
+        self.blocks = {}
         self.created_time = datetime.datetime.utcnow().time()
         self.closing_hours = datetime.datetime.utcnow().time()
         self.opening_hours = datetime.datetime.utcnow().time()
