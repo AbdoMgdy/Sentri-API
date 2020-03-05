@@ -1,7 +1,6 @@
 
 import os
 from typing import List, Type
-abdo
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
