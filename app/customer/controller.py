@@ -23,7 +23,7 @@ class CustomerResource(Resource):
         bot = Bot(access_token=vendor.page_access_token)
         order = helper.get_order_from_customer(customer)
 
-        order = Order(psid, vendor.page_id)
+        print(order)
 
         # update customer info
         customer.name = request.form.get('name')

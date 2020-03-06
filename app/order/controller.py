@@ -74,7 +74,7 @@ class OrderItem(Resource):
         order = helper.get_order_from_customer(customer)
         print(order)
         if order is None:
-            order = Order(sender_id, vendor.page_id)
+            order = Order(sender_id, vendor.page_id)    
         bot = Bot(access_token=vendor.page_access_token)
         order_item = {}
         order_item['quantity'] = request.form.get('quantity')

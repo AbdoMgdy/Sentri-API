@@ -46,6 +46,7 @@ class Order(db.Model):
         return cls.query.get(_id)
 
     def add_item(self, item):
+        print(item)
         self.items.append(item)
         self.price += item['price']
         self.save()
