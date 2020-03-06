@@ -19,7 +19,7 @@ class CustomerResource(Resource):
         # look for customer
         customer = Customer.find_by_psid(psid)
         vendor = customer.vendor
-        bot = Bot(access_token=vendor.access_token)
+        bot = Bot(access_token=vendor.page_access_token)
 
         # creat order object and fill it from temp dict
         order = Order(psid, vendor.page_id)
