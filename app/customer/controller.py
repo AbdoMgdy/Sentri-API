@@ -43,6 +43,7 @@ class CustomerResource(Resource):
             receipt.add_element(
                 title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
         receipt.set_summary(total_cost=order.price)
+        print(receipt.get_receipt())
         print(bot.send_template_message(
             psid, {'payload': receipt.get_receipt()}))
         bot.send_text_message(
