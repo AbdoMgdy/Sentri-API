@@ -24,7 +24,9 @@ class CustomerResource(Resource):
         order = helper.get_order_from_customer(customer)
 
         print(order)
-
+        if order.is_confirmed:
+            print('Order is Confirmed')
+            return
         # update customer info
         customer.name = request.form.get('name')
         customer.phone_number = request.form.get('phone_number')
@@ -36,12 +38,8 @@ class CustomerResource(Resource):
 
         for item in order.items:
             # fill receipt with order from database
-            if item['combo'] == 15:
-                details = '{} + Combo'.format(item['type'])
-            else:
-                details = '{}'.format(item['type'])
             receipt.add_element(
-                title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
+                title=item['name'], quantity=item['quantity'], price=item['price'])
         receipt.set_summary(total_cost=order.price)
         print(receipt.get_receipt())
         print(bot.send_template_message(
