@@ -1,4 +1,4 @@
-from app.resources.dicts import menus, orders, arabic, prices
+from app.resources.dicts import menus, arabic, prices
 from app.order import Order, OrderSchema
 from app.customer import Customer
 from app.vendor import Vendor
@@ -114,12 +114,14 @@ def handle_vendor(page_id):
     return vendor
 
 
-def update_order(sender_id, item):
-    if sender_id in orders:
-        orders[sender_id].append(item)
-    else:
-        orders[sender_id] = []
-        orders[sender_id].append(item)
+def get_order_from_customer(customer):
+    orders = customer.orders
+    if orders:
+        for order in orders:
+            if not order.is_confirmed:
+                return order
+    order = Order(customer.psid, customer.page_id)
+    return order
 
 
 def send_order_to_vendor(result, fcm_token):
