@@ -40,8 +40,8 @@
 
     MessengerExtensions.getContext('414558285925238', 
     function success(thread_context){ 
-      document.getElementById('orderForm').action ="/user/" + thread_context.psid + "/add_to_order/{{food}}/{{item}}/{{price}}";
-      document.getElementById('userForm').action ="/user/" + thread_context.psid + "/add_user_info";
+      document.getElementById('orderForm').action ="/order/item/" + thread_context.psid + "/{{food}}/{{item}}/";
+      document.getElementById('userForm').action ="/customer/" + thread_context.psid ;
       
     },
   function error(err){

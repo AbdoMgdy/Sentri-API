@@ -16,7 +16,7 @@ api = Namespace('Order')
 @api.route('/<string:order_number>')
 class OrderResourceByNumber(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('order_status')
+    parser.add_argument('order_number')
 
     def get(self):
         pass
