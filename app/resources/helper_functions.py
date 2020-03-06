@@ -3,7 +3,8 @@ from app.order import Order, OrderSchema
 from app.customer import Customer
 from app.vendor import Vendor
 from app.models.bot import Bot
-from firebase_admin import messaging, firebase_admin
+from firebase_admin import messaging
+import firebase_admin
 import ast
 
 
