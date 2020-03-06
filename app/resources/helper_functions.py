@@ -3,7 +3,7 @@ from app.order import Order, OrderSchema
 from app.customer import Customer
 from app.vendor import Vendor
 from app.models.bot import Bot
-import firebase_admin
+from firebase_admin import messaging, firebase_admin
 import ast
 
 
@@ -152,6 +152,6 @@ def send_order_to_vendor(result, fcm_token):
         app = firebase_admin.get_app()
     except ValueError as e:
         firebase_admin.initialize_app()
-    msg = firebase_admin.messaging.Message(data=order, token=fcm_token)
-    msg_id = firebase_admin.messaging.send(msg)
+    msg = messaging.Message(data=order, token=fcm_token)
+    msg_id = messaging.send(msg)
     return msg_id
