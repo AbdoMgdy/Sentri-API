@@ -4,6 +4,7 @@ from flask_restx import Resource, Namespace, reqparse
 #     jwt_required, create_access_token,
 #     get_jwt_identity
 # )
+import app.resources.helper_functions as helper
 from .model import Order
 from .schema import OrderSchema
 from app.customer.model import Customer
@@ -70,8 +71,8 @@ class OrderItem(Resource):
         vendor = customer.vendor
         prices = vendor.prices
         arabic = vendor.arabic
-        order = Order.query.filter_by(
-            psid=sender_id, is_confirmed=False).first()
+        order = helper.get_ordr_from_customer(customer)
+        print(order)
         if order is None:
             order = Order(sender_id, vendor.page_id)
         bot = Bot(access_token=vendor.page_access_token)
