@@ -5,6 +5,7 @@ from .model import Customer
 from app.order.model import Order
 from app.vendor.model import Vendor
 from app.models.bot import Bot
+import app.resources.helper_functions as helper
 from app.models.receipt import ReceiptTemplate
 from app.resources.buttons import confirm_block
 api = Namespace('Customer')
@@ -47,5 +48,5 @@ class CustomerResource(Resource):
         bot.send_text_message(
             psid, 'يتم الآن تحضير الأوردر وسيصلك في خلال 45 - 60 دقيقة')
         order.save()  # imp
-        # send_order_to_vendor(order, vendor.uid)
+        helper.send_order_to_vendor(order, vendor.fcm_token)
         return 'Customer info was added', 200

@@ -54,20 +54,18 @@ def handle_first_time_customer(sender_id, page_id):
     return new_customer
 
 
-def handle_current_customer(sender_id):
-    current_customer = Customer.find_by_psid(sender_id)
-    if current_customer:
-        return current_customer
-    else:
-        return 'Customer Not Found'
+# def handle_current_customer(sender_id):
+#     current_customer = Customer.find_by_psid(sender_id)
+#     if current_customer:
+#         return current_customer
+#     else:
+#         return 'Customer Not Found'
 
 
 def handle_customer(sender_id, vendor):
     customer = Customer.find_by_psid(sender_id)
     if customer is None:
         customer = handle_first_time_customer(sender_id, vendor)
-    elif customer and len(customer.orders) > 0:
-        customer = handle_current_customer(sender_id)
     return customer
 
 
