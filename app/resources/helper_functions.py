@@ -6,9 +6,8 @@ from app.models.bot import Bot
 from firebase_admin import messaging
 import firebase_admin
 import ast
+import json
 from firebase_admin import credentials
-
-
 
 
 def get_type_from_payload(data):
@@ -157,6 +156,6 @@ def send_order_to_vendor(result, fcm_token):
     except ValueError as e:
         cred = credentials.Certificate("serviceAccountKey.json")
         firebase_admin.initialize_app(cred)
-    msg = messaging.Message(data=order, token=fcm_token)
+    msg = messaging.Message(data=json.dumps(order), token=fcm_token)
     msg_id = messaging.send(msg)
     return msg_id
