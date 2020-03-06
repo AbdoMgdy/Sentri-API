@@ -1,7 +1,7 @@
 from app import ma
 from .model import Order
-# from vendor.schema import VendorSchema
-# from customer.schema import CustomerSchema
+# from app.vendor.schema import VendorSchema
+# from app.customer.schema import CustomerSchema
 
 
 class OrderSchema(ma.ModelSchema):
