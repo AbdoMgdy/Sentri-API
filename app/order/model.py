@@ -48,7 +48,7 @@ class Order(db.Model):
     def add_item(self, item):
         print(item)
         self.items.append(item)
-        self.price += item['price']
+        self.price += float(item['price']) * float(item['quantity'])
         self.save()
 
     def update(self, changes):
