@@ -22,7 +22,8 @@ class VendorResource(Resource):
         vendor = Vendor.find_by_uid(identity)
         print(vendor)
         if vendor:
-            output = VendorSchema().dump(vendor)
+            output = VendorSchema().dump(vendor).data
+            print(output)
             return jsonify(output)
         return 'Vendor Not Found'
 

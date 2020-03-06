@@ -7,5 +7,5 @@ from app.customer.schema import CustomerSchema
 class VendorSchema(ma.ModelSchema):
     class Meta:
         model = Vendor
-    customers = ma.Nested(CustomerSchema)
-    orders = ma.Nested(OrderSchema)
+    customers = ma.Nested(CustomerSchema, many=True)
+    orders = ma.Nested(OrderSchema, many=True)
