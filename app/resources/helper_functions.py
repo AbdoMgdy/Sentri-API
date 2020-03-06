@@ -135,19 +135,19 @@ def send_order_to_vendor(result, fcm_token):
     info['number'] = order['number']
     info['price'] = order['price']
     info['status'] = order['status']
-    items = ast.literal_eval(order['items'])
-    order_text = ''
-    for item in items:
-        if item['combo'] == 15:
-            combo = 'Combo'
-        else:
-            combo = ''
-        temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
-                                                       item['name'], item['type'], combo, item['notes'])
-        order_text += temp
-    info['items'] = order_text
+    # items = ast.literal_eval(order['items'])
+    # order_text = ''
+    # for item in items:
+    #     if item['combo'] == 15:
+    #         combo = 'Combo'
+    #     else:
+    #         combo = ''
+    #     temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
+    #                                                    item['name'], item['type'], combo, item['notes'])
+    #     order_text += temp
+    # info['items'] = order_text
     data.append(info)
     print(data)
-    msg = messaging.Message(data=info, token=fcm_token)
+    msg = messaging.Message(data=order, token=fcm_token)
     msg_id = messaging.send(msg)
     return msg_id
