@@ -131,7 +131,7 @@ def send_order_to_vendor(result, fcm_token):
     info['customer'] = order['customer']
     info['time'] = order['time']
     info['number'] = order['number']
-    info['total'] = order['total']
+    info['price'] = order['price']
     info['status'] = order['status']
     items = ast.literal_eval(order['items'])
     order_text = ''
@@ -148,4 +148,4 @@ def send_order_to_vendor(result, fcm_token):
     print(data)
     msg = messaging.Message(data=info, token=fcm_token)
     msg_id = messaging.send(msg)
-    return info
+    return msg_id

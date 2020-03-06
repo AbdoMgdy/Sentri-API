@@ -43,10 +43,11 @@ class CustomerResource(Resource):
             receipt.add_element(
                 title=item['name'], subtitle=details, quantity=item['quantity'], price=item['price'])
         receipt.set_summary(total_cost=order.price)
-        bot.send_template_message(
-            psid, {'payload': receipt.get_receipt()})
+        print(bot.send_template_message(
+            psid, {'payload': receipt.get_receipt()}))
         bot.send_text_message(
             psid, 'يتم الآن تحضير الأوردر وسيصلك في خلال 45 - 60 دقيقة')
         order.save()  # imp
-        helper.send_order_to_vendor(order, vendor.fcm_token)
+        msg_id = helper.send_order_to_vendor(order, vendor.fcm_token)
+        print(msg_id)
         return 'Customer info was added', 200
