@@ -46,7 +46,7 @@ class CustomerResource(Resource):
             psid, {'payload': receipt.get_receipt()}))
         bot.send_text_message(
             psid, 'يتم الآن تحضير الأوردر وسيصلك في خلال 45 - 60 دقيقة')
-        order.cofirm()  # imp
+        order.confirm()  # imp
         msg_id = helper.send_order_to_vendor(order, vendor.fcm_token)
         print(msg_id)
         return 'Customer info was added', 200
