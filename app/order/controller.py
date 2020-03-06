@@ -71,7 +71,7 @@ class OrderItem(Resource):
         vendor = customer.vendor
         prices = vendor.prices
         arabic = vendor.arabic
-        order = helper.get_ordr_from_customer(customer)
+        order = helper.get_order_from_customer(customer)
         print(order)
         if order is None:
             order = Order(sender_id, vendor.page_id)
