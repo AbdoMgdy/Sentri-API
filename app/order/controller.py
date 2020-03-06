@@ -74,7 +74,7 @@ class OrderItem(Resource):
             psid=sender_id, is_confirmed=False).first()
         if order is None:
             order = Order(sender_id, vendor.page_id)
-        bot = Bot(access_token=vendor.access_token)
+        bot = Bot(access_token=vendor.page_access_token)
         order_item = {}
         order_item['quantity'] = request.form.get('quantity')
         if request.form.get('spicy') is not None:
