@@ -3,7 +3,7 @@ import json
 from datetime import datetime
 import ast
 from app.models.bot import Bot
-from app.models.forms import CustomerInfo, OrderForm, OrderSandwich, OrderMeal, OrderSauce
+from app.models.forms import CustomerInfo, OrderForm, OrderSandwich, OrderMeal, OrderSauce, RegistrationForm
 import app.resources.helper_functions as helper
 # Set up a Blueprint
 webview_bp = Blueprint('webview_bp', __name__,
@@ -36,3 +36,8 @@ def show_webview(food, item):
     elif food == "sauce":
         sauce = OrderSauce()
         return render_template('order sauce.jinja', food="sauce", item=item, form=sauce)
+
+
+@webview_bp.route('/car')
+def show_car():
+    pass

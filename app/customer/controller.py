@@ -50,3 +50,13 @@ class CustomerResource(Resource):
         msg_id = helper.send_order_to_vendor(order, vendor.fcm_token)
         print(msg_id)
         return 'Customer info was added', 200
+
+
+@api.route('/car/<string:psid>')
+class CarCustomer(Resource):
+    def post(psid):
+        data = (request.get_json())
+        print(data)
+        bot = Bot(access_token='s')
+        bot.send_text_message(psid, 'تم تسجيل بياناتك')
+        return 'ok', 200

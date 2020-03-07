@@ -1,0 +1,72 @@
+{% extends "layout.jinja" %}
+
+
+
+{% block content %}
+
+
+<!-- Material form contact -->
+<div class="card">
+
+    <h5 class="card-header warning-color-dark white-text text-center py-4">
+        <strong>أدخل بياناتك</strong>
+    </h5>
+
+    <!--Card content-->
+    <div class="card-body px-lg-5 pt-0">
+
+        <!-- Form -->
+         <form id="carForm" action="/add_user_info" method="post" class="form-box"  name="myForm" novalidate>
+                    <div class="form-group mt-5">
+                      <input type="text" name="name" class="form-control text-right" placeholder="الإسم" required>
+                      <div class="invalid-feedback">
+                          من فضلك أدخل الاسم
+                        </div>
+
+                    </div>
+                    <div class="form-group mt-5">
+                      <input type="text" name="name" class="form-control text-right" placeholder="الوظيفة" required>
+                      <div class="invalid-feedback">
+                          من فضلك أدخل الوظيفة
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                      <input type="tel"  pattern="[0-9]{11}" name="phone_number" class="form-control text-right" placeholder="رقم الهاتف" required>
+                      <div class="invalid-feedback">
+                          من فضلك ادخل رقم صحيح
+                        </div>
+                      </div>
+
+            
+                    <div class="form-group">
+                      <input type="text" name="address" class="form-control text-right" placeholder="العنوان" required>
+                      <div class="invalid-feedback">
+                          من فضلك أدخل العنوان الكامل
+                        </div>
+                      </div>
+                    <div class="form-group">
+                      <input type="text" name="address" class="form-control text-right" placeholder="الماركة" required>
+                      <div class="invalid-feedback">
+                          من فضلك أدخل الماركة
+                        </div>
+                      </div>
+                    <div class="form-group">
+                      <input type="text" name="address" class="form-control text-right" placeholder="الموديل" required>
+                      <div class="invalid-feedback">
+                          من فضلك أدخل الموديل
+                        </div>
+                      </div>
+            <!-- Send button -->
+            <div class="form-group text-center">
+                      <input id='submitButton' type="submit" class="btn btn-warning btn-block z-depth-0 my-4 waves-effect" value="Confirm تأكيد">
+                    </div>
+
+        </form>
+        <!-- Form -->
+
+    </div>
+
+</div>
+
+{% endblock content %}
