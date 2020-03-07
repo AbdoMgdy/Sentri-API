@@ -464,8 +464,7 @@ menus = {
                 'template_type': 'generic',
                 'elements': [
                     {
-                        'title': 'Family Menu of HO',
-                        'image_url': 'https://i.ibb.co/N7Z2Y0Y/image.png',
+                        'title': '',
                         'subtitle': '',
                         'buttons': [{
                             'type': 'postback',
