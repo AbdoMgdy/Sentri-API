@@ -17,6 +17,7 @@ api = Namespace('Order')
 @api.route('/<string:order_number>')
 class OrderResourceByNumber(Resource):
     parser = reqparse.RequestParser()
+    parser.add_argument('order_status')
     parser.add_argument('order_number')
 
     def get(self):
@@ -26,8 +27,8 @@ class OrderResourceByNumber(Resource):
         pass
 
     def put(self, order_number):
-        args = self.parser.parse_args()
-        print(args)
+        data = request.get_json()
+        print(data)
         print(order_number)
         order = Order.find_by_number(order_number)
         if order:
