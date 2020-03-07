@@ -156,6 +156,6 @@ def send_order_to_vendor(result, fcm_token):
     except ValueError as e:
         cred = credentials.Certificate("serviceAccountKey.json")
         firebase_admin.initialize_app(cred)
-    msg = messaging.Message(data=info, token=fcm_token)
+    msg = messaging.Message(data={'message':'New Order'}, token=fcm_token)
     msg_id = messaging.send(msg)
     return msg_id
