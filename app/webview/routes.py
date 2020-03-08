@@ -38,6 +38,6 @@ def show_webview(food, item):
         return render_template('order sauce.jinja', food="sauce", item=item, form=sauce)
 
 
-@webview_bp.route('/car')
+@webview_bp.route('/car', methods=['GET'])
 def show_car():
-    pass
+    return render_template('car.jinja')

@@ -57,6 +57,9 @@ class CarCustomer(Resource):
     def post(psid):
         data = (request.get_json())
         print(data)
-        bot = Bot(access_token='s')
+        bot = Bot(access_token=ACCESS_TOKEN)
         bot.send_text_message(psid, 'تم تسجيل بياناتك')
         return 'ok', 200
+
+
+ACCESS_TOKEN = 'EAAJMYpx9YFkBAHPGjj1FWtZAfiwGZAZAD7igxPIlYX5INZANePO3B7X4vKZBF4rZAqWPnMTyfSuMTtjZAxK2SfFrjNcPr7gxlba2cEvdtUU1BtpPULEpBkpAfoFeqL2aRitAqZBlJypP50ArG6ISZA5ISM5sVZCFQhhtpxZCIOJ0y8st93bopRx6n0smn0i9jpZByY8ZD'

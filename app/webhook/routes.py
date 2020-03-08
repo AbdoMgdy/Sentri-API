@@ -188,16 +188,6 @@ car_blocks = {
                         'payload': 'sub-menu-1'
                     }]
                 },
-                {
-                    'title': 'كشري',
-                    'image_url': 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/p960x960/80390516_2962955900382554_7936731969642037248_o.jpg?_nc_cat=108&_nc_ohc=68iQXp-Lxn0AX9pBDCk&_nc_ht=scontent-hbe1-1.xx&_nc_tp=6&oh=f886d8238a13919294e79f9bfb70fa0b&oe=5EFDAE46',
-                    'subtitle': '',
-                    'buttons': [{
-                        'type': 'postback',
-                        'title': 'عرض المنيو',
-                        'payload': 'sub-menu-2'
-                    }]
-                }
             ]
         }
     },
