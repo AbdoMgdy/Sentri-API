@@ -42,7 +42,7 @@
     function success(thread_context){ 
       document.getElementById('orderForm').action ="/order/item/" + thread_context.psid + "/{{food}}/{{item}}/";
       document.getElementById('userForm').action ="/customer/" + thread_context.psid ;
-      document.getElementById('carFrom').action ="/customer/car/" + thread_context.psid ;
+      document.getElementById('carForm').action ="/customer/car/" + thread_context.psid ;
       
     },
   function error(err){
