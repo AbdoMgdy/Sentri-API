@@ -54,7 +54,7 @@ class CustomerResource(Resource):
 
 @api.route('/car/<string:psid>')
 class CarCustomer(Resource):
-    def post(psid):
+    def post(self, psid):
         data = (request.get_json())
         print(data)
         bot = Bot(access_token=ACCESS_TOKEN)
