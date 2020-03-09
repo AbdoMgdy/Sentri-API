@@ -25,8 +25,8 @@ class CustomerResource(Resource):
 
         print(order)
         if not vendor.is_open():
-            bot.send_text_message(
-                'الرجاء المحاولة مرة أخري خلال مواعيد العمل الرسمية')
+            bot.send_text_message(sender_id,
+                                  'الرجاء المحاولة مرة أخري خلال مواعيد العمل الرسمية')
             return 'Vendor is Closed', 200
         if order.is_confirmed:
             print('Order is Confirmed')

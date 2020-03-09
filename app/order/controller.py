@@ -76,8 +76,8 @@ class OrderItem(Resource):
         order = helper.get_order_from_customer(customer)
         print(order)
         if not vendor.is_open():
-            bot.send_text_message(
-                'الرجاء المحاولة مرة أخري خلال مواعيد العمل الرسمية')
+            bot.send_text_message(sender_id,
+                                  'الرجاء المحاولة مرة أخري خلال مواعيد العمل الرسمية')
             return 'Vendor is Closed', 200
         if order is None or order.is_confirmed:
             order = Order(sender_id, vendor.page_id)
