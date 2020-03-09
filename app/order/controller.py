@@ -72,11 +72,14 @@ class OrderItem(Resource):
         vendor = customer.vendor
         prices = vendor.prices
         arabic = vendor.arabic
+        bot = Bot(access_token=vendor.page_access_token)
         order = helper.get_order_from_customer(customer)
         print(order)
+        if not vendor.is_open():
+            bot.send_text_message(
+                'الرجاء المحاولة مرة أخري خلال مواعيد العمل الرسمية')
         if order is None or order.is_confirmed:
             order = Order(sender_id, vendor.page_id)
-        bot = Bot(access_token=vendor.page_access_token)
         order_item = {}
         order_item['quantity'] = request.form.get('quantity')
         if request.form.get('spicy') is not None:

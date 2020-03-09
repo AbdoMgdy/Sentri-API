@@ -24,6 +24,9 @@ class CustomerResource(Resource):
         order = helper.get_order_from_customer(customer)
 
         print(order)
+        if not vendor.is_open():
+            bot.send_text_message(
+                'الرجاء المحاولة مرة أخري خلال مواعيد العمل الرسمية')
         if order.is_confirmed:
             print('Order is Confirmed')
             return
