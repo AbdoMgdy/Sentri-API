@@ -46,17 +46,23 @@ class Vendor(db.Model):
         print(self.closing_hours)
         print(self.opening_hours)
         print(time)
-        if time > self.opening_hours and time < self.closing_hours:
-            return True
-        else:
-            return False
+        if time > self.opening_hours:
+            if self.closing_hours < self.opening_hours and time > self.closing_hours:
+                return False
+            elif self.closing_hours > self.opening_hours and time > self.closing_hours:
+                return False
+        elif time < self.opening_hours:
+            if self.closing_hours < self.opening_hours and time > self.closing_hours:
+                return False
+        return True
 
-    def set_working_hours(self, opening_hours, closing_hours):
+
+   def set_working_hours(self, opening_hours, closing_hours):
         time_format = '%H:%M'
         self.closing_hours = datetime.datetime.strptime(
-            closing_hours, time_format).time()
+            closing_hours, time_format).time() + datetime.timedelta(hours=2)
         self.opening_hours = datetime.datetime.strptime(
-            opening_hours, time_format).time()
+            opening_hours, time_format).time() + datetime.timedelta(hours=2)
 
     @classmethod
     def find_by_page_id(cls, page_id):
