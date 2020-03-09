@@ -27,9 +27,10 @@ class CustomerResource(Resource):
         if not vendor.is_open():
             bot.send_text_message(
                 'الرجاء المحاولة مرة أخري خلال مواعيد العمل الرسمية')
+            return 'Vendor is Closed', 200
         if order.is_confirmed:
             print('Order is Confirmed')
-            return
+            return 'Order is Confirmed', 200
         # update customer info
         customer.name = request.form.get('name')
         customer.phone_number = request.form.get('phone_number')
