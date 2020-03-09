@@ -57,9 +57,9 @@ class Vendor(db.Model):
     def set_working_hours(self, opening_hours, closing_hours):
         time_format = '%H:%M'
         self.closing_hours = datetime.datetime.strptime(
-            closing_hours, time_format).time() + datetime.timedelta(hours=2)
+            closing_hours, time_format).time()
         self.opening_hours = datetime.datetime.strptime(
-            opening_hours, time_format).time() + datetime.timedelta(hours=2)
+            opening_hours, time_format).time()
 
     @classmethod
     def find_by_page_id(cls, page_id):
