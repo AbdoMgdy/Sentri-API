@@ -1,7 +1,5 @@
 from sqlalchemy_json import NestedMutableJson
 import datetime
-
-
 from app import db
 
 
@@ -56,8 +54,7 @@ class Vendor(db.Model):
                 return False
         return True
 
-
-   def set_working_hours(self, opening_hours, closing_hours):
+    def set_working_hours(self, opening_hours, closing_hours):
         time_format = '%H:%M'
         self.closing_hours = datetime.datetime.strptime(
             closing_hours, time_format).time() + datetime.timedelta(hours=2)
