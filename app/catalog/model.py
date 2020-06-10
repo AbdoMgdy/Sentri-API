@@ -7,8 +7,7 @@ from uuid import uuid1
 
 class Catalog(db.Model):
     __tablename__ = 'catalogs'
-    __table_args__ = (db.UniqueConstraint(
-        'page_id', 'id', name='unique_vendor_catalog'),)
+
     id = db.Column(db.Integer, primary_key=True)
     created_time = db.Column(db.DateTime)
     page_id = db.Column(db.String, db.ForeignKey('vendors.page_id'))
