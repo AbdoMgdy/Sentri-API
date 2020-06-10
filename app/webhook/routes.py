@@ -21,15 +21,6 @@ def verify():
     return "Hello world", 200
 
 
-@webhook_bp.route('/webhook/car', methods=['GET'])
-def verify_car():
-    if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
-        if not request.args.get("hub.verify_token") == VERIFICATION_TOKEN:
-            return "Verification token mismatch", 403
-        return request.args["hub.challenge"], 200
-    return "Hello world", 200
-
-
 @webhook_bp.route('/webhook', methods=['POST'])
 def handle_incoming_messages():
     data = request.get_json()
