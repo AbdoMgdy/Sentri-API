@@ -11,27 +11,26 @@ class Catalog(db.Model):
         'page_id', 'id', name='unique_vendor_catalog'),)
     id = db.Column(db.Integer, primary_key=True)
     created_time = db.Column(db.DateTime)
-    vendor = db.relationship('Vendor', backref='catalog', lazy='select')
-    page_id = db.Column(db.String, db.ForeignKey('vendors.page_id'))
-    blocks = db.Column(NestedMutableJson)
-    catgories = db.Column(NestedMutableJson)
-    items = db.Column(NestedMutableJson)
+    page_id=db.Column(db.String, db.ForeignKey('vendors.page_id'))
+    blocks=db.Column(NestedMutableJson)
+    catgories=db.Column(NestedMutableJson)
+    items=db.Column(NestedMutableJson)
 
     def __init__(self, psid, page_id):
-        self.items = []
-        self.catgories = []
-        self.blocks = {}
-        self.created_time = datetime.datetime.utcnow()
+        self.items=[]
+        self.catgories=[]
+        self.blocks={}
+        self.created_time=datetime.datetime.utcnow()
 
     def add_category(self, title, subtitle, img):
-        temp = {
+        temp={
             'id': uuid1().hex,
             'title': title,
             'subtitle': subtitle,
             'img': img,
             'block': self.make_category_block(title, subtitle)
         }
-        self.blocks[title] = temp['block']
+        self.blocks[title]=temp['block']
         self.catgories.append(temp)
         self.save()
 
@@ -47,7 +46,7 @@ class Catalog(db.Model):
         return cls.query.filter_by(page_id=page_id).first()
 
     def add_item(self, category, title, subtitle, price, img):
-        temp = {
+        temp={
             'id': uuid1().hex,
             'title': title,
             'subtitle': subtitle,
@@ -83,7 +82,7 @@ class Catalog(db.Model):
 
     def build_menu(self):
         if not self.blocks['main_menu']:
-            main_menu = GenericTemplate()
+            main_menu=GenericTemplate()
             for k, v in self.catgories.items():
                 main_menu.add_element(
                     title=v['title'], image_url=v['img'], subtitle=v['subtitle'], buttons=[{
@@ -91,10 +90,10 @@ class Catalog(db.Model):
                         "title": "عرض المنيو",
                         "payload": v['title']
                     }])
-            self.blocks['main_menu'] = main_menu.get_generic()
+            self.blocks['main_menu']=main_menu.get_generic()
 
         for k, v in self.items.items():
-            category = GenericTemplate()
+            category=GenericTemplate()
             for k, v in self.items[k].items():
                 category.add_element(
                     title=v['title'], image_url=v['img'], subtitle=v['subtitle'], buttons=[{
@@ -124,7 +123,7 @@ class Catalog(db.Model):
         db.session.commit()
 
 
-k = {
+k={
     'cat': {
         'item': {
 
