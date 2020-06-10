@@ -15,7 +15,8 @@ class Catalog(db.Model):
     catgories = db.Column(NestedMutableJson)
     items = db.Column(NestedMutableJson)
 
-    def __init__(self, psid, page_id):
+    def __init__(self, page_id):
+        self.page_id = page_id
         self.items = []
         self.catgories = []
         self.blocks = {}

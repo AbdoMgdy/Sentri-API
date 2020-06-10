@@ -2,6 +2,7 @@ from app.resources.dicts import menus, arabic, prices
 from app.order import Order, OrderSchema
 from app.customer import Customer
 from app.vendor import Vendor
+from app.catalog import Catalog
 from app.models.bot import Bot
 from firebase_admin import messaging
 import firebase_admin
@@ -95,7 +96,8 @@ def handle_first_time_vendor(page_id):
             }
         ]
     })
-    new_vendor.blocks = menus['103750251156613']
+    catalog = Catalog(page_id)
+    catalog.save()
     new_vendor.arabic = arabic['103750251156613']
     new_vendor.prices = prices['103750251156613']
     # new_vendor.is_setup = True
