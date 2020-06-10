@@ -1,4 +1,3 @@
-from models.bot import Bot
 import json
 
 
@@ -12,9 +11,8 @@ BUTTON_LIMIT = 3
 ELEMENTS_LIMIT = 10
 
 
-class GenericTemplate(Bot):
+class GenericTemplate():
     def __init__(self):
-        super().__init__()
         self.template = {'template_type': 'generic'}
         self.elements = []
         self.quick_replies = []
@@ -50,7 +48,3 @@ class GenericTemplate(Bot):
         if self.quick_replies is not None:
             pass
         return self.template
-
-    def send(self, reciepiant_id):
-        super().send_generic_message(reciepiant_id,
-                                     self.elements, quick_replies=self.quick_replies)
