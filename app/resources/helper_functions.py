@@ -102,7 +102,7 @@ def handle_first_time_vendor(page_id):
     new_vendor.prices = prices['103750251156613']
     # new_vendor.is_setup = True
     new_vendor.save()
-    return new_vendor
+    return new_vendor, catalog
 
 
 def handle_current_vendor(page_id, ):
@@ -115,8 +115,9 @@ def handle_vendor(page_id):
     if vendor is not None and vendor.is_setup:
         vendor = handle_current_vendor(page_id)
     else:
-        vendor = handle_first_time_vendor(page_id)
-    return vendor
+        vendor = handle_first_time_vendor(page_id)[0]
+        catalog = handle_first_time_vendor(page_id)[1]
+    return vendor, catalog
 
 
 def get_order_from_customer(customer):

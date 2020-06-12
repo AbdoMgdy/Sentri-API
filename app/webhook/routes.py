@@ -27,8 +27,8 @@ def handle_incoming_messages():
     print(data)
     webhook_type = helper.get_type_from_payload(data)
     page_id = helper.get_vendor_from_message(data)
-    vendor = helper.handle_vendor(page_id)
-    catalog = vendor.catalog
+    vendor = helper.handle_vendor(page_id)[0]
+    catalog = helper.handle_vendor(page_id)[1]
     blocks = catalog.blocks
     bot = Bot(access_token=vendor.page_access_token)
     sender_id = helper.get_customer_from_message(data)
