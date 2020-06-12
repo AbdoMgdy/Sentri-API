@@ -29,6 +29,7 @@ class CatalogResource(Resource):
         elif resource == 'categories':
             catalog.add_category(data['title'],
                                  data['subtitle'], data['img'])
+        return f'{resource} added successfully'
 
     def put(self):
         pass
