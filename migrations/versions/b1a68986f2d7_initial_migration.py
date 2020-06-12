@@ -1,13 +1,12 @@
 """Initial migration.
 
 Revision ID: b1a68986f2d7
-Revises: 
 Create Date: 2020-06-10 07:14:30.600844
 
 """
 from alembic import op
 import sqlalchemy as sa
-import sqlalchemy_json
+from sqlalchemy_json import NestedMutableJson
 
 
 # revision identifiers, used by Alembic.
@@ -15,6 +14,10 @@ revision = 'b1a68986f2d7'
 down_revision = None
 branch_labels = None
 depends_on = None
+
+
+def seed_data():
+    pass
 
 
 def upgrade():
@@ -25,13 +28,13 @@ def upgrade():
                     sa.Column('created_time', sa.DateTime(), nullable=True),
                     sa.Column('uid', sa.String(), nullable=True),
                     sa.Column(
-                        'comments', sqlalchemy_json.NestedMutableJson(), nullable=True),
+                        'comments', NestedMutableJson(), nullable=True),
                     sa.Column(
-                        'blocks', sqlalchemy_json.NestedMutableJson(), nullable=True),
+                        'blocks', NestedMutableJson(), nullable=True),
                     sa.Column(
-                        'prices', sqlalchemy_json.NestedMutableJson(), nullable=True),
+                        'prices', NestedMutableJson(), nullable=True),
                     sa.Column(
-                        'arabic', sqlalchemy_json.NestedMutableJson(), nullable=True),
+                        'arabic', NestedMutableJson(), nullable=True),
                     sa.Column('page_access_token', sa.String(), nullable=True),
                     sa.Column('fcm_token', sa.String(), nullable=True),
                     sa.Column('is_setup', sa.Boolean(), nullable=True),
@@ -49,11 +52,11 @@ def upgrade():
                     sa.Column('created_time', sa.DateTime(), nullable=True),
                     sa.Column('page_id', sa.String(), nullable=True),
                     sa.Column(
-                        'blocks', sqlalchemy_json.NestedMutableJson(), nullable=True),
-                    sa.Column('catgories', sqlalchemy_json.NestedMutableJson(),
+                        'blocks', NestedMutableJson(), nullable=True),
+                    sa.Column('catgories', NestedMutableJson(),
                               nullable=True),
                     sa.Column(
-                        'items', sqlalchemy_json.NestedMutableJson(), nullable=True),
+                        'items', NestedMutableJson(), nullable=True),
                     sa.ForeignKeyConstraint(
                         ['page_id'], ['vendors.page_id'], ),
                     sa.PrimaryKeyConstraint('id')
@@ -77,7 +80,7 @@ def upgrade():
                     sa.Column('id', sa.Integer(), nullable=False),
                     sa.Column('number', sa.String(), nullable=True),
                     sa.Column(
-                        'items', sqlalchemy_json.NestedMutableJson(), nullable=True),
+                        'items', NestedMutableJson(), nullable=True),
                     sa.Column('price', sa.Float(precision=3), nullable=True),
                     sa.Column('status', sa.String(), nullable=True),
                     sa.Column('is_confirmed', sa.Boolean(), nullable=True),
