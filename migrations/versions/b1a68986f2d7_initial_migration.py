@@ -28,7 +28,7 @@ def upgrade():
                     sa.Column('created_time', sa.DateTime(), nullable=True),
                     sa.Column('uid', sa.String(), nullable=True),
                     sa.Column(
-                        'comments', NestedMutableJson(), nullable=True),
+                        'comments', NestedMutableJson, nullable=True),
                     sa.Column(
                         'blocks', NestedMutableJson(), nullable=True),
                     sa.Column(
