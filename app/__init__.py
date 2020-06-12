@@ -25,7 +25,6 @@ def create_app(env=None):
     register_routes(app, api)
     db.init_app(app)
     ma.init_app(app)
-    db.create_all()
     @app.route("/health")
     def health():
         return jsonify("healthy")
