@@ -1,23 +1,19 @@
-"""Initial migration.
+"""empty message
 
-Revision ID: b1a68986f2d7
-Create Date: 2020-06-10 07:14:30.600844
+Revision ID: d89fb7425f15
+Revises: 
+Create Date: 2020-06-12 07:33:54.513940
 
 """
 from alembic import op
 import sqlalchemy as sa
 import sqlalchemy_json
 
-
 # revision identifiers, used by Alembic.
-revision = 'b1a68986f2d7'
+revision = 'd89fb7425f15'
 down_revision = None
 branch_labels = None
 depends_on = None
-
-
-def seed_data():
-    pass
 
 
 def upgrade():
@@ -52,9 +48,9 @@ def upgrade():
                     sa.Column('created_time', sa.DateTime(), nullable=True),
                     sa.Column('page_id', sa.String(), nullable=True),
                     sa.Column(
-                        'blocks', sqlalchemy_json.NestedMutableJson(), nullable=True),
-                    sa.Column('catgories', sqlalchemy_json.NestedMutableJson,
-                              nullable=True),
+                        'blocks', sqlalchemy_json.NestedMutableJson, nullable=True),
+                    sa.Column(
+                        'catgories', sqlalchemy_json.NestedMutableJson, nullable=True),
                     sa.Column(
                         'items', sqlalchemy_json.NestedMutableJson, nullable=True),
                     sa.ForeignKeyConstraint(
