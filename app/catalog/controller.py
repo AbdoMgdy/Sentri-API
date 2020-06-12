@@ -7,7 +7,7 @@ from .model import Catalog
 api = Namespace('Catalog')
 
 
-@api.route('/<string:page_id>/<sring:resource>')
+@api.route('/<string:page_id>/<string:resource>')
 class CatalogResource(Resource):
     def get(self, page_id, resource):
         catalog = Catalog.find_by_page_id(page_id)
