@@ -97,6 +97,39 @@ def handle_first_time_vendor(page_id):
         ]
     })
     catalog = Catalog(page_id)
+    catalog.blocks = {
+        'get_started': {
+            'payload': {
+                'template_type': 'generic',
+                'elements': [
+                    {
+                        'title': """مرحبا بك في مطعم سيد حنفي
+                     انا مساعدك الافتراضي كيف أستطيع مساعدتك؟""",
+                        'image_url': 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/p960x960/80390516_2962955900382554_7936731969642037248_o.jpg?_nc_cat=108&_nc_ohc=68iQXp-Lxn0AX9pBDCk&_nc_ht=scontent-hbe1-1.xx&_nc_tp=6&oh=f886d8238a13919294e79f9bfb70fa0b&oe=5EFDAE46',
+                        'subtitle': '',
+                        'buttons': [{
+                            'type': 'postback',
+                            'title': 'المنيو',
+                            'payload': 'main_menu'
+                        },
+                            {
+                            'type': 'postback',
+                            'title': 'العنوان/التليفون',
+                            'payload': 'info'
+                        }]
+
+                    }
+                ]
+            },
+            'qucik_replies': [
+                {
+                    'content_type': 'text',
+                    'title': 'ابدأ أوردر',
+                    'payload': 'main_menu',
+                }
+            ]
+        }
+    }
     catalog.save()
     new_vendor.arabic = arabic['103750251156613']
     new_vendor.prices = prices['103750251156613']
