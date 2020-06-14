@@ -67,7 +67,7 @@ class Catalog(db.Model):
             'title': title,
             'subtitle': subtitle,
             'img': img,
-            'block': self.make_category_block(title, subtitle)
+            'block': make_category_block(title, subtitle)
         }
         self.blocks[title] = {
             'payload': {
@@ -97,39 +97,11 @@ class Catalog(db.Model):
             'subtitle': subtitle,
             'price': price,
             'img': img,
-            'block': self.make_item_block(category, title, subtitle, price, img)
+            'block': make_item_block(category, title, subtitle, price, img)
         }
         self.blocks[category]['payload']['elements'].append(temp['block'])
         self.items.append(temp)
         self.save()
-
-    def make_item_block(category, title, subtitle, price, img):
-        return {
-            'title': title,
-            'image_url': img,
-            'subtitle': subtitle,
-            'buttons': [{
-                'type': 'web_url',
-                'title': f'اطلب بـ{price}ج',
-                'url': '',
-                'webview_height_ratio': 'tall',
-                'messenger_extensions': 'true'
-            }]
-        }
-
-    def make_category_block(title, subtitle):
-        return {
-            'title': title,
-            'subtitle': subtitle,
-            'image_url': '',
-            'buttons': [
-                {
-                    "type": "postback",
-                    "title": "عرض المنيو",
-                    "payload": title
-                }
-            ]
-        }
 
     def build_menu(self):
         if not self.blocks['main_menu']:
@@ -172,6 +144,36 @@ class Catalog(db.Model):
     def remove(self):
         db.session.remove(self)
         db.session.commit()
+
+
+def make_item_block(category, title, subtitle, price, img):
+    return {
+        'title': title,
+        'image_url': img,
+        'subtitle': subtitle,
+        'buttons': [{
+            'type': 'web_url',
+            'title': f'اطلب بـ{price}ج',
+            'url': '',
+            'webview_height_ratio': 'tall',
+            'messenger_extensions': 'true'
+        }]
+    }
+
+
+def make_category_block(title, subtitle):
+    return {
+        'title': title,
+        'subtitle': subtitle,
+        'image_url': '',
+        'buttons': [
+            {
+                "type": "postback",
+                "title": "عرض المنيو",
+                "payload": title
+            }
+        ]
+    }
 
 
 k = {
