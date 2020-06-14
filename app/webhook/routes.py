@@ -52,7 +52,6 @@ def handle_incoming_messages():
         # HANDLE QUICK REPLIES HERE
         bot.send_before_message(sender_id)
         block_name = helper.quick_replies_events(data)
-        blocks = vendor.blocks
         if block_name in blocks:
             block = blocks[block_name]
             # bot.send_template_message(sender_id, block)
@@ -64,8 +63,6 @@ def handle_incoming_messages():
         # HANDLE POSTBACK HERE
         bot.send_before_message(sender_id)
         block_name = helper.postback_events(data)
-
-        blocks = vendor.blocks
         if block_name in blocks:
 
             block = blocks[block_name]
