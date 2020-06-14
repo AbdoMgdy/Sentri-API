@@ -54,6 +54,7 @@ def handle_incoming_messages():
         block_name = helper.quick_replies_events(data)
         if block_name in blocks:
             block = blocks[block_name]
+            print(block)
             # bot.send_template_message(sender_id, block)
             print(bot.send_template_message(sender_id, block))
 
@@ -66,6 +67,7 @@ def handle_incoming_messages():
         if block_name in blocks:
 
             block = blocks[block_name]
+            print(block)
             # bot.send_template_message(sender_id, block)
             print(bot.send_template_message(sender_id, block))
 
