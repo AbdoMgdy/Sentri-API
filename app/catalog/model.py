@@ -19,7 +19,14 @@ class Catalog(db.Model):
         self.page_id = page_id
         self.items = []
         self.catgories = []
-        self.blocks = {}
+        self.blocks = {
+            'main_menu': {
+                'payload': {
+                    'template_type': 'generic',
+                    'elements': []
+                }
+            }
+        }
         self.created_time = datetime.datetime.utcnow()
 
     def add_category(self, title, subtitle, img):
@@ -31,6 +38,7 @@ class Catalog(db.Model):
             'block': self.make_category_block(title, subtitle)
         }
         self.blocks[title] = temp['block']
+        self.blocks['main_menu']['payload']['elements'].append(temp['block'])
         self.catgories.append(temp)
         self.save()
 
