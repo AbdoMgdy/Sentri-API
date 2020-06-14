@@ -110,6 +110,8 @@ def handle_current_vendor(page_id):
     catalog = Catalog.find_by_page_id(page_id)
     if not catalog:
         catalog = Catalog(page_id)
+        catalog.save()
+        print(catalog)
     return current_vendor, catalog
 
 
