@@ -138,15 +138,17 @@ def handle_first_time_vendor(page_id):
     return new_vendor, catalog
 
 
-def handle_current_vendor(page_id, ):
+def handle_current_vendor(page_id):
     current_vendor = Vendor.find_by_page_id(page_id)
-    return current_vendor
+    catalog = Catalog.find_by_page_id(page_id)
+    return current_vendor, catalog
 
 
 def handle_vendor(page_id):
     vendor = Vendor.find_by_page_id(page_id)
-    if vendor is not None and vendor.is_setup:
-        vendor = handle_current_vendor(page_id)
+    if vendor:
+        vendor = handle_current_vendor(page_id)[0]
+        catalog = handle_current_vendor(page_id)[1]
     else:
         vendor = handle_first_time_vendor(page_id)[0]
         catalog = handle_first_time_vendor(page_id)[1]
