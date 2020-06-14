@@ -69,7 +69,12 @@ class Catalog(db.Model):
             'img': img,
             'block': self.make_category_block(title, subtitle)
         }
-        self.blocks[title] = temp['block']
+        self.blocks[title] = {
+            'payload': {
+                'template_type': 'generic',
+                'elements': []
+            }
+        }
         self.blocks['main_menu']['payload']['elements'].append(temp['block'])
         self.catgories.append(temp)
         self.save()
@@ -102,7 +107,7 @@ class Catalog(db.Model):
         return {
             'title': title,
             'image_url': img,
-            'subtitle': '',
+            'subtitle': subtitle,
             'buttons': [{
                 'type': 'web_url',
                 'title': f'اطلب بـ{price}ج',
@@ -112,12 +117,18 @@ class Catalog(db.Model):
             }]
         }
 
-    def make_category_block(category, title, subtitle):
+    def make_category_block(title, subtitle):
         return {
-            'payload': {
-                'template_type': 'generic',
-                'elements': []
-            }
+            'title': title,
+            'subtitle': subtitle,
+            'image_url': '',
+            'buttons': [
+                {
+                    "type": "postback",
+                    "title": "عرض المنيو",
+                    "payload": title
+                }
+            ]
         }
 
     def build_menu(self):
