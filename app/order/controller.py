@@ -67,10 +67,11 @@ class OrderItem(Resource):
     def get(self):
         pass
 
-    def post(self, sender_id, category, item):
+    def post(self, sender_id, category, item_id):
         customer = Customer.find_by_psid(sender_id)
         vendor = customer.vendor
-        prices = vendor.prices
+        catalog = vendor.catalog
+        item = catalog.items[item_id]
         arabic = vendor.arabic
         bot = Bot(access_token=vendor.page_access_token)
         order = helper.get_order_from_customer(customer)
@@ -91,9 +92,9 @@ class OrderItem(Resource):
             order_item['combo'] = 0
         elif request.form.get('combo') is not None:
             order_item['combo'] = request.form.get('combo')
-        order_item['category'] = category
-        order_item['name'] = item
-        order_item['price'] = prices[item]
+        order_item['category'] = item['category']
+        order_item['name'] = item['title']
+        order_item['price'] = item['price']
 
         order.add_item(order_item)
 
