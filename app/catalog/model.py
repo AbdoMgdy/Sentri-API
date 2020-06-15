@@ -18,8 +18,8 @@ class Catalog(db.Model):
 
     def __init__(self, page_id):
         self.page_id = page_id
-        self.items = []
-        self.catgories = []
+        self.items = {}
+        self.catgories = {}
         self.blocks = {
             'main_menu': {
                 'payload': {
@@ -61,13 +61,18 @@ class Catalog(db.Model):
         }
         self.created_time = datetime.datetime.utcnow()
 
+    @classmethod
+    def find_by_page_id(cls, page_id):
+        return cls.query.filter_by(page_id=page_id).first()
+
     def add_category(self, title, subtitle, img):
+        _id = uuid1().hex
         temp = {
-            'id': uuid1().hex,
+            'id': _id,
             'title': title,
             'subtitle': subtitle,
             'img': img,
-            'block': make_category_block(title, subtitle)
+            'block': make_category_block(_id, title, subtitle)
         }
         self.blocks[title] = {
             'payload': {
@@ -75,58 +80,36 @@ class Catalog(db.Model):
                 'elements': []
             }
         }
-        self.blocks['main_menu']['payload']['elements'].append(temp['block'])
-        self.catgories.append(temp)
+        self.catgories[_id] = temp
+        self.build_main_menu()
         self.save()
 
     def remove_category(self, title):
         self.catgories.pop(title, None)
+        self.build_main_menu()
         self.save()
 
-    def edit_category(self):
+    def edit_category(self, title, category):
         pass
 
-    @classmethod
-    def find_by_page_id(cls, page_id):
-        return cls.query.filter_by(page_id=page_id).first()
-
     def add_item(self, category, title, subtitle, price, img):
+        _id = uuid1().hex
         temp = {
-            'id': uuid1().hex,
+            'id': _id,
+            'category': category,
             'title': title,
             'subtitle': subtitle,
             'price': price,
             'img': img,
-            'block': make_item_block(category, title, subtitle, price, img)
+            'block': make_item_block(category, _id, title, subtitle, price, img)
         }
-        self.blocks[category]['payload']['elements'].append(temp['block'])
-        self.items.append(temp)
+        self.items[_id] = temp
+        self.build_category(category)
         self.save()
 
-    def build_menu(self):
-        if not self.blocks['main_menu']:
-            main_menu = GenericTemplate()
-            for k, v in self.catgories.items():
-                main_menu.add_element(
-                    title=v['title'], image_url=v['img'], subtitle=v['subtitle'], buttons=[{
-                        "type": "postback",
-                        "title": "عرض المنيو",
-                        "payload": v['title']
-                    }])
-            self.blocks['main_menu'] = main_menu.get_generic()
-
-        for k, v in self.items.items():
-            category = GenericTemplate()
-            for k, v in self.items[k].items():
-                category.add_element(
-                    title=v['title'], image_url=v['img'], subtitle=v['subtitle'], buttons=[{
-                        "type": "web_url",
-                        "title": f"{v['price']}اطلب بـ",
-                        "url": ''
-                    }])
-
-    def remove_item(self, category, title):
-        self.items[category].pop(title, None)
+    def remove_item(self, category, _id):
+        self.items.pop(_id, None)
+        self.build_category(category)
         self.save()
 
     def edit_item(self):
@@ -145,8 +128,19 @@ class Catalog(db.Model):
         db.session.remove(self)
         db.session.commit()
 
+    def build_main_menu(self):
+        for k, v in self.catgories.items():
+            self.blocks['main_menu']['payload']['elements'].append(
+                v['block'])
 
-def make_item_block(category, title, subtitle, price, img):
+    def build_category(self, category):
+        for k, v in self.items.items():
+            if v['category'] == category:
+                self.blocks[category]['payload']['elements'].append(
+                    v['block'])
+
+
+def make_item_block(category, _id, title, subtitle, price, img):
     return {
         'title': title,
         'image_url': img,
@@ -154,14 +148,14 @@ def make_item_block(category, title, subtitle, price, img):
         'buttons': [{
             'type': 'web_url',
             'title': f'اطلب بـ{price}ج',
-            'url': '',
+            'url': f'https://rest-bot-dev.herokuapp.com/webview/order/{_id}',
             'webview_height_ratio': 'tall',
             'messenger_extensions': 'true'
         }]
     }
 
 
-def make_category_block(title, subtitle):
+def make_category_block(title, subtitle, _id):
     return {
         'title': title,
         'subtitle': subtitle,
@@ -170,7 +164,7 @@ def make_category_block(title, subtitle):
             {
                 "type": "postback",
                 "title": "عرض المنيو",
-                "payload": title
+                "payload": _id
             }
         ]
     }
