@@ -22,17 +22,7 @@ def confirm_order():
     return render_template('user info.jinja', form=form)  # take user info
 
 
-@webview_bp.route('/webview/order/<string:food>/<string:item>', methods=['GET'])
-def show_webview(food, item):
-    if food == "type-1":
-        order = OrderForm()
-        return render_template('order.jinja', food="sandwich", item=item, form=order)
-    if food == "sandwich":
-        sandwich = OrderSandwich()
-        return render_template('order sandwich.jinja', food="sandwich", item=item, form=sandwich)
-    elif food == "meal":
-        meal = OrderMeal()
-        return render_template('order meal.jinja', food="meal", item=item, form=meal)
-    elif food == "sauce":
-        sauce = OrderSauce()
-        return render_template('order sauce.jinja', food="sauce", item=item, form=sauce)
+@webview_bp.route('/webview/order/<string:item_id>', methods=['GET'])
+def show_webview(item_id):
+    order = OrderForm()
+    return render_template('order.jinja', food="sandwich", item_id=item_id, form=order)
