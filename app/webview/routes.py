@@ -36,8 +36,3 @@ def show_webview(food, item):
     elif food == "sauce":
         sauce = OrderSauce()
         return render_template('order sauce.jinja', food="sauce", item=item, form=sauce)
-
-
-@webview_bp.route('/webview/car', methods=['GET'])
-def show_car():
-    return render_template('car.jinja')
