@@ -20,6 +20,7 @@ class CatalogResource(Resource):
         vendor = Vendor.find_by_uid(identity)
         print(vendor)
         catalog = vendor.catalog
+        print(catalog)
         if not catalog:
             return 'Catalog Not Found'
         if resource == 'items':
