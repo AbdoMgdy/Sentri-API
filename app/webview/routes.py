@@ -25,4 +25,4 @@ def confirm_order():
 @webview_bp.route('/webview/order/<string:item_id>', methods=['GET'])
 def show_webview(item_id):
     order = OrderForm()
-    return render_template('order.jinja', food="sandwich", item_id=item_id, form=order)
+    return render_template('order.jinja', item_id=item_id, form=order)

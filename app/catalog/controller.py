@@ -1,16 +1,22 @@
 from flask import jsonify, request
-from flask_restx import Resource, Namespace, reqparse
-
+from flask_restx import Resource, Namespace
+from flask_jwt_extended import (
+    jwt_required, create_access_token,
+    get_jwt_identity
+)
 from .model import Catalog
 
 
 api = Namespace('Catalog')
 
 
-@api.route('/<string:page_id>/<string:resource>')
+@api.route('/<string:resource>')
 class CatalogResource(Resource):
-    def get(self, page_id, resource):
-        catalog = Catalog.find_by_page_id(page_id)
+    @jwt_required
+    def get(self, resource):
+        identity = get_jwt_identity()
+        print(identity)
+        catalog = Catalog.find_by_page_id(identity)
         if not catalog:
             return 'Catalog Not Found'
         if resource == 'items':
@@ -18,9 +24,13 @@ class CatalogResource(Resource):
         elif resource == 'categories':
             return catalog.categories
 
-    def post(self, page_id, resource):
+    @jwt_required
+    def post(self, resource):
         data = request.get_json()
-        catalog = Catalog.find_by_page_id(page_id)
+        print(data)
+        identity = get_jwt_identity()
+        print(identity)
+        catalog = Catalog.find_by_page_id(identity)
         if not catalog:
             return 'Catalog Not Found'
         if resource == 'items':
