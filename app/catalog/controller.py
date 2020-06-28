@@ -19,7 +19,7 @@ class CatalogResource(Resource):
         print(identity)
         vendor = Vendor.find_by_uid(identity)
         print(vendor)
-        catalog = vendor.catalog
+        catalog = Catalog.find_by_page_id(vendor.page_id)
         print(catalog)
         if not catalog:
             return 'Catalog Not Found'
@@ -34,7 +34,10 @@ class CatalogResource(Resource):
         print(data)
         identity = get_jwt_identity()
         print(identity)
-        catalog = Catalog.find_by_page_id(identity)
+        vendor = Vendor.find_by_uid(identity)
+        print(vendor)
+        catalog = Catalog.find_by_page_id(vendor.page_id)
+        print(catalog)
         if not catalog:
             return 'Catalog Not Found'
             print('Catalog Not Found')
