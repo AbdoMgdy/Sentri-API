@@ -7,6 +7,7 @@ from flask_jwt_extended import (
 )
 
 from .model import Vendor
+from ..catalog.model import Catalog
 from .schema import VendorSchema
 
 api = Namespace('Vendor')
@@ -38,8 +39,9 @@ class VendorResource(Resource):
             vendor = Vendor(name=data['displayName'], uid=data['uid'],
                             page_access_token=data['pageAccessToken'], page_id=data['uid'])
             vendor.save()
+            catalog = Catalog(vendor.page_id)
             return jsonify({'data': data, 'jwt_token': access_token})
-
+        catalog = Catalog(vendor.page_id)  # REMOVE LATER PLS
         return jsonify({'data': data, 'jwt_token': access_token})
 
     @jwt_required
