@@ -74,7 +74,7 @@ def handle_customer(sender_id, vendor):
 
 
 def handle_first_time_vendor(page_id):
-    new_vendor = Vendor(page_id)
+    new_vendor = Vendor.find_by_page_id(page_id)
     bot = Bot(new_vendor.page_access_token)
     bot.set_get_started({
         'get_started': {
