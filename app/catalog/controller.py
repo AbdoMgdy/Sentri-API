@@ -26,7 +26,7 @@ class CatalogResource(Resource):
         if resource == 'items':
             return jsonify(catalog.items)
         elif resource == 'categories':
-            return jsonify(catalog.categories)
+            return jsonify(catalog.catgories)
 
     @jwt_required
     def post(self, resource):
