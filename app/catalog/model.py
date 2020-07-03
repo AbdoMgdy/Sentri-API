@@ -1,5 +1,6 @@
 from sqlalchemy_json import NestedMutableJson
 import datetime
+import json
 from ..models.generic import GenericTemplate
 from app import db
 from uuid import uuid1
@@ -66,9 +67,9 @@ class Catalog(db.Model):
         return cls.query.filter_by(page_id=page_id).first()
 
     def add_category(self, title, subtitle, img):
-        # if len(self.blocks['main_menu']['payload']['elements']) == 13:
-        #     print('Categories exceeded max capacity')
-        #     return 'Catgories Full'
+        if len(self.blocks['main_menu']['payload']['elements']) == 13:
+            print('Categories exceeded max capacity')
+            return 'Catgories Full'
         _id = uuid1().hex
         temp = {
             'id': _id,
@@ -132,7 +133,11 @@ class Catalog(db.Model):
         db.session.commit()
 
     def build_main_menu(self):
-        self.blocks['main_menu']['payload']['elements'] = self.catgories.items()
+        temp = []
+        for k, v in self.catgories.items():
+            temp.append(
+                v['block'])
+        self.blocks['main_menu']['payload']['elements'] = temp
 
     def build_category(self, category):
         for k, v in self.items.items():
