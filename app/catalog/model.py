@@ -66,7 +66,7 @@ class Catalog(db.Model):
         return cls.query.filter_by(page_id=page_id).first()
 
     def add_category(self, title, subtitle, img):
-        if self.catgories.items().lenght == 13:
+        if self.catgories.items().length == 13:
             print('Categories exceeded max capacity')
             return 'Catgories Full'
         _id = uuid1().hex
