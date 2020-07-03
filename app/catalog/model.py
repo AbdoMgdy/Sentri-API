@@ -78,7 +78,7 @@ class Catalog(db.Model):
             'img': img,
             'block': make_category_block(_id, title, subtitle)
         }
-        self.blocks[title] = {
+        self.blocks[temp['id']] = {
             'payload': {
                 'template_type': 'generic',
                 'elements': []
