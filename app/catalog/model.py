@@ -108,7 +108,7 @@ class Catalog(db.Model):
             'block': make_item_block(category, _id, title, subtitle, price, img)
         }
         self.items[_id] = temp
-        self.build_category(category)
+        self.build_category(_id, category)
         self.save()
 
     def remove_item(self, category, _id):
