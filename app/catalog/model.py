@@ -109,12 +109,13 @@ class Catalog(db.Model):
             'block': make_item_block(category, _id, title, subtitle, price, img)
         }
         self.items[_id] = temp
-        self.build_category(category_id, category['title'])
+        self.build_category(category_id)
         self.save()
 
-    def remove_item(self, category, _id):
+    def remove_item(self, _id):
+        item = self.items[_id]
         self.items.pop(_id, None)
-        self.build_category(category)
+        self.build_category(item['category'])
         self.save()
 
     def edit_item(self):
@@ -140,10 +141,11 @@ class Catalog(db.Model):
                 v['block'])
         self.blocks['main_menu']['payload']['elements'] = temp
 
-    def build_category(self, _id, category):
+    def build_category(self, _id):
         temp = []
+        category = self.catgories[_id]
         for k, v in self.items.items():
-            if v['category'] == category:
+            if v['category'] == _id:
                 temp.append(
                     v['block'])
         self.blocks[_id]['payload']['elements'] = temp
