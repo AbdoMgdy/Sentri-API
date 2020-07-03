@@ -88,8 +88,8 @@ class Catalog(db.Model):
         self.build_main_menu()
         self.save()
 
-    def remove_category(self, title):
-        self.catgories.pop(title, None)
+    def remove_category(self, _id):
+        self.catgories.pop(_id, None)
         self.build_main_menu()
         self.save()
 
