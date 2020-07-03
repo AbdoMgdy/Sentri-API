@@ -55,7 +55,7 @@ class CatalogResource(Resource):
     def put(self):
         pass
 
-    @jwt_required()
+    @jwt_required
     def delete(self, resource):
         data = request.get_json()
         print(data)
