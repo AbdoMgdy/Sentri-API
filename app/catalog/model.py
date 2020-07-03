@@ -140,10 +140,12 @@ class Catalog(db.Model):
         self.blocks['main_menu']['payload']['elements'] = temp
 
     def build_category(self, category):
+        temp = []
         for k, v in self.items.items():
             if v['category'] == category:
-                self.blocks[category]['payload']['elements'].append(
+                temp.append(
                     v['block'])
+        self.blocks[category]['payload']['elements'] = temp
 
 
 def make_item_block(category, _id, title, subtitle, price, img):
