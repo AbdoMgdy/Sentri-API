@@ -96,11 +96,12 @@ class Catalog(db.Model):
     def edit_category(self, title, category):
         pass
 
-    def add_item(self, category, title, subtitle, price, img):
+    def add_item(self, category_id, title, subtitle, price, img):
         _id = uuid1().hex
+        category = self.catgories[category_id]
         temp = {
             'id': _id,
-            'category': category,
+            'category': category['title'],
             'title': title,
             'subtitle': subtitle,
             'price': price,
@@ -108,7 +109,7 @@ class Catalog(db.Model):
             'block': make_item_block(category, _id, title, subtitle, price, img)
         }
         self.items[_id] = temp
-        self.build_category(_id, category)
+        self.build_category(category_id, category['title'])
         self.save()
 
     def remove_item(self, category, _id):
