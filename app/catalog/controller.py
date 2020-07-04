@@ -53,7 +53,7 @@ class CatalogResource(Resource):
         return f'{resource} added successfully'
 
     def put(self, resource):
-           data = request.get_json()
+        data = request.get_json()
         print(data)
         identity = get_jwt_identity()
         print(identity)
