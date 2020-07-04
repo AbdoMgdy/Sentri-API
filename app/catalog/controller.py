@@ -52,8 +52,26 @@ class CatalogResource(Resource):
             print('Category Added Successfully')
         return f'{resource} added successfully'
 
-    def put(self):
-        pass
+    def put(self, resource):
+           data = request.get_json()
+        print(data)
+        identity = get_jwt_identity()
+        print(identity)
+        vendor = Vendor.find_by_uid(identity)
+        print(vendor)
+        catalog = Catalog.find_by_page_id(vendor.page_id)
+        print(catalog)
+        if not catalog:
+            return 'Catalog Not Found'
+            print('Catalog Not Found')
+        if resource == 'items':
+            catalog.edit_item(data)
+            print('Item Removed Successfully')
+            return f'{resource} Removed successfully'
+        elif resource == 'categories':
+            catalog.edit_category(data)
+            print('Category Removed Successfully')
+        return f'{resource} Removed successfully'
 
     @jwt_required
     def delete(self, resource):
