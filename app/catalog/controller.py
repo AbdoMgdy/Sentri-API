@@ -52,6 +52,7 @@ class CatalogResource(Resource):
             print('Category Added Successfully')
         return f'{resource} added successfully'
 
+    @jwt_required
     def put(self, resource):
         data = request.get_json()
         print(data)
