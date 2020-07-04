@@ -93,8 +93,9 @@ class Catalog(db.Model):
         self.build_main_menu()
         self.save()
 
-    def edit_category(self, title, category):
-        pass
+    def edit_category(self, category):
+        self.catgories[category['id']] = category
+        self.save()
 
     def add_item(self, category_id, title, subtitle, price, img):
         _id = uuid1().hex
@@ -118,8 +119,9 @@ class Catalog(db.Model):
         self.build_category(item['category'])
         self.save()
 
-    def edit_item(self):
-        pass
+    def edit_item(self, item):
+        self.items[item['id']] = item
+        self.save()
 
     def update(self, changes):
         for key, val in changes.items():
