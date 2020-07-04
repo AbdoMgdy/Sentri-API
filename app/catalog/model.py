@@ -76,7 +76,7 @@ class Catalog(db.Model):
             'title': title,
             'subtitle': subtitle,
             'img': img,
-            'block': make_category_block(_id, title, subtitle)
+            'block': make_category_block(_id, title, subtitle, img)
         }
         self.blocks[temp['id']] = {
             'payload': {
@@ -166,11 +166,11 @@ def make_item_block(category, _id, title, subtitle, price, img):
     }
 
 
-def make_category_block(_id, title, subtitle):
+def make_category_block(_id, title, subtitle, img):
     return {
         'title': title,
         'subtitle': subtitle,
-        'image_url': '',
+        'image_url': img,
         'buttons': [
             {
                 "type": "postback",
