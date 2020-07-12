@@ -62,7 +62,7 @@ class OrderResourceByPsid(Resource):
             return 'Customer not found', 404
 
 
-@api.route('/item/<string:sender_id>/<string:category>/<string:item>/')
+@api.route('/item/<string:sender_id>/<string:item_id>/')
 class OrderItem(Resource):
     def get(self):
         pass
