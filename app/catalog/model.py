@@ -98,7 +98,7 @@ class Catalog(db.Model):
         self.catgories[category['id']] = category
         self.save()
 
-    def add_item(self, category_id, title, subtitle, price, img):
+    def add_item(self, category_id, title, subtitle, price, img, in_stock):
         _id = uuid1().hex
         category = self.catgories[category_id]
         temp = {
@@ -108,7 +108,7 @@ class Catalog(db.Model):
             'title': title,
             'subtitle': subtitle,
             'price': price,
-            'in_stock': True,
+            'in_stock': in_stock,
             'img': img,
             'block': make_item_block(category, _id, title, subtitle, price, img)
         }

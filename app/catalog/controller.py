@@ -45,7 +45,7 @@ class CatalogResource(Resource):
             print('Catalog Not Found')
         if resource == 'items':
             catalog.add_item(data['category'], data['title'],
-                             data['subtitle'], data['price'], data['img'])
+                             data['subtitle'], data['price'], data['img'], data['in_stock'])
             print('Item Added Successfully')
             return f'{resource} added successfully'
         elif resource == 'categories':
@@ -69,12 +69,12 @@ class CatalogResource(Resource):
             print('Catalog Not Found')
         if resource == 'items':
             catalog.edit_item(data)
-            print('Item Removed Successfully')
-            return f'{resource} Removed successfully'
+            print('Item Edited Successfully')
+            return f'{resource} Edited successfully'
         elif resource == 'categories':
             catalog.edit_category(data)
-            print('Category Removed Successfully')
-        return f'{resource} Removed successfully'
+            print('Category Edited Successfully')
+        return f'{resource} Edited successfully'
 
     @jwt_required
     def delete(self, resource):
