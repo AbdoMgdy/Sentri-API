@@ -67,7 +67,7 @@ class OrderItem(Resource):
     def get(self):
         pass
 
-    def post(self, sender_id, category, item_id):
+    def post(self, sender_id, item_id):
         customer = Customer.find_by_psid(sender_id)
         vendor = customer.vendor
         catalog = vendor.catalog
@@ -84,14 +84,8 @@ class OrderItem(Resource):
             order = Order(sender_id, vendor.page_id)
         order_item = {}
         order_item['quantity'] = request.form.get('quantity')
-        if request.form.get('spicy') is not None:
-            order_item['type'] = request.form.get('spicy')
         if request.form.get('notes') is not None:
             order_item['notes'] = request.form.get('notes')
-        if request.form.get('combo') is None:
-            order_item['combo'] = 0
-        elif request.form.get('combo') is not None:
-            order_item['combo'] = request.form.get('combo')
         order_item['category'] = item['category']
         order_item['name'] = item['title']
         order_item['price'] = item['price']
