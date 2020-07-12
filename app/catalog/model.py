@@ -151,6 +151,7 @@ class Catalog(db.Model):
         temp = []
         category = self.catgories[_id]
         for k, v in self.items.items():
+            print(v)
             if v['category_id'] == _id:
                 temp.append(
                     v['block'])
