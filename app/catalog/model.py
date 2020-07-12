@@ -140,17 +140,18 @@ class Catalog(db.Model):
     def build_main_menu(self):
         temp = []
         for k, v in self.catgories.items():
-            print(k)
-            print(v)
-            temp.append(
-                v['block'])
+            if self.blocks[v['id']]['payload']['elements'] is not None:
+                print(k)
+                print(v)
+                temp.append(
+                    v['block'])
         self.blocks['main_menu']['payload']['elements'] = temp
 
     def build_category(self, _id):
         temp = []
         category = self.catgories[_id]
         for k, v in self.items.items():
-            if v['category'] == _id:
+            if v['category_id'] == _id:
                 temp.append(
                     v['block'])
         self.blocks[_id]['payload']['elements'] = temp
