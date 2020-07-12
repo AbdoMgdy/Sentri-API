@@ -5,6 +5,7 @@ from flask_restx import Resource, Namespace, reqparse
 #     get_jwt_identity
 # )
 import app.resources.helper_functions as helper
+from ..catalog.model import Catalog
 from .model import Order
 from .schema import OrderSchema
 from app.customer.model import Customer
@@ -70,7 +71,7 @@ class OrderItem(Resource):
     def post(self, sender_id, item_id):
         customer = Customer.find_by_psid(sender_id)
         vendor = customer.vendor
-        catalog = vendor.catalog
+        catalog = Catalog.find_by_page_id(vendor.page_id)
         item = catalog.items[item_id]
         arabic = vendor.arabic
         bot = Bot(access_token=vendor.page_access_token)
