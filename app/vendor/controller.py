@@ -40,8 +40,8 @@ class VendorResource(Resource):
                             page_access_token=data['pageAccessToken'], page_id=data['uid'])
             vendor.save()
             catalog = Catalog(vendor.page_id)
+            catalog.save()
             return jsonify({'data': data, 'jwt_token': access_token})
-        catalog = Catalog(vendor.page_id)  # REMOVE LATER PLS
         return jsonify({'data': data, 'jwt_token': access_token})
 
     @jwt_required
