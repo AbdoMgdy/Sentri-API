@@ -76,6 +76,7 @@ class Catalog(db.Model):
             'title': title,
             'subtitle': subtitle,
             'img': img,
+            'in_stock': True,
             'block': make_category_block(_id, title, subtitle, img)
         }
         self.blocks[temp['id']] = {
@@ -152,7 +153,7 @@ class Catalog(db.Model):
         category = self.catgories[_id]
         for k, v in self.items.items():
             print(v)
-            if v['category_id'] == _id:
+            if v['category_id'] == _id and v['in_stock']:
                 temp.append(
                     v['block'])
         self.blocks[_id]['payload']['elements'] = temp
