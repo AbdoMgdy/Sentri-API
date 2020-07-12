@@ -76,7 +76,7 @@ class Catalog(db.Model):
             'title': title,
             'subtitle': subtitle,
             'img': img,
-            'in_stock': True,
+
             'block': make_category_block(_id, title, subtitle, img)
         }
         self.blocks[temp['id']] = {
@@ -108,6 +108,7 @@ class Catalog(db.Model):
             'title': title,
             'subtitle': subtitle,
             'price': price,
+            'in_stock': True,
             'img': img,
             'block': make_item_block(category, _id, title, subtitle, price, img)
         }
