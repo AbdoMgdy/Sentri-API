@@ -102,7 +102,7 @@ class Catalog(db.Model):
         category = self.catgories[category_id]
         temp = {
             'id': _id,
-            'category': category['title'],
+            'category': category_id,
             'title': title,
             'subtitle': subtitle,
             'price': price,
