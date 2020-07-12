@@ -139,6 +139,8 @@ class Catalog(db.Model):
     def build_main_menu(self):
         temp = []
         for k, v in self.catgories.items():
+            print(k)
+            print(v)
             temp.append(
                 v['block'])
         self.blocks['main_menu']['payload']['elements'] = temp
