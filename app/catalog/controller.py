@@ -38,6 +38,8 @@ class CatalogResource(Resource):
         print(vendor)
         catalog = Catalog.find_by_page_id(vendor.page_id)
         print(catalog)
+        if data['img'] is None:
+            data['img'] = ""
         if not catalog:
             return 'Catalog Not Found'
             print('Catalog Not Found')
