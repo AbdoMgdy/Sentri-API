@@ -87,7 +87,7 @@ class OrderItem(Resource):
         order_item['quantity'] = request.form.get('quantity')
         if request.form.get('notes') is not None:
             order_item['notes'] = request.form.get('notes')
-        order_item['category'] = item['category']
+        order_item['category'] = item['category_title']
         order_item['name'] = item['title']
         order_item['price'] = item['price']
 
