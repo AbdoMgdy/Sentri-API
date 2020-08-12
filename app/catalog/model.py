@@ -33,7 +33,7 @@ class Catalog(db.Model):
                     'template_type': 'generic',
                     'elements': [
                         {
-                            'title': """مرحبا بك في مطعم سيد حنفي
+                            'title': """مرحبا بك في مطعمي
                      انا مساعدك الافتراضي كيف أستطيع مساعدتك؟""",
                             'image_url': 'https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/p960x960/80390516_2962955900382554_7936731969642037248_o.jpg?_nc_cat=108&_nc_ohc=68iQXp-Lxn0AX9pBDCk&_nc_ht=scontent-hbe1-1.xx&_nc_tp=6&oh=f886d8238a13919294e79f9bfb70fa0b&oe=5EFDAE46',
                             'subtitle': '',
@@ -76,7 +76,6 @@ class Catalog(db.Model):
             'title': title,
             'subtitle': subtitle,
             'img': img,
-
             'block': make_category_block(_id, title, subtitle, img)
         }
         self.blocks[temp['id']] = {
@@ -141,6 +140,7 @@ class Catalog(db.Model):
 
     def build_main_menu(self):
         temp = []
+        print(self.catgories.items())
         for k, v in self.catgories.items():
             if self.blocks[v['id']]['payload']['elements'] is not None:
                 print(k)
