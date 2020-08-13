@@ -12,7 +12,7 @@ class Catalog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     created_time = db.Column(db.DateTime)
     page_id = db.Column(db.String, db.ForeignKey(
-        'vendors.page_id'), unique=True)
+        'vendors.page_id', ondelete='SET NULL'), unique=True, nullable=True)
     blocks = db.Column(NestedMutableJson)
     catgories = db.Column(NestedMutableJson)
     catgories = db.Column(NestedMutableJson)

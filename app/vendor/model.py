@@ -20,7 +20,8 @@ class Vendor(db.Model):
     opening_hours = db.Column(db.Time)
     closing_hours = db.Column(db.Time)
     page_id = db.Column(db.String, unique=True)  # unique
-    catalog = db.relationship('Catalog', backref='vendor', lazy='select')
+    catalog = db.relationship(
+        'Catalog', backref='vendor', lazy='select')
     customers = db.relationship('Customer', backref='vendor', lazy='select')
     orders = db.relationship('Order', backref='vendor', lazy='select')
 
