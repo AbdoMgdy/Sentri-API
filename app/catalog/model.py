@@ -15,12 +15,14 @@ class Catalog(db.Model):
         'vendors.page_id'), unique=True)
     blocks = db.Column(NestedMutableJson)
     catgories = db.Column(NestedMutableJson)
+    catgories = db.Column(NestedMutableJson)
     items = db.Column(NestedMutableJson)
 
     def __init__(self, page_id):
         self.page_id = page_id
         self.items = {}
         self.catgories = {}
+        self.knowledge = {}
         self.blocks = {
             'main_menu': {
                 'payload': {
@@ -118,7 +120,7 @@ class Catalog(db.Model):
     def remove_item(self, _id):
         item = self.items[_id]
         self.items.pop(_id, None)
-        if self.catgories[item['category_id']]:
+        if item['category_id'] in self.catgories:
             self.build_category(item['category_id'])
         self.save()
 
