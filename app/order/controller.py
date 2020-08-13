@@ -73,7 +73,7 @@ class OrderItem(Resource):
         vendor = customer.vendor
         catalog = Catalog.find_by_page_id(vendor.page_id)
         item = catalog.items[item_id]
-        arabic = vendor.arabic
+
         bot = Bot(access_token=vendor.page_access_token)
         order = helper.get_order_from_customer(customer)
         print(order)
@@ -93,12 +93,8 @@ class OrderItem(Resource):
 
         order.add_item(order_item)
 
-        if 'type' in order_item:
-            text = '{} * {} {} تمت اضافته للأوردو الخاص بك'.format(order_item['quantity'],
-                                                                   arabic[item], arabic[order_item['type']])
-        else:
-            text = '{} * {} تمت اضافته للأوردو الخاص بك'.format(order_item['quantity'],
-                                                                order_item['name'])
+        text = '{} * {} تمت اضافته للأوردو الخاص بك'.format(order_item['quantity'],
+                                                            order_item['name'])
         confirm_block.set_text(text)
         bot.send_template_message(
             sender_id, {'payload': confirm_block.get_template()})
