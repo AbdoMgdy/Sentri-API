@@ -118,7 +118,8 @@ class Catalog(db.Model):
     def remove_item(self, _id):
         item = self.items[_id]
         self.items.pop(_id, None)
-        self.build_category(item['category_id'])
+        if self.catgories[item['category_id']]:
+            self.build_category(item['category_id'])
         self.save()
 
     def edit_item(self, item):
