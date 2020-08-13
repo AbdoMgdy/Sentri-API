@@ -23,10 +23,8 @@ def upgrade():
                     sa.Column('name', sa.String(), nullable=True),
                     sa.Column('created_time', sa.DateTime(), nullable=True),
                     sa.Column('uid', sa.String(), nullable=True),
-                    sa.Column(
-                        'comments', NestedMutableJson, nullable=True),
-                    sa.Column(
-                        'info', NestedMutableJson, nullable=True),
+                    sa.Column('comments', NestedMutableJson, nullable=True),
+                    sa.Column('info', NestedMutableJson, nullable=True),
                     sa.Column('page_access_token', sa.String(), nullable=True),
                     sa.Column('fcm_token', sa.String(), nullable=True),
                     sa.Column('is_setup', sa.Boolean(), nullable=True),
@@ -43,14 +41,11 @@ def upgrade():
                     sa.Column('id', sa.Integer(), nullable=False),
                     sa.Column('created_time', sa.DateTime(), nullable=True),
                     sa.Column('page_id', sa.String(), nullable=True),
-                    sa.Column(
-                        'blocks', NestedMutableJson, nullable=True),
-                    sa.Column('catgories', NestedMutableJson,
-                              nullable=True),
-                    sa.Column(
-                        'items', NestedMutableJson, nullable=True),
+                    sa.Column('blocks', NestedMutableJson, nullable=True),
+                    sa.Column('catgories', NestedMutableJson, nullable=True),
+                    sa.Column('items', NestedMutableJson, nullable=True),
                     sa.ForeignKeyConstraint(
-                        ['page_id'], ['vendors.page_id'], ),
+                        ['page_id'], ['vendors.page_id'], ondelete='SET NULL'),
                     sa.PrimaryKeyConstraint('id'),
                     sa.UniqueConstraint('page_id')
                     )
@@ -72,8 +67,7 @@ def upgrade():
     op.create_table('orders',
                     sa.Column('id', sa.Integer(), nullable=False),
                     sa.Column('number', sa.String(), nullable=True),
-                    sa.Column(
-                        'items', NestedMutableJson, nullable=True),
+                    sa.Column('items', NestedMutableJson, nullable=True),
                     sa.Column('price', sa.Float(precision=3), nullable=True),
                     sa.Column('status', sa.String(), nullable=True),
                     sa.Column('is_confirmed', sa.Boolean(), nullable=True),
