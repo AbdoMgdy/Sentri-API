@@ -35,7 +35,10 @@ def handle_incoming_messages():
     customer = helper.handle_customer(sender_id, page_id)
     print(sender_id)
     print(webhook_type)
-    bot.send_before_message(sender_id)
+    if not vendor.check_customer_limit:
+        bot.send_text_message(
+            sender_id, 'You have reached the Maximum Customer limit for you tier.')
+        return 'Customer Limit', 200
     # if not vendor.is_open():
     #     bot.send_text_message(
     #         sender_id, 'المطعم مغلق حاليا \nالرجاء المحاولة مرة أخرى خلال مواعيد العمل الرسمية من {} الى {}'.format(vendor.opening_hours.strftime('%H:%M'), vendor.closing_hours.strftime('%H:%M')))

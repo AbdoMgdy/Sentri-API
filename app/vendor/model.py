@@ -1,6 +1,7 @@
 from sqlalchemy_json import NestedMutableJson
 import datetime
 from app import db
+from ..customer.model import Customer
 
 
 class Vendor(db.Model):
@@ -12,9 +13,7 @@ class Vendor(db.Model):
     created_time = db.Column(db.DateTime)
     uid = db.Column(db.String, unique=True)  # unique
     comments = db.Column(NestedMutableJson)
-    blocks = db.Column(NestedMutableJson)
-    prices = db.Column(NestedMutableJson)
-    arabic = db.Column(NestedMutableJson)
+    info = db.Column(NestedMutableJson)
     page_access_token = db.Column(db.String)
     fcm_token = db.Column(db.String)
     is_setup = db.Column(db.Boolean)
@@ -29,14 +28,15 @@ class Vendor(db.Model):
         self.name = name
         self.uid = uid
         self.comments = {}
+        self.info = {
+            'customer_limit': 100,
+        }
         self.page_access_token = page_access_token
         self.fcm_token = fcm_token
         self.page_id = page_id
         self.created_time = datetime.datetime.utcnow()
         self.closing_hours = datetime.datetime.utcnow().time()
         self.opening_hours = datetime.datetime.utcnow().time()
-        self.prices = {}
-        self.arabic = {}
         self.is_setup = False
 
     def is_open(self):
@@ -60,6 +60,11 @@ class Vendor(db.Model):
             closing_hours, time_format).time()
         self.opening_hours = datetime.datetime.strptime(
             opening_hours, time_format).time()
+
+    def check_customer_limit(self):
+        if self.info['customer_limit'] > Customer.count(page_id=self.page_id):
+            return True
+        return False
 
     @classmethod
     def find_by_page_id(cls, page_id):
