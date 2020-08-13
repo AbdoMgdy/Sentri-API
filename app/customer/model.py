@@ -27,6 +27,10 @@ class Customer(db.Model):
     def find_by_psid(cls, psid):
         return cls.query.filter_by(psid=psid).first()
 
+    @classmethod
+    def count(cls, page_id):
+        return cls.query.filter_by(page_id=page_id).count()
+
     def save(self):
         db.session.add(self)
         db.session.commit()
