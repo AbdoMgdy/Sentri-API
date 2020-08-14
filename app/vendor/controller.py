@@ -86,7 +86,7 @@ class VendorFbPage(Resource):
         if vendor is None:
             return 'Vendor Not Found'
 
-        request_endpoint = 'https://graph.facebook.com/v6.0/{}/subscribed_apps?access_token={}&subscribed_fields=messages,messaging_postbacks'.format(
+        request_endpoint = 'https://graph.facebook.com/v6.0/{}/subscribed_apps?access_token={}&subscribed_fields=messages,messaging_postbacks,feed'.format(
             data['page']['id'], data['page']['access_token'])
         response = requests.post(request_endpoint)
         print(response.json())
