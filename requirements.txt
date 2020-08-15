@@ -21,4 +21,4 @@ flask_marshmallow
 marshmallow-sqlalchemy
 flask-migrate
 wit
-facebook
+facebook-sdk
