@@ -42,6 +42,10 @@ def get_vendor_from_message(data):
     return messaging_events["recipient"]["id"]
 
 
+def get_vendor_from_comment(data):
+    return data["entry"][0]["id"]
+
+
 def postback_events(data):
 
     postbacks = data["entry"][0]["messaging"]
