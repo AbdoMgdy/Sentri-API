@@ -14,15 +14,29 @@ class Catalog(db.Model):
     page_id = db.Column(db.String, db.ForeignKey(
         'vendors.page_id', ondelete='SET NULL', onupdate="CASCADE"), unique=True, nullable=True)
     blocks = db.Column(NestedMutableJson)
-    catgories = db.Column(NestedMutableJson)
-    catgories = db.Column(NestedMutableJson)
+    categories = db.Column(NestedMutableJson)
+    knowledge = db.Column(NestedMutableJson)
     items = db.Column(NestedMutableJson)
 
     def __init__(self, page_id):
         self.page_id = page_id
         self.items = {}
-        self.catgories = {}
-        self.knowledge = {}
+        self.categories = {}
+        self.knowledge = {
+            'greetings': {
+                'label': 'Greetings',
+                'values': [
+                    {
+                        'key': 'welcome',
+                        'value': ''
+                    },
+                    {
+                        'key': 'thank you',
+                        'value': ''
+                    }
+                ]
+            }
+        }
         self.blocks = {
             'main_menu': {
                 'payload': {
@@ -64,14 +78,18 @@ class Catalog(db.Model):
         }
         self.created_time = datetime.datetime.utcnow()
 
+    # Class Methods
+
     @classmethod
     def find_by_page_id(cls, page_id):
         return cls.query.filter_by(page_id=page_id).first()
 
+    # Categories Methods
+
     def add_category(self, title, subtitle, img):
         if len(self.blocks['main_menu']['payload']['elements']) == 13:
             print('Categories exceeded max capacity')
-            return 'Catgories Full'
+            return 'Categories Full'
         _id = uuid1().hex
         temp = {
             'id': _id,
@@ -86,22 +104,24 @@ class Catalog(db.Model):
                 'elements': []
             }
         }
-        self.catgories[_id] = temp
+        self.categories[_id] = temp
         self.build_main_menu()
         self.save()
 
     def remove_category(self, _id):
-        self.catgories.pop(_id, None)
+        self.categories.pop(_id, None)
         self.build_main_menu()
         self.save()
 
     def edit_category(self, category):
-        self.catgories[category['id']] = category
+        self.categories[category['id']] = category
         self.save()
+
+    # Items Methods
 
     def add_item(self, category_id, title, subtitle, price, img, in_stock):
         _id = uuid1().hex
-        category = self.catgories[category_id]
+        category = self.categories[category_id]
         temp = {
             'id': _id,
             'category_id': category_id,
@@ -120,13 +140,23 @@ class Catalog(db.Model):
     def remove_item(self, _id):
         item = self.items[_id]
         self.items.pop(_id, None)
-        if item['category_id'] in self.catgories:
+        if item['category_id'] in self.categories:
             self.build_category(item['category_id'])
         self.save()
 
     def edit_item(self, item):
         self.items[item['id']] = item
         self.save()
+
+    # Knowledge Methods
+
+    def edit_knowledge_value(self, category, key, value):
+        for v in self.knowledge[category]['values']:
+            if v['key'] == key:
+                v['value'] = value
+        self.save()
+
+    # Default Model Methods
 
     def update(self, changes):
         for key, val in changes.items():
@@ -141,10 +171,11 @@ class Catalog(db.Model):
         db.session.remove(self)
         db.session.commit()
 
+    # Menu Building Methods
     def build_main_menu(self):
         temp = []
-        print(self.catgories.items())
-        for k, v in self.catgories.items():
+        print(self.categories.items())
+        for k, v in self.categories.items():
             if self.blocks[v['id']]['payload']['elements'] is not None:
                 print(k)
                 print(v)
@@ -154,13 +185,16 @@ class Catalog(db.Model):
 
     def build_category(self, _id):
         temp = []
-        category = self.catgories[_id]
+        category = self.categories[_id]
         for k, v in self.items.items():
             print(v)
             if v['category_id'] == _id and v['in_stock']:
                 temp.append(
                     v['block'])
         self.blocks[_id]['payload']['elements'] = temp
+
+
+# Block building functions
 
 
 def make_item_block(category, _id, title, subtitle, price, img):
