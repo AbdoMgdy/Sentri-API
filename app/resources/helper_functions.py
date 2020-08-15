@@ -190,6 +190,7 @@ def get_comment_from_feed(data):
 def ask_wit(msg, page_id):
     client = Wit('GQ4J2DTDIZSTOFHZ744JOP5MWXKWQCX2')
     response = client.message(msg)
+    print(response)
     entity = response['entities']
     knowledge = Catalog.find_by_page_id(page_id).knowledge['comments']
     print(msg)
