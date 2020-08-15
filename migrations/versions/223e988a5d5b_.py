@@ -42,7 +42,7 @@ def upgrade():
                     sa.Column('created_time', sa.DateTime(), nullable=True),
                     sa.Column('page_id', sa.String(), nullable=True),
                     sa.Column('blocks', NestedMutableJson, nullable=True),
-                    sa.Column('catgories', NestedMutableJson, nullable=True),
+                    sa.Column('categories', NestedMutableJson, nullable=True),
                     sa.Column('items', NestedMutableJson, nullable=True),
                     sa.ForeignKeyConstraint(
                         ['page_id'], ['vendors.page_id'], onupdate='CASCADE', ondelete='SET NULL'),
