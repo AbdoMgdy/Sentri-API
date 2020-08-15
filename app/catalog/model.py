@@ -197,8 +197,12 @@ class Catalog(db.Model):
             if self.blocks[v['id']]['payload']['elements'] is not None:
                 print(k)
                 print(v)
+                if 'block' not in v:
+                    v['block'] = make_category_block(
+                        v['id'], v['title'], v['subtitle'], v['img'])
                 temp.append(
                     v['block'])
+
         self.blocks['main_menu']['payload']['elements'] = temp
 
     def build_category(self, _id):
