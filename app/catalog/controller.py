@@ -79,7 +79,8 @@ class CatalogResource(Resource):
         elif resource == 'knowledge':
             changes = {'knowledge': data}
             vendor.update(changes)
-            print('Category Edited Successfully')
+            vendor.save()
+            print('Knowledge Edited Successfully')
         return f'{resource} Edited successfully'
 
     @jwt_required
