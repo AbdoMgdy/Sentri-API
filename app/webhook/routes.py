@@ -39,7 +39,7 @@ def handle_page_feed(data):
     vendor = helper.handle_vendor(page_id)[0]
     graph = GraphAPI(access_token=vendor['access_token'])
     comment = helper.get_comment_from_feed(data)
-    reply = helper.ask_wit(comment, vendor)
+    reply = helper.ask_wit(comment, page_id)
     if reply:
         graph.put_comment(object_id=comment['id'],
                           message=reply)

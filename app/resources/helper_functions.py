@@ -183,21 +183,11 @@ def get_comment_from_feed(data):
     return data["entry"][0]["changes"][0]["message"]
 
 
-def ask_wit(msg, vendor):
+def ask_wit(msg, page_id):
     client = Wit('GQ4J2DTDIZSTOFHZ744JOP5MWXKWQCX2')
     response = client.message(msg)
     entity = response['entities']
+    knowledge = Catalog.find_by_page_id(page_id).knowledge['comments']
     print(msg)
-    if 'Address' in entity:
-        confidence = entity['Address'][0]['confidence']
-        if confidence > 0.65:
-            return vendor['address_info']
-        else:
-            return False
-    elif 'menu' in entity:
-        confidence = entity['menu'][0]['confidence']
-        if confidence > 0.6:
-            return vendor['menu_info']
-        else:
-            print('not Suitable')
-            return False
+    print(entity)
+    return False

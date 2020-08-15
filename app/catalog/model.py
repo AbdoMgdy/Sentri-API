@@ -35,6 +35,16 @@ class Catalog(db.Model):
                         'value': ''
                     }
                 ]
+            },
+            'comments': {
+                'label': 'Comments',
+                'values': [
+                    {'key': 'Ask_For_Menu',
+                     'value': ''},
+                    {'key': 'Ask_For_Address',
+                     'value': ''},
+
+                ]
             }
         }
         self.blocks = {
