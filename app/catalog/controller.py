@@ -80,6 +80,7 @@ class CatalogResource(Resource):
             changes = {'knowledge': data}
             vendor.update(changes)
             vendor.save()
+            print(vendor.knowledge)
             print('Knowledge Edited Successfully')
         return f'{resource} Edited successfully'
 
