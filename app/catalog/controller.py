@@ -97,3 +97,22 @@ class CatalogResource(Resource):
             catalog.remove_category(data['id'])
             print('Category Removed Successfully')
         return f'{resource} Removed successfully'
+
+
+@api.route('/knowledge_base')
+class CatalogResourceKnowledgeBase(Resource):
+    @jwt_required
+    def get(self):
+        pass
+
+    @jwt_required
+    def post(self):
+        pass
+
+    @jwt_required
+    def put(self):
+        pass
+
+    @jwt_required
+    def delete(self):
+        pass
