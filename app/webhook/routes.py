@@ -4,6 +4,8 @@ from datetime import datetime
 import ast
 from app.models.bot import Bot
 import app.resources.helper_functions as helper
+from facebook import GraphAPI
+
 # Set up a Blueprint
 webhook_bp = Blueprint('webhook_bp', __name__,
                        template_folder='templates',
@@ -25,7 +27,28 @@ def verify():
 def handle_incoming_messages():
     data = request.get_json()
     print(data)
-    webhook_type = helper.get_type_from_payload(data)
+    request_type = helper.get_type_from_payload(data)
+    if request_type == "messaging":
+        return handle_messaging(data)
+    elif request_type == "changes":
+        return handle_page_feed(data)
+
+
+def handle_page_feed(data):
+    page_id = helper.get_vendor_from_message(data)
+    vendor = helper.handle_vendor(page_id)[0]
+    graph = GraphAPI(access_token=vendor['access_token'])
+    comment = helper.get_comment_from_feed(data)
+    reply = helper.ask_wit(comment, vendor)
+    if reply:
+        graph.put_comment(object_id=comment['id'],
+                          message=reply)
+        print('Replied to Comment')
+    return 'Replied to Comment', 200
+
+
+def handle_messaging(data):
+    message_type = helper.get_type_from_message(data)
     page_id = helper.get_vendor_from_message(data)
     vendor = helper.handle_vendor(page_id)[0]
     catalog = helper.handle_vendor(page_id)[1]
@@ -34,7 +57,7 @@ def handle_incoming_messages():
     sender_id = helper.get_customer_from_message(data)
     customer = helper.handle_customer(sender_id, page_id)
     print(sender_id)
-    print(webhook_type)
+    print(message_type)
     if not vendor.check_customer_limit:
         bot.send_text_message(
             sender_id, 'You have reached the Maximum Customer limit for you tier.')
@@ -43,7 +66,7 @@ def handle_incoming_messages():
     #     bot.send_text_message(
     #         sender_id, 'المطعم مغلق حاليا \nالرجاء المحاولة مرة أخرى خلال مواعيد العمل الرسمية من {} الى {}'.format(vendor.opening_hours.strftime('%H:%M'), vendor.closing_hours.strftime('%H:%M')))
     #     return 'Vendor is Closed', 200
-    if webhook_type == "text":
+    if message_type == "text":
         # HANDLE TEXT MESSAGES HERE
         bot.send_before_message(sender_id)
 
@@ -51,7 +74,7 @@ def handle_incoming_messages():
         print(bot.send_template_message(sender_id, block))
         return "text", 200
 
-    elif webhook_type == "quick_reply":
+    elif message_type == "quick_reply":
         # HANDLE QUICK REPLIES HERE
         bot.send_before_message(sender_id)
         block_name = helper.quick_replies_events(data)
@@ -63,7 +86,7 @@ def handle_incoming_messages():
 
         return "quick_reply", 200
 
-    elif webhook_type == "postback":
+    elif message_type == "postback":
         # HANDLE POSTBACK HERE
         bot.send_before_message(sender_id)
         block_name = helper.postback_events(data)
@@ -78,6 +101,3 @@ def handle_incoming_messages():
     else:
         return "ok", 200
     return "ok", 200
-
-
-ACCESS_TOKEN = 'EAAJMYpx9YFkBAHPGjj1FWtZAfiwGZAZAD7igxPIlYX5INZANePO3B7X4vKZBF4rZAqWPnMTyfSuMTtjZAxK2SfFrjNcPr7gxlba2cEvdtUU1BtpPULEpBkpAfoFeqL2aRitAqZBlJypP50ArG6ISZA5ISM5sVZCFQhhtpxZCIOJ0y8st93bopRx6n0smn0i9jpZByY8ZD'
