@@ -3,7 +3,8 @@ from .model import Customer
 # from app.order.schema import OrderSchema
 
 
-class CustomerSchema(ma.ModelSchema):
+class CustomerSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Customer
+        load_instance = True
     # orders = ma.Nested(OrderSchema, many=True)
