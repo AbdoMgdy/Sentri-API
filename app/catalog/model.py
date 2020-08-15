@@ -124,6 +124,8 @@ class Catalog(db.Model):
         self.save()
 
     def edit_category(self, category):
+        category['block'] = make_category_block(
+            category['id'], category['title'], category['subtitle'], category['img'])
         self.categories[category['id']] = category
         self.save()
 
@@ -155,6 +157,8 @@ class Catalog(db.Model):
         self.save()
 
     def edit_item(self, item):
+        item['block'] = make_item_block(item['category'],
+                                        item['id'], item['title'], item['subtitle'], item['price'], item['img'])
         self.items[item['id']] = item
         self.save()
 
