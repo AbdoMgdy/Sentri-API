@@ -166,6 +166,10 @@ class Catalog(db.Model):
                 v['value'] = value
         self.save()
 
+    def set_knowledge(self, value):
+        self.knowledge = value
+        self.save()
+
     # Default Model Methods
 
     def update(self, changes):
