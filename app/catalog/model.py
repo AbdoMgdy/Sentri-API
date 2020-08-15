@@ -124,6 +124,8 @@ class Catalog(db.Model):
         self.save()
 
     def edit_category(self, category):
+        del self.categories[2004]
+        del self.blocks[2004]
         if category['id'].isnumeric():
             category['id'] = uuid1().hex
         category['block'] = make_category_block(
