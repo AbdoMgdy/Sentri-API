@@ -124,8 +124,6 @@ class Catalog(db.Model):
         self.save()
 
     def edit_category(self, category):
-        del self.categories[2004]
-        del self.blocks[2004]
         if category['id'].isnumeric():
             category['id'] = uuid1().hex
         category['block'] = make_category_block(
@@ -200,7 +198,7 @@ class Catalog(db.Model):
         temp = []
         print(self.categories.items())
         for k, v in self.categories.items():
-            if self.blocks[v['id']]['payload']['elements'] is not None:
+            if v['id'] in self.blocks and self.blocks[v['id']]['payload']['elements'] is not None:
                 print(k)
                 print(v)
                 if 'block' not in v:
