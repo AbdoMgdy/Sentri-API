@@ -78,9 +78,9 @@ class CatalogResource(Resource):
             print('Category Edited Successfully')
         elif resource == 'knowledge':
             changes = {'knowledge': data}
-            vendor.update(changes)
+            vendor.knowledge = data
             vendor.save()
-            print(vendor.knowledge)
+            print(vendor)
             print('Knowledge Edited Successfully')
         return f'{resource} Edited successfully'
 
