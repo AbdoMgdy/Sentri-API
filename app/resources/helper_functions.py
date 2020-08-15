@@ -10,8 +10,17 @@ import ast
 import json
 from firebase_admin import credentials
 
+from wit import Wit
+
 
 def get_type_from_payload(data):
+    if "changes" in data["entry"][0]:
+        return "changes"
+    elif "messaging" in data["entry"][0]:
+        return "messaging"
+
+
+def get_type_from_message(data):
 
     if "postback" in data["entry"][0]["messaging"][0]:
         return "postback"
@@ -168,3 +177,27 @@ def send_order_to_vendor(result, fcm_token):
     msg = messaging.Message(data={'message': 'New Order'}, token=fcm_token)
     msg_id = messaging.send(msg)
     return msg_id
+
+
+def get_comment_from_feed(data):
+    return data["entry"][0]["changes"][0]["message"]
+
+
+def ask_wit(msg, vendor):
+    client = Wit('GQ4J2DTDIZSTOFHZ744JOP5MWXKWQCX2')
+    response = client.message(msg)
+    entity = response['entities']
+    print(msg)
+    if 'Address' in entity:
+        confidence = entity['Address'][0]['confidence']
+        if confidence > 0.65:
+            return vendor['address_info']
+        else:
+            return False
+    elif 'menu' in entity:
+        confidence = entity['menu'][0]['confidence']
+        if confidence > 0.6:
+            return vendor['menu_info']
+        else:
+            print('not Suitable')
+            return False
