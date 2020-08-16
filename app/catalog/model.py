@@ -129,6 +129,7 @@ class Catalog(db.Model):
         category['block'] = make_category_block(
             category['id'], category['title'], category['subtitle'], category['img'])
         self.categories[category['id']] = category
+        self.build_main_menu()
         self.save()
 
     # Items Methods
@@ -163,6 +164,7 @@ class Catalog(db.Model):
             item['id'] = uuid1().hex
         item['block'] = make_item_block(item['category'],
                                         item['id'], item['title'], item['subtitle'], item['price'], item['img'])
+        self.build_category(item['category_id'])
         self.items[item['id']] = item
         self.save()
 
