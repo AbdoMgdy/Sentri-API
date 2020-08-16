@@ -55,7 +55,7 @@ class OrderResourceByNumber(Resource):
 @api.route('/psid/<string:psid>')
 class OrderResourceByPsid(Resource):
     def get(self, psid):
-        order = Order.query.filter_by(psid=psid, is_confirmed=False)
+        order = Order.query.filter_by(psid=psid, is_confirmed=False).first()
         if order:
             print(order)
             output = OrderSchema.dump(order)
