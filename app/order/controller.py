@@ -57,6 +57,7 @@ class OrderResourceByPsid(Resource):
     def get(self, psid):
         order = Order.query.filter_by(psid=psid, is_confirmed=False)
         if order:
+            print(order)
             output = OrderSchema.dump(order)
             return jsonify(output)
         else:
