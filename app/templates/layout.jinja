@@ -41,9 +41,6 @@
     MessengerExtensions.getContext('414558285925238', 
     function success(thread_context){ 
       document.getElementById('orderForm').action ="/order/item/" + thread_context.psid + "/{{item_id}}/";
-      document.getElementById('userForm').action ="/customer/" + thread_context.psid ;
-      document.getElementById('carFrom').action ="/customer/car/" + thread_context.psid ;
-      
     },
   function error(err){
     console.log(err)
