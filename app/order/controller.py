@@ -52,7 +52,7 @@ class OrderResourceByNumber(Resource):
         return 'Order Not Found', 404
 
 
-@api.route('/<string:psid>')
+@api.route('/psid/<string:psid>')
 class OrderResourceByPsid(Resource):
     def get(self, psid):
         order = Order.query.filter_by(psid=psid, is_confirmed=False)
