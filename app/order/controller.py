@@ -67,7 +67,7 @@ class OrderResourceByPsid(Resource):
         customer = Customer.find_by_psid(psid)
         order = Order.query.filter_by(psid=psid, is_confirmed=False).first()
         vendor = Vendor.find_by_page_id(customer.page_id)
-        bot = Bot(access_token=vendor.access_token)
+        bot = Bot(access_token=vendor.page_access_token)
         data = request.get_json()
         print(data)
         if not data['items']:
