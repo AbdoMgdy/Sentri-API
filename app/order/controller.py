@@ -58,7 +58,7 @@ class OrderResourceByPsid(Resource):
         order = Order.query.filter_by(psid=psid, is_confirmed=False).first()
         if order:
             print(order)
-            output = OrderSchema.dump(order)
+            output = OrderSchema().dump(order)
             return jsonify(output)
         else:
             return 'Customer not found', 404
