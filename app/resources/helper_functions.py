@@ -150,29 +150,18 @@ def get_order_from_customer(customer):
 
 
 def send_order_to_vendor(result, fcm_token):
-    orders_schema = OrderSchema()
-    order = orders_schema.dump(result)
-    print(order)
-    data = []
-    info = {}
-    info['customer'] = order['customer']
-    info['time'] = order['time']
-    info['number'] = order['number']
-    info['price'] = order['price']
-    info['status'] = order['status']
-    # items = ast.literal_eval(order['items'])
-    # order_text = ''
-    # for item in items:
-    #     if item['combo'] == 15:
-    #         combo = 'Combo'
-    #     else:
-    #         combo = ''
-    #     temp = '- {} * {} ({}) {} Notes({}) \n'.format(item['quantity'],
-    #                                                    item['name'], item['type'], combo, item['notes'])
-    #     order_text += temp
-    # info['items'] = order_text
-    data.append(info)
-    print(data)
+    # orders_schema = OrderSchema()
+    # order = orders_schema.dump(result)
+    # print(order)
+    # data = []
+    # info = {}
+    # info['customer'] = order['customer']
+    # info['time'] = order['time']
+    # info['number'] = order['number']
+    # info['price'] = order['price']
+    # info['status'] = order['status']
+    # data.append(info)
+    # print(data)
     try:
         app = firebase_admin.get_app()
     except ValueError as e:

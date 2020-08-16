@@ -3,6 +3,7 @@ from flask_restx import Resource, Namespace, reqparse
 
 from .model import Customer
 from app.order.model import Order
+from app.order.schema import OrderSchema
 from app.vendor.model import Vendor
 from app.models.bot import Bot
 import app.resources.helper_functions as helper
@@ -56,21 +57,13 @@ class CustomerResource(Resource):
         return 'Customer info was added', 200
 
 
-@api.route('/car/<string:psid>')
-class CarCustomer(Resource):
-    def post(self, psid):
-        data = (request.get_json())
-        print(data)
-        bot = Bot(access_token=ACCESS_TOKEN)
-        bot.send_text_message(psid, 'تم تسجيل بياناتك')
-        return 'ok', 200
+@api.route('/order/<string:psid>')
+class CustomerOrderInfoResource(Resource):
 
-
-ACCESS_TOKEN = 'EAAJMYpx9YFkBAHPGjj1FWtZAfiwGZAZAD7igxPIlYX5INZANePO3B7X4vKZBF4rZAqWPnMTyfSuMTtjZAxK2SfFrjNcPr7gxlba2cEvdtUU1BtpPULEpBkpAfoFeqL2aRitAqZBlJypP50ArG6ISZA5ISM5sVZCFQhhtpxZCIOJ0y8st93bopRx6n0smn0i9jpZByY8ZD'
-
-
-"""
-{
-    'psid':[{},{},{}]
-}
-"""
+    def get(self, psid):
+        customer = Customer.find_by_psid(psid)
+        vendor = customer.vendor
+        bot = Bot(access_token=vendor.page_access_token)
+        order = helper.get_order_from_customer(customer)
+        output = OrderSchema.dump(order)
+        return jsonify(output), 200
