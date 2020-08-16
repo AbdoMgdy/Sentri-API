@@ -111,8 +111,8 @@
           sendData() {
             console.log(this.items)
             axios
-              .post(
-                "/user/" + this.psid + "/edit_order",
+              .put(
+                "/order/infot/" + this.psid ,
                 { items: this.items }, // the data to post
                 {
                   headers: {
@@ -156,7 +156,7 @@
                 axios
                   .get("/order/psid/" + thread_context.psid )
                   .then(function(res) {
-                    vm.items = res.data;
+                    vm.items = res.data.items;
                     console.log(res.data);
                     vm.doneLoading = true;
                   });

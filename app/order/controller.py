@@ -63,6 +63,23 @@ class OrderResourceByPsid(Resource):
         else:
             return 'Customer not found', 404
 
+    def put(self, psid):
+        customer = Customer.find_by_psid(psid)
+        order = Order.query.filter_by(psid=psid, is_confirmed=False).first()
+        vendor = Vendor.find_by_page_id(customer.page_id)
+        bot = Bot(access_token=vendor.access_token)
+        data = request.get_json()
+        print(data)
+        if not data['items']:
+            bot.send_text_message(psid, 'انت لم تطلب شيء بعد!')
+            return 'Order is empty', 200
+        order.item = data['items']
+        order.save()
+        confirm_block.set_text('تم تعديل الأوردر الخاص بك')
+        bot.send_template_message(
+            psid, {'payload': confirm_block.get_template()})
+        return'Order was Edited', 200
+
 
 @api.route('/item/<string:sender_id>/<string:item_id>/')
 class OrderItem(Resource):
