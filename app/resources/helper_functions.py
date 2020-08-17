@@ -191,5 +191,6 @@ def ask_wit(msg, page_id):
     if intent['confidence'] > 0.55:
         for q in knowledge:
             if q['key'] == intent:
+                print(q)
                 return q['value']
     return False

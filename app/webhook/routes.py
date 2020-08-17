@@ -41,7 +41,9 @@ def handle_page_feed(data):
     graph = GraphAPI(access_token=vendor.page_access_token)
     comment = helper.get_comment_from_feed(data)
     reply = helper.ask_wit(comment, page_id)
+    print(reply)
     if reply:
+        print('Replying to Comment')
         graph.put_comment(object_id=comment['id'],
                           message=reply)
         print('Replied to Comment')
