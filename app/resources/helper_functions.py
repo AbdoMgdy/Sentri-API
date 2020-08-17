@@ -180,11 +180,16 @@ def ask_wit(msg, page_id):
     client = Wit('GQ4J2DTDIZSTOFHZ744JOP5MWXKWQCX2')
     response = client.message(msg)
     print(response)
+    if response['intents'] == []:
+        return False
     intent = response['intents'][0]
-    knowledge = Catalog.find_by_page_id(page_id).knowledge['comments']
+    knowledge = Catalog.find_by_page_id(
+        page_id).knowledge['comments']['values']
     print(msg)
     print(knowledge)
     print(intent)
     if intent['confidence'] > 0.55:
-        return knowledge[intent['name']]
+        for q in knowledge:
+            if q['key'] == intent:
+                return q['value']
     return False
