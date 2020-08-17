@@ -173,7 +173,7 @@ def send_order_to_vendor(result, fcm_token):
 
 
 def get_comment_from_feed(data):
-    return data["entry"][0]["changes"][0]["value"]["message"]
+    return data["entry"][0]["changes"][0]["value"]["message"], data["entry"][0]["changes"][0]["value"]["comment_id"]
 
 
 def ask_wit(msg, page_id):

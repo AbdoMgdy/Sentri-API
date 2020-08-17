@@ -39,12 +39,13 @@ def handle_page_feed(data):
     print(page_id)
     vendor = helper.handle_vendor(page_id)[0]
     graph = GraphAPI(access_token=vendor.page_access_token)
-    comment = helper.get_comment_from_feed(data)
+    comment = helper.get_comment_from_feed(data)[0]
+    comment_id = helper.get_comment_from_feed(data)[1]
     reply = helper.ask_wit(comment, page_id)
     print(reply)
     if reply:
         print('Replying to Comment')
-        graph.put_comment(object_id=comment['id'],
+        graph.put_comment(object_id=comment_id,
                           message=reply)
         print('Replied to Comment')
     return 'Replied to Comment', 200
