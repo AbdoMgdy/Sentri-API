@@ -89,6 +89,9 @@ def handle_customer(sender_id, vendor):
 def handle_first_time_vendor(page_id):
     new_vendor = Vendor.find_by_page_id(page_id)
     bot = Bot(new_vendor.page_access_token)
+    catalog = Catalog(page_id)
+    catalog.save()
+    knowledge = catalog.knowledge
     bot.set_get_started({
         'get_started': {
             'payload': 'get_started'
@@ -101,6 +104,14 @@ def handle_first_time_vendor(page_id):
                 'composer_input_disabled': False,
                 'call_to_actions': [
                     {
+                        'type': 'postback',
+                        'title': knowledge['persistant_menut']['values'][0]['value']
+                    },
+                    {
+                        'type': 'postback',
+                        'title': knowledge['persistant_menut']['values'][1]['value']
+                    },
+                    {
                         'type': 'web_url',
                         'title': 'Powered By Sentri',
                         'url': 'https://www.sentri.io/',
@@ -109,11 +120,7 @@ def handle_first_time_vendor(page_id):
             }
         ]
     })
-    catalog = Catalog(page_id)
-    catalog.save()
-    new_vendor.arabic = arabic['103750251156613']
-    new_vendor.prices = prices['103750251156613']
-    # new_vendor.is_setup = True
+    new_vendor.is_setup = True
     new_vendor.save()
     return new_vendor, catalog
 
@@ -150,18 +157,6 @@ def get_order_from_customer(customer):
 
 
 def send_order_to_vendor(result, fcm_token):
-    # orders_schema = OrderSchema()
-    # order = orders_schema.dump(result)
-    # print(order)
-    # data = []
-    # info = {}
-    # info['customer'] = order['customer']
-    # info['time'] = order['time']
-    # info['number'] = order['number']
-    # info['price'] = order['price']
-    # info['status'] = order['status']
-    # data.append(info)
-    # print(data)
     try:
         app = firebase_admin.get_app()
     except ValueError as e:

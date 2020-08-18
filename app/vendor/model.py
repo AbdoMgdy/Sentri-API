@@ -12,7 +12,7 @@ class Vendor(db.Model):
     name = db.Column(db.String)  # unique
     created_time = db.Column(db.DateTime)
     uid = db.Column(db.String, unique=True)  # unique
-    comments = db.Column(NestedMutableJson)
+
     info = db.Column(NestedMutableJson)
     page_access_token = db.Column(db.String)
     fcm_token = db.Column(db.String)
@@ -28,7 +28,6 @@ class Vendor(db.Model):
     def __init__(self, uid, page_id, name='', page_access_token='', fcm_token=''):
         self.name = name
         self.uid = uid
-        self.comments = {}
         self.info = {
             'customer_limit': 100,
         }

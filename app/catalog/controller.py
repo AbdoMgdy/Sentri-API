@@ -105,7 +105,7 @@ class CatalogResource(Resource):
         return f'{resource} Removed successfully'
 
 
-@api.route('/knowledge_base')
+@api.route('/knowledge_base/<string:category>')
 class CatalogResourceKnowledgeBase(Resource):
     @jwt_required
     def get(self):
@@ -116,8 +116,17 @@ class CatalogResourceKnowledgeBase(Resource):
         pass
 
     @jwt_required
-    def put(self):
-        pass
+    def put(self, category):
+        data = request.get_json()
+        print(data)
+        identity = get_jwt_identity()
+        print(identity)
+        vendor = Vendor.find_by_uid(identity)
+        print(vendor)
+        catalog = Catalog.find_by_page_id(vendor.page_id)
+        print(catalog)
+        catalog.edit_knowledge_value(category, data['key'], data['value'])
+        return 'knowledge value edited', 200
 
     @jwt_required
     def delete(self):

@@ -11,7 +11,7 @@ from .schema import OrderSchema
 from app.customer.model import Customer
 from app.vendor.model import Vendor
 from app.models.bot import Bot
-from app.resources.buttons import confirm_block
+from app.models.button import ButtonTemplate
 api = Namespace('Order')
 
 
@@ -67,6 +67,8 @@ class OrderResourceByPsid(Resource):
         customer = Customer.find_by_psid(psid)
         order = Order.query.filter_by(psid=psid, is_confirmed=False).first()
         vendor = Vendor.find_by_page_id(customer.page_id)
+        catalog = Catalog.find_by_page_id(vendor.page_id)
+        knowledge = catalog.knowledge
         bot = Bot(access_token=vendor.page_access_token)
         data = request.get_json()
         print(data)
@@ -75,6 +77,14 @@ class OrderResourceByPsid(Resource):
             return 'Order is empty', 200
         order.item = data['items']
         order.save()
+        confirm_block = ButtonTemplate()
+        confirm_block.add_web_url(
+            **{knowledge['buttons']['values']['Confirm_Order']: 'https://rest-bot-dev.herokuapp.com/confirm_order'})
+        confirm_block.add_postback(
+            **{knowledge['buttons']['values']['Add_to_Order']: 'main_menu'})
+        confirm_block.add_web_url(
+            **{knowledge['buttons']['values']['Edit_Order']: 'https://rest-bot-dev.herokuapp.com/edit_order'})
+
         confirm_block.set_text('تم تعديل الأوردر الخاص بك')
         bot.send_template_message(
             psid, {'payload': confirm_block.get_template()})
@@ -91,13 +101,13 @@ class OrderItem(Resource):
         vendor = customer.vendor
         catalog = Catalog.find_by_page_id(vendor.page_id)
         item = catalog.items[item_id]
-
+        knowledge = catalog.knowledge
         bot = Bot(access_token=vendor.page_access_token)
         order = helper.get_order_from_customer(customer)
         print(order)
         # if not vendor.is_open():
         #     bot.send_text_message(sender_id,
-        #                           'الرجاء المحاولة مرة أخري خلال مواعيد العمل الرسمية')
+        #                           knowledge['browse']['values']['Business_Closed_Message'])
         #     return 'Vendor is Closed', 200
         if order is None or order.is_confirmed:
             order = Order(sender_id, vendor.page_id)
@@ -108,8 +118,14 @@ class OrderItem(Resource):
         order_item['category'] = item['category_title']
         order_item['name'] = item['title']
         order_item['price'] = item['price']
-
         order.add_item(order_item)
+        confirm_block = ButtonTemplate()
+        confirm_block.add_web_url(
+            **{knowledge['buttons']['values']['Confirm_Order']: 'https://rest-bot-dev.herokuapp.com/confirm_order'})
+        confirm_block.add_postback(
+            **{knowledge['buttons']['values']['Add_to_Order']: 'main_menu'})
+        confirm_block.add_web_url(
+            **{knowledge['buttons']['values']['Edit_Order']: 'https://rest-bot-dev.herokuapp.com/edit_order'})
 
         text = '{} * {} تمت اضافته للأوردو الخاص بك'.format(order_item['quantity'],
                                                             order_item['name'])
@@ -119,18 +135,4 @@ class OrderItem(Resource):
         return 'Item added to Order', 200
 
         def put(self, sender_id):
-            customer = Customer.find_by_psid(sender_id)
-            vendor = Vendor.find_by_page_id(customer.page_id)
-            bot = Bot(access_token=vendor.access_token)
-            order = Order.query.filter_by(psid=sender_id, is_confirmed=False)
-            data = request.get_json()
-            print(data)
-            if not data['items']:
-                bot.send_text_message(sender_id, 'انت لم تطلب شيء بعد!')
-                order.update({'items', []})
-                return 'Order is empty', 200
-            order.update({'items': data['items']})
-            confirm_block.set_text('تم تعديل الأوردر الخاص بك')
-            bot.send_template_message(
-                sender_id, {'payload': confirm_block.get_template()})
-            return 'Order Updated', 200
+            pass

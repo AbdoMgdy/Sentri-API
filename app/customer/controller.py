@@ -21,14 +21,10 @@ class CustomerResource(Resource):
         # look for customer
         customer = Customer.find_by_psid(psid)
         vendor = customer.vendor
+        knowledge = vendor.catalog.knowledge
         bot = Bot(access_token=vendor.page_access_token)
         order = helper.get_order_from_customer(customer)
-
         print(order)
-        # if not vendor.is_open():
-        #     bot.send_text_message(psid,
-        #                           'الرجاء المحاولة مرة أخري خلال مواعيد العمل الرسمية')
-        #     return 'Vendor is Closed', 200
         if order.is_confirmed:
             print('Order is Confirmed')
             return 'Order is Confirmed', 200
@@ -50,7 +46,7 @@ class CustomerResource(Resource):
         print(bot.send_template_message(
             psid, {'payload': receipt.get_receipt()}))
         bot.send_text_message(
-            psid, 'يتم الآن تحضير الأوردر وسيصلك في خلال 45 - 60 دقيقة')
+            psid, knowledge['browse']['values']['Order_Confirmation_Message'])
         order.confirm()  # imp
         msg_id = helper.send_order_to_vendor(order, vendor.fcm_token)
         print(msg_id)
