@@ -82,7 +82,8 @@ class Catalog(db.Model):
     def find_by_page_id(cls, page_id):
         return cls.query.filter_by(page_id=page_id).first()
 
-    def set_get_started(self):
+    def set_get_started(self, page_access_token):
+        bot = Bot(page_access_token)
         temp = {
             'payload': {
                 'template_type': 'generic',
@@ -218,6 +219,8 @@ class Catalog(db.Model):
                 v = value
         if category == 'persistent_menu':
             self.set_persistant_menu(page_access_token)
+        if category == 'greetings':
+            self.set_get_started(page_access_token)
         self.build_blocks()
         self.save()
 
