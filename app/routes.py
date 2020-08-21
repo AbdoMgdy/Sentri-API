@@ -1,6 +1,6 @@
 def register_routes(app, api):
-    from app.catalog import register_routes as attach_catalog
     from app.order import register_routes as attach_order
+    from app.catalog import register_routes as attach_catalog
     from app.customer import register_routes as attach_customer
     from app.vendor import register_routes as attach_vendor
     from app.webhook import routes as webhook_routes

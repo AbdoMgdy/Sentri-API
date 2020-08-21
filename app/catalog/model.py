@@ -5,7 +5,6 @@ from ..models.generic import GenericTemplate
 from ..models.bot import Bot
 from app import db
 from uuid import uuid1
-from app.vendor.model import Vendor
 
 
 class Catalog(db.Model):
@@ -110,9 +109,8 @@ class Catalog(db.Model):
         self.blocks['get_started'] = temp
         self.save()
 
-    def set_persistant_menu(self):
-        vendor = Vendor.find_by_page_id(self.page_id)
-        bot = Bot(vendor.page_access_token)
+    def set_persistant_menu(self, page_access_token):
+        bot = Bot(page_access_token)
         bot.set_persistent_menu({
             'persistent_menu': [
                 {

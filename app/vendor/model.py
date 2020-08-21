@@ -12,7 +12,6 @@ class Vendor(db.Model):
     name = db.Column(db.String)  # unique
     created_time = db.Column(db.DateTime)
     uid = db.Column(db.String, unique=True)  # unique
-
     info = db.Column(NestedMutableJson)
     page_access_token = db.Column(db.String)
     fcm_token = db.Column(db.String)
