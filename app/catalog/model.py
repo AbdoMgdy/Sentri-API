@@ -285,6 +285,7 @@ class Catalog(db.Model):
         }
 
     def make_category_block(self, _id, title, subtitle, img):
+        print(self.knowledge)
         return {
             'title': title,
             'subtitle': subtitle,
