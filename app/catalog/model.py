@@ -108,6 +108,7 @@ class Catalog(db.Model):
             }
         }
         self.blocks['get_started'] = temp
+        print(self.blocks)
         self.save()
 
     def set_persistant_menu(self, page_access_token):
