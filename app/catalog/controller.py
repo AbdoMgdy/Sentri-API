@@ -125,7 +125,8 @@ class CatalogResourceKnowledgeBase(Resource):
         print(vendor)
         catalog = Catalog.find_by_page_id(vendor.page_id)
         print(catalog)
-        catalog.edit_knowledge_value(category, data['key'], data['value'])
+        catalog.edit_knowledge_value(
+            category, data['key'], data['value'], vendor.page_access_token)
         return 'knowledge value edited', 200
 
     @jwt_required

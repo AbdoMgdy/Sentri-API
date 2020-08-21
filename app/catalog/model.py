@@ -212,12 +212,12 @@ class Catalog(db.Model):
 
     # Knowledge Methods
 
-    def edit_knowledge_value(self, category, key, value):
+    def edit_knowledge_value(self, category, key, value, page_access_token):
         for k, v in self.knowledge[category]['values']:
             if k == key:
                 v = value
         if category == 'persistent_menu':
-            self.set_persistant_menu()
+            self.set_persistant_menu(page_access_token)
         self.build_blocks()
         self.save()
 
