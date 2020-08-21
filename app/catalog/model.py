@@ -188,7 +188,7 @@ class Catalog(db.Model):
             'price': price,
             'in_stock': in_stock,
             'img': img,
-            'block': self.make_item_block(category, _id, title, subtitle, price, img)
+            'block': self.make_item_block(_id, title, subtitle, price, img)
         }
         self.items[_id] = temp
         self.build_category(category_id)
