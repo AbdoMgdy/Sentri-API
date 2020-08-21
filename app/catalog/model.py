@@ -225,10 +225,6 @@ class Catalog(db.Model):
         self.build_blocks()
         self.save()
 
-    def set_knowledge(self, value):
-        self.knowledge = value
-        self.save()
-
     # Default Model Methods
 
     def update(self, changes):
