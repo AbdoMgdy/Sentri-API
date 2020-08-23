@@ -215,7 +215,7 @@ class Catalog(db.Model):
     # Knowledge Methods
 
     def edit_knowledge_value(self, category, key, value, page_access_token):
-        for k, v in self.knowledge[category]['values']:
+        for k, v in self.knowledge[category]['values'].items():
             if k == key:
                 v = value
         if category == 'persistent_menu':
