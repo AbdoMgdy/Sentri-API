@@ -127,6 +127,7 @@ class CatalogResourceKnowledgeBase(Resource):
         print(catalog)
         catalog.edit_knowledge_value(
             data['category'], data['key'], data['value'], vendor.page_access_token)
+        print('Knowlegebase Edited')
         return 'knowledge value edited', 200
 
     @jwt_required
