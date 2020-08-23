@@ -217,7 +217,9 @@ class Catalog(db.Model):
     def edit_knowledge_value(self, category, key, value, page_access_token):
         for k, v in self.knowledge[category]['values'].items():
             if k == key:
+                print(v)
                 v = value
+                print(v)
         if category == 'persistent_menu':
             self.set_persistant_menu(page_access_token)
         if category == 'greetings':
