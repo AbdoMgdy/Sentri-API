@@ -302,5 +302,5 @@ class Catalog(db.Model):
     def build_blocks(self):
         self.set_get_started()
         self.build_main_menu()
-        for category in self.categories:
+        for title, category in self.categories.items():
             self.build_category(category['id'])
