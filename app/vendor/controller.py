@@ -93,7 +93,7 @@ class VendorFbPage(Resource):
         vendor.page_access_token = data['page']['access_token']
         vendor.page_id = data['page']['id']
         white_listed_domains = ['https://rest-bot-dev.herokuapp.com/']
-        bot.set_white_listed_domains(white_listed_domains)
+        print(bot.set_white_listed_domains(white_listed_domains))
         vendor.save()
         return 'Page Connected'
 
