@@ -9,7 +9,7 @@ from flask_jwt_extended import (
 from .model import Vendor
 from ..catalog.model import Catalog
 from .schema import VendorSchema
-
+from app.models.bot import Bot
 api = Namespace('Vendor')
 
 
@@ -85,13 +85,15 @@ class VendorFbPage(Resource):
         vendor = Vendor.find_by_uid(data['uid'])
         if vendor is None:
             return 'Vendor Not Found'
-
+        bot = Bot(access_token=vendor.page_access_token)
         request_endpoint = 'https://graph.facebook.com/v6.0/{}/subscribed_apps?access_token={}&subscribed_fields=messages,messaging_postbacks,feed'.format(
             data['page']['id'], data['page']['access_token'])
         response = requests.post(request_endpoint)
         print(response.json())
         vendor.page_access_token = data['page']['access_token']
         vendor.page_id = data['page']['id']
+        white_listed_domains = ['https://rest-bot-dev.herokuapp.com/']
+        bot.set_white_listed_domains(white_listed_domains)
         vendor.save()
         return 'Page Connected'
 

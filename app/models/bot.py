@@ -426,3 +426,20 @@ class Bot:
     def send_before_message(self, recipient_id):
         self.send_action(recipient_id, 'mark_seen')  # time_out=1
         self.send_action(recipient_id, 'typing_on')  # time_out=2
+
+    def set_white_listed_domains(self, wd_arr):
+        """Set a persistent_menu that stays same for every user. Before you can use this, make sure to have set a get started button.
+        https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/persistent-menu
+        Input:
+          pm_obj: Your formatted persistent menu object as described by the API docs
+        Output:
+          Response from API as <dict>
+        """
+        request_endpoint = '{0}/me/messenger_profile'.format(self.graph_url)
+        response = requests.post(
+            request_endpoint,
+            params=self.auth_args,
+            json=wd_arr
+        )
+        result = response.json()
+        return result
