@@ -439,7 +439,7 @@ class Bot:
         response = requests.post(
             request_endpoint,
             params=self.auth_args,
-            json=wd_arr
+            json={'whitelisted_domains': wd_arr}
         )
         result = response.json()
         return result
