@@ -21,7 +21,8 @@ class CustomerResource(Resource):
         # look for customer
         customer = Customer.find_by_psid(psid)
         vendor = customer.vendor
-        knowledge = vendor.catalog.knowledge
+        catalog = vendor.catalog
+        knowledge = catalog.knowledge
         bot = Bot(access_token=vendor.page_access_token)
         order = helper.get_order_from_customer(customer)
         print(order)
