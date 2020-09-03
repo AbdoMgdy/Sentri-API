@@ -2,6 +2,7 @@ from flask import jsonify, request
 from flask_restx import Resource, Namespace, reqparse
 
 from .model import Customer
+from app.catalog.model import Catalog
 from app.order.model import Order
 from app.order.schema import OrderSchema
 from app.vendor.model import Vendor
@@ -21,7 +22,7 @@ class CustomerResource(Resource):
         # look for customer
         customer = Customer.find_by_psid(psid)
         vendor = customer.vendor
-        catalog = vendor.catalog
+        catalog = Catalog.find_by_page_id(vendor.page_id)
         knowledge = catalog.knowledge
         bot = Bot(access_token=vendor.page_access_token)
         order = helper.get_order_from_customer(customer)
