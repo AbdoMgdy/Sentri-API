@@ -40,6 +40,7 @@ class VendorResource(Resource):
                             page_access_token=data['pageAccessToken'], page_id=data['uid'])
             vendor.save()
             catalog = Catalog(vendor.page_id)
+            catalog.set_get_started()
             catalog.save()
             return jsonify({'data': data, 'jwt_token': access_token})
         return jsonify({'data': data, 'jwt_token': access_token})
