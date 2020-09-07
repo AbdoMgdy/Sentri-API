@@ -121,11 +121,13 @@ class Catalog(db.Model):
                     'call_to_actions': [
                         {
                             'type': 'postback',
-                            'title': self.knowledge['persistant_menut']['values']['Show_Menu']
+                            'title': self.knowledge['persistant_menut']['values']['Show_Menu'],
+                            'payload':'main_menu'
                         },
                         {
                             'type': 'postback',
-                            'title': self.knowledge['persistant_menut']['values']['Show_Current_Order']
+                            'title': self.knowledge['persistant_menut']['values']['Show_Current_Order'],
+                            'payload':'main_menu'
                         },
                         {
                             'type': 'web_url',
