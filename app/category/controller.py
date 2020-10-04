@@ -32,7 +32,7 @@ class CatalogResource(Resource):
         CategoryService.remove(uuid)
 
 
-@api.rout('/all')
+@api.route('/all')
 class CatalogResourceAll(Resource):
     # @jwt_required
     def get(self):
