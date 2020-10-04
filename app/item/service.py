@@ -7,6 +7,7 @@ class ItemService():
     def get_all():
         return Item.query.all()
 
+    @staticmethod
     def find(uuid):
         return Item.find_by_uuid(uuid)
 
