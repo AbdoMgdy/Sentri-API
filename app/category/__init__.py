@@ -1,5 +1,5 @@
 from .model import Category
-from .shcema import CatalogSchema
+from .shcema import CategorySchema
 from .service import CategoryService
 
 BASE_ROUTE = 'category'
