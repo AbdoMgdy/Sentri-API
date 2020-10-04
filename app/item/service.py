@@ -7,6 +7,9 @@ class ItemService():
     def get_all():
         return Item.query.all()
 
+    def find(uuid):
+        return Item.find_by_uuid(uuid)
+
     @staticmethod
     def create(kwargs):
         new_item = Item(**kwargs)
