@@ -7,8 +7,7 @@ class Item (db.Model):
     __tablename__ = 'items'
     id = db.Column(db.Integer, primary_key=True)
     created_time = db.Column(db.DateTime)
-    category_id = db.Column(db.String, db.ForeignKey(
-        'category.uuid', ondelete='SET NULL', onupdate="CASCADE"), unique=True, nullable=True)
+    category_id = db.Column(db.String, db.ForeignKey('categories.uuid'), unique=True)
     uuid = db.Column(db.String, unique=True)
     variants = db.Column(NestedMutableJson)
     title = db.Column(db.String)
@@ -27,7 +26,6 @@ class Item (db.Model):
         self.title = title,
         self.subtitle = subtitle,
         self.price = price,
-
         self.in_stock = in_stock,
         self.img = img,
         self.options = {},
