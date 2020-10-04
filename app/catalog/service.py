@@ -7,7 +7,7 @@ class CatalogService():
         pass
 
     @staticmethod
-    def buid_block(catalog):
+    def buid_blocks(catalog):
         categories = Category.find_by_uuid(catalog.uuid)
         block_elements = catalog.block['payload']['elements']
         for category in categories:

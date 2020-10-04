@@ -38,6 +38,9 @@ class Item (db.Model):
     def find_by_category_id(cls, category_id):
         return cls.query.filter_by(category_id=category_id).all()
 
+    def find_by_uuid(cls, uuid):
+        return cls.query.filter_by(uuid=uuid).first()
+
     def add_variant(self, title, price):
         temp = {
             'title': title,

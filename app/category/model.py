@@ -42,9 +42,6 @@ class Category (db.Model):
 
         }
 
-    def add_item(self, block):
-        self.block['payload']['elements'].push(block)
-
     # Default Model Methods
 
     def update(self, changes):

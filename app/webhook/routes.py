@@ -64,7 +64,7 @@ def handle_messaging(data):
     print(message_type)
     if not vendor.check_customer_limit:
         bot.send_text_message(
-            sender_id, 'You have reached the Maximum Customer limit for you tier.')
+            sender_id, 'You have reached the Maximum Customer limit for your tier.')
         return 'Customer Limit', 200
     # if not vendor.is_open():
     #     bot.send_text_message(
@@ -104,4 +104,3 @@ def handle_messaging(data):
         return "postback", 200
     else:
         return "ok", 200
-    return "ok", 200

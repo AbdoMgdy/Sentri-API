@@ -1,9 +1,7 @@
 import datetime
-from uuid import uuid1
 from app import db
 from sqlalchemy_json import NestedMutableJson
 from ..models.bot import Bot
-from ..models.generic import GenericTemplate
 
 
 class Catalog(db.Model):
@@ -186,16 +184,16 @@ class Catalog(db.Model):
 
     # Knowledge Methods
 
-    def edit_knowledge_value(self, category, key, value, page_access_token):
-        for k, v in self.knowledge[category]['values'].items():
-            if k == key:
-                self.knowledge[category]['values'][k] = value
-        if category == 'persistent_menu':
-            self.set_persistant_menu(page_access_token)
-        if category == 'greetings':
-            self.set_get_started()
-        self.build_blocks()
-        self.save()
+    # def edit_knowledge_value(self, category, key, value, page_access_token):
+    #     for k, v in self.knowledge[category]['values'].items():
+    #         if k == key:
+    #             self.knowledge[category]['values'][k] = value
+    #     if category == 'persistent_menu':
+    #         self.set_persistant_menu(page_access_token)
+    #     if category == 'greetings':
+    #         self.set_get_started()
+    #     self.build_blocks()
+    #     self.save()
 
     # Default Model Methods
 

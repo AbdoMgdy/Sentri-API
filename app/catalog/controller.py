@@ -1,34 +1,34 @@
-from flask import jsonify, request
-from flask_restx import Resource, Namespace
-from flask_jwt_extended import (
-    jwt_required, create_access_token,
-    get_jwt_identity
-)
-from .model import Catalog
-from ..vendor.model import Vendor
+# from flask import jsonify, request
+# from flask_restx import Resource, Namespace
+# from flask_jwt_extended import (
+#     jwt_required, create_access_token,
+#     get_jwt_identity
+# )
+# from .model import Catalog
+# from ..vendor.model import Vendor
 
 
-api = Namespace('Catalog')
+# api = Namespace('Catalog')
 
 
-@api.route('/<string:resource>')
-class CatalogResource(Resource):
-    # @jwt_required
-    # def get(self, resource):
-    #     identity = get_jwt_identity()
-    #     print(identity)
-    #     vendor = Vendor.find_by_uid(identity)
-    #     print(vendor)
-    #     catalog = Catalog.find_by_page_id(vendor.page_id)
-    #     print(catalog)
-    #     if not catalog:
-    #         return 'Catalog Not Found'
-    #     if resource == 'items':
-    #         return jsonify(catalog.items)
-    #     elif resource == 'categories':
-    #         return jsonify(catalog.categories)
-    #     elif resource == 'knowledge':
-#     #         return jsonify(catalog.knowledge)
+# @api.route('/<string:resource>')
+# class CatalogResource(Resource):
+# @jwt_required
+# def get(self, resource):
+#     identity = get_jwt_identity()
+#     print(identity)
+#     vendor = Vendor.find_by_uid(identity)
+#     print(vendor)
+#     catalog = Catalog.find_by_page_id(vendor.page_id)
+#     print(catalog)
+#     if not catalog:
+#         return 'Catalog Not Found'
+#     if resource == 'items':
+#         return jsonify(catalog.items)
+#     elif resource == 'categories':
+#         return jsonify(catalog.categories)
+#     elif resource == 'knowledge':
+#         return jsonify(catalog.knowledge)
 
 #     @jwt_required
 #     def post(self, resource):
@@ -100,7 +100,6 @@ class CatalogResource(Resource):
 #             catalog.remove_category(data['id'])
 #             print('Category Removed Successfully')
 #         return f'{resource} Removed successfully'
-
 
 # @api.route('/knowledge_base')
 # class CatalogResourceKnowledgeBase(Resource):
