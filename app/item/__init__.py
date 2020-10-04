@@ -1,5 +1,5 @@
 from .model import Item
-from .schema import ItemSchema
+from .shcema import ItemSchema
 from .service import ItemService
 BASE_ROUTE = 'item'
 
