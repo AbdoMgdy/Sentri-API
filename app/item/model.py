@@ -8,7 +8,7 @@ class Item (db.Model):
     id = db.Column(db.Integer, primary_key=True)
     created_time = db.Column(db.DateTime)
     category_id = db.Column(db.String, db.ForeignKey(
-        'catalog.uuid', ondelete='SET NULL', onupdate="CASCADE"), unique=True, nullable=True)
+        'category.uuid', ondelete='SET NULL', onupdate="CASCADE"), unique=True, nullable=True)
     uuid = db.Column(db.String, unique=True)
     variants = db.Column(NestedMutableJson)
     title = db.Column(db.String)
