@@ -1,44 +1,40 @@
+import uuid
 from app.item.service import ItemService
 from app.category.service import CategoryService
 from app.category.model import Category
 from flask import request
 from flask_restx import Resource, Namespace
 from flask_jwt_extended import (
-    jwt_required, 
+    jwt_required,
     get_jwt_identity
 )
 from .model import Item
 api = Namespace('item')
 
 
-@api.route('/')
+@api.route('/<string:uuid>')
 class ItemResource(Resource):
-    def get(self):
-        pass
+    def get(self, uuid):
+        return ItemService.find(uuid)
 
     @jwt_required
     def post(self):
         data = request.get_json()
-        identity = get_jwt_identity()
-        new_item = Item()
-        new_item.save()
-        category = Category.find_by_uuid()
-        CategoryService.buid_block(category)
-        return 'item Created', 200
+        print(data)
+        new_item = ItemService.create(data)
+        return new_item, 200
 
-    def put(self):
+    def put(self, uuid):
         data = request.get_json()
         print(data)
-        changes = data['changes']
-        item = Item.find_by_uuid(data['uuid'])
-        item.update(changes)
-        item.save()
-        category = Category.find_by_uuid(item.category_id)
-        CategoryService.buid_block(category)
-        return 'Item Updated', 200
+        updated_item = ItemService.update(uuid, data['changes'])
+        category = CategoryService.find(updated_item.category_id)
+        CategoryService.buid_blocks(category.block)
+        return updated_item, 200
 
-    def delete(self):
-        pass
+    def delete(self, uuid):
+        ItemService.remove(uuid)
+        return 'Item Deleted', 200
 
 
 @api.route('/all')
