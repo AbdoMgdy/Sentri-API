@@ -8,7 +8,7 @@ from app.item.model import Item
 
 class CategoryService():
     @staticmethod
-    def get_all() -> list[Category]:
+    def get_all():
         return Category.query.all()
 
     @staticmethod
