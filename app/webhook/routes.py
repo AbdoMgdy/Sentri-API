@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request
 import json
 from datetime import datetime
-import ast
 from app.models.bot import Bot
 import app.resources.helper_functions as helper
 from facebook import GraphAPI
@@ -59,7 +58,6 @@ def handle_messaging(data):
     blocks = catalog.blocks
     bot = Bot(access_token=vendor.page_access_token)
     sender_id = helper.get_customer_from_message(data)
-    customer = helper.handle_customer(sender_id, page_id)
     print(sender_id)
     print(message_type)
     if not vendor.check_customer_limit:
