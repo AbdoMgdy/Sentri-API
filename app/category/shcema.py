@@ -1,8 +1,8 @@
-from .model import Category 
+from .model import Category
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 
-class CatalogSchema(SQLAlchemyAutoSchema):
+class CategorySchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Category
         load_instance = True
