@@ -11,6 +11,7 @@ class CategoryService():
     def get_all():
         return Category.query.all()
 
+    @staticmethod
     def find(uuid):
         return Category.find_by_uuid(uuid)
 
