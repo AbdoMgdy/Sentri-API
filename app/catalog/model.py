@@ -1,4 +1,5 @@
 import datetime
+from uuid import uuid1
 from app import db
 from sqlalchemy_json import NestedMutableJson
 from ..models.bot import Bot
@@ -8,6 +9,7 @@ class Catalog(db.Model):
     __tablename__ = 'catalogs'
     id = db.Column(db.Integer, primary_key=True)
     created_time = db.Column(db.DateTime)
+    uuid = db.Column(db.String)
     page_id = db.Column(db.String, db.ForeignKey(
         'vendors.page_id', ondelete='SET NULL', onupdate="CASCADE"), unique=True, nullable=True)
     blocks = db.Column(NestedMutableJson)
@@ -16,6 +18,7 @@ class Catalog(db.Model):
 
     def __init__(self, page_id):
         self.page_id = page_id
+        self.uui = uuid1().hex
         self.blocks = {
             'main_menu': {
                 'payload': {
