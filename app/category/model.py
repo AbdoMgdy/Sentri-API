@@ -1,11 +1,12 @@
 from uuid import uuid1
 from sqlalchemy_json import NestedMutableJson
 from app import db
-from uuid import uuid1
 
 
 class Category (db.Model):
     __tablename__ = 'categories'
+    __table_args__ = (db.UniqueConstraint(
+        'uuid', 'id', name='unique_category_items'),)
     id = db.Column(db.Integer, primary_key=True)
     created_time = db.Column(db.DateTime)
     page_id = db.Column(db.String, db.ForeignKey(

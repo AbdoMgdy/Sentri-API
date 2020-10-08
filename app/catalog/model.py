@@ -7,6 +7,8 @@ from ..models.bot import Bot
 
 class Catalog(db.Model):
     __tablename__ = 'catalogs'
+    __table_args__ = (db.UniqueConstraint(
+        'uuid', 'id', name='unique_catalog_categories'),)
     id = db.Column(db.Integer, primary_key=True)
     created_time = db.Column(db.DateTime)
     uuid = db.Column(db.String)
