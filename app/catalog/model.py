@@ -82,17 +82,17 @@ class Catalog(db.Model):
                 'template_type': 'generic',
                 'elements': [
                     {
-                        'title': self.knowledge['greetings']['values']['Welcome_Message'],
+                        'title': 'Hello',
                         'image_url': '',
                         'subtitle': '',
                         'buttons': [{
                             'type': 'postback',
-                            'title': self.knowledge['buttons']['values']['Show_Main_Menu'],
+                            'title': 'Show Menu',
                             'payload': 'main_menu'
                         },
                             {
                             'type': 'postback',
-                                    'title': self.knowledge['buttons']['values']['Show_Info'],
+                                    'title': 'Show Info',
                                     'payload': 'info'
                         }]
 
@@ -114,13 +114,13 @@ class Catalog(db.Model):
                     'call_to_actions': [
                         {
                             'type': 'postback',
-                            'title': self.knowledge['persistant_menut']['values']['Show_Menu'],
-                            'payload':'main_menu'
+                            'title': 'Menu',
+                            'payload': 'main_menu'
                         },
                         {
                             'type': 'postback',
-                            'title': self.knowledge['persistant_menut']['values']['Show_Current_Order'],
-                            'payload':'main_menu'
+                            'title': 'Current Order',
+                            'payload': 'main_menu'
                         },
                         {
                             'type': 'web_url',
