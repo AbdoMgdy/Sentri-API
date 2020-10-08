@@ -1,4 +1,5 @@
 import datetime
+from enum import unique
 from uuid import uuid1
 from app import db
 from sqlalchemy_json import NestedMutableJson
@@ -11,7 +12,7 @@ class Catalog(db.Model):
         'uuid', 'id', name='unique_catalog_categories'),)
     id = db.Column(db.Integer, primary_key=True)
     created_time = db.Column(db.DateTime)
-    uuid = db.Column(db.String)
+    uuid = db.Column(db.String, unique=True)
     page_id = db.Column(db.String, db.ForeignKey(
         'vendors.page_id', ondelete='SET NULL', onupdate="CASCADE"), unique=True, nullable=True)
     blocks = db.Column(NestedMutableJson)
