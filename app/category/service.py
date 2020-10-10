@@ -8,8 +8,8 @@ from app.item.model import Item
 
 class CategoryService():
     @staticmethod
-    def get_all():
-        return Category.query.all()
+    def get_all(page_id):
+        return Category.query.filter_by(page_id=page_id).all()
 
     @staticmethod
     def find(uuid):
