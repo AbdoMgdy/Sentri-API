@@ -1,5 +1,4 @@
 from .model import Item
-from ..category import Category
 
 
 class ItemService():
