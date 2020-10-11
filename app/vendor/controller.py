@@ -104,7 +104,7 @@ class VendorFbPage(Resource):
         data = request.get_json()
         print(data)
         request_endpoint = 'https://graph.facebook.com/v6.0/{}/subscribed_apps?access_token={}'.format(
-            data['page']['id'], app_access_token)
+            data['page']['id'], data['page']['access_token'])
         response = requests.delete(request_endpoint)
         print(response.json())
         return 'Page Disconected'
