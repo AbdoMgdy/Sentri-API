@@ -16,6 +16,7 @@ api = Namespace('Vendor')
 @api.route('/')
 class VendorResource(Resource):
     parser = reqparse.RequestParser()
+
     @jwt_required
     def get(self):
         identity = get_jwt_identity()
@@ -99,10 +100,11 @@ class VendorFbPage(Resource):
         return 'Page Connected'
 
     def delete(self):
+        app_access_token = 'EAAJSFBhjAZBABAEynMI8xLZCNd5ZCcrDev4ZCSZClLtou6RIcsjTyshADlx1BejBub2wyRXhUuWyCjJ1ajlZAZAAdrzuky88IoP0gTrznbGIqEEWZBrbK06gpOtOrOQxKjQqHG9VgZCqfz9HNyKcyjrSZBkudL7zJNqp0L6JU6HuZAiJAiW450Lwrls'
         data = request.get_json()
         print(data)
-        request_endpoint = 'https://graph.facebook.com/v6.0/{}/subscribed_apps?access_token={}&subscribed_fields=messages,messaging_postbacks,feeed'.format(
-            data['page']['id'], data['page']['access_token'])
+        request_endpoint = 'https://graph.facebook.com/v6.0/{}/subscribed_apps?access_token={}'.format(
+            data['page']['id'], app_access_token)
         response = requests.delete(request_endpoint)
         print(response.json())
         return 'Page Disconected'
