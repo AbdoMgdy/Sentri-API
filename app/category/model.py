@@ -10,7 +10,7 @@ class Category (db.Model):
     id = db.Column(db.Integer, primary_key=True)
     created_time = db.Column(db.DateTime)
     page_id = db.Column(db.String, db.ForeignKey(
-        'catalogs.uuid', ondelete='SET NULL', onupdate="CASCADE"), unique=True)
+        'catalogs.page_id', ondelete='SET NULL', onupdate="CASCADE"), unique=True)
     uuid = db.Column(db.String, unique=True)
     title = db.Column(db.String)
     subtitle = db.Column(db.String)
