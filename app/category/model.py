@@ -9,8 +9,8 @@ class Category (db.Model):
         'uuid', 'id', name='unique_category_items'),)
     id = db.Column(db.Integer, primary_key=True)
     created_time = db.Column(db.DateTime)
-    page_id = db.Column(db.String, db.ForeignKey(
-        'catalogs.page_id', ondelete='SET NULL', onupdate="CASCADE"), unique=True)
+    catalog_uuid = db.Column(db.String, db.ForeignKey(
+        'catalogs.uuid', ondelete='SET NULL', onupdate="CASCADE"), unique=True)
     uuid = db.Column(db.String, unique=True)
     title = db.Column(db.String)
     subtitle = db.Column(db.String)
@@ -18,8 +18,8 @@ class Category (db.Model):
     items = db.relationship(
         'Item', backref='category', lazy='select')
 
-    def __init__(self, page_id, subtitle, title,  img):
-        self.page_id = page_id,
+    def __init__(self, catalog_uuid, subtitle, title,  img):
+        self.catalog_uuid = catalog_uuid,
         self.uuid = uuid1().hex
         self.title = title,
         self.subtitle = subtitle,

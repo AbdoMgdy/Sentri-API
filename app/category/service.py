@@ -17,10 +17,10 @@ class CategoryService():
 
     @staticmethod
     def create(kwargs, page_id):
-        print(CatalogService.find(page_id))
-        if not CatalogService.find(page_id):
-            CatalogService.create(page_id)
-        category = Category(page_id, **kwargs)
+        catalog = CatalogService.find(page_id)
+        if not catalog:
+            catlaog = CatalogService.create(page_id)
+        category = Category(catalog.uuid, **kwargs)
         category.save()
         return category
 
