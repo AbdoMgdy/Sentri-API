@@ -43,5 +43,7 @@ class CatalogResourceAll(Resource):
         identity = get_jwt_identity()
         print(identity)
         vendor = Vendor.find_by_uid(identity)
+        print(vendor)
         cateogries = CategoryService.get_all(vendor.page_id)
+        print(cateogries)
         return categories, 200
