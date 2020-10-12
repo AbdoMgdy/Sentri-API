@@ -1,4 +1,3 @@
-from app.category.model import Category
 from app.category.service import CategoryService
 from flask import request
 from app.vendor.model import Vendor
@@ -10,8 +9,8 @@ from flask_jwt_extended import (
 api = Namespace('category')
 
 
-@api.route('/<string:uuid>')
-class CatalogResource(Resource):
+@api.route('/', '/<string:uuid>')
+class CategoryResource(Resource):
     # @jwt_required
     def get(self, uuid):
         return CategoryService.get(uuid), 200
@@ -37,7 +36,7 @@ class CatalogResource(Resource):
 
 
 @api.route('/all')
-class CatalogResourceAll(Resource):
+class CategoryResourceAll(Resource):
     @jwt_required
     def get(self):
         identity = get_jwt_identity()
