@@ -18,7 +18,7 @@ class Category (db.Model):
     items = db.relationship(
         'Item', backref='category', lazy='select')
 
-    def __init__(self, subtitle, title, page_id, img):
+    def __init__(self, page_id, subtitle, title,  img):
         self.page_id = page_id,
         self.uuid = uuid1().hex
         self.title = title,

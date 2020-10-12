@@ -21,7 +21,8 @@ class CategoryResource(Resource):
         print(data)
         identity = get_jwt_identity()
         print(identity)
-        new_category = CategoryService.create(data)
+        vendor = Vendor.find_by_uid(identity)
+        new_category = CategoryService.create(data, vendor.page_id)
         return new_category, 200
 
     # @jwt_required

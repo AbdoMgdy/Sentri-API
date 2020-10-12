@@ -16,8 +16,8 @@ class CategoryService():
         return Category.find_by_uuid(uuid)
 
     @staticmethod
-    def create(kwargs):
-        category = Category(**kwargs)
+    def create(kwargs, page_id):
+        category = Category(page_id, **kwargs)
         category.save()
         return category
 
