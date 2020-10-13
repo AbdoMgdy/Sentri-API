@@ -1,5 +1,7 @@
+from app.catalog.service import CatalogService
+from app.category.shcema import CategorySchema
 from app.category.service import CategoryService
-from flask import request
+from flask import request, jsonify
 from app.vendor.model import Vendor
 from flask_restx import Resource, Namespace
 from flask_jwt_extended import (
@@ -23,7 +25,8 @@ class CategoryResource(Resource):
         print(identity)
         vendor = Vendor.find_by_uid(identity)
         new_category = CategoryService.create(data, vendor.page_id)
-        return new_category, 200
+        output = CategorySchema().dump(new_category)
+        return jsonify(output), 200
 
     # @jwt_required
     def put(self, uuid):
@@ -44,6 +47,7 @@ class CategoryResourceAll(Resource):
         print(identity)
         vendor = Vendor.find_by_uid(identity)
         print(vendor)
-        cateogries = CategoryService.get_all(vendor.page_id)
+        catalog = CatalogService.find(vendor.page_id)
+        cateogries = CategoryService.get_all(catalog.uuid)
         print(cateogries)
         return categories, 200

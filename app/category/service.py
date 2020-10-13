@@ -8,18 +8,18 @@ from app.item.model import Item
 
 class CategoryService():
     @staticmethod
-    def get_all(page_id):
-        return Category.query.filter_by(page_id=page_id).all()
+    def get_all(catalog_uuid):
+        return Category.query.filter_by(catalog_uuid=catalog_uuid).all()
 
     @staticmethod
     def find(uuid):
         return Category.find_by_uuid(uuid)
 
     @staticmethod
-    def create(kwargs, page_id):
-        catalog = CatalogService.find(page_id)
+    def create(kwargs, catalog_uuid):
+        catalog = CatalogService.find(catalog_uuid)
         if not catalog:
-            catlaog = CatalogService.create(page_id)
+            catlaog = CatalogService.create(catalog_uuid)
         category = Category(catalog.uuid, **kwargs)
         category.save()
         return category
