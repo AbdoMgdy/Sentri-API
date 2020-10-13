@@ -52,6 +52,6 @@ class CategoryResourceAll(Resource):
         catalog = CatalogService.find(vendor.page_id)
         cateogries = CategoryService.get_all(catalog.uuid)
         print(cateogries)
-        output = CategorySchema.dump(cateogries, many= True)
+        output = CategorySchema().dump(cateogries, many=True)
         print(output)
         return output, 200
