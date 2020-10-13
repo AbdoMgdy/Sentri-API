@@ -25,10 +25,12 @@ class CategoryResource(Resource):
         print(identity)
         vendor = Vendor.find_by_uid(identity)
         new_category = CategoryService.create(data, vendor.page_id)
+        print(new_category)
         output = CategorySchema().dump(new_category)
-        return jsonify(output), 200
+        return 'category_created', 200
 
     # @jwt_required
+
     def put(self, uuid):
         data = request.get_json()
         print(data)
@@ -50,4 +52,4 @@ class CategoryResourceAll(Resource):
         catalog = CatalogService.find(vendor.page_id)
         cateogries = CategoryService.get_all(catalog.uuid)
         print(cateogries)
-        return categories, 200
+        return "categories", 200
