@@ -32,6 +32,7 @@ class ItemResource(Resource):
         return updated_item, 200
 
     def delete(self, uuid):
+        print(uuid)
         ItemService.remove(uuid)
         return 'Item Deleted', 200
 
