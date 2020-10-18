@@ -18,7 +18,7 @@ class ItemService():
     @staticmethod
     def remove(uuid):
         print(uuid)
-        item = Item.find_by_uuid(uuid)
+        item = Item.find_by_uuid('631ca83e0e8011eba3add601fb994c59')
         item.remove()
         return 'item removed'
 
