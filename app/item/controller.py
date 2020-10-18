@@ -1,4 +1,3 @@
-import uuid
 from app.item.service import ItemService
 from app.category.service import CategoryService
 from app.category.model import Category
@@ -12,12 +11,11 @@ from .model import Item
 api = Namespace('item')
 
 
-@api.route('/<string:uuid>')
+@api.route('/', '/<string:uuid>')
 class ItemResource(Resource):
     def get(self, uuid):
         return ItemService.find(uuid)
 
-    @jwt_required
     def post(self):
         data = request.get_json()
         print(data)
@@ -39,5 +37,15 @@ class ItemResource(Resource):
 
 @api.route('/all')
 class ItemResourceAll(Resource):
+    @jwt_required
     def get(self):
-        ItemService.get_all()
+        identity = get_jwt_identity()
+        print(identity)
+        vendor = Vendor.find_by_uid(identity)
+        print(vendor)
+        catalog = CatalogService.find(vendor.page_id)
+        cateogries = CategoryService.get_all(catalog.uuid)
+        print(cateogries)
+        output = CategorySchema().dump(cateogries, many=True)
+        print(output)
+        return output, 200
