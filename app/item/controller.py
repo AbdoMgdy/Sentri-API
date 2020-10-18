@@ -1,6 +1,8 @@
 from app.item.service import ItemService
+from app .vendor import Vendor
+from app.catalog.service import CatalogService
 from app.category.service import CategoryService
-from app.category.model import Category
+from app.category.shcema import CategorySchema
 from flask import request
 from flask_restx import Resource, Namespace
 from flask_jwt_extended import (
