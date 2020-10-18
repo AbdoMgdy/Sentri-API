@@ -13,8 +13,7 @@ api = Namespace('category')
 
 @api.route('/', '/<string:uuid>')
 class CategoryResource(Resource):
-    # @jwt_required
-    def get(self, uuid):
+    def get(uuid):
         return CategoryService.get(uuid), 200
 
     @jwt_required
@@ -28,8 +27,6 @@ class CategoryResource(Resource):
         print(new_category)
         output = CategorySchema().dump(new_category)
         return 'category_created', 200
-
-    # @jwt_required
 
     def put(self, uuid):
         data = request.get_json()
