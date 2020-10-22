@@ -27,10 +27,10 @@ class Category (db.Model):
         self.block = self.make_category_block()
 
     # Class Methods
-
+    @classmethod
     def find_by_page_id(cls, page_id):
         return cls.query.filter_by(page_id=page_id).first()
-
+    @classmethod
     def find_by_uuid(cls, uuid):
         return cls.query.filter_by(uuid=uuid).first()
 

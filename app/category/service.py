@@ -34,7 +34,7 @@ class CategoryService():
     @staticmethod
     def remove(uuid):
         print(uuid)
-        category = Category.find_by_uuid(uuid='e5f5e3420ce611ebac8ffa00487fbeb8')
+        category = Category.find_by_uuid(uuid)
         category.remove()
 
     @staticmethod
