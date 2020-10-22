@@ -7,7 +7,8 @@ class ItemService():
         items_list = []
         for category in categories:
             temp_items = Item.query.filter_by(category_id=category.uuid).all()
-            items_list.append(temp_items)
+            if temp_items:
+                items_list.append(temp_items)
 
         return items_list
 
