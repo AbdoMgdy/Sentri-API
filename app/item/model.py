@@ -33,8 +33,8 @@ class Item (db.Model):
 
     # Class Mehtods
     @classmethod
-    def find_by_category_id(cls, category_id):
-        return cls.query.filter_by(category_id=category_id).all()
+    def find_by_category_uid(cls, category_uuid):
+        return cls.query.filter_by(category_uuid=category_uuid).all()
 
     @classmethod
     def find_by_uuid(cls, uuid):

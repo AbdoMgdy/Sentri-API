@@ -38,7 +38,7 @@ class CategoryService():
 
     @staticmethod
     def buid_blocks(category):
-        items = Item.find_by_category_id(category.uuid)
+        items = Item.find_by_category_uuid(category.uuid)
         block_elements = category.block['payload']['elements']
         for item in items:
             block_elements.append(item.block)

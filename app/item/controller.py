@@ -28,7 +28,7 @@ class ItemResource(Resource):
         data = request.get_json()
         print(data)
         updated_item = ItemService.update(uuid, data['changes'])
-        category = CategoryService.find(updated_item.category_id)
+        category = CategoryService.find(updated_item.category_uuid)
         CategoryService.buid_blocks(category.block)
         return updated_item, 200
 
