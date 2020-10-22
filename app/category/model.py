@@ -30,6 +30,7 @@ class Category (db.Model):
     @classmethod
     def find_by_page_id(cls, page_id):
         return cls.query.filter_by(page_id=page_id).first()
+
     @classmethod
     def find_by_uuid(cls, uuid):
         return cls.query.filter_by(uuid=uuid).first()
@@ -54,6 +55,6 @@ class Category (db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def remove(self):
-        db.session.remove(self)
+    def delete(self):
+        db.session.delete(self)
         db.session.commit()
