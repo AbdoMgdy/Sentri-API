@@ -18,6 +18,7 @@ class ItemResource(Resource):
         return ItemService.find(uuid)
 
     def post(self):
+
         data = request.get_json()
         print(data)
         new_item = ItemService.create(data)

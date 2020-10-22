@@ -7,20 +7,19 @@ class Item (db.Model):
     __tablename__ = 'items'
     id = db.Column(db.Integer, primary_key=True)
     created_time = db.Column(db.DateTime)
-    category_id = db.Column(db.String, db.ForeignKey('categories.uuid'), unique=True)
+    category_uuid = db.Column(db.String, db.ForeignKey('categories.uuid'), unique=True)
     uuid = db.Column(db.String, unique=True)
     variants = db.Column(NestedMutableJson)
     title = db.Column(db.String)
     subtitle = db.Column(db.String)
-    price = db.Column(db.String)
     in_stock = db.Column(db.Boolean)
     img_url = db.Column(db.String)
     options = db.Column(NestedMutableJson)
     discount = db.Column(NestedMutableJson)
 
-    def __init__(self, price, img, category_id,  title, in_stock=True, subtitle='', variants={}, options={}, discount={'type': '=', 'value': 0}):
+    def __init__(self, price, img, category_uuid,  title, in_stock=True, subtitle='', variants={}, options={}, discount={'type': '=', 'value': 0}):
 
-        self.category_id = category_id,
+        self.category_uuid = category_uuid,
         self.uuid = uuid1().hex
         self.variants = variants,
         self.title = title,
@@ -33,9 +32,11 @@ class Item (db.Model):
         self.block = self.make_item_block()
 
     # Class Mehtods
+    @classmethod
     def find_by_category_id(cls, category_id):
         return cls.query.filter_by(category_id=category_id).all()
 
+    @classmethod
     def find_by_uuid(cls, uuid):
         return cls.query.filter_by(uuid=uuid).first()
 
