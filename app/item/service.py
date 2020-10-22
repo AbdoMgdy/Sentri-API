@@ -3,8 +3,13 @@ from .model import Item
 
 class ItemService():
     @staticmethod
-    def get_all():
-        return Item.query.all()
+    def get_all(categories):
+        items_list = []
+        for category in categories:
+            temp_items = Item.query.filter_by(category_id=category.uuid).all()
+            items_list.append(temp_items)
+
+        return items_list
 
     @staticmethod
     def find(uuid):

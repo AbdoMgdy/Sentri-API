@@ -2,7 +2,7 @@ from app.item.service import ItemService
 from app .vendor import Vendor
 from app.catalog.service import CatalogService
 from app.category.service import CategoryService
-from app.category.shcema import CategorySchema
+from app.item.shcema import ItemSchema
 from flask import request
 from flask_restx import Resource, Namespace
 from flask_jwt_extended import (
@@ -46,8 +46,10 @@ class ItemResourceAll(Resource):
         vendor = Vendor.find_by_uid(identity)
         print(vendor)
         catalog = CatalogService.find(vendor.page_id)
-        cateogries = CategoryService.get_all(catalog.uuid)
-        print(cateogries)
-        output = CategorySchema().dump(cateogries, many=True)
+        categories = CategoryService.get_all(catalog.uuid)
+        print(categories)
+        items = ItemService.get_all(categories)
+        print(items)
+        output = ItemSchema().dump(items, many=True)
         print(output)
         return output, 200
