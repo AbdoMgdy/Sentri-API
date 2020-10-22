@@ -33,7 +33,6 @@ class CategoryService():
 
     @staticmethod
     def remove(uuid):
-        print(uuid)
         category = Category.find_by_uuid(uuid)
         category.delete()
 

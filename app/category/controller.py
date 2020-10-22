@@ -25,13 +25,14 @@ class CategoryResource(Resource):
         vendor = Vendor.find_by_uid(identity)
         new_category = CategoryService.create(data, vendor.page_id)
         print(new_category)
-        output = CategorySchema().dump(new_category)
+        # output = CategorySchema().dump(new_category)
         return 'category_created', 200
 
     def put(self, uuid):
         data = request.get_json()
         print(data)
-        CategoryService.update(uuid, data['changes'])
+        CategoryService.update(uuid, data)
+        return 'Category Updated', 201
 
     # @jwt_required
     def delete(self, uuid):
