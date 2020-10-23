@@ -7,7 +7,7 @@ Create Date: 2020-10-24 00:33:09.278036
 """
 from alembic import op
 import sqlalchemy as sa
-
+from sqlalchemy_json import NestedMutableJson
 
 # revision identifiers, used by Alembic.
 revision = '4b7941a9f4c7'
@@ -23,7 +23,7 @@ def upgrade():
     sa.Column('name', sa.String(), nullable=True),
     sa.Column('created_time', sa.DateTime(), nullable=True),
     sa.Column('uid', sa.String(), nullable=True),
-    sa.Column('info', sa.JSON(), nullable=True),
+    sa.Column('info', NestedMutableJson, nullable=True),
     sa.Column('page_access_token', sa.String(), nullable=True),
     sa.Column('fcm_token', sa.String(), nullable=True),
     sa.Column('is_setup', sa.Boolean(), nullable=True),
@@ -40,7 +40,7 @@ def upgrade():
     sa.Column('created_time', sa.DateTime(), nullable=True),
     sa.Column('uuid', sa.String(), nullable=True),
     sa.Column('page_id', sa.String(), nullable=True),
-    sa.Column('blocks', sa.JSON(), nullable=True),
+    sa.Column('blocks', NestedMutableJson, nullable=True),
     sa.ForeignKeyConstraint(['page_id'], ['vendors.page_id'], onupdate='CASCADE', ondelete='SET NULL'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('page_id'),
@@ -67,7 +67,7 @@ def upgrade():
     sa.Column('uuid', sa.String(), nullable=True),
     sa.Column('title', sa.String(), nullable=True),
     sa.Column('subtitle', sa.String(), nullable=True),
-    sa.Column('block', sa.JSON(), nullable=True),
+    sa.Column('block', NestedMutableJson, nullable=True),
     sa.ForeignKeyConstraint(['catalog_uuid'], ['catalogs.uuid'], onupdate='CASCADE', ondelete='SET NULL'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('catalog_uuid'),
@@ -77,7 +77,7 @@ def upgrade():
     op.create_table('orders',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('number', sa.String(), nullable=True),
-    sa.Column('items', sa.JSON(), nullable=True),
+    sa.Column('items', NestedMutableJson, nullable=True),
     sa.Column('price', sa.Float(precision=3), nullable=True),
     sa.Column('status', sa.String(), nullable=True),
     sa.Column('is_confirmed', sa.Boolean(), nullable=True),
@@ -94,13 +94,13 @@ def upgrade():
     sa.Column('created_time', sa.DateTime(), nullable=True),
     sa.Column('category_uuid', sa.String(), nullable=True),
     sa.Column('uuid', sa.String(), nullable=True),
-    sa.Column('variants', sa.JSON(), nullable=True),
+    sa.Column('variants', NestedMutableJson, nullable=True),
     sa.Column('title', sa.String(), nullable=True),
     sa.Column('subtitle', sa.String(), nullable=True),
     sa.Column('in_stock', sa.Boolean(), nullable=True),
     sa.Column('img_url', sa.String(), nullable=True),
-    sa.Column('options', sa.JSON(), nullable=True),
-    sa.Column('discount', sa.JSON(), nullable=True),
+    sa.Column('options', NestedMutableJson, nullable=True),
+    sa.Column('discount', NestedMutableJson, nullable=True),
     sa.ForeignKeyConstraint(['category_uuid'], ['categories.uuid'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('category_uuid'),
