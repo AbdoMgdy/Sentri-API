@@ -17,7 +17,7 @@ class Item (db.Model):
     options = db.Column(NestedMutableJson)
     discount = db.Column(NestedMutableJson)
 
-    def __init__(self, price, img, category_uuid,  title, in_stock=True, subtitle='', variants={}, options={}, discount={'type': '=', 'value': 0}):
+    def __init__(self, price, img, category_uuid,  title, in_stock=True, subtitle='', variants={}, options={}, discount={'fixed': True, 'value': 0}):
 
         self.category_uuid = category_uuid,
         self.uuid = uuid1().hex
