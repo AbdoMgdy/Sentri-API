@@ -17,14 +17,13 @@ class Item (db.Model):
     options = db.Column(NestedMutableJson)
     discount = db.Column(NestedMutableJson)
 
-    def __init__(self, price, img, category_uuid,  title, in_stock=True, subtitle='', variants={}, options={}, discount={'fixed': True, 'value': 0}):
+    def __init__(self, img='', category_uuid='',  title='', in_stock=True, subtitle='', variants={}, options={}, discount={'fixed': True, 'value': 0}):
 
         self.category_uuid = category_uuid,
         self.uuid = uuid1().hex
         self.variants = variants,
         self.title = title,
         self.subtitle = subtitle,
-        self.price = price,
         self.in_stock = in_stock,
         self.img = img,
         self.options = options,
