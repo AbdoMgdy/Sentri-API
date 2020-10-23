@@ -21,7 +21,7 @@ class Item (db.Model):
 
         self.category_uuid = category_uuid,
         self.uuid = uuid1().hex
-        self.variants = [{'name': 'Standard', 'price': 100}],
+        self.variants = {'name': 'Standard', 'price': 100},
         self.title = title,
         self.subtitle = subtitle,
         self.in_stock = in_stock,
