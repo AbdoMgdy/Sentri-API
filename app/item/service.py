@@ -19,7 +19,7 @@ class ItemService():
     @staticmethod
     def create(kwargs):
         print(kwargs)
-        new_item = Item(variants=kwargs['variants'], category_uuid=kwargs['category_uuid'])
+        new_item = Item(**kwargs)
         return new_item
 
     @staticmethod
